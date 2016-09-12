@@ -3,7 +3,7 @@
  <tr>
  <td>
   <img style="width:100px;" src="<?php echo base_url();?>assets/images/logo.jpg"></td>
-  <td>	   <h1 style="margin:10px 0px;">Veterinaria</h1></td>
+  <td>	   <h1 style="margin:10px 0px;">PetFile</h1></td>
   <td></td>
  </tr>
  </table>
