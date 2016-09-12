@@ -1,0 +1,31 @@
+.list tr.head td {
+background-color: #eee;
+}
+.list tr.head>td {
+border-bottom: 1px solid black;
+}
+
+.detail td.label {
+background-color: white;
+}
+
+/*.list_row td{
+	border-top: 1px solid black;
+}*/
+
+td.label {
+color: black;
+background-color: white;
+width: 20%;
+}
+
+.detail td.field {
+text-align: left;
+padding-left: 1em;
+background-color: white;
+width: 20%;
+}
+
+.detail td.field {
+font-weight: bold;
+}
