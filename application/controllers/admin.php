@@ -1070,8 +1070,7 @@ class Admin extends CI_Controller {
         $this->load->library('encrypt');
 
         $inputEmail = $this->input->post("inputEmail");
-        $inputPassword = $this->input->post("inputPassword");
-        $inputPassword = $hash = $this->encrypt->sha1($inputPassword);
+        $inputPassword = md5($this->input->post("inputPassword"));
         $username = $this->input->post("username");
         $firstName = $this->input->post("firstName");
         $lastName = $this->input->post("lastName");
@@ -1156,8 +1155,7 @@ class Admin extends CI_Controller {
     public function generateNewPassword() {
         $this->load->library('encrypt');
         $userObjectId = $this->input->post("userObjectId");
-        $inputPassword = $this->input->post("inputPassword");
-        $inputPassword = $hash = $this->encrypt->sha1($inputPassword);
+        $inputPassword = md5($this->input->post("inputPassword"));
 
         $query = $this->db->query("UPDATE users 
 				SET password = '" . $inputPassword . "' 
