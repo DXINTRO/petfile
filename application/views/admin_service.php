@@ -131,7 +131,7 @@
             </div><!-- /.modal -->
 
             <div class="footer">
-                <p>&copy; Company 2016</p>
+                <p>&copy; PetFile 2016</p>
             </div>
 
             </div>

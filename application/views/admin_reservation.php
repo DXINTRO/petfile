@@ -202,7 +202,7 @@
                                         <div class="col-md-6">
                                             <select class="form-control reportYearTo" name="reportYearTo">
                                                 <option value="0">Year</option>
-                                                 <option value="2016" selected >2016</option>
+                                                <option value="2016" selected >2016</option>
                                                 <option value="2015" >2015</option>
                                                 <option value="2014">2014</option>
                                                 <option value="2013">2013</option>
@@ -438,7 +438,7 @@
             </div><!-- /.modal -->
 
             <div class="footer">
-                <p>&copy; Company 2016</p>
+                <p>&copy; PetFile 2016</p>
             </div>
 
             </div>

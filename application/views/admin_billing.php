@@ -312,6 +312,6 @@
 
 
 <div class="footer">
-    <p> &copy; Company 2013</p>
+     <p>&copy; PetFile 2016</p>
 </div>
 

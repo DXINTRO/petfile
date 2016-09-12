@@ -436,7 +436,7 @@
                             <div style="height:300px; overflow:auto;border: 1px solid rgba(51, 51, 51, 0.17);margin: 5px;">
                                 <!-- Table -->
                                 <table class="table table-hover" id="adminOrderTable">
-<?= $order_table ?>
+                                    <?= $order_table ?>
                                 </table>
 
                             </div>
@@ -476,11 +476,11 @@
                                         <label for="username">Customer</label>
 
                                         <select class="form-control customer" name="customer">
-<?php
-foreach ($customers as $row) {
-    echo'<option value="' . $row['objectId'] . '">' . $row['last_name'] . ', ' . $row['first_name'] . '  (' . $row['email'] . ')</option>';
-}
-?>
+                                            <?php
+                                            foreach ($customers as $row) {
+                                                echo'<option value="' . $row['objectId'] . '">' . $row['last_name'] . ', ' . $row['first_name'] . '  (' . $row['email'] . ')</option>';
+                                            }
+                                            ?>
 
                                         </select>
                                     </div>
@@ -492,11 +492,11 @@ foreach ($customers as $row) {
                                         <label for="username">Doctor</label>
 
                                         <select class="form-control doctor" name="doctor">
-<?php
-foreach ($docs as $row) {
-    echo'<option value="' . $row['objectId'] . '">' . $row['doctor_name'] . '</option>';
-}
-?>
+                                            <?php
+                                            foreach ($docs as $row) {
+                                                echo'<option value="' . $row['objectId'] . '">' . $row['doctor_name'] . '</option>';
+                                            }
+                                            ?>
 
                                         </select>
                                     </div>
@@ -505,11 +505,11 @@ foreach ($docs as $row) {
                                         <label for="username">Surgery</label>
 
                                         <select class="form-control surgery" name="surgery">
-<?php
-foreach ($surgerys as $row) {
-    echo'<option value="' . $row['objectId'] . '">' . $row['service_name'] . ' (P ' . number_format($row['price'], 2) . ')</option>';
-}
-?>
+                                            <?php
+                                            foreach ($surgerys as $row) {
+                                                echo'<option value="' . $row['objectId'] . '">' . $row['service_name'] . ' (P ' . number_format($row['price'], 2) . ')</option>';
+                                            }
+                                            ?>
 
                                         </select>
                                     </div>
@@ -719,32 +719,32 @@ foreach ($surgerys as $row) {
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php
-foreach ($payments as $row) {
-    if ($row['active'] != "3") {
-        echo "<tr>";
-        if ($row['active'] == "1") {
-            echo "<td class='vert batchOrderId'>" . $row['batchOrderId'] . "</td>";
-            echo "<td class='vert trackingNo'>" . $row['trackingNo'] . "</td>";
-            echo "<td class='vert center'>" . $row['center'] . "</td>";
-        } else if ($row['active'] == "0") {
-            echo "<td class='vert batchOrderId'>" . $row['batchOrderId'] . " (DONE)</td>";
-            echo "<td class='vert trackingNo'>" . $row['trackingNo'] . "</td>";
-            echo "<td class='vert center'>" . $row['center'] . "</td>";
-        }
+                                    <?php
+                                    foreach ($payments as $row) {
+                                        if ($row['active'] != "3") {
+                                            echo "<tr>";
+                                            if ($row['active'] == "1") {
+                                                echo "<td class='vert batchOrderId'>" . $row['batchOrderId'] . "</td>";
+                                                echo "<td class='vert trackingNo'>" . $row['trackingNo'] . "</td>";
+                                                echo "<td class='vert center'>" . $row['center'] . "</td>";
+                                            } else if ($row['active'] == "0") {
+                                                echo "<td class='vert batchOrderId'>" . $row['batchOrderId'] . " (DONE)</td>";
+                                                echo "<td class='vert trackingNo'>" . $row['trackingNo'] . "</td>";
+                                                echo "<td class='vert center'>" . $row['center'] . "</td>";
+                                            }
 
-        echo "<td class='vert usersId' style='text-align:right;'>
+                                            echo "<td class='vert usersId' style='text-align:right;'>
                         <input type='hidden' name='usersId' class='usersId' value='" . $row['usersId'] . "' >";
-        if ($row['active'] == "1") {
-            echo "<span class='btn btn-success processOrderAdmin' style='margin-right:10px;'>Process Order</span>";
-        }
-        echo" <input type='hidden' name='batchOrderIdDelete' class='batchOrderIdDelete' value='" . $row['batchOrderId'] . "' >
+                                            if ($row['active'] == "1") {
+                                                echo "<span class='btn btn-success processOrderAdmin' style='margin-right:10px;'>Process Order</span>";
+                                            }
+                                            echo" <input type='hidden' name='batchOrderIdDelete' class='batchOrderIdDelete' value='" . $row['batchOrderId'] . "' >
                 <span class='btn btn-danger deleteOrderAdmin'>Delete</span>
                       </td>";
-        echo "</tr>";
-    }
-}
-?>
+                                            echo "</tr>";
+                                        }
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
 
@@ -773,7 +773,7 @@ foreach ($payments as $row) {
 
 
                         <div class="footer">
-                            <p>&copy; Company 2013</p>
+                            <p>&copy; PetFile 2016</p>
                         </div>
 
                         </div>
