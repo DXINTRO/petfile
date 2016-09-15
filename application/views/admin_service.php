@@ -5,35 +5,33 @@
 
             <div class="panel panel-default" id="adminAddService">
                 <!-- Default panel contents -->
-                <div class="panel-heading">List of Service</div>
+                <div class="panel-heading">Listado de Servicios</div>
                 <div class="panel-body">
                     <div class="panel panel-default panelAddEditService">
                         <div class="panel-heading clearfix">
                             <a style="color:#000000;" data-toggle="collapse" data-parent="#accordion" href="#addServicecollapse">
                                 <span class="glyphicon glyphicon-hand-right"></span> 
-                                <h3 class="panel-title" style="display:inline;">Add a Service</h3>
-                            </a>
-                        </div>
+                                <h3 class="panel-title" style="display:inline;">Agregar un Servicio</h3></a></div>
                         <div class="panel-body panel-collapse collapse" id="addServicecollapse">
                             <form action="addService" method="POST" id="addServiceAdmin" name="addServiceAdmin">
                                 <table class="table table-hover" id="adminServiceTable">
                                     <thead>
                                         <tr>
-                                            <th style="">Service Name</th>
-                                            <th style="">Group</th>
-                                            <th style="">Price</th>
+                                            <th style="">Nombre del Servicio</th>
+                                            <th style="">Grupo</th>
+                                            <th style="">Precio</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input type="text" class="form-control" name="serviceName" id="serviceName" placeholder="Enter Service Name" required></td>
-                                            <td><input type="text" class="form-control" name="groupName" id="groupName" placeholder="Enter Group Name" required></td>
-                                            <td><input type="number" step="any" class="form-control" name="priceBox" id="priceBox" placeholder="Enter Price" min="0" required></td>    
+                                            <td><input type="text" class="form-control" name="serviceName" id="serviceName" placeholder="Ingresa un Servicio" required></td>
+                                            <td><input type="text" class="form-control" name="groupName" id="groupName" placeholder="Ingresa un Grupo" required></td>
+                                            <td><input type="number" step="any" class="form-control" name="priceBox" id="priceBox" placeholder="Precio" min="0" required></td>    
                                         </tr>
                                     </tbody>
 
                                 </table>
-                                <button type="submit" name="addservicebtn" class="btn btn-success pull-right">Add Service</button>
+                                <button type="submit" name="addservicebtn" class="btn btn-success pull-right">Agregar Servicio</button>
                             </form>
                             <form action="updateService" method="POST" id="updateServiceAdmin" name="updateServiceAdmin" style="display:none;">
                                 <table class="table table-hover">
@@ -63,7 +61,7 @@
 
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <button class="btn btn-default searchServicesBtn" type="button">Search</button>
+                            <button class="btn btn-default searchServicesBtn" type="button">Buscar</button>
                         </span>
                         <input type="text" class="form-control searchServiceTextAdmin" placeholder="Enter keywords product name">
                     </div>
@@ -75,10 +73,10 @@
 
                         <thead>
                             <tr>
-                                <th style="width:130px;">Service Id</th>
-                                <th style="width:400px;">Service Name</th>
-                                <th style="width:150px;">Group</th>
-                                <th style="width:150px;">Price</th>
+                                <th style="width:130px;">ID del Servicio</th>
+                                <th style="width:400px;">Nombre del Servicio</th>
+                                <th style="width:150px;">Grupo</th>
+                                <th style="width:150px;">Precio</th>
                                 <th style="width:130px;"></th>
                             </tr>
                         </thead>
@@ -115,7 +113,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                            <h4 class="modal-title" id="myModalLabel">Confirmar Eliminar</h4>
                         </div>
 
                         <div class="modal-body clearfix">
@@ -123,8 +121,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary confirmAction">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary confirmAction">Aceptar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->

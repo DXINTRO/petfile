@@ -4,9 +4,9 @@
             </div>
             <div class="panel panel-default" id="userManageReservation">
                 <!-- Default panel contents -->
-                <div class="panel-heading">List of Reservations</div>
+                <div class="panel-heading">Lista de Reservas</div>
                 <div class="panel-body">
-                    <p>Here you can manage your reservation. You could either delete or edit.</p>
+                    <p>&nbsp;</p>
 
                 </div>
 
@@ -14,10 +14,10 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Service Name</th>
-                            <th style="text-align:right;padding-right:15px;">Price (Incl Tax)</th>
-                            <th>Reservation Date</th>
-                            <th>Reservation Time</th>
+                            <th>Nombre del Servicio</th>
+                            <th style="text-align:right;padding-right:15px;">Precio</th>
+                            <th>Fecha de Reserva</th>
+                            <th>Hora de Reserva</th>
                             <th style="width:130px;"></th>
                         </tr>
                     </thead>
@@ -80,13 +80,13 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            <h4 class="modal-title" id="myModalLabel">Titulo</h4>
                         </div>
 
                         <div class="modal-body clearfix">
                             <div class="alert alert-info alert-dismissable" style="display:none;">
                                 <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
-                                <strong>Warning!</strong> Fill up all the fields.
+                                <strong>Advertencia!</strong> Llenar todos los campos.
                             </div>
                             <div class="col-md-12">
                                 <div class="panel panel-default">
@@ -98,7 +98,7 @@
                                         <input type='hidden' name='doctorsIdEdit' class='doctorsIdEdit' value="">
 
                                         <select class="form-control" id="reserveDoctorSelect">
-                                            <option>Choose Doctor</option>
+                                            <option>Seleccione un Doctor</option>
                                             <?php
                                             foreach ($list_of_doctors as $row) {
                                                 echo "<option value='" . $row['objectId'] . "'>" . $row['doctor_name'] . "</option>";
@@ -114,11 +114,11 @@
                             <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">Reservation Time</h3>
+                                        <h3 class="panel-title">Hora de Reserva</h3>
                                     </div>
                                     <div class="panel-body">
                                         <select class="form-control reserveTimeSelect">
-                                            <option value=0>Time</option>
+                                            <option value=0>Hora</option>
                                             <option value=5>10:00 AM</option>
                                             <option value=6>11:00 AM</option>
                                             <option value=7>12:00 PM</option>
@@ -134,18 +134,18 @@
                                 </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">Reservation details</h3>
+                                        <h3 class="panel-title">Detalles de la Reserva</h3>
                                     </div>
                                     <div class="panel-body" style="padding: 5px 15px;">
-                                        <h5>Date: <span class="reserveDate"></span></h5>
-                                        <h5>Time: <span class="reserveTime"></span></h5>
+                                        <h5>Fecha: <span class="reserveDate"></span></h5>
+                                        <h5>Hora: <span class="reserveTime"></span></h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary updateReservation">Update Reservation</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary updateReservation">Actualizar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -161,12 +161,12 @@
                         </div>
 
                         <div class="modal-body clearfix">
-                            <h5 class="message">Are you sure you want to delete this item?</h5>
+                            <h5 class="message">Esta seguro que desea borrar?</h5>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary confirmAction">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary confirmAction">Aceptar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->

@@ -10,20 +10,20 @@
 		<tbody>
 			<tr>
 				<td><img style="width:100px;" src="<?php echo base_url();?>assets/images/logo.jpg"></td>
-				<td style="vertical-align:top;"><h1 style="margin:10px 0px;">PetFile</h1>
-					63 Maysilo Circle cor. Boni Ave. Mandaluyong, Philippines phone 531-1581
+				<td style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
+					Avenida Simon Bolivar #3356, Maipu
 				</td>
 			</tr>
 		</tbody>
 	</table>
 	
 	
-<h1>Sales Report (<?php echo $reportMode; ?>)</h1></center>
+<h1>Reporte de Ventas (<?php echo $reportMode; ?>)</h1></center>
 <p>
-	From :<?php echo $reportDateFrom; ?>
+	Desde :<?php echo $reportDateFrom; ?>
 </p>
 <p>
-	To: <?php echo $reportDateto; ?>
+	Hasta: <?php echo $reportDateto; ?>
 </p>
 <table class="list" style="width: 99%; margin-top: 1em;" id="generatedReportUser">
 
@@ -48,12 +48,12 @@
 	?>
 	
 </td>
-<td style="text-align:center;">Total Sales</td>
+<td style="text-align:center;">Total </td>
 </tr>
 <?php
 $allTotal=0;
 $counter =0;
-date_default_timezone_set('Asia/Manila');
+date_default_timezone_set('america/santiago');
 foreach ($sales as $row){
 	$allTotal =$allTotal + $row['saleGross'];
 	
@@ -144,8 +144,8 @@ foreach ($sales as $row){
 </tbody>
 <tfoot>
 	<tr>
-		<td colspan="4" style="text-align:right;">OVERALL TOTAL :</td>
-		<td style="text-align:right;padding-right:20px;">P <?php echo number_format($allTotal,2); ?></td>
+		<td colspan="4" style="text-align:right;">TOTAL A PAGAR :</td>
+		<td style="text-align:right;padding-right:20px;">$ <?php echo number_format($allTotal,2); ?></td>
 	</tr>
 </tfoot>
 </table>

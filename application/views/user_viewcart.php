@@ -4,18 +4,19 @@
             </div>
             <div class="panel panel-default" id="viewCartPage">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Cart Details</div>
+                <div class="panel-heading">Detalle para Compras de Medicamentos e Insumos</div>
                 <div class="panel-body">
-                    <p>Steps</p>
-                    <p>1. Review your order and press the checkout button.</p>
-                    <p>2. After you press checkout, you wont be able to add/edit/delete your order unless you press cancel order.</p>
-                    <p>3. Press print receipt.(Optional) If you do this step, the process of claiming your order would be much faster.</p>
+                  <p>Pasos</p>
+                    <p>1.
+                    Revise su pedido y pulse el botón de pago .</p>
+                    <p>2. 
+                    Después de presionar SALIR, usted no será capaz de agregar / editar / borrar su pedido a menos que presione CANCELAR la orden.</p>
+                    <p>3. La recepción de prensa de impresión. ( Opcional ) Si lo hace este paso, el proceso de reclamar su pedido sería mucho más rápido .</p>
 
 
-                    <p>After you claim your order. This page would automatically resets and give you new order number.</p>
-                    <p class="small">Notes:</p>
-                    <p class="small">If you present us a receipt, the items that are in the receipt are <strong>the only things we would proccess.</strong>
-                        <strong>We ONLY ALLOW ONE BATCH ORDER AT A TIME.</strong></p>
+                    <p>                    Después de reclamar su pedido . Esta página sería restaure de forma automática y le dará nuevo número de orden .</p>
+                    <p class="small">Nota</p>
+                    <p class="small">                    Si nos presente un recibo , los elementos que están en el recibo son las únicas cosas que nos PROCESO . Que permitimos un lote orden a la vez .</p>
 
                 </div>
 
@@ -23,10 +24,10 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th style="width:270px;">Product Name</th>
-                            <th style="text-align:right;padding-right:15px;">Price</th>
-                            <th style="text-align:right;padding-right:15px;">Quantity</th>
-                            <th style="text-align:right;padding-right:15px;">Total Price</th>
+                            <th style="width:270px;">Nombre del Producto</th>
+                            <th style="text-align:right;padding-right:15px;">Precio</th>
+                            <th style="text-align:right;padding-right:15px;">Cantidad</th>
+                            <th style="text-align:right;padding-right:15px;">Precio Total</th>
                             <?php
                             if ($activeOrder != "true") {
                                 echo'<th style="width:140px;"></th>';
@@ -64,7 +65,7 @@
                             }
                             ?>
 
-                            <td>TOTAL:<span style="float:right;margin-right:10px;">&#8369;<?php
+                            <td>TOTAL:<span style="float:right;margin-right:10px;">$<?php
                                     if (count($list_of_orders) > 0) {
                                         echo $row['totalAll'];
                                     }
@@ -150,8 +151,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmAddOrder">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmAddOrder">Aceptar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->

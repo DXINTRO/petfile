@@ -8,28 +8,28 @@
 		<tbody>
 			<tr>
 				<td><img style="width:100px;" src="<?php echo base_url();?>assets/images/logo.jpg"></td>
-                                <td style="vertical-align:top;"><h1 style="margin:10px 0px;">PetFile</h1>
-					63 Maysilo Circle cor. Boni Ave. Mandaluyong, Philippines phone 531-1581
+                                <td style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
+					Av. Simón Bolívar #3356, Maipú   Fono : +56 - 2 - 4605285
 				</td>
 			</tr>
 		</tbody>
 	</table>
-<h1>Billing #<?php echo rand(100000,999999); ?></h1>
+<h1>Sistema de Pago <?php echo rand(100000,999999); ?></h1>
 <p>
-	Date of Billing : 
+	Fecha de la Boleta : 
 	<?php
 		date_default_timezone_set('Asia/Manila');
 	 	echo date('l jS \of F Y h:i:s A');
 	?>
 </p>
 
-<span>Customer Name: 
+<span>Nombre del Cliente: 
 	<?php echo $customers[0]['first_name']; ?> 
 	<?php echo $customers[0]['last_name']; ?>
 </span>
 <br />
 <span>
-	Pet: 
+	Mascota: 
 	<?php echo $petName ?>
 </span>
 
@@ -55,28 +55,28 @@
 
 <tbody><tr class="head">
 <td class="center" style="width: 65%">
-	Description
+	Detalle
 </td>
-<td style="width:30%;text-align:right;padding-right:20px;">Price</td>
+<td style="width:30%;text-align:right;padding-right:20px;">Precio</td>
 
 </tr>
 <tr>
-	<td><p>Confinement (Rate/day: P 300.00):</p>
-		<p>From: <?php echo $reportDateFrom; ?> To: <?php echo $reportDateto; ?></p>
-		<p>Number of Days: <?php echo $daysNumber ?></p>
+	<td><p>Hospitalización (Valor Diario: $ 3000.00):</p>
+		<p>Desde: <?php echo $reportDateFrom; ?>Hasta: <?php echo $reportDateto; ?></p>
+		<p>Número de dias: <?php echo $daysNumber ?></p>
 	</td>
-	<td style='text-align:right;vertical-align: bottom;'>P <?php echo number_format($daysNumber *300,2)  ; ?></td>
+	<td style='text-align:right;vertical-align: bottom;'>$ <?php echo number_format($daysNumber *300,2)  ; ?></td>
 </tr>
 <tr>
 	<td><?php echo $surgerys[0]['service_name']; ?>
 	</td>
-	<td style='text-align:right;'><p>P <?php echo number_format($surgerys[0]['price'],2)  ; ?></p></td>
+	<td style='text-align:right;'><p>$<?php echo number_format($surgerys[0]['price'],2)  ; ?></p></td>
 </tr>
 </tbody>
 <tfoot>
 	<tr>
 		<td></td>
-		<td style="text-align:right;"><br />TOTAL :P <?php echo number_format(($daysNumber *300) + $surgerys[0]['price'],2)  ; ?></td>
+		<td style="text-align:right;"><br />TOTAL :$ <?php echo number_format(($daysNumber *300) + $surgerys[0]['price'],2)  ; ?></td>
 	</tr>
 </tfoot>
 </table>

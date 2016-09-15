@@ -8,26 +8,26 @@
             <tbody>
                 <tr>
                     <td><img style="width:100px;" src="<?php echo base_url(); ?>assets/images/logo.jpg"></td>
-                    <td style="vertical-align:top;"><h1 style="margin:10px 0px;">PetFile</h1>
-                        63 Maysilo Circle cor. Boni Ave. Mandaluyong, Philippines phone 531-1581
+                    <td style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
+                        Av. Simón Bolívar #3356, Maipú, Santiago
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <h1>Reservations Report</h1>
-        Generated Date : <?php echo date('Y-m-d H:i:s'); ?>
+        <h1>Registro de Reservas</h1>
+        Fecha : <?php echo date('Y-m-d H:i:s'); ?>
         <br/>
         <br/>
         <table class="detail" style="width:100%;margin: 0px; border-top: none;">
             <tr>
-                <td class="label">From:</td>
+                <td class="label">Desde : </td>
                 <td class="field">
                     <?php
                     echo $reportDateFrom;
                     ?>
                 </td>
-                <td class="label">To:</td>
+                <td class="label">Hasta :</td>
                 <td class="field">
                     <?php
                     echo $reportDateto;
@@ -39,11 +39,11 @@
         <table class="list" style="width: 99%; margin-top: 1em;" id="generatedReportUser">
 
             <tbody><tr class="head">
-                    <td class="center" style="width: 15%">Reservation ID</td>
-                    <td class="center" style="width: 10%">Date</td>
-                    <td style="width: 35%">Service Name & Status</td>
-                    <td class="center" style="width: 20%">Customer Name</td>
-                    <td class="right" style="width: 15%;text-align:right;">Price</td>
+                    <td class="center" style="width: 15%"> ID de Reserva</td>
+                    <td class="center" style="width: 10%">Fecha</td>
+                    <td style="width: 35%">Nombre del Servicio y Estado</td>
+                    <td class="center" style="width: 20%">Cliente</td>
+                    <td class="right" style="width: 15%;text-align:right;">Precio</td>
                 </tr>
                 <?php
                 foreach ($reservations as $row) {

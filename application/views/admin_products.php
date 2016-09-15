@@ -4,7 +4,7 @@
             </div>
             <div class="panel panel-default" id="adminProducts">
                 <!-- Default panel contents -->
-                <div class="panel-heading">List of Products</div>
+                <div class="panel-heading">Listado de Productos</div>
                 <div class="panel-body">
 
                     <div class="panel panel-default">
@@ -15,24 +15,24 @@
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                             <span class="glyphicon glyphicon-hand-right"></span> 
-                                            <span>Add a Product</span>
+                                            <span>Agregar un Producto</span>
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="collapseOne" class="panel-collapse collapse">
                                     <div class="alert alert-info alert-dismissable" style="display:none;">
                                         <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
-                                        <strong>Warning!</strong> Fill up all the fields.
+                                        <strong>Advertencia!</strong> Llenar todos los campos.
                                     </div>
                                     <div class="panel-body clearfix">
                                         <form action="addProduct" method="POST" id="addProduct">
 
-                                            <input type="text" style="width:250px;" class="form-control" name="productName" id="productName" placeholder="Product Name" required>
-                                            <input type="number" style="width:250px;" class="form-control" name="productQty" id="productQty" placeholder="Quantity" min="1" required>
-                                            <input type="number" style="width:250px;" class="form-control" name="productPrice" id="productPrice" placeholder="Price" min="1" required>
-                                            <input type="text" style="width:250px;" class="form-control" name="productType" id="productType" placeholder="Type" required>
+                                            <input type="text" style="width:250px;" class="form-control" name="productName" id="productName" placeholder="Nombre del Producto" required>
+                                            <input type="number" style="width:250px;" class="form-control" name="productQty" id="productQty" placeholder="Cantidad" min="1" required>
+                                            <input type="number" style="width:250px;" class="form-control" name="productPrice" id="productPrice" placeholder="Precio" min="1" required>
+                                            <input type="text" style="width:250px;" class="form-control" name="productType" id="productType" placeholder="Tipo" required>
 
-                                            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="addproduct">Add Product</button>
+                                            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="addproduct">Agregar Producto</button>
                                         </form>
 
                                     </div>
@@ -45,7 +45,7 @@
                         <div class="panel-heading clearfix">
                             <a style="color:#000000;" data-toggle="collapse" data-parent="#accordion" href="#generateUserReportcollapse">
                                 <span class="glyphicon glyphicon-hand-right"></span> 
-                                <h3 class="panel-title" style="display:inline;">Generate Report</h3>
+                                <h3 class="panel-title" style="display:inline;">Generar Reporte</h3>
                             </a>
 
                         </div>
@@ -58,28 +58,28 @@
                                 <div class="row" style="display:none;">
                                     <div class="col-md-6 noPadding">
                                         <div class="col-md-12">
-                                            <label> From</label>
+                                            <label> Desde </label>
                                         </div>
                                         <div class="col-md-6">
                                             <select class="form-control reportMonthFrom" name="reportMonthFrom">
-                                                <option value="01">January</option>
-                                                <option value="02">February</option>
-                                                <option value="03">March</option>
-                                                <option value="04">April</option>
-                                                <option value="05">May</option>
-                                                <option value="06">June</option>
-                                                <option value="07">July</option>
-                                                <option value="08">August</option>
-                                                <option value="09">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
+                                                <option value="01">Enero</option>
+                                                <option value="02">Febrero</option>
+                                                <option value="03">Marzo</option>
+                                                <option value="04">Abril</option>
+                                                <option value="05">Mayo</option>
+                                                <option value="06">Junio</option>
+                                                <option value="07">Julio</option>
+                                                <option value="08">Agosto</option>
+                                                <option value="09">Septiembre</option>
+                                                <option value="10">Octubre</option>
+                                                <option value="11">Noviembre</option>
+                                                <option value="12">Diciembre</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
                                             <!-- NOTE CHANGE THIS! -->
                                             <select class="form-control reportYearFrom" name="reportYearFrom">
-                                                <option value="0">Year</option>
+                                                <option value="0">Año</option>
                                                 <option value="2016" selected >2016</option>
                                                 <option value="2015" >2015</option>
                                                 <option value="2014">2014</option>
@@ -115,28 +115,28 @@
 
                                     <div class="col-md-6 noPadding">
                                         <div class="col-md-12">
-                                            <label> To</label>
+                                            <label> Hasta </label>
                                         </div>
                                         <div class="col-md-6">
                                             <select class="form-control reportMonthTo" name="reportMonthTo">
-                                                <option value="01">January</option>
-                                                <option value="02">February</option>
-                                                <option value="03">March</option>
-                                                <option value="04">April</option>
-                                                <option value="05">May</option>
-                                                <option value="06">June</option>
-                                                <option value="07">July</option>
-                                                <option value="08">August</option>
-                                                <option value="09">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
+                                                <option value="01">Enero</option>
+                                                <option value="02">Febrero</option>
+                                                <option value="03">Marzo</option>
+                                                <option value="04">Abril</option>
+                                                <option value="05">Mayo</option>
+                                                <option value="06">Junio</option>
+                                                <option value="07">Julio</option>
+                                                <option value="08">Agosto</option>
+                                                <option value="09">Septiembre</option>
+                                                <option value="10">Octubre</option>
+                                                <option value="11">Noviembre</option>
+                                                <option value="12">Diciembre</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
                                             <!-- NOTE CHANGE THIS NOT FULLY USED -->
                                             <select class="form-control reportYearTo" name="reportYearTo">
-                                                <option value="0">Year</option>
+                                                <option value="0">Año</option>
                                                 <option value="2016" selected >2016</option>
                                                 <option value="2015" >2015</option>
                                                 <option value="2014">2014</option>
@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 clearfix">
-                                        <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateProductReport">Generate Report</button>
+                                        <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateProductReport">Generar Reporte</button>
                                     </div>
                                 </div>
                             </form>
@@ -181,9 +181,10 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <button class="btn btn-default searchManageProductsAdmin" type="button">Search</button>
+                            <button class="btn btn-default searchManageProductsAdmin" type="button">Buscar</button>
                         </span>
-                        <input type="text" class="form-control searchManageProductsTextAdmin" placeholder="Enter keywords product name">
+                        <input type="text" class="form-control searchManageProductsTextAdmin" placeholder="
+Introduzca algunas letras del producto a buscar">
                     </div>
                 </div>
 
@@ -192,11 +193,11 @@
                     <table class="table table-hover" id="adminManageProducts">
                         <thead>
                             <tr>
-                                <th style="width:110px">Product ID</th>
-                                <th style="width:315px;">Product Name</th>
-                                <th style="">Quantity</th>
-                                <th style="">Price</th>
-                                <th style="">Product Type</th>
+                                <th style="width:110px">ID del Producto</th>
+                                <th style="width:315px;">Nombre</th>
+                                <th style="">Cantidad</th>
+                                <th style="">Precio</th>
+                                <th style="">Tipo</th>
                                 <th style="width:130px;"></th>
                             </tr>
                         </thead>
@@ -235,16 +236,15 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                            <h4 class="modal-title" id="myModalLabel">Confirmar / Borrar</h4>
                         </div>
 
                         <div class="modal-body clearfix">
-                            Are you sure you want to delete this item?
-                        </div>
+                            Esta seguro que desea Eliminar</div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmDeleteAdmin">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmDeleteAdmin">Aceptar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -258,7 +258,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Generate Report</h4>
+                            <h4 class="modal-title" id="myModalLabel">Generar Reorte</h4>
                         </div>
 
                         <div class="modal-body clearfix">
@@ -266,7 +266,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -279,29 +279,28 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Product</h4>
+                            <h4 class="modal-title" id="myModalLabel">Editar Producto</h4>
                         </div>
 
                         <div class="modal-body clearfix">
                             <div class="panel-body clearfix">
                                 <form action="editProduct" method="POST" id="editProduct">
-                                    <label>Product Name</label>
+                                    <label>Nombre Producto</label>
                                     <input type="text" style="width:250px;" class="form-control" name="productNameEdit" id="productNameEdit" placeholder="Product Name" required>
-                                    <label>Quantity</label>
+                                    Cantidad
                                     <input type="number" style="width:250px;" class="form-control" name="productQtyEdit" id="productQtyEdit" placeholder="Quantity" min="1" required>
-                                    <label>Price</label>
+                                    <label>Precio</label>
                                     <input type="number" style="width:250px;" class="form-control" name="productPriceEdit" id="productPriceEdit" placeholder="Price" min="1" required>
-                                    <label>Type</label>
-                                    <input type="text" style="width:250px;" class="form-control" name="productTypeEdit" id="productTypeEdit" placeholder="Type" required>
+                                    <label>Tipo</label><input type="text" style="width:250px;" class="form-control" name="productTypeEdit" id="productTypeEdit" placeholder="Type" required>
                                     <input type="hidden" name="productIdToEdit" id="productIdToEdit" value="">
-                                    <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="addproduct">Save Product</button>
+                                    <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="addproduct">Grabar Producto</button>
                                 </form>
 
                             </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->

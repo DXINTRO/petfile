@@ -5,21 +5,18 @@
 <div class="panel panel-default" id="adminAddUser">
     <!-- Default panel contents -->
     <div class="panel-heading">
-        <span>List of Users</span>
+        <span>Listado de Usuarios</span>
 
     </div>
     <div class="panel-body clearfix">
-        <p>Here you can manage your users, who registered to your website.</p>
+        <p>...</p>
 
 
         <div class="panel panel-default panelAddEditUser">
             <div class="panel-heading clearfix">
                 <a style="color:#000000;" data-toggle="collapse" data-parent="#accordion" href="#addUsercollpase">
                     <span class="glyphicon glyphicon-hand-right"></span> 
-                    <h3 class="panel-title" style="display:inline;">Add a User</h3>
-                </a>
-
-            </div>
+                    <h3 class="panel-title" style="display:inline;">Agregar Usuario</h3></a></div>
             <div class="panel-body panel-collapse collapse clearfix" id="addUsercollpase">
 
                 <form action="admin/addUser" method="POST" id="addUserAdmin" name="adduseradmin" class="clearfix">
@@ -27,65 +24,65 @@
                         <thead>
                             <tr>
                                 <th style="width:200px;">Email</th>
-                                <th>Username</th>
-                                <th style="">First Name</th>
-                                <th style="">Last Name</th>
-                                <th style="">User Level</th>
+                                <th>Usuario</th>
+                                <th style="">Nombre</th>
+                                <th style="">Apellido</th>
+                                <th style="">Nivel de Usuario</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Enter email" required></td>
-                                <td><input type="text" class="form-control" name="username" id="username" placeholder="Username" required></td>
-                                <td><input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" required></td>
-                                <td><input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" required></td>
+                                <td><input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Ingresar Email" required></td>
+                                <td><input type="text" class="form-control" name="username" id="username" placeholder="Nombre de Usuario" required></td>
+                                <td><input type="text" class="form-control" name="firstName" id="firstName" placeholder="Nombre" required></td>
+                                <td><input type="text" class="form-control" name="lastName" id="lastName" placeholder="Apellido" required></td>
                                 <td>
                                     <select class="form-control" name="userLevel" id="userLevelAdd">
-                                        <option value=1>Customer</option>
-                                        <option value=3>Admin - User</option>
-                                        <option value=4>Admin - Resertvation</option>
-                                        <option value=5>Admin - Accounting</option>
-                                        <option value=6>Admin -Product Manager</option>
-                                        <option value=2>Super Admin</option>
+                                        <option value=1>Cliente</option>
+                                        <option value=3>Admin - Usuario</option>
+                                        <option value=4>Admin - Reservas</option>
+                                        <option value=5>Admin - Contabilidad</option>
+                                        <option value=6>Admin -Administrador de Productos</option>
+                                        <option value=2>Super Administrador</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
-                                <td> <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Password" minlength="6" maxlength="50" required></td>
-                                <td> <input type="password" class="form-control" name="confirm_inputPassword" id="confirm_inputPassword" placeholder="Confirm Password" minlength="6" maxlength="50" required></td>
+                                <td> <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Contraseña" minlength="6" maxlength="50" required></td>
+                                <td> <input type="password" class="form-control" name="confirm_inputPassword" id="confirm_inputPassword" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required></td>
                             </tr>
                         </tbody>
                     </table>
                     <div id="petInformationContainer">
-                        <h3>Pet Information</h3>
+                        <h3>Información de la Mascota</h3>
                         <div class="form-group">
-                            <label for="petName">Pet Name</label>
-                            <input type="text" class="form-control" name="petName" id="petName" placeholder="Pet Name" required>
+                            <label for="petName">Nombre de la Mascota</label>
+                            <input type="text" class="form-control" name="petName" id="petName" placeholder="Nombre de Mascota" required>
                         </div>
                         <div class="form-group">
-                            <label for="petType">Pet Type</label>
-                            <input type="text" class="form-control" name="petType" id="petType" placeholder="Pet Type" required>
+                            <label for="petType">Tipo de Mascota</label>
+                            <input type="text" class="form-control" name="petType" id="petType" placeholder="Tipo de Mascota" required>
                         </div>
                         <div class="form-group">
-                            <label for="petGender">Pet Gender</label>
+                            <label for="petGender">Genero de Mascota</label>
                             <select class="form-control" name="petGender" id="petGender" >
-                                <option value="female">Female</option>
-                                <option value="male">Male</option>
+                                <option value="female">Hembra</option>
+                                <option value="male">Macho</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="petHistory">History Description</label>
-                            <textarea class="form-control" name="petHistory" id="petHistory" placeholder="Pet History" required></textarea>
+                            <label for="petHistory">Descripcion General</label>
+                            <textarea class="form-control" name="petHistory" id="petHistory" placeholder="Agregar una Descripción" required></textarea>
                         </div>
                     </div>
-                    <button type="submit" name="adduserbtn" class="btn btn-success pull-right">Add User</button>
+                    <button type="submit" name="adduserbtn" class="btn btn-success pull-right">Agregar Usuario</button>
                 </form>
                 <form action="admin/updateUser" method="POST" id="updateUser" name="updateuseradmin" style="display:none;">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th style="width:200px;">Email</th>
-                                <th>Username</th>
+                                <th>Usuario</th>
                                 <th style="">First Name</th>
                                 <th style="">Last Name</th>
                                 <th style="">User Level</th>
@@ -123,7 +120,7 @@
             <div class="panel-heading clearfix">
                 <a style="color:#000000;" data-toggle="collapse" data-parent="#accordion" href="#generateUserReportcollapse">
                     <span class="glyphicon glyphicon-hand-right"></span> 
-                    <h3 class="panel-title" style="display:inline;">Generate Report</h3>
+                    <h3 class="panel-title" style="display:inline;">Generar Reporte</h3>
                 </a>
 
             </div>
@@ -136,27 +133,26 @@
                     <div class="row">
                         <div class="col-md-6 noPadding">
                             <div class="col-md-12">
-                                <label> From</label>
-                            </div>
+                                <label> Desde</label></div>
                             <div class="col-md-6">
                                 <select class="form-control reportMonthFrom" name="reportMonthFrom">
-                                    <option value="01">January</option>
-                                    <option value="02">February</option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
+                                    <option value="01" selected="selected">Enero</option>
+                                    <option value="02">Febrero</option>
+                                    <option value="03">Marzo</option>
+                                    <option value="04">Abril</option>
+                                    <option value="05">Mayo</option>
+                                    <option value="06">Junio</option>
+                                    <option value="07">Julio</option>
+                                    <option value="08">Agosto</option>
+                                    <option value="09">Septiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control reportYearFrom" name="reportYearFrom">
-                                    <option value="0">Year</option>
+                                    <option value="0">Año</option>
                                     <option value="2016">2016</option>
                                     <option value="2015">2015</option>
                                     <option value="2014">2014</option>
@@ -192,27 +188,28 @@
 
                         <div class="col-md-6 noPadding">
                             <div class="col-md-12">
-                                <label> To</label>
-                            </div>
+                                <label> Hasta</label></div>
                             <div class="col-md-6">
                                 <select class="form-control reportMonthTo" name="reportMonthTo">
-                                    <option value="01">January</option>
-                                    <option value="02">February</option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
+                                    <option value="01">Enero</option>
+                                    <option value="02">Febrero</option>
+                                    <option value="03">Marzo</option>
+                                    <option value="04">Abril</option>
+                                    <option value="05">Mayo</option>
+                                    <option value="06">Junio</option>
+                                    <option value="07">Julio</option>
+                                    <option value="08">Agosto</option>
+                                    <option value="09">Septiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control reportYearTo" name="reportYearTo">
-                                    <option value="0">Year</option>
+                                    <option value="0">Año</option>
+                                    <option value="2014">2016</option>
+                                    <option value="2014">2015</option>
                                     <option value="2014">2014</option>
                                     <option value="2013">2013</option>
                                     <option value="2012">2012</option>
@@ -246,7 +243,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 clearfix">
-                            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateUserReport">Generate Report</button>
+                            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateUserReport">Generar Reporte</button>
                         </div>
                     </div>
                 </form>
@@ -257,9 +254,9 @@
 
         <div class="input-group">
             <span class="input-group-btn">
-                <button class="btn btn-default searchManageUser" type="button">Search</button>
+                <button class="btn btn-default searchManageUser" type="button">Buscar</button>
             </span>
-            <input type="text" class="form-control searchManageUserText" placeholder="Enter user EMAIL">
+            <input type="text" class="form-control searchManageUserText" placeholder="Ingresar email de Usuario">
         </div>
     </div>
 
@@ -269,10 +266,10 @@
             <thead>
                 <tr>
                     <th style="width:270px;">Email</th>
-                    <th>Username</th>
-                    <th style="">First Name</th>
-                    <th style="">Last Name</th>
-                    <th style="">User Level</th>
+                    <th>Usuario</th>
+                    <th style="">Nombre</th>
+                    <th style="">Apellido</th>
+                    <th style="">Nivel de Usuario</th>
                     <th style="width:130px;"></th>
                 </tr>
             </thead>
@@ -330,8 +327,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary confirmAction">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary confirmAction">Aceptar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -344,7 +341,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Generate Report</h4>
+                <h4 class="modal-title" id="myModalLabel">Generar Reporte</h4>
             </div>
 
             <div class="modal-body clearfix">

@@ -4,9 +4,9 @@
             </div>
             <div class="panel panel-default" id="adminManageReservation">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Manage Reservations</div>
+                <div class="panel-heading">Administración de Reservas</div>
                 <div class="panel-body">
-                    <p>Reservations of Users can be confirmed and delete here. You can also add new reservations.</p>
+                    <p>Las Reservas de usuarios pueden ser confirmadas y canceladas aquí . También se pueden añadir nuevas reservas.</p>
 
                     <div class="panel-group" id="accordion" style="margin-bottom:10px;">
                         <div class="panel panel-default" id="addOrEditReservation">
@@ -14,14 +14,14 @@
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                         <span class="glyphicon glyphicon-hand-right"></span> 
-                                        <span>Add a Reservation</span>
+                                        <span>Agregar una Reserva</span>
                                     </a>
                                 </h4>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse">
                                 <div class="alert alert-info alert-dismissable" style="display:none;">
                                     <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
-                                    <strong>Warning!</strong> Fill up all the fields.
+                                    <strong>Advertencia!</strong>Llenar todos los campos.
                                 </div>
                                 <div class="panel-body clearfix">
                                     <form action="addReservation" method="POST" id="addReservationAdmin">
@@ -32,7 +32,7 @@
                                                 </div>
                                                 <div class="panel-body">
                                                     <select class="form-control reserveDoctorSelect" name="doctorsId">
-                                                        <option>Choose Doctor</option>
+                                                        <option>Seleccione un Doctor</option>
                                                         <?php
                                                         foreach ($list_of_doctors as $row) {
                                                             echo "<option value='" . $row['objectId'] . "'>" . $row['doctor_name'] . "</option>";
@@ -48,11 +48,11 @@
                                         <div class="col-md-6">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">Reservation Time</h3>
+                                                    <h3 class="panel-title">Hora de Reserva</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <select class="form-control reserveTimeSelect">
-                                                        <option value=0>Time</option>
+                                                        <option value=0>Hora</option>
                                                         <option value="10:00 AM">10:00 AM</option>
                                                         <option value="11:00 AM">11:00 AM</option>
                                                         <option value="12:00 AM">12:00 PM</option>
@@ -69,11 +69,11 @@
                                             </div>
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">Reservation details</h3>
+                                                    <h3 class="panel-title">Detalle de Reserva</h3>
                                                 </div>
                                                 <div class="panel-body" style="padding: 5px 15px;">
 
-                                                    <label>Service </label><select class="adminServicesReservation" name="adminServicesReservation" style="width:100%; height:34px;" id="">
+                                                    <label>Servicio </label><select class="adminServicesReservation" name="adminServicesReservation" style="width:100%; height:34px;" id="">
                                                         <?php
                                                         foreach ($serviceslist as $row) {
                                                             echo '<option value=' . $row['objectId'] . '>' . $row['service_name'] . '</option>';
@@ -82,13 +82,13 @@
                                                     </select>
 
                                                     <input type="email" class="form-control" name="reservationUserEmail" id="reservationUserEmail" placeholder="User Email" required>
-                                                    <h5>Pet Name: <span class="petName"></span></h5>
-                                                    <h5>Date: <span class="reserveDate"></span></h5>
-                                                    <h5>Time: <span class="reserveTime"></span></h5>
+                                                    <h5>Nombre de Mascota: <span class="petName"></span></h5>
+                                                    <h5>Fecha: <span class="reserveDate"></span></h5>
+                                                    <h5>Hora: <span class="reserveTime"></span></h5>
                                                 </div>
                                             </div>
                                             <input type="hidden" name="reservationId" id="reservationId" value="" />
-                                            <button type="submit" name="adminAddReservation" id="addReservationButton" class="btn btn-success pull-right" style="margin-top:10px;">Add Reservation</button>
+                                            <button type="submit" name="adminAddReservation" id="addReservationButton" class="btn btn-success pull-right" style="margin-top:10px;">Agregar Reserva</button>
                                             <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none; display:none;">Back Add Reservation</button>
                                             <button type="submit" name="editadminAddReservation" class="btn btn-primary pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none;">Save Changes</button>
 
@@ -106,7 +106,7 @@
                         <div class="panel-heading clearfix">
                             <a style="color:#000000;" data-toggle="collapse" data-parent="#accordion" href="#generateUserReportcollapse">
                                 <span class="glyphicon glyphicon-hand-right"></span> 
-                                <h3 class="panel-title" style="display:inline;">Generate Report</h3>
+                                <h3 class="panel-title" style="display:inline;">Generar Reporte</h3>
                             </a>
 
                         </div>
@@ -122,22 +122,21 @@
 
                                     <div class="col-md-6 noPadding">
                                         <div class="col-md-12">
-                                            <label> From</label>
-                                        </div>
+                                            <label> Desde</label></div>
                                         <div class="col-md-6">
                                             <select class="form-control reportMonthFrom" name="reportMonthFrom">
-                                                <option value="01">January</option>
-                                                <option value="02">February</option>
-                                                <option value="03">March</option>
-                                                <option value="04">April</option>
-                                                <option value="05">May</option>
-                                                <option value="06">June</option>
-                                                <option value="07">July</option>
-                                                <option value="08">August</option>
-                                                <option value="09">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
+                                                <option value="01">Enero</option>
+                                                <option value="02">Febrero</option>
+                                                <option value="03">Marzo</option>
+                                                <option value="04">Abril</option>
+                                                <option value="05">Mayo</option>
+                                                <option value="06">Junio</option>
+                                                <option value="07">Julio</option>
+                                                <option value="08">Agosto</option>
+                                                <option value="09">Septiembre</option>
+                                                <option value="10">Octubre</option>
+                                                <option value="11">Noviembre</option>
+                                                <option value="12">Diciembre</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -178,27 +177,26 @@
 
                                     <div class="col-md-6 noPadding">
                                         <div class="col-md-12">
-                                            <label> To</label>
-                                        </div>
+                                            <label> Hasta</label></div>
                                         <div class="col-md-6">
                                             <select class="form-control reportMonthTo" name="reportMonthTo">
-                                                <option value="01">January</option>
-                                                <option value="02">February</option>
-                                                <option value="03">March</option>
-                                                <option value="04">April</option>
-                                                <option value="05">May</option>
-                                                <option value="06">June</option>
-                                                <option value="07">July</option>
-                                                <option value="08">August</option>
-                                                <option value="09">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
+                                                <option value="01">Enero</option>
+                                                <option value="02">Febrero</option>
+                                                <option value="03">Marzo</option>
+                                                <option value="04">Abril</option>
+                                                <option value="05">Mayo</option>
+                                                <option value="06">Junio</option>
+                                                <option value="07">Julio</option>
+                                                <option value="08">Agosto</option>
+                                                <option value="09">Septiembre</option>
+                                                <option value="10">Octubre</option>
+                                                <option value="11">Noviembre</option>
+                                                <option value="12">Diciembre</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
                                             <select class="form-control reportYearTo" name="reportYearTo">
-                                                <option value="0">Year</option>
+                                                <option value="0">Año</option>
                                                 <option value="2016" selected >2016</option>
                                                 <option value="2015" >2015</option>
                                                 <option value="2014">2014</option>
@@ -234,7 +232,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 clearfix">
-                                        <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateReservationReport">Generate Report</button>
+                                        <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateReservationReport">Generar Reporte</button>
                                     </div>
                                 </div>
                             </form>
@@ -244,7 +242,7 @@
 
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <button class="btn btn-default adminSearchReservation" type="button">Search</button>
+                            <button class="btn btn-default adminSearchReservation" type="button">Buscar</button>
                         </span>
                         <input type="text" class="form-control adminSearchReservationText" placeholder="Enter USER EMAIL">
                     </div>
@@ -255,13 +253,13 @@
                     <table class="table table-hover" id="adminReservationTable">
                         <thead>
                             <tr>
-                                <th style="width:200px;">Reservation ID</th>
+                                <th style="width:200px;">ID de Reserva</th>
                                 <th style="width:200px;">Email</th>
-                                <th style="width:260px;">Service Name</th>
-                                <th style="width:135px">Date SERVICE</th>
-                                <th style="width:135px">Date MADE</th>
-                                <th style="">Time</th>
-                                <th style="text-align:right;padding-right:20px;">Price</th>
+                                <th style="width:260px;">Servicio</th>
+                                <th style="width:135px">Fecha de Hora</th>
+                                <th style="width:135px">Fecha Tomada</th>
+                                <th style="">Hora</th>
+                                <th style="text-align:right;padding-right:20px;">Precio</th>
                                 <th style="width:130px;"></th>
                             </tr>
                         </thead>
@@ -323,16 +321,16 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                            <h4 class="modal-title" id="myModalLabel">Confirma Eliminación</h4>
                         </div>
 
                         <div class="modal-body clearfix">
-                            Are you sure you want to delete this item?
+                           Esta seguro de eliminar?
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmDeleteAdmin">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmDeleteAdmin">Aceptar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -345,7 +343,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Use/Done Reservation</h4>
+                            <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
                         </div>
 
                         <div class="modal-body clearfix">
@@ -366,8 +364,8 @@
 
                             <form action="confirmReservation" method="POST">
                                 <input type="hidden" name='registrationId' class='registrationId' value=''>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary confirmAction" id="processReservationBTN" data-confirm="processReservation">Process Reservation and Print Receipt</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary confirmAction" id="processReservationBTN" data-confirm="processReservation">Proceso de Reserva e Impresión de Documento</button>
                             </form>
                         </div>
                     </div><!-- /.modal-content -->
@@ -382,16 +380,15 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                            <h4 class="modal-title" id="myModalLabel">Confirma Eliminación</h4>
                         </div>
 
                         <div class="modal-body clearfix">
-                            Are you sure you want to delete this item?
-                        </div>
+                            Esta seguro de eliminar?</div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmDeleteAdmin">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmDeleteAdmin">Aceptar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -404,7 +401,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Confirm/Approve Reservation</h4>
+                            <h4 class="modal-title" id="myModalLabel">...</h4>
                         </div>
 
                         <div class="modal-body clearfix">
@@ -425,8 +422,8 @@
 
                             <form action="approveReservation" method="POST">
                                 <input type="hidden" name='registrationId' class='registrationId' value=''>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary confirmAction" id="processReservationBTN" data-confirm="processReservation">Approve/Confirm this reservation.</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary confirmAction" id="processReservationBTN" data-confirm="processReservation">Confirmar la Reserva</button>
                             </form>
                         </div>
                     </div><!-- /.modal-content -->

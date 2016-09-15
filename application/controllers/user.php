@@ -90,7 +90,6 @@ class User extends CI_Controller {
             $email = $this->input->post("userEmail");
             $password = $this->input->post("userPassword");
             $query = $this->db->query("SELECT objectId,user_level,email from users where password='" . md5($password) . "' AND email='" . $email . "';");
-            echo "SELECT objectId,user_level,email from users where password='" . md5($password) . "' AND email='" . $email . "';";
             if ($query->num_rows() > 0) {
                 $row = $query->row();
                 if ($row->user_level == 1) {

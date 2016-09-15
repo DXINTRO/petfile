@@ -19,10 +19,9 @@
         <table>
             <tbody>
                 <tr>
-                    <td><img style="width:100px;" src="<?php echo base_url(); ?>assets/images/logo.jpg"></td>
-                    <td style="vertical-align:top;"><h1 style="margin:10px 0px;">PetFile</h1>
-                        63 Maysilo Circle cor. Boni Ave. Mandaluyong, Philippines phone 531-1581
-                    </td>
+                    <td width="100"><img style="width:100px;" src="<?php echo base_url(); ?>assets/images/logo.jpg"></td>
+                    <td width="208" style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
+                    Av. Simón Bolívar #3356, Maipú, Santiago</td>
                 </tr>
             </tbody>
         </table>
@@ -46,10 +45,10 @@
     <table class="table table-hover" style="width:100%;">
         <thead>
             <tr>
-                <th style="width:40%;">Product Name</th>
-                <th style="width:20%;text-align:right;padding-right:15px;">Price</th>
-                <th style="width:20%;text-align:right;padding-right:15px;">Quantity</th>
-                <th style="width:20%;text-align:right;padding-right:15px;">Total Price</th>
+                <th style="width:40%;">Nombre del Producto</th>
+                <th style="width:20%;text-align:right;padding-right:15px;">Precio</th>
+                <th style="width:20%;text-align:right;padding-right:15px;">Cantidad</th>
+                <th style="width:20%;text-align:right;padding-right:15px;">Precio Total</th>
             </tr>
         </thead>
         <tbody>
@@ -68,7 +67,8 @@
         <tfoot>
             <tr>
                 <td colspan="3"></td>
-                <td style='text-align:right;padding-right:15px;'><p style="text-align:left;">TOTAL</p><span style="">P<?php echo $row['totalAll'] ?></span></td>
+                <td style='text-align:right;padding-right:15px;'><p style="text-align:left;">TOTAL</p>
+                <span style="">$<?php echo $row['totalAll'] ?></span></td>
                 <td></td>
             </tr>
         </tfoot>

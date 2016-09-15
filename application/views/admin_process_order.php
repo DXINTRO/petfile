@@ -1,16 +1,16 @@
 <thead>
   <tr>
-    <th style="width:270px;">Product Name
-<form action="generateOrderReceipt" id="generateOrderReceipt" method="POST">
+    <th style="width:270px;">Nombre del Producto
+      <form action="generateOrderReceipt" id="generateOrderReceipt" method="POST">
     <?php
       echo'<input type="hidden" name="usersId" value="'.$list_of_orders[0]['usersObjectId'].'" />';
       echo'<input type="hidden" name="batchOrderId" value="'.$list_of_orders[0]['batchOrderId'].'" />';
     ?>
   </form>
     </th>
-    <th style="text-align:right;padding-right:15px;">Price</th>
-    <th style="text-align:right;padding-right:15px;">Quantity</th>
-    <th style="text-align:right;padding-right:15px;">Total Price</th>
+    <th style="text-align:right;padding-right:15px;">Precio</th>
+    <th style="text-align:right;padding-right:15px;">Cantidad</th>
+    <th style="text-align:right;padding-right:15px;">Precio Total</th>
   </tr>
 </thead>
 <tbody>

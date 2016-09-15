@@ -5,7 +5,7 @@
         <div class="panel panel-default" id="adminAddUser">
           <!-- Default panel contents -->
           <div class="panel-heading">
-            <span>Logs</span>
+            <span>REGISTRO</span>
 
           </div>
 
@@ -14,9 +14,9 @@
           <table class="table table-hover" id="adminUsersTable">
             <thead>
               <tr>
-                <th style="width:150px;">Timestamp</th>
-                <th>Event</th>
-                <th>Description</th>
+                <th style="width:150px;">Fecha y Hora</th>
+                <th>Evento</th>
+                <th>Descripción</th>
               </tr>
             </thead>
             <tbody>
@@ -44,7 +44,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                <h4 class="modal-title" id="myModalLabel">Confirmar/Eliminar</h4>
               </div>
               
               <div class="modal-body clearfix">
@@ -52,8 +52,8 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary confirmAction">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary confirmAction">Aceptar</button>
               </div>
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
@@ -66,7 +66,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Generate Report</h4>
+                <h4 class="modal-title" id="myModalLabel">Generar Reporte</h4>
               </div>
               
               <div class="modal-body clearfix">
@@ -74,7 +74,7 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
               </div>
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->

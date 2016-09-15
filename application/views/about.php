@@ -1,13 +1,16 @@
 <div class="jumbotron" id="about">
-    <h1>PetFile</h1>
-    <h3>About The Company</h3>
+    <h1>Clinica Morita</h1>
 </div>
 
 <!-- Example row of columns -->
 <div class="row">
     <div style="text-align:justify;">
-        <p align="center"><h3>VIP pet hotel and wellness center started 7 years ago as a small vet clinic in Mandaluyong. The first reason for opening this place was post-operative care, Dr. Marga Carpio, veterinarian and VIPs resident natural therapy advocate, who directs the wellness center. VIP Pet Hotel and Wellness Center are able to deliver one of the best services to our patients because of thorough examination and treatment aided by state-of-the-art equipment, facilities and specialist-affiliations, including in Diagnostics like Blood Counting and Blood Chemistry Machine, X-Ray, Ultrasound, Electrocardiogram, Fiber-Optic Endoscopy, In-House Laboratory Unit. In Surgery from basic Soft Tissue Procedures, Orthodontics, Orthopedics and Ophthalmic procedures aided by the safest and modern anesthetic agents and equipment. In Treatment & Confinement like in-house Pharmacy, hygieneic stainless steel holding cages, incubator, whelping suite manned 24-hours by the vets and technicians.</h3></p>
-    </div>
+      <h3>Mision      </h3>
+      <p>Brindar atención medica veterinaria de excelencia  y de calidad, basada en la satisfacción de las exigencias de nuestros clientes,  a  través del respeto hacia el bienestar  y la vida de los animales de compañía. Entregando una atención oportuna, humana,  empática y siempre velando por curar la enfermedad, paliar el dolor y evitar la  muerte dentro de las reales y particulares condiciones de cada paciente</p>
+      <h3>Vision</h3>
+      <p> Ser reconocidos en el  medio nacional como una clínica de excelencia en atención, diagnóstico,  tratamiento, profesionalismo, líder e innovadora en la gestión de los riesgos  asociados a error humano, con 0 incidencia de fallecimientos atribuibles a  negligencia médica. Ser la más conveniente e indiscutida alternativa en cuanto  a productos completamente de cuidados animal. Mantener la calidad de servicio,  basándose en una política de mejoras continuas.</p>
+      </p>
+  </div>
 </div>
 <div class="footer" style="text-align:center;">
     <p>&copy; PetFile 2016</p>

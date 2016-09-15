@@ -4,10 +4,10 @@
             </div>
             <div class="panel panel-default" id="orderPage">
                 <!-- Default panel contents -->
-                <div class="panel-heading">List of Products</div>
+                <div class="panel-heading">Lista de Productos</div>
                 <div class="panel-body">
-                    <p>Order products here. After adding your order, you can view it in view cart page.</p>
-                    <p><strong>If there is an active batch order in your cart you cannot add orders anymore unless that batch order is completed or you cancel it.</strong></p>
+                    <p><br />
+                    </p>
                     <?php
                     if ($activeOrder == "true") {
                         echo'<p class="small" style="color:red;">You have an active order.</p>';
@@ -15,17 +15,20 @@
                     ?>
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <label>Sort: </label>
-                            <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchProductUser" name = "sortCategory1" value = "" checked = "true"> All
-                            <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchProductUser" name = "sortCategory1" value = "C" > Tablets and Capsule 
-                            <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchProductUser" name = "sortCategory1" value = "V" > Vitamins
+                            <label>Ordenar: </label>
+                            <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchProductUser" name = "sortCategory1" value = "" checked = "true">
+                            Todos
+                        <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchProductUser" name = "sortCategory1" value = "C" >
+                            Tabletas y Capsulas
+                            <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchProductUser" name = "sortCategory1" value = "V" > 
+                            Vitaminas
                         </span>
                     </div>
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <button class="btn btn-default searchProductUser" type="button">Search</button>
+                            <button class="btn btn-default searchProductUser" type="button">Buscar</button>
                         </span>
-                        <input type="text" class="form-control searchProductUserText" placeholder="Enter keywords">
+                        <input type="text" class="form-control searchProductUserText" placeholder="Ingrese palabra de producto">
                     </div>
                 </div>
 
@@ -33,10 +36,10 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th style="width:270px;">Product Name</th>
-                            <th>Type</th>
-                            <th style="text-align:right;padding-right:15px;">Quantity</th>
-                            <th style="text-align:right;padding-right:15px;">Price</th>
+                            <th style="width:270px;">Nombre del Producto</th>
+                            <th>Tipo</th>
+                            <th style="text-align:right;padding-right:15px;">Cantidad</th>
+                            <th style="text-align:right;padding-right:15px;">Precio</th>
                             <?php
                             if ($activeOrder != "true") {
                                 echo'<th style="text-align:right;padding-right:15px;">Order Quantity</th>';
@@ -92,38 +95,34 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Confirm Order</h4>
+                            <h4 class="modal-title" id="myModalLabel">Confirmar Orden</h4>
                         </div>
 
                         <div class="modal-body clearfix">
                             <h3 class="orderTitle"></h3>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Item order details</h3>
+                                    <h3 class="panel-title">Detalle de Orden</h3>
                                 </div>
                                 <div class="panel-body">
                                     <p class="detailProductName"></p>
-                                    <p class="detailProductType">Type : <span class="pull-right"></span></p>
-                                    <p class="detailProductAmount">Order Quantity : <span class="pull-right"></span></p>
+                                    <p class="detailProductType">Tipo : <span class="pull-right"></span></p>
+                                    <p class="detailProductAmount">Cantidad de Ordenes : <span class="pull-right"></span></p>
                                     <input type="hidden" name="detailProductAmount" value=""/>
-                                    <p class="detailPrice">Price :  
-                                        <span class="pull-right value"></span>
-                                        <span class="pull-right">&#8369</span>
-                                    </p>
+                                    <p class="detailPrice">Precio :  
+                                        <span class="pull-right value"></span>$</p>
                                     <hr />
                                     <p class="detailTotalPrice">
-                                        Total Price :
-                                        <span class="pull-right value"></span>
-                                        <span class="pull-right">&#8369</span>
-                                    </p>
+                                        Precio Total:
+                                        <span class="pull-right value"></span>$</p>
                                     <input type="hidden" name="detailTotalPrice" value=""/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmAddOrder">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmAddOrder">Aceptar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->

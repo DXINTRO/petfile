@@ -3,7 +3,7 @@
 <thead>
   <tr>
     <th style="width:270px;">
-      Batch Order ID/Receipt #
+     Listado de Ordenes
     </th>
     <th style="text-align:right;padding-right:15px;"></th>
   </tr>

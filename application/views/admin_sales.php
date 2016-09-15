@@ -1,18 +1,15 @@
 <div class="panel panel-default" id="adminUsersOrder">
     <!-- Default panel contents -->
-    <div class="panel-heading">Sales Report</div>
+    <div class="panel-heading">Reporte de Ventas</div>
     <div class="panel-body">
         <div>
-            <p>Only confirmed transactions are being calculated here.</p>
+            <p>&nbsp;</p>
         </div>
         <div class="panel panel-default panelAddEditUser">
             <div class="panel-heading clearfix">
                 <a style="color:#000000;" data-toggle="collapse" data-parent="#accordion" href="#generateSalesReport">
                     <span class="glyphicon glyphicon-hand-right"></span> 
-                    <h3 class="panel-title" style="display:inline;">Generate Report</h3>
-                </a>
-
-            </div>
+                    <h3 class="panel-title" style="display:inline;">Generar Reporte</h3></a></div>
             <div class="panel-body panel-collapse collapse" id="generateSalesReport">
                 <div class="alert alert-danger" style="display:none;">
                     <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
@@ -22,13 +19,13 @@
 
                     <div clas="row">
                         <div class="col-md-12">
-                            <label> Mode:</label>
+                            <label> Modo:</label>
                         </div>
                         <div class="col-md-12">
                             <select class="form-control reportMode" name="reportMode">
-                                <option value="Daily">Daily</option>
-                                <option value="Weekly">Weekly</option>
-                                <option value="Monthly">Monthly</option>
+                                <option value="Daily">Diario</option>
+                                <option value="Weekly">Semanal</option>
+                                <option value="Monthly">Mensual</option>
                             </select>
                         </div>
                     </div>       
@@ -38,27 +35,27 @@
 
                         <div class="col-md-6 noPadding">
                             <div class="col-md-12">
-                                <label> From</label>
+                                <label> Desde</label>
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control reportMonthFrom" name="reportMonthFrom">
-                                    <option value="01">January</option>
-                                    <option value="02">February</option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
+                                   <option value="01">Enero</option>
+                                    <option value="02">Febrero</option>
+                                    <option value="03">Marzo</option>
+                                    <option value="04">Abril</option>
+                                    <option value="05">Mayo</option>
+                                    <option value="06">Junio</option>
+                                    <option value="07">Julio</option>
+                                    <option value="08">Agosto</option>
+                                    <option value="09">Septiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control reportYearFrom" name="reportYearFrom">
-                                    <option value="0">Year</option>
+                                    <option value="0">Año</option>
                                     <option value="2016" selected >2016</option>
                                     <option value="2015" >2015</option>
                                     <option value="2014">2014</option>
@@ -94,27 +91,27 @@
 
                         <div class="col-md-6 noPadding">
                             <div class="col-md-12">
-                                <label> To</label>
+                                <label> Hasta</label>
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control reportMonthTo" name="reportMonthTo">
-                                    <option value="01">January</option>
-                                    <option value="02">February</option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
+                                <option value="01">Enero</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control reportYearTo" name="reportYearTo">
-                                    <option value="0">Year</option>
+                                    <option value="0">Año</option>
                                     <option value="2016" selected >2016</option>
                                     <option value="2015" >2015</option>
                                     <option value="2014">2014</option>
@@ -150,7 +147,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 clearfix">
-                            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateReservationReport">Generate Report</button>
+                            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateReservationReport">Generar Reporte</button>
                         </div>
                     </div>
                 </form>

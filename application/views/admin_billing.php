@@ -3,14 +3,14 @@
 
 <div class="panel panel-default" id="adminUsersOrder">
     <!-- Default panel contents -->
-    <div class="panel-heading">Billing</div>
+    <div class="panel-heading">SISTEMA DE PAGOS</div>
     <div class="panel-body">
         <div>
           <!-- <p>Only confirmed transactions are being calculated here.</p> -->
         </div>
         <form id="billing" role="form" action="generateBilling" method="POST">
             <div class="form-group col-md-5">
-                <label for="username">Customer</label>
+                <label for="username">Cliente</label>
 
                 <select class="form-control customer" name="customer">
                     <?php
@@ -22,8 +22,8 @@
                 </select>
             </div>
             <div class="form-group col-md-5">
-                <label for="username">Pet Name</label>
-                <input type="text" class="form-control" name="petName" id="petName" placeholder="Pet Name" minlength="3" required>          
+                <label for="username">Nombre de la Mascota</label>
+                <input type="text" class="form-control" name="petName" id="petName" placeholder="nombre de la mascota" minlength="3" required>          
             </div>
             <div class="form-group col-md-5">
                 <label for="username">Doctor</label>
@@ -39,7 +39,7 @@
             </div>
 
             <div class="form-group col-md-5">
-                <label for="username">Surgery</label>
+                <label for="username">Cirugía</label>
 
                 <select class="form-control surgery" name="surgery">
                     <?php
@@ -52,26 +52,26 @@
             </div>
 
             <br style="clear:both;" />
-            <label>Date of confinement</label>
+            <label>Fecha de Hospitalización</label>
             <div class="row">
                 <div class="col-md-6 noPadding">
                     <div class="col-md-12">
-                        <label> From</label>
+                        <label> Desde</label>
                     </div>
                     <div class="col-md-5">
                         <select class="form-control reportMonthFrom" name="reportMonthFrom">
-                            <option value="01">January</option>
-                            <option value="02">February</option>
-                            <option value="03">March</option>
-                            <option value="04">April</option>
-                            <option value="05">May</option>
-                            <option value="06">June</option>
-                            <option value="07">July</option>
-                            <option value="08">August</option>
-                            <option value="09">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
+                            <option value="01">Enero</option>
+                            <option value="02">Febrero</option>
+                            <option value="03">Marzo</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Mayo</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Deciembre</option>
                         </select>
                     </div>
                     <div class="col-md-2" style='padding:0px;'>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="col-md-4">
                         <select class="form-control reportYearFrom" name="reportYearFrom">
-                            <option value="0">Year</option>
+                            <option value="0">Año</option>
                             <option value="2016">2016</option>
                             <option value="2015">2015</option>
                             <option value="2014">2014</option>
@@ -147,22 +147,21 @@
 
                 <div class="col-md-5 noPadding">
                     <div class="col-md-12">
-                        <label> To</label>
-                    </div>
+                        <label> hasta</label></div>
                     <div class="col-md-6">
                         <select class="form-control reportMonthTo" name="reportMonthTo">
-                            <option value="01">January</option>
-                            <option value="02">February</option>
-                            <option value="03">March</option>
-                            <option value="04">April</option>
-                            <option value="05">May</option>
-                            <option value="06">June</option>
-                            <option value="07">July</option>
-                            <option value="08">August</option>
-                            <option value="09">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
+                            <option value="01">Enero</option>
+                            <option value="02">Febrero</option>
+                            <option value="03">Marzo</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Mayo</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Deciembre</option>
                         </select>
                     </div>
                     <div class="col-md-2" style='padding:0px;'>
@@ -202,7 +201,9 @@
                     </div>
                     <div class="col-md-4">
                         <select class="form-control reportYearTo" name="reportYearTo">
-                            <option value="0">Year</option>
+                            <option value="0">Año</option>
+                            <option value="2014">2016</option>
+                            <option value="2013">2015</option>
                             <option value="2014">2014</option>
                             <option value="2013">2013</option>
                             <option value="2012">2012</option>
@@ -234,7 +235,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateReservationReport">Generate Billing</button>
+            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateReservationReport">Generar Boleta</button>
         </form>
     </div>
 </div>
@@ -246,10 +247,10 @@
         <thead>
             <tr>
                 <th style="width:270px;">
-                    Batch Order ID/Receipt #
+                   Lotes de ID de pedido / Recibo #
                 </th>
                 <th>
-                    Tracking No. #
+                    SeguimientoNo. #
                 </th>
                 <th>
                     Via
@@ -302,8 +303,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary confirmAction" data-formSubmit="form">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary confirmAction" data-formSubmit="form">Aceptar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

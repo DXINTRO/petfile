@@ -7,24 +7,23 @@
         <table>
             <tbody>
                 <tr>
-                    <td><img style="width:100px;" src="<?php echo base_url(); ?>assets/images/logo.jpg"></td>
-                    <td style="vertical-align:top;"><h1 style="margin:10px 0px;">PetFile</h1>
-                        63 Maysilo Circle cor. Boni Ave. Mandaluyong, Philippines phone 531-1581
-                    </td>
+                    <td width="100"><img style="width:100px;" src="<?php echo base_url(); ?>assets/images/logo.jpg"></td>
+                    <td width="315" style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
+                    Avenida Simon Bolivar #3356, Maipu, Santiago</td>
                 </tr>
             </tbody>
         </table>
 
-        <h1>User Report</h1>
+        <h1>Reporte de Usuarios</h1>
         <table class="detail" style="width:100%;margin: 0px; border-top: none;">
             <tr>
-                <td class="label">From:</td>
+                <td class="label">Desde:</td>
                 <td class="field">
                     <?php
                     echo $reportDateFrom;
                     ?>
                 </td>
-                <td class="label">To:</td>
+                <td class="label">Hasta:</td>
                 <td class="field">
                     <?php
                     echo $reportDateto;
@@ -37,10 +36,10 @@
 
             <tbody><tr class="head">
                     <td class="center" style="width: 30%">Email</td>
-                    <td style="width: 15%">Username</td>
-                    <td class="center" style="width: 15%">First Name</td>
-                    <td class="center" style="width: 15%">Last Name</td>
-                    <td class="right" style="width: 25%;">User Level</td>
+                    <td style="width: 15%">Usuario</td>
+                    <td class="center" style="width: 15%">Nombre</td>
+                    <td class="center" style="width: 15%">Apellido</td>
+                    <td class="right" style="width: 25%;">Privilegios</td>
                 </tr>
                 <?php
                 foreach ($users as $row) {

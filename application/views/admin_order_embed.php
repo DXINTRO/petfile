@@ -4,15 +4,15 @@
         </div>
         <div class="panel panel-default" id="adminUsersOrder">
           <!-- Default panel contents -->
-          <div class="panel-heading">View Order Of User</div>
+          <div class="panel-heading">Ver Ordenes de Usuarios</div>
           <div class="panel-body">
-            <p>You can search the order of a user here. Just type his/her email to the search bar and press search.</p>
-            <p>Proccessed orders will be marked DONE.</p>
+            <p>Puede buscar la orden de un usuario aquí . Sólo tiene que escribir su correo electrónico en la barra de búsqueda y pulsar el botón Buscar.</p>
+           
              <div class="input-group">
               <span class="input-group-btn">
-                <button class="btn btn-default searchOrderOfUser" type="button">Search</button>
+                <button class="btn btn-default searchOrderOfUser" type="button">Buscar</button>
               </span>
-              <input type="text" class="form-control" name="searchUserEmail" id="searchUserEmail" placeholder="Enter user email">
+              <input type="text" class="form-control" name="searchUserEmail" id="searchUserEmail" placeholder="Ingresar Email de Usuario">
             </div>
           </div>
 
@@ -40,8 +40,8 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary confirmAction" data-formSubmit="form">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary confirmAction" data-formSubmit="form">Aceptar</button>
               </div>
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->

@@ -8,16 +8,15 @@
             <tbody>
                 <tr>
                     <td><img style="width:100px;" src="<?php echo base_url(); ?>assets/images/logo.jpg"></td>
-                    <td style="vertical-align:top;"><h1 style="margin:10px 0px;">PetFile</h1>
-                        63 Maysilo Circle cor. Boni Ave. Mandaluyong, Philippines phone 531-1581
-                    </td>
+                    <td style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
+                    Avenida Simon Bolívar #3356, Maipu, Santiago</td>
                 </tr>
             </tbody>
         </table>
-        <h2>Reservation Slip</h2>
+        <h2>Registro de Reserva</h2>
         <table class="detail" style="width:100%;margin: 0px; border-top: none;">
             <tr>
-                <td class="label">Date:</td>
+                <td class="label">Fecha:</td>
                 <td class="field">
                     <?php
                     echo date('l jS \of F Y h:i:s A');
@@ -26,7 +25,7 @@
             </tr>
             <tr>
                 <td>
-                    Customer Name:
+                    Nombre de Cliente:
                     <?php echo $reservations[0]['first_name'] ?>, 
                     <?php echo $reservations[0]['last_name'] ?>
                 </td>
@@ -38,10 +37,10 @@
 
         <tbody>
             <tr class="head">
-                <td class="center" style="width: 10%">Date</td>
-                <td style="width: 35%">Service Name</td>
-                <td class="center" style="width: 20%">Customer Name</td>
-                <td class="right" style="width: 15%;text-align:right;">Price</td>
+                <td class="center" style="width: 10%">Fecha</td>
+                <td style="width: 35%">Nombre del Servicio</td>
+                <td class="center" style="width: 20%">Cliente</td>
+                <td class="right" style="width: 15%;text-align:right;">Precio</td>
             </tr>
             <?php
             foreach ($reservations as $row) {
