@@ -39,11 +39,11 @@
                                 <td>
                                     <select class="form-control" name="userLevel" id="userLevelAdd">
                                         <option value=1>Cliente</option>
-                                        <option value=3>Admin - Usuario</option>
-                                        <option value=4>Admin - Reservas</option>
-                                        <option value=5>Admin - Contabilidad</option>
-                                        <option value=6>Admin -Administrador de Productos</option>
-                                        <option value=2>Super Administrador</option>
+                                        <option value=3>Usuario</option>
+                                        <option value=4>Reservas</option>
+                                        <option value=5>Contabilidad</option>
+                                        <option value=6>Administrador de Productos</option>
+                                        <option value=2>Super Admin</option>
                                     </select>
                                 </td>
                             </tr>
@@ -83,9 +83,9 @@
                             <tr>
                                 <th style="width:200px;">Email</th>
                                 <th>Usuario</th>
-                                <th style="">First Name</th>
-                                <th style="">Last Name</th>
-                                <th style="">User Level</th>
+                                <th style="">Nombre	</th>
+                                <th style="">Apellido</th>
+                                <th style="">Privilegios</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,20 +96,20 @@
                                 <td><input type="text" class="form-control" name="lastNameUpdate" id="lastNameUpdate" placeholder="Last Name" required></td>
                                 <td>
                                     <select class="form-control" name="userLevelUpdate" id="userLevelUpdate">
-                                        <option value=1>Customer</option>
-                                        <option value=3>Admin - User</option>
-                                        <option value=4>Admin - Resertvation</option>
-                                        <option value=5>Admin - Accounting</option>
-                                        <option value=6>Admin -Product Manager</option>
+                                        <option value=1>Cliente</option>
+                                        <option value=3>Usuario Normal</option>
+                                        <option value=4>Reservas</option>
+                                        <option value=5>Contabilidad</option>
+                                        <option value=6>Admin de Productos</option>
                                         <option value=2>Super Admin</option>
                                     </select>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" data-objectid="1" name="backtoadd" class="btn btn-success backToAddUser pull-right">Back to Add Customer</button>
-                    <button type="button" data-objectid="1" name="generatenewPassword" class="btn btn-info generatenewPassword pull-right" style="margin-right:10px;">Generate New Password</button>
-                    <button type="submit" class="btn btn-primary pull-right" name="updateuserbtn" style="margin-right:10px;">Save Changes</button>
+                    <button type="button" data-objectid="1" name="backtoadd" class="btn btn-success backToAddUser pull-right">Regresar</button>
+                    <button type="button" data-objectid="1" name="generatenewPassword" class="btn btn-info generatenewPassword pull-right" style="margin-right:10px;">Generar Nueva Contraseña</button>
+                    <button type="submit" class="btn btn-primary pull-right" name="updateuserbtn" style="margin-right:10px;">Guardar Cambios</button>
 
                 </form>
             </div>
@@ -284,24 +284,24 @@
                     echo "<td class='vert userLastName'>" . $row['last_name'] . "</td>";
                     echo "<td class='vert userUserLevel'>";
                     if ($row['user_level'] == 1) {
-                        echo "<span data-userlevel=" . $row['user_level'] . ">Customer</span>";
+                        echo "<span data-userlevel=" . $row['user_level'] . ">Cliente</span>";
                     } else if ($row['user_level'] == 2) {
                         echo "<span data-userlevel=" . $row['user_level'] . ">Super Admin</span>";
                     } else if ($row['user_level'] == 3) {
                         echo "<span data-userlevel=" . $row['user_level'] . ">Admin User</span>";
                     } else if ($row['user_level'] == 4) {
-                        echo "<span data-userlevel=" . $row['user_level'] . ">Admin Reservation</span>";
+                        echo "<span data-userlevel=" . $row['user_level'] . ">Reservas</span>";
                     } else if ($row['user_level'] == 5) {
-                        echo "<span data-userlevel=" . $row['user_level'] . ">Admin Accounting</span>";
+                        echo "<span data-userlevel=" . $row['user_level'] . ">Contabilidad</span>";
                     } else if ($row['user_level'] == 6) {
-                        echo "<span data-userlevel=" . $row['user_level'] . ">Product Manager</span>";
+                        echo "<span data-userlevel=" . $row['user_level'] . ">Admin de Productos</span>";
                     }
 
 
                     echo "</td>";
                     echo "<td class='vert'>";
-                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editUserFromAdmin pull-left' style='margin-right: 5px;'>Edit</button>";
-                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeUserFromAdmin pull-right'>Delete</button>";
+                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editUserFromAdmin pull-left' style='margin-right: 5px;'>Editar</button>";
+                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeUserFromAdmin pull-right'>Borrar</button>";
                     echo "</td>";
                     echo "</tr>";
                 }

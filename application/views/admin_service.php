@@ -51,7 +51,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <button type="submit" name="updateservicebtn" class="btn btn-primary pull-right">Save Changes</button>
+                                <button type="submit" name="updateservicebtn" class="btn btn-primary pull-right">ee</button>
                                 <button type="button" data-objectid="1" name="backtoadd" class="btn btn-success backToAddService pull-right" style="margin-right:10px;">Back to Add Service</button>
 
                             </form>
@@ -90,8 +90,8 @@
                                 echo "<td class='vert price'>" . $row['price'] . "</td>";
                                 echo "</td>";
                                 echo "<td class='vert'>";
-                                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editServiceFromAdmin pull-left' style='margin-right: 5px;'>Edit</button>";
-                                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeServiceFromAdmin pull-right'>Delete</button>";
+                                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editServiceFromAdmin pull-left' style='margin-right: 5px;'>Editar</button>";
+                                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeServiceFromAdmin pull-right'>Borrar</button>";
                                 echo "</td>";
 
                                 echo "</tr>";

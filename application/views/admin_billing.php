@@ -279,7 +279,7 @@
                         echo "<span class='btn btn-success processOrderAdmin' style='margin-right:10px;'>Process Order</span>";
                     }
                     echo" <input type='hidden' name='batchOrderIdDelete' class='batchOrderIdDelete' value='" . $row['batchOrderId'] . "' >
-                <span class='btn btn-danger deleteOrderAdmin'>Delete</span>
+                <span class='btn btn-danger deleteOrderAdmin'>Borrar</span>
                       </td>";
                     echo "</tr>";
                 }

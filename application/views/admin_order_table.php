@@ -24,7 +24,7 @@
     if($row['active'] == "1"){
     echo "<span class='btn btn-success processOrderAdmin' style='margin-right:10px;'>Process Order</span>";   
     }
-    echo"<span class='btn btn-danger deleteOrderAdmin'>Delete</span>
+    echo"<span class='btn btn-danger deleteOrderAdmin'>Borrar</span>
           </td>";
     echo "</tr>";
 

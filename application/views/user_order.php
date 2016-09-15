@@ -75,7 +75,7 @@
                                 if ($productquantity <= 0) {
                                     echo "OUT OF STOCK!";
                                 } else {
-                                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm addToCart pull-left'>Add to Cart</button>";
+                                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm addToCart pull-left'>Agregar al Carro</button>";
                                 }
 
                                 echo "</td>";

@@ -21,7 +21,7 @@
                             <div id="collapseOne" class="panel-collapse collapse">
                                 <div class="alert alert-info alert-dismissable" style="display:none;">
                                     <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
-                                    <strong>Warning!</strong> Fill up all the fields.
+                                    <strong>Advertencia!</strong> Llenar todos los campos.
                                 </div>
                                 <div class="panel-body clearfix">
                                     <form action="addReservation" method="POST" id="addReservationAdmin">
@@ -35,7 +35,7 @@
                                                 </div>
                                                 <div class="panel-body">
                                                     <select class="form-control reserveTimeSelect">
-                                                        <option value=0>Time</option>
+                                                        <option value=0>Hora</option>
                                                         <option value="10:00 AM">10:00 AM</option>
                                                         <option value="11:00 AM">11:00 AM</option>
                                                         <option value="12:00 AM">12:00 PM</option>
@@ -73,7 +73,7 @@
                                             <input type="hidden" name="reservationId" id="reservationId" value="" />
                                             <button type="submit" name="adminAddReservation" id="addReservationButton" class="btn btn-success pull-right" style="margin-top:10px;">Agregar Reserva</button>
                                             <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none; display:none;">Volver a Añadir Reserva</button>
-                                            <button type="submit" name="editadminAddReservation" class="btn btn-primary pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none;">Save Changes</button>
+                                            <button type="submit" name="editadminAddReservation" class="btn btn-primary pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none;">Guardar Cambios</button>
 
                                         </div>
 
@@ -268,19 +268,19 @@
                                 echo "<td class='vert'>";
                                 if ($date1 > $dateToday && $row['confirmed'] == "0") {
                                     echo "<p style='font-size:10px;'>Status: Pre Approval</p>";
-                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-primary btn-sm adminEditReservation pull-left' style='margin-right: 5px;'>Edit</button>";
-                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Delete</button>";
+                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-primary btn-sm adminEditReservation pull-left' style='margin-right: 5px;'>Editar</button>";
+                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
                                     echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminApproveReservation pull-right' style='margin-top: 4px;width: 100%;'>Approve</button>";
                                 } else if ($row['confirmed'] == "1") {
-                                    echo "<p style='font-size:10px;'>Status: Done</p>";
-                                    echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Delete</button>";
+                                    echo "<p style='font-size:10px;'>Status: Hecho</p>";
+                                    echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
                                 } else if ($row['confirmed'] == "2") {
-                                    echo "<p style='font-size:10px;'>Status: Pending</p>";
-                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminConfirmReservation pull-right' style='margin-top: 4px;width: 100%;margin-bottom:10px;'>Done</button>";
-                                    echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Delete</button>";
+                                    echo "<p style='font-size:10px;'>Estado: Pendiente</p>";
+                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminConfirmReservation pull-right' style='margin-top: 4px;width: 100%;margin-bottom:10px;'>Hecho</button>";
+                                    echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
                                 } else {
-                                    echo "<p style='font-size:10px;'>Status: Expired!</p>";
-                                    echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Delete!</button>";
+                                    echo "<p style='font-size:10px;'>Estado: Terminado!</p>";
+                                    echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
                                 }
 
 
@@ -420,7 +420,7 @@
                             <div class="panel-body">
                                 <p><br />
                                 Puede buscar en el orden de un usuario aquí . Sólo tienes que escribir su / su correo electrónico a la barra de búsqueda y pulse Buscar.</p>
-                                <p>Proccessed orders will be marked DONE./////</p>
+                               
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default searchOrderOfUser" type="button">Buscar</button>
@@ -736,7 +736,7 @@ Lotes de ID de pedido / Recibo #
                                                 echo "<span class='btn btn-success processOrderAdmin' style='margin-right:10px;'>Process Order</span>";
                                             }
                                             echo" <input type='hidden' name='batchOrderIdDelete' class='batchOrderIdDelete' value='" . $row['batchOrderId'] . "' >
-                <span class='btn btn-danger deleteOrderAdmin'>Delete</span>
+                <span class='btn btn-danger deleteOrderAdmin'>Borrar</span>
                       </td>";
                                             echo "</tr>";
                                         }

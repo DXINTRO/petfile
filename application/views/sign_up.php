@@ -61,7 +61,7 @@
 				    <label for="petHistory">Descripción de la Mascota</label>
 				    <textarea class="form-control" name="petHistory" id="petHistory" placeholder="descripcion" required></textarea>
 			  	</div>
-		  	</div>
+		  	
 		  <button type="submit" class="btn btn-default pull-right">REGISTRAR</button>
 		</form>
     </div>

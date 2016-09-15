@@ -216,8 +216,8 @@ Introduzca algunas letras del producto a buscar">
                                 echo "<td class='vert productPrice'>&#8369; " . $row['product_price'] . "</td>";
                                 echo "<td class='vert productType'>" . $row['product_type'] . "</td>";
                                 echo "<td class='vert'>";
-                                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editProductAdmin pull-left' style='margin-right: 5px;'>Edit</button>";
-                                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeProductAdmin pull-right'>Delete</button>";
+                                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editProductAdmin pull-left' style='margin-right: 5px;'>Editar</button>";
+                                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeProductAdmin pull-right'>Borrar</button>";
                                 echo "</td>";
                                 echo "</td>";
                                 echo "</tr>";

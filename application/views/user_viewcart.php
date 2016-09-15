@@ -4,19 +4,12 @@
             </div>
             <div class="panel panel-default" id="viewCartPage">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Detalle para Compras de Medicamentos e Insumos</div>
+                <div class="panel-heading">Detalle de Medicamentos e Insumos</div>
                 <div class="panel-body">
                   <p>Pasos</p>
                     <p>1.
-                    Revise su pedido y pulse el botón de pago .</p>
-                    <p>2. 
-                    Después de presionar SALIR, usted no será capaz de agregar / editar / borrar su pedido a menos que presione CANCELAR la orden.</p>
-                    <p>3. La recepción de prensa de impresión. ( Opcional ) Si lo hace este paso, el proceso de reclamar su pedido sería mucho más rápido .</p>
-
-
-                    <p>                    Después de reclamar su pedido . Esta página sería restaure de forma automática y le dará nuevo número de orden .</p>
-                    <p class="small">Nota</p>
-                    <p class="small">                    Si nos presente un recibo , los elementos que están en el recibo son las únicas cosas que nos PROCESO . Que permitimos un lote orden a la vez .</p>
+                    Revise su pedido y pulse el botón para Imprimir o Cancelar.</p>
+                    <p>&nbsp;</p>
 
                 </div>
 
@@ -47,8 +40,8 @@
                             echo "<input type='hidden' value='" . $row['batchOrderId'] . "' id='batchId' name='batchId'> ";
                             if ($activeOrder != "true") {
                                 echo "<td class='vert'>";
-                                echo "<button type='button' data-productId='" . $row['productObjectId'] . "' data-objectId='" . $row['orderObjectid'] . "' class='btn btn-primary btn-sm editOrder pull-left' style='margin-right: 5px;'>Edit</button>";
-                                echo "<button type='button' data-productId='" . $row['productObjectId'] . "' data-objectId='" . $row['orderObjectid'] . "' class='btn btn-danger btn-sm removeFromCart pull-left'>Remove</button>";
+                                echo "<button type='button' data-productId='" . $row['productObjectId'] . "' data-objectId='" . $row['orderObjectid'] . "' class='btn btn-primary btn-sm editOrder pull-left' style='margin-right: 5px;'>Editar</button>";
+                                echo "<button type='button' data-productId='" . $row['productObjectId'] . "' data-objectId='" . $row['orderObjectid'] . "' class='btn btn-danger btn-sm removeFromCart pull-left'>Borrar</button>";
                                 echo "</td>";
                             }
                             echo "</tr>";
@@ -82,11 +75,11 @@
                         <?php
                         if (count($list_of_orders) > 0) {
                             if ($activeOrder == "true") {
-                                echo "<button type='button' class='btn btn-success btn-sm pull-left' id='payOrder' style='margin-right:10px;'>Pay Order</button>";
-                                echo "<button type='submit' class='btn btn-warning btn-sm pull-left' style='margin-right:10px;'>Print Order Slip</button>";
-                                echo "<button type='button' class='btn btn-info btn-sm pull-left' id='cancelOrder'>Cancel Order</button>";
+                                //echo "<button type='button' class='btn btn-success btn-sm pull-left' id='payOrder' style='margin-right:10px;'>Pagar</button>";
+                                echo "<button type='submit' class='btn btn-warning btn-sm pull-left' style='margin-right:10px;'>Imprimir Orden</button>";
+                                echo "<button type='button' class='btn btn-info btn-sm pull-left' id='cancelOrder'>Cancelar Orden</button>";
                             } else {
-                                echo "<button type='button' class='btn btn-info btn-sm pull-left' id='checkOut'>Checkout</button>";
+                                echo "<button type='button' class='btn btn-info btn-sm pull-left' id='checkOut'>Revisar</button>";
                             }
                         }
                         ?>
