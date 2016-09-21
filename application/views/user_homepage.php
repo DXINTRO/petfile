@@ -52,7 +52,7 @@
                             echo "<tr>";
                             echo "<td class='vert serviceTitle'>" . $row['service_name'] . "</td>";
                             echo "<td class='vert serviceGroup'>" . $row['group'] . "</td>";
-                            echo "<td class='vert servicePrice rightalignPadding'>&#8369; " . $row['price'] . "</td>";
+                            echo "<td class='vert servicePrice rightalignPadding'>$ " . $row['price'] . "</td>";
                             if ($activeReservation == "false") {
                                 echo "<td class='vert'><button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm addReservation'>Agregar Reserva</button></td>";
                             }

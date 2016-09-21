@@ -48,7 +48,7 @@
                 echo'<td class="center">' . $row['reserveDate'] . ' ' . $row['reserveTime'] . '</td>';
                 echo'<td class="center">' . $row['service_name'] . '</td>';
                 echo'<td>' . $row['last_name'] . ', ' . $row['first_name'] . '</td>';
-                echo'<td style="text-align:right;">P ' . $row['price'] . '</td>';
+                echo'<td style="text-align:right;">$ ' . $row['price'] . '</td>';
                 echo'</tr>';
             }
             ?>

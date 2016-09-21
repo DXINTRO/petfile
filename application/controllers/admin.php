@@ -411,7 +411,7 @@ class Admin extends CI_Controller {
 											SELECT SUM(price) as gross, ur.reserveDateTime as saleDate from users_reservation ur INNER JOIN services serv ON serv.objectId = ur.serviceId WHERE ur.confirmed=1 GROUP BY day(ur.reserveDateTime)) as allSales 
 											WHERE allSales.saleDate >= '" . $reportDateFrom . "' AND allSales.saleDate <='" . $reportDateto . "' 
 											GROUP BY day(allSales.saleDate);");
-            } else if ($reportMode == "Weeckly") {
+            } else if ($reportMode == "Weekly") {
                 $query = $this->db->query("SELECT SUM(allSales.gross) as saleGross,week(allSales.saleDate) as saleDate, allSales.saleDate as rawSaleDate 
 											from (
 											SELECT SUM(totalPrice)as gross,uo.orderDate as saleDate FROM users_order uo 

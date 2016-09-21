@@ -58,7 +58,7 @@
                     }
                     echo'<td class="center">Status : ' . $status . '<br/>' . $row['service_name'] . '</td>';
                     echo'<td>' . $row['last_name'] . ', ' . $row['first_name'] . '</td>';
-                    echo'<td style="text-align:right;">P ' . number_format($row['price'], 2) . '</td>';
+                    echo'<td style="text-align:right;">$ ' . number_format($row['price'], 2) . '</td>';
                     echo'</tr>';
                 }
                 ?>

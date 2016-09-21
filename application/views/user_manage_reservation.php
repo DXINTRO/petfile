@@ -25,7 +25,7 @@
                         <?php
                         foreach ($list_of_reservations as $row) {
 
-                            date_default_timezone_set('Asia/Manila');
+                            date_default_timezone_set('America/Santiago');
                             $mydate = date('m/d/Y');
 
 
@@ -44,14 +44,14 @@
                                 echo "<td class='vert servicePrice rightalignPadding'>&#8369; " . $row['price'] . "</td>";
                                 echo "<td class='vert serviceDate'>" . $row['reserveDate'] . "</td>";
                                 echo "<td class='vert serviceTime'>" . $row['reserveTime'] . " -</td>";
-                                echo "<td class='vert'>DONE";
+                                echo "<td class='vert'>Hecho";
                                 echo "</td>";
                                 echo "</tr>";
                             } else {
 
                                 echo "<tr>";
                                 echo "<td class='vert serviceTitle'>" . $row['service_name'] . "</td>";
-                                echo "<td class='vert servicePrice rightalignPadding'>&#8369; " . $row['price'] . "</td>";
+                                echo "<td class='vert servicePrice rightalignPadding'>$ " . $row['price'] . "</td>";
                                 echo "<td class='vert serviceDate'>" . $row['reserveDate'] . "</td>";
                                 echo "<td class='vert serviceTime'>" . $row['reserveTime'] . "</td>";
                                 echo "<input type='hidden' name='doctorsId' class='doctorsId' value='" . $row['doctorsId'] . "'>";

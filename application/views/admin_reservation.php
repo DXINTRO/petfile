@@ -287,7 +287,7 @@
                                 echo "<td class='vert serviceDate'>" . $row['reserveDate'] . " <br/> " . "</td>";
                                 echo "<td class='vert serviceDate'>" . " " . date('m/d/Y', strtotime($row['timestamp'])) . "</td>";
                                 echo "<td class='vert serviceTime' >" . $row['reserveTime'] . "</td>";
-                                echo "<td class='vert servicePrice rightalignPadding'>&#8369; " . $row['price'] . "</td>";
+                                echo "<td class='vert servicePrice rightalignPadding'> $ " . $row['price'] . "</td>";
                                 echo "<td class='vert'>";
                                 if ($date1 > $dateToday && $row['confirmed'] == "0") {
                                     echo "<p style='font-size:10px;'>Status: Pre Approval</p>";

@@ -2,7 +2,8 @@
         <ul class="nav nav-pills pull-right adminNavbar">
  <?php
  	if($userLevel ==4){
-         	echo'<li class="navReserveManage"><a href="'.base_url().'admin/manageReservation">Reservas</a></li>';
+         	
+			echo'<li class="navReserveManage"><a href="'.base_url().'admin/manageReservation">Reservas</a></li>';
 			echo'<li><a href="'.base_url().'user/logout">Logout</a></li>';
         
  	}else if ($userLevel ==3) {

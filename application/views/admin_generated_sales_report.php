@@ -18,7 +18,7 @@
 	</table>
 	
 	
-<h1>Reporte de Ventas (<?php echo $reportMode; ?>)</h1></center>
+<h1>Reporte de Ventas </h1></center>
 <p>
 	Desde :<?php echo $reportDateFrom; ?>
 </p>
@@ -39,11 +39,11 @@
 <td class="center" colspan="4">
 	<?php
 		if($reportMode=='Daily'){
-			echo 'Date';		
+			echo 'Diario';		
 		}else if($reportMode=='Weekly'){
-			echo 'Week';
+			echo 'Semanal';
 		}else if($reportMode=='Monthly'){
-			echo 'Monthly';
+			echo 'Mensual';
 		}
 	?>
 	
