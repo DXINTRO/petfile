@@ -37,22 +37,22 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="">Service Name</th>
-                                            <th style="">Group</th>
-                                            <th style="">Price</th>
+                                            <th style="">Nombre del Servicio</th>
+                                            <th style="">Grupo</th>
+                                            <th style="">Precio</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                     <input type="hidden" name="serviceObjectIdUpdate" value="" id="serviceObjectIdUpdate">
-                                    <td><input type="text" class="form-control" name="serviceNameUpdate" id="serviceNameUpdate" placeholder="Enter Service Name" required></td>
-                                    <td><input type="text" class="form-control" name="groupNameUpdate" id="groupNameUpdate" placeholder="Enter Group Name" required></td>
-                                    <td><input type="number" step="any" class="form-control" name="priceBoxUpdate" id="priceBoxUpdate" min="0" placeholder="Enter Price" required></td>    
+                                    <td><input type="text" class="form-control" name="serviceNameUpdate" id="serviceNameUpdate" placeholder="Ingrese nombre del servicio" required></td>
+                                    <td><input type="text" class="form-control" name="groupNameUpdate" id="groupNameUpdate" placeholder="Ingrese grupo" required></td>
+                                    <td><input type="number" step="any" class="form-control" name="priceBoxUpdate" id="priceBoxUpdate" min="0" placeholder="Ingrese precio" required></td>    
                                     </tr>
                                     </tbody>
                                 </table>
-                                <button type="submit" name="updateservicebtn" class="btn btn-primary pull-right">ee</button>
-                                <button type="button" data-objectid="1" name="backtoadd" class="btn btn-success backToAddService pull-right" style="margin-right:10px;">Back to Add Service</button>
+                                <button type="submit" name="updateservicebtn" class="btn btn-primary pull-right">Ingresar</button>
+                                <button type="button" data-objectid="1" name="backtoadd" class="btn btn-success backToAddService pull-right" style="margin-right:10px;">Volver</button>
 
                             </form>
 
@@ -63,7 +63,7 @@
                         <span class="input-group-btn">
                             <button class="btn btn-default searchServicesBtn" type="button">Buscar</button>
                         </span>
-                        <input type="text" class="form-control searchServiceTextAdmin" placeholder="Enter keywords product name">
+                        <input type="text" class="form-control searchServiceTextAdmin" placeholder="Ingresar texto del servicio">
                     </div>
                 </div>
 

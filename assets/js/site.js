@@ -80,7 +80,7 @@ $(document).ready(function () {
 
         $("body").on("click", ".deleteReservation", function (e) {
 
-            $("#confirmationModal h5.message").text("Are you sure you want to delete " + $(this).parent().parent().children('.serviceTitle').text() + "?")
+            $("#confirmationModal h5.message").text("Esta seguro de eliminar? " + $(this).parent().parent().children('.serviceTitle').text() + "?")
             $("#confirmationModal .confirmAction").attr("data-confirm", "confirmDelete");
             $("#confirmationModal .confirmAction").attr("data-objectId", $(this).attr("data-objectId"));
             $("#confirmationModal").modal();
@@ -104,7 +104,7 @@ $(document).ready(function () {
                 success: function (data, status, jqXHR) {
                     reloadUserManageReservationTable();
                     $('#confirmationModal').modal('hide');
-                    $(".reservationAlert strong").text("Delete Success!");
+                    $(".reservationAlert strong").text("Eliminado!");
                     $(".reservationAlert").show();
                 }
             });
@@ -149,7 +149,7 @@ $(document).ready(function () {
                     },
                     statusCode: {
                         500: function () {
-                            alert("Date and Time is already taken for this service. Please choose another date and time.");
+                            alert("Esta fecha y hora ya está reservada. Favor seleccione otra.");
                         }
                     }
 
@@ -200,7 +200,7 @@ $(document).ready(function () {
                 url: "admin/checkEmailExist",
                 success: function (data, status, jQxr) {
                     console.log("ee");
-                    $("#inputEmail").val("Email already exist!");
+                    $("#inputEmail").val("Email ya existe!");
                 },
                 statusCode: {
                     400: function () {
@@ -248,10 +248,10 @@ $(document).ready(function () {
 
 
             if ($orderQuantityInput.val() == "" || (parseInt($orderQuantityInput.val()) > productQuantity)) {
-                alert("Stock isnt Enough!");
+                alert("El Stock no es Suficiente!");
 
             } else if ($orderQuantityInput.val() > 50) {
-                alert("The max order is 50");
+                alert("La orden máxima es de 50");
                 $orderQuantityInput.val("50");
             } else if ($orderQuantityInput.val() == "" || (parseInt($orderQuantityInput.val()) > productQuantity) || parseInt($orderQuantityInput.val()) < 0) {
 
@@ -282,7 +282,7 @@ $(document).ready(function () {
                     },
                     url: 'addOrder',
                     success: function (data, status, jqXHR) {
-                        $('.orderSuccess strong').text("Added order successfuly! You may view it in view cart page.")
+                        $('.orderSuccess strong').text("Orden agregada Satisfactoriamente! Puede verlo en el Carro de Compras.")
                         $('.orderSuccess').show();
                         $('#confirmationModal').modal('hide');
                         $.ajax({
@@ -294,7 +294,7 @@ $(document).ready(function () {
                     }, statusCode: {
                         500: function () {
                             console.log("ettt");
-                            $('#confirmationModal .modal-footer').prepend(" <strong>Warning!</strong> Invalid Request, refresh the page to get the latest quantity count.");
+                            $('#confirmationModal .modal-footer').prepend(" <strong>Advertencia!</strong> Requerimiento inválido, refresh the page to get the latest quantity count.");
                         }
                     }
                 });
@@ -311,20 +311,20 @@ $(document).ready(function () {
             $("#serviceObjectIdUpdate").val($(this).attr("data-objectid"));
             $("#addServiceAdmin").hide();
             $("#updateServiceAdmin").show();
-            $(".panelAddEditService > .panel-heading .panel-title").text("Update Service");
+            $(".panelAddEditService > .panel-heading .panel-title").text("Actualizar Servicios");
 
         });
 
         $('body').on('click', '.backToAddService', function (e) {
             $("#updateServiceAdmin").hide();
             $("#addServiceAdmin").show();
-            $(".panelAddEditService > .panel-heading .panel-title").text("Add a User");
+            $(".panelAddEditService > .panel-heading .panel-title").text("Agregar Usuario");
         });
 
         $('body').on('click', '.removeServiceFromAdmin', function (e) {
             $('#confirmationModal .confirmAction').attr("data-objectid", $(this).attr("data-objectid"));
             $('#confirmationModal .confirmAction').attr("data-confirm", "confirmDeleteAdmin");
-            $('#confirmationModal .modal-body').text(" Are you sure you want to delete this item?");
+            $('#confirmationModal .modal-body').text(" Esta seguro de eliminar?");
             $('#confirmationModal').modal();
         });
         $('body').on('click', '.confirmAction', function () {
@@ -336,7 +336,7 @@ $(document).ready(function () {
                     'serviceObjectId': $(this).attr("data-objectid")
                 },
                 success: function (data, status, jqXHR) {
-                    $(".addServiceSuccess strong").text("Successfuly removed Service!");
+                    $(".addServiceSuccess strong").text("Servicio eliminado Satisfactoriamente!");
                     $(".addServiceSuccess").show();
                     $('#confirmationModal').modal('hide');
                     $.ajax({
@@ -389,9 +389,9 @@ $(document).ready(function () {
                 // });
             } else {
                 $("#generateUserReportcollapse .alert-danger").show();
-                $("#generateUserReportcollapse .alert-danger strong").text("Please choose a proper dates!")
+                $("#generateUserReportcollapse .alert-danger strong").text("Favor seleccione una fecha apropiada!");
             }
-        })
+        });
 
 
         $('body').on('change', '#reservationUserEmail', function (event) {
@@ -407,7 +407,7 @@ $(document).ready(function () {
                 },
                 statusCode: {
                     400: function () {
-                        $("#reservationUserEmail").val("Email doesnt exist!");
+                        $("#reservationUserEmail").val("Email no existe!");
                     }
                 }
             });
@@ -418,7 +418,7 @@ $(document).ready(function () {
             $('#saveChangesReservation').hide();
             $('#backToAddReservation').hide();
             $('#addReservationButton').show();
-            $('#addOrEditReservation .panel-title a span:last-child').text("Add Reservation");
+            $('#addOrEditReservation .panel-title a span:last-child').text("Agregar Reserva");
             $("#addReservationAdmin").attr("action", "addReservation");
             $("#reservationUserEmail").val("");
             $(".adminServicesReservation").prop('selectedIndex', 0).trigger("change");
@@ -433,7 +433,7 @@ $(document).ready(function () {
             $('#saveChangesReservation').show();
             $('#backToAddReservation').show();
             $('#addReservationButton').hide();
-            $('#addOrEditReservation .panel-title a span:last-child').text("Edit Reservation");
+            $('#addOrEditReservation .panel-title a span:last-child').text("Editar Reserva");
             $("#addReservationAdmin").attr("action", "editReservation");
             $("#reservationId").val($(this).attr("data-objectId"));
             var $row = $(this).closest("tr");
@@ -460,7 +460,7 @@ $(document).ready(function () {
 
 
         $('body').on('click', '.adminDeleteReservation', function (event) {
-            $("#confirmationModal h5.message").text("Are you sure you want to delete " + $(this).parent().parent().children('.serviceTitle').text() + "?")
+            $("#confirmationModal h5.message").text("Esta seguro que desea eliminar? " + $(this).parent().parent().children('.serviceTitle').text() + "?");
             $("#confirmationModal .confirmAction").attr("data-confirm", "confirmDelete");
             $("#confirmationModal .confirmAction").attr("data-objectId", $(this).attr("data-objectId"));
             $("#confirmationModal").modal();
@@ -478,14 +478,14 @@ $(document).ready(function () {
                     url: "deleteAdminReservation",
                     success: function (data, status, jQxr) {
                         $("#confirmationModal").modal('hide');
-                        $(".addReservationSuccess strong").text("Successfuly removed a reservation!");
+                        $(".addReservationSuccess strong").text("Reserva eliminada Satisfacoriamente!");
                         $(".addReservationSuccess").show();
                         $.ajax({
                             url: document.URL,
                             success: function (data) {
                                 $("#adminReservationTable").html($(data).find("#adminReservationTable").html());
                             }
-                        })
+                        });
                     },
                     statusCode: {
                         400: function () {
@@ -500,10 +500,10 @@ $(document).ready(function () {
         $("#addReservationAdmin").validate({
             submitHandler: function (form) {
                 if ($(".reserveDate").text() == "" || $(".reserveDate label").length) {
-                    $(".reserveDate").html('<label for="reservationUserEmail" class="error">This field is required.</label>');
+                    $(".reserveDate").html('<label for="reservationUserEmail" class="error">Este campo es requerido.</label>');
                 }
                 if ($(".reserveTime").text() == "" || $(".reserveTime label").length) {
-                    $(".reserveTime").html('<label for="reservationUserEmail" class="error">This field is required.</label>');
+                    $(".reserveTime").html('<label for="reservationUserEmail" class="error">Este campo es requerido.</label>');
                 }
                 if ($(".reserveDate label").length == 0 && $(".reserveTime label").length == 0) {
                     var doctorsId = parseInt($(".reserveDoctorSelect option:selected").val());
@@ -532,11 +532,11 @@ $(document).ready(function () {
                                 },
                                 success: function (data, status, jqXHR) {
                                     if ($('#saveChangesReservation:visible').length) {
-                                        $(".addReservationSuccess strong").text("Successfuly updated reservation!");
+                                        $(".addReservationSuccess strong").text("Reserva actualizada!");
                                         $('#saveChangesReservation').hide();
                                         $('#backToAddReservation').hide();
                                         $('#addReservationButton').show();
-                                        $('#addOrEditReservation .panel-title a span:last-child').text("Add Reservation");
+                                        $('#addOrEditReservation .panel-title a span:last-child').text("Agregar Reserva");
                                         $("#addReservationAdmin").attr("action", "addReservation");
                                         $("#reservationUserEmail").val("");
                                         $(".adminServicesReservation").prop('selectedIndex', 0).trigger("change");
@@ -545,7 +545,7 @@ $(document).ready(function () {
                                         $('#datepicker').datepicker('setDate');
                                         $('.reserveTimeSelect').prop('selectedIndex', 0);
                                     } else {
-                                        $(".addReservationSuccess strong").text("Successfuly added a reservation!");
+                                        $(".addReservationSuccess strong").text("Reserva agregada exitósamente!");
                                     }
                                     $('#collapseOne').collapse('hide');
                                     $(".adminServicesReservation").prop('selectedIndex', 0).trigger("change");
@@ -560,7 +560,7 @@ $(document).ready(function () {
                                         success: function (data) {
                                             $("#adminReservationTable").html($(data).find("#adminReservationTable").html());
                                         }
-                                    })
+                                    });
                                 },
                                 error: function (data, status, jqXHR) {
 
@@ -575,7 +575,7 @@ $(document).ready(function () {
                         },
                         statusCode: {
                             500: function () {
-                                alert("Date and Time is already taken for this service. Please choose another date and time.");
+                                alert("La fecha y hora ya esta reservada. Favor seleccione otra.");
                             }
                         }
                     });
@@ -597,9 +597,9 @@ $(document).ready(function () {
                 },
                 success: function (data, status, jqXHR) {
                     $('#confirmationModal .confirmAction').attr("data-formSubmit", "generateOrderReceipt");
-                    $('#confirmationModal .confirmAction').text("Process Order and Print Receipt");
+                    $('#confirmationModal .confirmAction').text("Procesar Orden e imprimir el recibo");
                     $('#confirmationModal .modal-body').html(data);
-                    $('#confirmationModal .modal-title').text('Process Order')
+                    $('#confirmationModal .modal-title').text('Procesar Orden');
                     $('#confirmationModal').modal();
                 }
             });
@@ -607,7 +607,6 @@ $(document).ready(function () {
         });
 
         $('body').on('click', '.deleteOrderAdmin', function (e) {
-            console.log("sss");
             var $row = $(this).closest('tr');
             $.ajax({
                 method: "POST",
@@ -617,7 +616,7 @@ $(document).ready(function () {
                     usersId: $row.find('input.usersId').val()
                 },
                 success: function (data, status, jqXHR) {
-                    $(".addOrderSuccess strong").text("Delete Succes!");
+                    $(".addOrderSuccess strong").text("Eliminado!");
                     $(".addOrderSuccess").show();
                     $.ajax({
                         method: "POST",
@@ -738,26 +737,26 @@ $(document).ready(function () {
             $("#userObjectIdUpdate").val($(this).attr("data-objectid"));
             $("#addUserAdmin").hide();
             $("#updateUser").show();
-            $(".panelAddEditUser > .panel-heading .panel-title").text("Update User");
+            $(".panelAddEditUser > .panel-heading .panel-title").text("Actualizar Usuario");
         });
         $('body').on('click', '.backToAddUser', function (e) {
             $("#updateUser").hide();
             $("#addUserAdmin").show();
-            $(".panelAddEditUser > .panel-heading .panel-title").text("Add a User");
+            $(".panelAddEditUser > .panel-heading .panel-title").text("Agregar Usuario");
 
         });
 
         $('body').on('click', '.removeUserFromAdmin', function (e) {
             $('#confirmationModal .confirmAction').attr("data-objectid", $(this).attr("data-objectid"));
             $('#confirmationModal .confirmAction').attr("data-confirm", "confirmDeleteAdmin");
-            $('#confirmationModal .modal-body').text(" Are you sure you want to delete this item?");
+            $('#confirmationModal .modal-body').text(" Está seguro de eliminar?");
             $('#confirmationModal').modal();
         });
 
         $('body').on('click', '.generatenewPassword', function (e) {
             $('#confirmationModal .confirmAction').attr("data-objectid", $("#userObjectIdUpdate").val());
             $('#confirmationModal .confirmAction').attr("data-confirm", "confirmGenerateNewPassword");
-            $('#confirmationModal .modal-body').html("<p>Are you sure you want to generate new password for this user?</p><p>Your new password would be: <span id='newGeneratedPassword' style='color:red;font-weight:bold;'>" + Math.random().toString(36).substring(10) + "</span></p>");
+            $('#confirmationModal .modal-body').html("<p>Esta seguro de crear una nueva contraseña?</p><p>Tu nueva contraseña podría ser: <span id='newGeneratedPassword' style='color:red;font-weight:bold;'>" + Math.random().toString(36).substring(10) + "</span></p>");
 
             $('#confirmationModal').modal();
         });
@@ -791,7 +790,7 @@ $(document).ready(function () {
                         'inputPassword': $('#newGeneratedPassword').text()
                     },
                     success: function (data, status, jqXHR) {
-                        $(".addUserSuccess strong").text("Successfuly reset password!");
+                        $(".addUserSuccess strong").text("La contraseña ha sido cambiada Exitósamente!");
                         $(".addUserSuccess").show();
                         $('#confirmationModal').modal('hide');
 
@@ -812,14 +811,14 @@ $(document).ready(function () {
                     url: $("#addUserAdmin").attr("action"),
                     data: $("#addUserAdmin").serialize(),
                     success: function (data, status, jqXHR) {
-                        $(".addUserSuccess strong").text("Successfuly added a user!");
+                        $(".addUserSuccess strong").text("Usuario agregado exitósamente!");
                         $(".addUserSuccess").show();
                         $.ajax({
                             url: document.URL,
                             success: function (data) {
                                 $("#adminUsersTable").html($(data).find("#adminUsersTable").html());
                             }
-                        })
+                        });
                     },
                     error: function (data, status, jqXHR) {
 
@@ -839,14 +838,14 @@ $(document).ready(function () {
                     url: $("#updateUser").attr("action"),
                     data: $("#updateUser").serialize(),
                     success: function (data, status, jqXHR) {
-                        $(".addUserSuccess strong").text("Successfuly updated user!")
+                        $(".addUserSuccess strong").text("Usuario actualizado!");
                         $(".addUserSuccess").show();
                         $.ajax({
                             url: document.URL,
                             success: function (data) {
                                 $("#adminUsersTable").html($(data).find("#adminUsersTable").html());
                             }
-                        })
+                        });
                     },
                     error: function (data, status, jqXHR) {
 
@@ -878,12 +877,12 @@ $(document).ready(function () {
             $("#confirmationModal .confirmAction").attr("data-objectId", $(this).attr("data-objectId"));
             $("#confirmationModal .confirmAction").attr("data-productId", $(this).attr("data-productId"));
             $("#confirmationModal .editOrderBody").show();
-        })
+        });
 
         $('body').on('change', '#confirmationModal .detailProductAmount input', function () {
             $("#confirmationModal .detailTotalPrice .value").text(parseFloat($("#confirmationModal .detailProductAmount input").val()) * parseFloat($("#confirmationModal .detailPrice .value").text()));
             $("#confirmationModal input[name='detailTotalPrice']").val($("#confirmationModal .detailTotalPrice .value").text());
-        })
+        });
 
         $('body').on('click', '#checkOut', function (e) {
             $.ajax({
@@ -910,25 +909,25 @@ $(document).ready(function () {
             $("#confirmationModal #myModalLabel").text("Confirm Remove");
             $("#confirmationModal").modal();
             $("#confirmationModal .detailProductAmount input").val($orderRow.children(".orderAmount").text());
-            $("#confirmationModal .removeFromCartBody h4").text("Are you sure you want to delete this order?");
+            $("#confirmationModal .removeFromCartBody h4").text("Está seguro de borrar esta Orden?");
             $("#confirmationModal .removeFromCartBody").show();
             $("#confirmationModal .confirmAction").attr("data-objectId", $(this).attr("data-objectId"));
             $("#confirmationModal .confirmAction").attr("data-productId", $(this).attr("data-productId"));
             $("#confirmationModal .confirmAction").attr("data-confirm", "confirmDeleteOrder");
             $("#confirmationModal .confirmAction").text("Yes");
-        })
+        });
 
         $('body').on('click', '#payOrder', function () {
-            $("#confirmationModal #myModalLabel").text("Pay Order");
+            $("#confirmationModal #myModalLabel").text("Pagar Orden");
             $("#confirmationModal").modal();
             $("#confirmationModal .confirmAction").attr("data-confirm", "confirmPay");
             $("#confirmationModal .payOrderBody").show();
-        })
+        });
 
         $('#confirmationModal').on('hidden.bs.modal', function () {
             $("#confirmationModal .removeFromCartBody").hide();
             $("#confirmationModal .editOrderBody").hide();
-        })
+        });
 
         $('body').on('click', '.confirmAction', function () {
             var $this = $(this);
@@ -945,7 +944,7 @@ $(document).ready(function () {
                         'incremental': parseFloat($("#confirmationModal input[name='oldValueAmount']").val()) - parseFloat($("#confirmationModal .detailProductAmount input").val())
                     },
                     success: function (data, status, jqXHR) {
-                        $('.cartSuccess strong').text("Update successful!");
+                        $('.cartSuccess strong').text("Actualizado!!");
                         $('.cartSuccess').show();
                         $.ajax({
                             url: document.URL,
@@ -953,9 +952,9 @@ $(document).ready(function () {
                                 $("#viewCartPage").html($(data).find("#viewCartPage").html());
                                 $("#confirmationModal").modal('hide');
                             }
-                        })
+                        });
                     }
-                })
+                });
             } else if ($this.attr("data-confirm") == "confirmDeleteOrder") {
                 $.ajax({
                     type: "POST",
@@ -967,7 +966,7 @@ $(document).ready(function () {
                         'productId': $this.attr("data-productId")
                     },
                     success: function (data, status, jqXHR) {
-                        $('.cartSuccess strong').text("Delete successful!");
+                        $('.cartSuccess strong').text("Eliminado exitósamente!");
                         $('.cartSuccess').show();
                         $.ajax({
                             url: document.URL,
@@ -975,7 +974,7 @@ $(document).ready(function () {
                                 $("#viewCartPage").html($(data).find("#viewCartPage").html());
                                 $("#confirmationModal").modal('hide');
                             }
-                        })
+                        });
                     }
                 });
             } else if ($this.attr("data-confirm") == "confirmPay") {
@@ -989,7 +988,7 @@ $(document).ready(function () {
                         'trackingNo': $("#trackingNo").val()
                     },
                     success: function (data, status, jqXHR) {
-                        $('.cartSuccess strong').text("Payment Details sent to the admin for confirmation.");
+                        $('.cartSuccess strong').text("Los detalles del Pago se enviaron al Admin para su confirmación.");
                         $('.cartSuccess').show();
                         $.ajax({
                             url: document.URL,
@@ -997,7 +996,7 @@ $(document).ready(function () {
                                 $("#viewCartPage").html($(data).find("#viewCartPage").html());
                                 $("#confirmationModal").modal('hide');
                             }
-                        })
+                        });
                     }
                 });
             }

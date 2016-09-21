@@ -265,12 +265,12 @@
         <table class="table table-hover" id="adminUsersTable">
             <thead>
                 <tr>
-                    <th style="width:270px;">Email</th>
+                    <th style="width:210px;">Email</th>
                     <th>Usuario</th>
                     <th style="">Nombre</th>
                     <th style="">Apellido</th>
                     <th style="">Nivel de Usuario</th>
-                    <th style="width:130px;"></th>
+                    <th style="width:150px;"></th>
                 </tr>
             </thead>
             <tbody>

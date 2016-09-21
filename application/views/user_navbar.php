@@ -8,5 +8,5 @@
        <!-- <li class="navEditProfile"><a href="#">Edit Profile</a></li> --> 
         <li><a href="<?php echo base_url(); ?>user/logout">Cerrar Sesión</a></li>
     </ul>
-    <h3 class="text-muted">...</h3>
+    <h3 class="text-muted">Usuario</h3>
 </div>

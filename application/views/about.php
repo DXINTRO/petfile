@@ -4,7 +4,7 @@
 
 <!-- Example row of columns -->
 <div class="row">
-    <div style="text-align:justify;">
+    <div style="text-align:CENTER;">
       <h3>Mision      </h3>
       <p>Brindar atención medica veterinaria de excelencia  y de calidad, basada en la satisfacción de las exigencias de nuestros clientes,  a  través del respeto hacia el bienestar  y la vida de los animales de compañía. Entregando una atención oportuna, humana,  empática y siempre velando por curar la enfermedad, paliar el dolor y evitar la  muerte dentro de las reales y particulares condiciones de cada paciente</p>
       <h3>Vision</h3>
