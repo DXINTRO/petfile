@@ -1,6 +1,6 @@
 <div class="alert alert-success alert-dismissable addSuccess" style="display:none;">
     <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
-    <strong>Successfully added Reservation. You may view it in manage reservation page.<strong>
+    <strong>Reserva agregada Exitosamente!!.<strong>
             </div>
             <div class="panel panel-default" id="userReserve">
                 <!-- Default panel contents -->

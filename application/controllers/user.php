@@ -106,7 +106,7 @@ class User extends CI_Controller {
                                             `type`)
                                             VALUES
                                             (NULL,
-                                            '" . $_SERVER['REMOTE_ADDR'] . " logged in. <br/> Email :" . $row->email . "',
+                                            '" . $_SERVER['REMOTE_ADDR'] . " conectado <br/> Email :" . $row->email . "',
                                             NULL,
                                             'LOG IN'
                                             );
@@ -169,7 +169,7 @@ class User extends CI_Controller {
 
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-            $reserveDateTime = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+            $reserveDateTime = date('d-m-y H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
             $serviceId = $this->input->post("serviceId");
             $userId = $this->session->userdata('user_objectId');
             $doctorsId = $this->input->post("doctorsId");

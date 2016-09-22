@@ -1,7 +1,7 @@
 <div class="jumbotron" id="about">
 
     <h2>&nbsp;</h2>
-    <table width="520" height="88" align="center">
+    <table width="550" height="90" align="center">
         <tr>
             <td width="112"><h3>EMAIL</h3></td> <td width="20"><h3>&nbsp;</h3></td>
             <td width="372">clinicamorita@petfile.cl</td>

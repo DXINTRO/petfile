@@ -9,7 +9,7 @@
                 <tr>
                     <td><img style="width:100px;" src="<?php echo base_url(); ?>assets/images/logo.jpg"></td>
                     <td style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
-                    Avenida Simon Bolívar #3356, Maipu, Santiago</td>
+                    Avenida Simon Bolivar #3356, Maipu, Santiago</td>
                 </tr>
             </tbody>
         </table>
@@ -47,7 +47,7 @@
                 echo'<tr class="list_row">';
                 echo'<td class="center">' . $row['reserveDate'] . ' ' . $row['reserveTime'] . '</td>';
                 echo'<td class="center">' . $row['service_name'] . '</td>';
-                echo'<td>' . $row['last_name'] . ', ' . $row['first_name'] . '</td>';
+                echo'<td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>';
                 echo'<td style="text-align:right;">$ ' . $row['price'] . '</td>';
                 echo'</tr>';
             }

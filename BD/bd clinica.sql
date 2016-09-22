@@ -39,7 +39,7 @@ CREATE TABLE `audit_trail` (
 
 LOCK TABLES `audit_trail` WRITE;
 /*!40000 ALTER TABLE `audit_trail` DISABLE KEYS */;
-INSERT INTO `audit_trail` VALUES (21,'127.0.0.1 logged in. <br/> Email :superadmin@admin.com','2014-01-12 05:23:06','LOG IN'),(22,'testing2@test.com logged in. <br/> IP ADDRESS :127.0.0.1','2014-01-12 10:34:58','LOG IN'),(23,'127.0.0.1 logged in. <br/> Email :test@test.com','2014-01-16 22:25:56','LOG IN'),(24,'127.0.0.1 logged in. <br/> Email :superadmin@admin.com','2014-01-16 22:30:38','LOG IN'),(25,'::1 logged in. <br/> Email :superadmin@admin.com','2014-02-25 07:49:51','LOG IN');
+INSERT INTO `audit_trail` VALUES (21,'127.0.0.1 logged in. <br/> Email :superadmin@admin.com','2016-08-14 05:23:06','LOG IN'),(22,'testing2@test.com logged in. <br/> IP ADDRESS :127.0.0.1','2016-09-12 10:34:58','LOG IN'),(23,'127.0.0.1 logged in. <br/> Email :test@test.com','2016-08-16 22:25:56','LOG IN'),(24,'127.0.0.1 logged in. <br/> Email :superadmin@admin.com','2016-08-16 22:30:38','LOG IN'),(25,'127.0.0.1 logged in. <br/> Email :superadmin@admin.com','2016-08-25 07:49:51','LOG IN');
 /*!40000 ALTER TABLE `audit_trail` ENABLE KEYS */;
 UNLOCK TABLES;
 

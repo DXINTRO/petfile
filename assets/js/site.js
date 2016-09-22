@@ -682,9 +682,9 @@ $(document).ready(function () {
                 // });
             } else {
                 $("#generateUserReportcollapse .alert-danger").show();
-                $("#generateUserReportcollapse .alert-danger strong").text("Please choose a proper dates!")
+                $("#generateUserReportcollapse .alert-danger strong").text("Favor seleccione una fecha válida!");
             }
-        })
+        });
 
     } else if ($("#adminAddUser").length) {
 
@@ -714,9 +714,9 @@ $(document).ready(function () {
                 // });
             } else {
                 $("#generateUserReportcollapse .alert-danger").show();
-                $("#generateUserReportcollapse .alert-danger strong").text("Please choose a proper dates!")
+                $("#generateUserReportcollapse .alert-danger strong").text("Favor seleccione una fecha válida!");
             }
-        })
+        });
 
 
         $('body').on('change', '#userLevelAdd', function (e) {
