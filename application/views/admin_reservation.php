@@ -28,13 +28,13 @@
                                         <div class="col-md-12">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">Doctor</h3>
+                                                    <h3 class="panel-title">(1)  Seleccione un Doctor</h3>
                                                 </div>
                                                 <div class="panel-body">
 
                                                     <select class="form-control reserveDoctorSelect" name="doctorsId">
 
-                                                        <option>Seleccione un Doctor</option>
+                                                        <option>Doctores ... </option>
 
                                                         <?php
                                                         foreach ($list_of_doctors as $row) {
@@ -51,7 +51,7 @@
                                         <div class="col-md-6">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">Hora de Reserva</h3>
+                                                    <h3 class="panel-title">(2)  Hora de Reserva</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <select class="form-control reserveTimeSelect">
@@ -72,7 +72,7 @@
                                             </div>
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">Detalle de la Reserva</h3>
+                                                    <h3 class="panel-title">(3)  Detalle de la Reserva</h3>
                                                 </div>
                                                 <div class="panel-body" style="padding: 5px 15px;">
 
@@ -92,7 +92,7 @@
                                             </div>
                                             <input type="hidden" name="reservationId" id="reservationId" value="" />
                                             <button type="submit" name="adminAddReservation" id="addReservationButton" class="btn btn-success pull-right" style="margin-top:10px;">Agregar Reserva</button>
-                                            <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none; display:none;">Back Add Reservation</button>
+                                            <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none; display:none;">Regresar</button>
                                             <button type="submit" name="editadminAddReservation" class="btn btn-primary pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none;">Guardar Cambios</button>
 
                                         </div>

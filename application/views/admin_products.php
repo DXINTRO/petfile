@@ -194,11 +194,11 @@ Introduzca algunas letras del producto a buscar">
                         <thead>
                             <tr>
                                 <th style="width:110px">ID del Producto</th>
-                                <th style="width:315px;">Nombre</th>
+                                <th style="width:280px;">Nombre</th>
                                 <th style="">Cantidad</th>
                                 <th style="">Precio</th>
                                 <th style="">Tipo</th>
-                                <th style="width:130px;"></th>
+                                <th style="width:160px;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -213,7 +213,7 @@ Introduzca algunas letras del producto a buscar">
                                 echo "<td class='vert productObjectId'>" . $row['objectId'] . "</td>";
                                 echo "<td class='vert productName'>" . $row['product_name'] . "</td>";
                                 echo "<td class='vert productQuanitty'>" . $row['product_quantity'] . "</td>";
-                                echo "<td class='vert productPrice'>&#8369; " . $row['product_price'] . "</td>";
+                                echo "<td class='vert productPrice'>$ " . $row['product_price'] . "</td>";
                                 echo "<td class='vert productType'>" . $row['product_type'] . "</td>";
                                 echo "<td class='vert'>";
                                 echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editProductAdmin pull-left' style='margin-right: 5px;'>Editar</button>";

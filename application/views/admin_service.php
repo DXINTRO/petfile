@@ -73,11 +73,11 @@
 
                         <thead>
                             <tr>
-                                <th style="width:130px;">ID del Servicio</th>
-                                <th style="width:400px;">Nombre del Servicio</th>
-                                <th style="width:150px;">Grupo</th>
+                                <th style="width:110px;">ID del Servicio</th>
+                                <th style="width:360px;">Nombre del Servicio</th>
+                                <th style="width:140px;">Grupo</th>
                                 <th style="width:150px;">Precio</th>
-                                <th style="width:130px;"></th>
+                                <th style="width:160px;"></th>
                             </tr>
                         </thead>
                         <tbody>

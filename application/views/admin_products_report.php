@@ -52,7 +52,7 @@ echo'<td class="center">'.$row['product_quantity'].'</td>';
 echo'<td>';
 echo $row['product_type'];
 echo'</td>';
-echo'<td style="text-align: right">P '.$row['product_price'].'</td>';
+echo'<td style="text-align: right">$ '.$row['product_price'].'</td>';
 
 echo'</tr>';
   }

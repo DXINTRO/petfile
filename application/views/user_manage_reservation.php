@@ -41,7 +41,7 @@
                             } else if ($row['confirmed'] == 1) {
                                 echo "<tr style='color:green;'>";
                                 echo "<td class='vert serviceTitle'>" . $row['service_name'] . "</td>";
-                                echo "<td class='vert servicePrice rightalignPadding'>&#8369; " . $row['price'] . "</td>";
+                                echo "<td class='vert servicePrice rightalignPadding'>$ " . $row['price'] . "</td>";
                                 echo "<td class='vert serviceDate'>" . $row['reserveDate'] . "</td>";
                                 echo "<td class='vert serviceTime'>" . $row['reserveTime'] . " -</td>";
                                 echo "<td class='vert'>Hecho";
