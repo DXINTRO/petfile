@@ -286,12 +286,12 @@ Introduzca algunas letras del producto a buscar">
                             <div class="panel-body clearfix">
                                 <form action="editProduct" method="POST" id="editProduct">
                                     <label>Nombre Producto</label>
-                                    <input type="text" style="width:250px;" class="form-control" name="productNameEdit" id="productNameEdit" placeholder="Product Name" required>
+                                    <input type="text" style="width:250px;" class="form-control" name="productNameEdit" id="productNameEdit" placeholder="Nombre del Producto" required>
                                     Cantidad
-                                    <input type="number" style="width:250px;" class="form-control" name="productQtyEdit" id="productQtyEdit" placeholder="Quantity" min="1" required>
+                                    <input type="number" style="width:250px;" class="form-control" name="productQtyEdit" id="productQtyEdit" placeholder="Cantidad" min="1" required>
                                     <label>Precio</label>
-                                    <input type="number" style="width:250px;" class="form-control" name="productPriceEdit" id="productPriceEdit" placeholder="Price" min="1" required>
-                                    <label>Tipo</label><input type="text" style="width:250px;" class="form-control" name="productTypeEdit" id="productTypeEdit" placeholder="Type" required>
+                                    <input type="number" style="width:250px;" class="form-control" name="productPriceEdit" id="productPriceEdit" placeholder="Precio" min="1" required>
+                                    <label>Tipo</label><input type="text" style="width:250px;" class="form-control" name="productTypeEdit" id="productTypeEdit" placeholder="Tipo" required>
                                     <input type="hidden" name="productIdToEdit" id="productIdToEdit" value="">
                                     <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="addproduct">Grabar Producto</button>
                                 </form>

@@ -119,20 +119,20 @@
                                 <h3 class="orderTitle"></h3>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">Item order details</h3>
+                                        <h3 class="panel-title">Detalle de la Orden</h3>
                                     </div>
                                     <div class="panel-body">
                                         <p class="detailProductName"></p>
                                         <br/>
-                                        <p class="detailProductAmount">Order Quantity : <input type="number" name="detailProductAmount" style="text-align:right;" class="pull-right"/></p>
+                                        <p class="detailProductAmount">Cantidad : <input type="number" name="detailProductAmount" style="text-align:right;" class="pull-right"/></p>
 
-                                        <p class="detailPrice">Price :  
+                                        <p class="detailPrice">Precios :  
                                             <span class="pull-right value"></span>
                                             <span class="pull-right">&#8369</span>
                                         </p>
                                         <hr />
                                         <p class="detailTotalPrice">
-                                            Total Price :
+                                            Precio Total :
                                             <span class="pull-right value"></span>
                                             <span class="pull-right">&#8369</span>
                                         </p>

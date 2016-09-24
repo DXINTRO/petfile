@@ -42,7 +42,7 @@
                             <th style="text-align:right;padding-right:15px;">Precio</th>
                             <?php
                             if ($activeOrder != "true") {
-                                echo'<th style="text-align:right;padding-right:15px;">Order Quantity</th>';
+                                echo'<th style="text-align:right;padding-right:15px;">Ordenar Cantidad</th>';
                                 echo'<th style="width:130px;"></th>';
                             }
                             ?>
