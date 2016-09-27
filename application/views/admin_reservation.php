@@ -256,22 +256,22 @@
                     <table class="table table-hover" id="adminReservationTable">
                         <thead>
                             <tr>
-                                <th style="width:200px;">ID de Reserva</th>
-                                <th style="width:200px;">Email</th>
-                                <th style="width:260px;">Servicio</th>
-                                <th style="width:135px">Fecha del Servicio</th>
-                                <th style="width:135px">Fecha Toma de Hora</th>
-                                <th style="">Hora</th>
-                                <th style="text-align:right;padding-right:20px;">Precio</th>
-                                <th style="width:130px;"></th>
+                                <th style="width:100px;">ID de Reserva</th>
+                                <th style="width:170px;">Email</th>
+                                <th style="width:240px;">Servicio</th>
+                                <th style="width:120px">Fecha de Hora</th>
+                                <th style="width:120px">Fecha Toma de Hora</th>
+                                <th style="width:100px">Hora</th>
+                                <th style="text-align:right;padding-right:30px;">Precio</th>
+                                <th style="width:100px;"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             foreach ($reservations as $row) {
 
-                                $date1 = date('Y-m-d H:i A', strtotime(str_replace('-', '/', '' . $row['reserveDate'] . ' ' . $row['reserveTime'] . '')));
-                                $dateToday = date('Y-m-d H:i A');
+                                $date1 = date('d-m-y H:i A', strtotime(str_replace('-', '/', '' . $row['reserveDate'] . ' ' . $row['reserveTime'] . '')));
+                                $dateToday = date('d-m-y H:i A');
                                 if ($date1 > $dateToday && $row['confirmed'] == "0") {
                                     echo "<tr>";
                                 } else if ($row['confirmed'] == "1") {
@@ -285,7 +285,7 @@
                                 echo "<td class='vert userEmail' style='word-wrap: break-word;word-break: break-all;'>" . $row['email'] . "</td>";
                                 echo "<td class='vert serviceTitle' data-serviceId='" . $row['serviceObjectId'] . "'>" . $row['service_name'] . "</td>";
                                 echo "<td class='vert serviceDate'>" . $row['reserveDate'] . " <br/> " . "</td>";
-                                echo "<td class='vert serviceDate'>" . " " . date('m/d/Y', strtotime($row['timestamp'])) . "</td>";
+                                echo "<td class='vert serviceDate'>" . " " . date('d/m/Y', strtotime($row['timestamp'])) . "</td>";
                                 echo "<td class='vert serviceTime' >" . $row['reserveTime'] . "</td>";
                                 echo "<td class='vert servicePrice rightalignPadding'> $ " . $row['price'] . "</td>";
                                 echo "<td class='vert'>";

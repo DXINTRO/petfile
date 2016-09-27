@@ -398,9 +398,9 @@ class Admin extends CI_Controller {
             $reportYearTo = $this->input->post("reportYearTo");
             $reportMode = $this->input->post("reportMode");
 
-            $reportDateFrom = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
-            $reportDateto = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
-            $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'Y-m-d H:i:s');
+            $reportDateFrom = date('d-m-y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
+            $reportDateto = date('d-m-y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
+            $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-y H:i:s');
 
             //NEED TO OPTIMIZE :P
             if ($reportMode == "Daily") {

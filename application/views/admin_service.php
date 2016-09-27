@@ -87,7 +87,7 @@
                                 echo "<td class='vert servicesId'>" . $row['objectId'] . "</td>";
                                 echo "<td class='vert servicesName'>" . $row['service_name'] . "</td>";
                                 echo "<td class='vert group'>" . $row['group'] . "</td>";
-                                echo "<td class='vert price'>" . $row['price'] . "</td>";
+                                echo "<td class='vert price'>$ " . $row['price'] . "</td>";
                                 echo "</td>";
                                 echo "<td class='vert'>";
                                 echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editServiceFromAdmin pull-left' style='margin-right: 5px;'>Editar</button>";
