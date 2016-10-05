@@ -6,7 +6,7 @@
                 <!-- Default panel contents -->
                 <div class="panel-heading">Administración de Reservas</div>
                 <div class="panel-body">
-                    <p>Las Reservas de usuarios pueden ser confirmadas y canceladas aquí, además de añadir nuevas Reservas.</p>
+                    <p>Las Reservas de usuarios se pueden confirmar y cancelar aquí, además se puede añadir nuevas Reservas.</p>
 
                     <div class="panel-group" id="accordion" style="margin-bottom:10px;">
                         <div class="panel panel-default" id="addOrEditReservation">
