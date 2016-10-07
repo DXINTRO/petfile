@@ -52,12 +52,12 @@
                     echo'<td class="center">' . $row['reserveDate'] . ' ' . $row['reserveTime'] . '</td>';
                     $status = '';
                     if ($row['confirmed'] == 1) {
-                        $status = "Confirmed";
+                        $status = "Confirmado";
                     } else {
-                        $status = "Pending";
+                        $status = "Pendiente";
                     }
                     echo'<td class="center">Status : ' . $status . '<br/>' . $row['service_name'] . '</td>';
-                    echo'<td>' . $row['last_name'] . ', ' . $row['first_name'] . '</td>';
+                    echo'<td>' . $row['first_name'] . ', ' . $row['last_name'] . '</td>';
                     echo'<td style="text-align:right;">$ ' . number_format($row['price'], 2) . '</td>';
                     echo'</tr>';
                 }

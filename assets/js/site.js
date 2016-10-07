@@ -311,20 +311,20 @@ $(document).ready(function () {
             $("#serviceObjectIdUpdate").val($(this).attr("data-objectid"));
             $("#addServiceAdmin").hide();
             $("#updateServiceAdmin").show();
-            $(".panelAddEditService > .panel-heading .panel-title").text("Actualizar Servicios");
+            $(".panelAddEditService > .panel-heading .panel-title").text("Actualizar Servicio");
 
         });
 
         $('body').on('click', '.backToAddService', function (e) {
             $("#updateServiceAdmin").hide();
             $("#addServiceAdmin").show();
-            $(".panelAddEditService > .panel-heading .panel-title").text("Agregar Usuario");
+            $(".panelAddEditService > .panel-heading .panel-title").text("Agregar Servicio");
         });
 
         $('body').on('click', '.removeServiceFromAdmin', function (e) {
             $('#confirmationModal .confirmAction').attr("data-objectid", $(this).attr("data-objectid"));
             $('#confirmationModal .confirmAction').attr("data-confirm", "confirmDeleteAdmin");
-            $('#confirmationModal .modal-body').text(" Esta seguro de eliminar?");
+            $('#confirmationModal .modal-body').text(" Esta seguro de Eliminar ?");
             $('#confirmationModal').modal();
         });
         $('body').on('click', '.confirmAction', function () {
@@ -336,7 +336,7 @@ $(document).ready(function () {
                     'serviceObjectId': $(this).attr("data-objectid")
                 },
                 success: function (data, status, jqXHR) {
-                    $(".addServiceSuccess strong").text("Servicio eliminado Satisfactoriamente!");
+                    $(".addServiceSuccess strong").text("Servicio Eliminado Satisfactoriamente!");
                     $(".addServiceSuccess").show();
                     $('#confirmationModal').modal('hide');
                     $.ajax({
@@ -440,10 +440,10 @@ $(document).ready(function () {
             $("#reservationUserEmail").val($row.find(".userEmail").text());
             $('.adminServicesReservation').select2('val', $row.find('.serviceTitle').attr("data-serviceid"));
 
-            $('#datepicker').datepicker("setDate", new Date($row.find('.serviceDate').text()));
-            $('.reserveDate').text($row.find('.serviceDate').text());
-            $('.reserveTimeSelect').val($row.find('.serviceTime').text());
-            $('.reserveTime').text($row.find('.serviceTime').text());
+            $('#datepicker').datepicker("setDate", new Date($row.find('.serviceDate').text("rrrrrrr")));
+            $('.reserveDate').text($row.find('.serviceDate').text("ttttttt"));
+            $('.reserveTimeSelect').val($row.find('.serviceTime').text("yyyyyyyy"));
+            $('.reserveTime').text($row.find('.serviceTime').text("uuuuuuuu"));
 
         });
 
@@ -756,7 +756,7 @@ $(document).ready(function () {
         $('body').on('click', '.generatenewPassword', function (e) {
             $('#confirmationModal .confirmAction').attr("data-objectid", $("#userObjectIdUpdate").val());
             $('#confirmationModal .confirmAction').attr("data-confirm", "confirmGenerateNewPassword");
-            $('#confirmationModal .modal-body').html("<p>Esta seguro de crear una nueva contraseña?</p><p>Tu nueva contraseña podría ser: <span id='newGeneratedPassword' style='color:red;font-weight:bold;'>" + Math.random().toString(36).substring(10) + "</span></p>");
+            $('#confirmationModal .modal-body').html("<p>Esta seguro de crear una nueva contraseña?</p><p>Tu nueva contraseña será: <span id='newGeneratedPassword' style='color:red;font-weight:bold;'>" + Math.random().toString(36).substring(10) + "</span></p>");
 
             $('#confirmationModal').modal();
         });

@@ -58,28 +58,28 @@ foreach ($sales as $row){
 	$allTotal =$allTotal + $row['saleGross'];
 	
 		if($reportMode=='Daily'){
-			$rest = date('Y-m-d', strtotime($row['saleDate']));
+			$rest = date('d-m-Y', strtotime($row['saleDate']));
 
 			echo'<tr class="list_row">';
 				echo'<td colspan="4" class="center">'.$rest.'</td>';
-				echo'<td style="text-align:right;padding-right:20px;">P '.number_format($row['saleGross'],2).'</td>';
+				echo'<td style="text-align:right;padding-right:20px;">$ '.number_format($row['saleGross'],2).'</td>';
 				
 			echo'</tr>';
 
 			foreach ($allItems as $item){
-				$itemrest=date('Y-m-d', strtotime($item['saleDate']));
+				$itemrest=date('d-m-Y', strtotime($item['saleDate']));
 						if($itemrest == $rest){
 							echo'<tr>';
-							echo'<td style="vertical-align:top;">&nbsp;&nbsp;&nbsp;'.date('Y-m-d', strtotime($item['saleDate'])).'</td>';	
-							echo'<td colspan="3" style="vertical-align:top;">Item: '.$item['itemName'].' <br/>Quantity: '.$item['itemQuantity'].'</td>';
-							echo'<td style="text-align:right;padding-right:20px;vertical-align:bottom;">P'.number_format($item['itemTotalPrice'],2).'</td>';
+							echo'<td style="vertical-align:top;">&nbsp;&nbsp;&nbsp;'.date('d-m-Y', strtotime($item['saleDate'])).'</td>';	
+							echo'<td colspan="3" style="vertical-align:top;">Item: '.$item['itemName'].' <br/>Cantidad: '.$item['itemQuantity'].'</td>';
+							echo'<td style="text-align:right;padding-right:20px;vertical-align:bottom;">$'.number_format($item['itemTotalPrice'],2).'</td>';
 							echo'</tr>';
 						}
 			}
 
 			echo'<tr>';
-			echo'<td colspan=4 style="text-align:right;">DAY TOTAL:</td>';
-			echo'<td style="padding:10px 0px;;text-align:right;padding-right:20px;">P '.number_format($row['saleGross'],2).'</td>';
+			echo'<td colspan=4 style="text-align:right;">TOTAL DIA:</td>';
+			echo'<td style="padding:10px 0px;;text-align:right;padding-right:20px;">$ '.number_format($row['saleGross'],2).'</td>';
 			echo'</tr>';
 		}
 		else if($reportMode=='Weekly'){
@@ -89,7 +89,7 @@ foreach ($sales as $row){
 				// $date1=date('Y-m-d', strtotime(''.$year.'W'.$row['saleDate'].'1'));
 
 				echo'<td colspan="4">';
-				echo'Week '.$row['saleDate'].' of '.$year.'';	
+				echo'Semana '.$row['saleDate'].' del '.$year.'';	
 				echo'</td>';
 
 				echo'<td style="text-align:right;padding-right:20px;"></td>';
@@ -98,26 +98,26 @@ foreach ($sales as $row){
 			foreach ($allItems as $item){
 						if($item['itemWeek'] == $row['saleDate'] && $year == $item['itemYear']){
 							echo'<tr>';
-							echo'<td style="vertical-align:top;">&nbsp;&nbsp;&nbsp;'.date('Y-m-d', strtotime($item['saleDate'])).'</td>';	
-							echo'<td colspan="3" style="vertical-align:top;">Item: '.$item['itemName'].' <br/>Quantity: '.$item['itemQuantity'].'</td>';
+							echo'<td style="vertical-align:top;">&nbsp;&nbsp;&nbsp;'.date('d-m-Y', strtotime($item['saleDate'])).'</td>';	
+							echo'<td colspan="3" style="vertical-align:top;">Item: '.$item['itemName'].' <br/>Cantidad: '.$item['itemQuantity'].'</td>';
 							echo'<td style="text-align:right;padding-right:20px;vertical-align:bottom;">P'.number_format($item['itemTotalPrice'],2).'</td>';
 							echo'</tr>';
 						}
 			}
 
 			echo'<tr>';
-			echo'<td colspan=4 style="text-align:right;">WEEK TOTAL:</td>';
-			echo'<td style="padding:10px 0px;;text-align:right;padding-right:20px;">P '.number_format($row['saleGross'],2).'</td>';
+			echo'<td colspan=4 style="text-align:right;">TOTAL SEMANA:</td>';
+			echo'<td style="padding:10px 0px;;text-align:right;padding-right:20px;">$ '.number_format($row['saleGross'],2).'</td>';
 			echo'</tr>';
 		}else if($reportMode=='Monthly'){
 			echo'<tr class="list_row">';
 				$year = date('Y', strtotime($row['rawSaleDate']));
 				$month = date('m', strtotime($row['rawSaleDate']));
-				// $rest = date("Y-m-d", strtotime("1.1.".$year." + ".$row['saleDate']." weeks"));
+				//$rest = date("Y-m-d", strtotime("1.1.".$year." + ".$row['saleDate']." weeks"));
 				// $date1=date('Y-m-d', strtotime(''.$year.'W'.$row['saleDate'].'1'));
 
 				echo'<td colspan="4">';
-				echo'Month '.$month.' Year '.$year.'';	
+				echo'Mes '.$month.' Agno '.$year.'';	
 				echo'</td>';
 
 				echo'<td style="text-align:right;padding-right:20px;"></td>';
@@ -127,16 +127,16 @@ foreach ($sales as $row){
 						$itemMonth=date('m', strtotime($item['saleDate']));
 							if($month == $itemMonth && $year == $item['itemYear']){
 								echo'<tr>';
-								echo'<td style="vertical-align:top;">&nbsp;&nbsp;&nbsp;'.date('Y-m-d', strtotime($item['saleDate'])).'</td>';	
-								echo'<td colspan="3" style="vertical-align:top;">Item: '.$item['itemName'].' <br/>Quantity: '.$item['itemQuantity'].'</td>';
-								echo'<td style="text-align:right;padding-right:20px;vertical-align:bottom;">P'.number_format($item['itemTotalPrice'],2).'</td>';
+								echo'<td style="vertical-align:top;">&nbsp;&nbsp;&nbsp;'.date('d-m-Y', strtotime($item['saleDate'])).'</td>';	
+								echo'<td colspan="3" style="vertical-align:top;">Item: '.$item['itemName'].' <br/>Cantidad: '.$item['itemQuantity'].'</td>';
+								echo'<td style="text-align:right;padding-right:20px;vertical-align:bottom;">$'.number_format($item['itemTotalPrice'],2).'</td>';
 								echo'</tr>';
 							}
 				}
 
 				echo'<tr>';
-				echo'<td colspan=4 style="text-align:right;">WEEK TOTAL:</td>';
-				echo'<td style="padding:10px 0px;;text-align:right;padding-right:20px;">P '.number_format($row['saleGross'],2).'</td>';
+				echo'<td colspan=4 style="text-align:right;">TOTAL SEMANA:</td>';
+				echo'<td style="padding:10px 0px;;text-align:right;padding-right:20px;">$ '.number_format($row['saleGross'],2).'</td>';
 				echo'</tr>';
 		}
 }

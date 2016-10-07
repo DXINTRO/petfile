@@ -120,7 +120,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Allopurinol tabletas 300mg, 100/caja.',4944,10,'Tabletas y Capsulas'),(2,'Hidróxido De Aluminio-Magnesio tabletas 200mg/100mg, 100/caja.',2970,10,'Tabletas and Capsulas'),(13,'Herplex-L 30 mL suplemento nutricional',111,122,'Tabletas and Capsulas'),(14,'Suplemento vitamínico Apetipet jarabe 100 mL con carnitina',19,12,'Vitaminas'),(15,'Suplemento vitamínico para gatos Apeticat 100 ml Taurina – Carnitina',0,23,'Vitamins');
+INSERT INTO `products` VALUES (1,'Allopurinol tabletas 300mg, 100/caja.',4944,10,'Tabletas y Capsulas'),(2,'Hidroxido De Al-Magnesium tabletas 200mg/100mg, 100/caja.',2970,10,'Tabletas and Capsulas'),(13,'Herplex-L 30 mL suplemento nutricional',111,122,'Tabletas and Capsulas'),(14,'Suplemento vitamínico Apetipet jarabe 100 mL con carnitina',19,12,'Vitaminas'),(15,'Suplemento vitamínico para gatos Apeticat 100 ml Taurina – Carnitina',0,23,'Vitamins');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 

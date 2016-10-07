@@ -332,8 +332,8 @@ class Admin extends CI_Controller {
             $doctorId = $this->input->post("doctor");
 
 
-            $reportDateFrom = date('Y-m-d', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/' . $reportDayFrom . '/' . $reportYearFrom . '')));
-            $reportDateto = date('Y-m-d', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/' . $reportDayTo . '/' . $reportYearTo . '')));
+            $reportDateFrom = date('d-m-Y', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/' . $reportDayFrom . '/' . $reportYearFrom . '')));
+            $reportDateto = date('d-m-Y', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/' . $reportDayTo . '/' . $reportYearTo . '')));
 
             $timeDiff = abs(strtotime(str_replace('-', '/', '' . $reportMonthTo . '/' . $reportDayTo . '/' . $reportYearTo . '')) - strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/' . $reportDayFrom . '/' . $reportYearFrom . '')));
 
@@ -398,9 +398,9 @@ class Admin extends CI_Controller {
             $reportYearTo = $this->input->post("reportYearTo");
             $reportMode = $this->input->post("reportMode");
 
-            $reportDateFrom = date('d-m-y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
-            $reportDateto = date('d-m-y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
-            $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-y H:i:s');
+            $reportDateFrom = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
+            $reportDateto = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
+            $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-Y H:i:s');
 
             //NEED TO OPTIMIZE :P
             if ($reportMode == "Daily") {
@@ -1234,9 +1234,9 @@ class Admin extends CI_Controller {
         $reportMonthTo = $this->input->post("reportMonthTo");
         $reportYearTo = $this->input->post("reportYearTo");
 
-        $reportDateFrom = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
-        $reportDateto = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
-        $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'Y-m-d H:i:s');
+        $reportDateFrom = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
+        $reportDateto = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
+        $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-Y H:i:s');
 
         $query = $this->db->query("SELECT 
 					ur.objectId as reservationobjectId,
