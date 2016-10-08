@@ -4,7 +4,7 @@
             </div>
             <div class="panel panel-default" id="userReserve">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Servicios Ofrecidos hjola der</div>
+                <div class="panel-heading">Servicios Ofrecidos</div>
                 <div class="panel-body">
                     <p>Seleccione uno de nuestros Servicios</p>
                     <p><small class="text-muted">Nota: Los Item en color Rojo no están disponibles.</small></p>
