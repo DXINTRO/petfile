@@ -886,7 +886,7 @@ class Admin extends CI_Controller {
         if ($this->session->userdata('admin_objectId')) {
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-            $reserveDateTime = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+            $reserveDateTime = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
             $serviceId = $this->input->post("serviceId");
             $doctorsId = $this->input->post("doctorsId");
 
@@ -933,7 +933,7 @@ class Admin extends CI_Controller {
         if ($this->session->userdata('admin_objectId')) {
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-            $reserveDateTime = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+            $reserveDateTime = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
             $serviceId = $this->input->post("serviceId");
             $reservationId = $this->input->post("reservationId");
 
@@ -1203,9 +1203,9 @@ class Admin extends CI_Controller {
         $reportMonthTo = $this->input->post("reportMonthTo");
         $reportYearTo = $this->input->post("reportYearTo");
 
-        $reportDateFrom = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
-        $reportDateto = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
-        $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'Y-m-d H:i:s');
+        $reportDateFrom = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
+        $reportDateto = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
+        $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-Y H:i:s');
 
 
         // $query = $this->db->query("SELECT * FROM products 

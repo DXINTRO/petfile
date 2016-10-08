@@ -53,7 +53,7 @@
 <?php
 $allTotal=0;
 $counter =0;
-date_default_timezone_set('america/santiago');
+date_default_timezone_set('America/Brazil');
 foreach ($sales as $row){
 	$allTotal =$allTotal + $row['saleGross'];
 	

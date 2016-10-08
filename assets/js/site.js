@@ -770,7 +770,7 @@ $(document).ready(function () {
                         'userObjectId': $(this).attr("data-objectid")
                     },
                     success: function (data, status, jqXHR) {
-                        $(".addUserSuccess strong").text("Successfuly removed user!");
+                        $(".addUserSuccess strong").text("Usuario Eliminado exitósamente!");
                         $(".addUserSuccess").show();
                         $('#confirmationModal').modal('hide');
                         $.ajax({

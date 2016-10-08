@@ -25,7 +25,7 @@
                         <?php
                         foreach ($list_of_reservations as $row) {
 
-                            date_default_timezone_set('America/Santiago');
+                            date_default_timezone_set('America/Brazil');
                             $mydate = date('m/d/Y');
 
 
