@@ -4,7 +4,7 @@
             </div>
             <div class="panel panel-default" id="userManageReservation">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Lista de Reservas</div>
+                <div class="panel-heading">Listado de Reservas</div>
                 <div class="panel-body">
                     <p>&nbsp;</p>
 
@@ -86,7 +86,7 @@
                         <div class="modal-body clearfix">
                             <div class="alert alert-info alert-dismissable" style="display:none;">
                                 <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
-                                <strong>Advertencia!</strong> Llenar todos los campos.
+                                <strong>Advertencia!</strong> Debe completar todos los campos.
                             </div>
                             <div class="col-md-12">
                                 <div class="panel panel-default">
