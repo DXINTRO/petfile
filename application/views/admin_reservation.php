@@ -85,7 +85,7 @@
                                                     </select>
 
                                                     <input type="email" class="form-control" name="reservationUserEmail" id="reservationUserEmail" placeholder="User Email" required>
-                                                    <h5>Nombre de la Macota: <span class="petName"></span></h5>
+                                                    <h5>Nombre de la Mascota: <span class="petName"></span></h5>
                                                     <h5>Fecha: <span class="reserveDate"></span></h5>
                                                     <h5>Hora: <span class="reserveTime"></span></h5>
                                                 </div>

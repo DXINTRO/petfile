@@ -14,7 +14,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Nombre del Servicio</th>
+                            <th>Nombre del Servicio... test</th>
                             <th style="text-align:right;padding-right:15px;">Precio</th>
                             <th>Fecha de Reserva</th>
                             <th>Hora de Reserva</th>
