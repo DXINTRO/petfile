@@ -9,7 +9,7 @@
 			<tr>
 				<td><img style="width:100px;" src="<?php echo base_url();?>assets/images/logo.jpg"></td>
                                 <td style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
-					Av. Simón Bolívar #3356, Maipú   Fono : +56 - 2 - 4605285
+					Av. Simón Bolívar #3356, Maipú   Fono : +56 - 2 - 4605285 hola fer prueba de commit
 				</td>
 			</tr>
 		</tbody>
