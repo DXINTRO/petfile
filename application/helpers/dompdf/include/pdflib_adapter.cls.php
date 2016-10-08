@@ -166,7 +166,7 @@ class PDFLib_Adapter implements Canvas {
     // Silence pedantic warnings about missing TZ settings
     $tz = @date_default_timezone_get();
     date_default_timezone_set("UTC");
-    $this->_pdf->set_info("Date", date("Y-m-d"));
+    $this->_pdf->set_info("Date", date("d-m-Y"));
     date_default_timezone_set($tz);
 
     if ( self::$IN_MEMORY )
