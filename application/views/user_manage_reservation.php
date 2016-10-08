@@ -26,7 +26,7 @@
                         foreach ($list_of_reservations as $row) {
 
                             date_default_timezone_set('America/Santiago');
-                            $mydate = date('m/d/Y');
+                            $mydate = date('Y/m/d');
 
 
                             if (($mydate > $row['reserveDate']) && $row['confirmed'] == 2) {
