@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-group col-md-5">
-                <label for="username">Prestación</label>
+                <label for="username">Servicio</label>
 
                 <select class="form-control surgery" name="surgery">
                     <?php

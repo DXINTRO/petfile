@@ -422,7 +422,7 @@ class User extends CI_Controller {
             $productAmount = $this->input->post('productAmount');
             $totalPrice = $this->input->post('totalPrice');
             date_default_timezone_set('America/Santiago');
-            $orderDate = $dateToday = date('d-m-Y H:i:s');
+            $orderDate = $dateToday = date('Y-m-d H:i:s');
 
             $query = $this->db->query("INSERT INTO users_order  
 					VALUES (NULL,

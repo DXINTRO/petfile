@@ -32,7 +32,7 @@ class CI_Calendar {
 	var $lang;
 	var $local_time;
 	var $template		= '';
-	var $start_day		= 'sunday';
+	var $start_day		= 'domingo';
 	var $month_type		= 'long';
 	var $day_type		= 'abr';
 	var $show_next_prev	= FALSE;
@@ -122,7 +122,7 @@ class CI_Calendar {
 		$total_days = $this->get_total_days($month, $year);
 
 		// Set the starting day of the week
-		$start_days	= array('sunday' => 0, 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6);
+		$start_days	= array('domingo' => 0, 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6);
 		$start_day = ( ! isset($start_days[$this->start_day])) ? 0 : $start_days[$this->start_day];
 
 		// Set the starting day number

@@ -17,7 +17,7 @@
         </table>
 
         <h1>Registro de Reservas</h1>
-        Fecha : <?php echo date('d-m-y H:i:s'); ?>
+        Fecha : <?php echo date('d-m-Y H:i:s'); ?>
         <br/>
         <br/>
         <table class="detail" style="width:100%;margin: 0px; border-top: none;">

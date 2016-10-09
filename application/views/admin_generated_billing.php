@@ -19,7 +19,7 @@
 	Fecha de la Boleta : 
 	<?php
 		date_default_timezone_set('America/Santiago');
-	 	echo date('l jS \of F Y h:i:s A');
+	 	echo date('  d-m-Y (H:i:s)');
 	?>
 </p>
 
@@ -65,7 +65,7 @@
 		<p>Desde: <?php echo $reportDateFrom; ?>Hasta: <?php echo $reportDateto; ?></p>
                 <p>N&uacute;mero de d&iacute;as: <?php echo $daysNumber ?></p>
 	</td>
-	<td style='text-align:right;vertical-align: bottom;'>$ <?php echo number_format($daysNumber *300,2)  ; ?></td>
+	<td style='text-align:right;vertical-align: bottom;'>$ <?php echo number_format($daysNumber *3000,2)  ; ?></td>
 </tr>
 <tr>
 	<td><?php echo $surgerys[0]['service_name']; ?>
@@ -76,7 +76,7 @@
 <tfoot>
 	<tr>
 		<td></td>
-		<td style="text-align:right;"><br />TOTAL :$ <?php echo number_format(($daysNumber *300) + $surgerys[0]['price'],2)  ; ?></td>
+		<td style="text-align:right;"><br />TOTAL :$ <?php echo number_format(($daysNumber *3000) + $surgerys[0]['price'],2)  ; ?></td>
 	</tr>
 </tfoot>
 </table>

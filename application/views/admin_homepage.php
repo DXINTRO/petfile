@@ -288,7 +288,7 @@
                     } else if ($row['user_level'] == 2) {
                         echo "<span data-userlevel=" . $row['user_level'] . ">Super Admin</span>";
                     } else if ($row['user_level'] == 3) {
-                        echo "<span data-userlevel=" . $row['user_level'] . ">Admin User</span>";
+                        echo "<span data-userlevel=" . $row['user_level'] . ">Doctor</span>";
                     } else if ($row['user_level'] == 4) {
                         echo "<span data-userlevel=" . $row['user_level'] . ">Secretaria</span>";
                     } else if ($row['user_level'] == 5) {
