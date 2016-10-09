@@ -4,7 +4,7 @@
             </div>
             <div class="panel panel-default" id="userManageReservation">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Listado de Reservas</div>
+                <div class="panel-heading">Lista de Reservas</div>
                 <div class="panel-body">
                     <p>&nbsp;</p>
 
@@ -15,7 +15,7 @@
                     <thead>
                         <tr>
                             <th>Nombre del Servicio</th>
-                            <th style="text-align:right;padding-right:15px;">Precio</th>
+                            <th style="text-align:right;padding-right:25px;">Precio</th>
                             <th>Fecha de Reserva</th>
                             <th>Hora de Reserva</th>
                             <th style="width:130px;"></th>
@@ -26,15 +26,15 @@
                         foreach ($list_of_reservations as $row) {
 
                             date_default_timezone_set('America/Santiago');
-                            $mydate = date('Y/m/d');
+                            $mydate = date('m/d/Y');
 
 
                             if (($mydate > $row['reserveDate']) && $row['confirmed'] == 2) {
                                 echo "<tr style='color:red;'>";
                                 echo "<td class='vert serviceTitle'>" . $row['service_name'] . "</td>";
-                                echo "<td class='vert servicePrice rightalignPadding'>&#8369; " . $row['price'] . "</td>";
+                                echo "<td class='vert servicePrice rightalignPadding'>$ " . $row['price'] . "</td>";
                                 echo "<td class='vert serviceDate'>" . $row['reserveDate'] . "</td>";
-                                echo "<td class='vert serviceTime'>" . $row['reserveTime'] . " - Reservation Expire</td>";
+                                echo "<td class='vert serviceTime'>" . $row['reserveTime'] . " - Reserva Expirada</td>";
                                 echo "<td class='vert'><button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm deleteReservation pull-right'>Borrar</button>";
                                 echo "</td>";
                                 echo "</tr>";
@@ -44,7 +44,7 @@
                                 echo "<td class='vert servicePrice rightalignPadding'>$ " . $row['price'] . "</td>";
                                 echo "<td class='vert serviceDate'>" . $row['reserveDate'] . "</td>";
                                 echo "<td class='vert serviceTime'>" . $row['reserveTime'] . " -</td>";
-                                echo "<td class='vert'>Hecho";
+                                echo "<td class='vert'>HORA CONFIRMADA";
                                 echo "</td>";
                                 echo "</tr>";
                             } else {
@@ -57,7 +57,7 @@
                                 echo "<input type='hidden' name='doctorsId' class='doctorsId' value='" . $row['doctorsId'] . "'>";
 
                                 echo "<td class='vert'><button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-primary btn-sm editReservation pull-left'>Editar</button>";
-                                echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm deleteReservation pull-right'>Borrar</button>";
+                                //echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm deleteReservation pull-right'>Borrar</button>";
                                 // if($row['confirmed'] == "1"){
 
                                 echo "<form action='printForUser' method='POST'>";
@@ -86,7 +86,7 @@
                         <div class="modal-body clearfix">
                             <div class="alert alert-info alert-dismissable" style="display:none;">
                                 <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
-                                <strong>Advertencia!</strong> Debe completar todos los campos.
+                                <strong>Advertencia!</strong> Llenar todos los campos.
                             </div>
                             <div class="col-md-12">
                                 <div class="panel panel-default">

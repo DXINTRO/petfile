@@ -39,10 +39,10 @@
                                 <td>
                                     <select class="form-control" name="userLevel" id="userLevelAdd">
                                         <option value=1>Cliente</option>
-                                        <option value=3>Usuario</option>
-                                        <option value=4>Reservas</option>
+                                        <option value=3>Doctor</option>
+                                        <option value=4>Secretaria</option>
                                         <option value=5>Contabilidad</option>
-                                        <option value=6>Administrador de Productos</option>
+                                        <option value=6>Administrador Clínica</option>
                                         <option value=2>Super Admin</option>
                                     </select>
                                 </td>
@@ -97,10 +97,10 @@
                                 <td>
                                     <select class="form-control" name="userLevelUpdate" id="userLevelUpdate">
                                         <option value=1>Cliente</option>
-                                        <option value=3>Usuario Normal</option>
-                                        <option value=4>Reservas</option>
+                                        <option value=3>Doctor</option>
+                                        <option value=4>Secretaria</option>
                                         <option value=5>Contabilidad</option>
-                                        <option value=6>Admin de Productos</option>
+                                        <option value=6>Admin Clinica</option>
                                         <option value=2>Super Admin</option>
                                     </select>
                                 </td>
@@ -290,7 +290,7 @@
                     } else if ($row['user_level'] == 3) {
                         echo "<span data-userlevel=" . $row['user_level'] . ">Admin User</span>";
                     } else if ($row['user_level'] == 4) {
-                        echo "<span data-userlevel=" . $row['user_level'] . ">Reservas</span>";
+                        echo "<span data-userlevel=" . $row['user_level'] . ">Secretaria</span>";
                     } else if ($row['user_level'] == 5) {
                         echo "<span data-userlevel=" . $row['user_level'] . ">Contabilidad</span>";
                     } else if ($row['user_level'] == 6) {

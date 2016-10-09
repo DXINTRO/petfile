@@ -749,7 +749,7 @@ $(document).ready(function () {
         $('body').on('click', '.removeUserFromAdmin', function (e) {
             $('#confirmationModal .confirmAction').attr("data-objectid", $(this).attr("data-objectid"));
             $('#confirmationModal .confirmAction').attr("data-confirm", "confirmDeleteAdmin");
-            $('#confirmationModal .modal-body').text(" Está seguro de eliminar?");
+            $('#confirmationModal .modal-body').text(" ESTÁ SEGURO DE ELIMINAR?");
             $('#confirmationModal').modal();
         });
 
@@ -770,7 +770,7 @@ $(document).ready(function () {
                         'userObjectId': $(this).attr("data-objectid")
                     },
                     success: function (data, status, jqXHR) {
-                        $(".addUserSuccess strong").text("Usuario Eliminado exitósamente!");
+                        $(".addUserSuccess strong").text("USUARIO ELIMINADO EXITOSAMENTE!");
                         $(".addUserSuccess").show();
                         $('#confirmationModal').modal('hide');
                         $.ajax({
@@ -790,7 +790,7 @@ $(document).ready(function () {
                         'inputPassword': $('#newGeneratedPassword').text()
                     },
                     success: function (data, status, jqXHR) {
-                        $(".addUserSuccess strong").text("La contraseña ha sido cambiada Exitósamente!");
+                        $(".addUserSuccess strong").text("SU CONTRASEÑA HA SIDO MODIFICADA!");
                         $(".addUserSuccess").show();
                         $('#confirmationModal').modal('hide');
 
@@ -811,7 +811,7 @@ $(document).ready(function () {
                     url: $("#addUserAdmin").attr("action"),
                     data: $("#addUserAdmin").serialize(),
                     success: function (data, status, jqXHR) {
-                        $(".addUserSuccess strong").text("Usuario agregado exitósamente!");
+                        $(".addUserSuccess strong").text("USUARIO AGREGADO EXITOSAMENTE!");
                         $(".addUserSuccess").show();
                         $.ajax({
                             url: document.URL,
@@ -838,7 +838,7 @@ $(document).ready(function () {
                     url: $("#updateUser").attr("action"),
                     data: $("#updateUser").serialize(),
                     success: function (data, status, jqXHR) {
-                        $(".addUserSuccess strong").text("Usuario actualizado!");
+                        $(".addUserSuccess strong").text("USUARIO ACTUALIZADO!");
                         $(".addUserSuccess").show();
                         $.ajax({
                             url: document.URL,
@@ -909,7 +909,7 @@ $(document).ready(function () {
             $("#confirmationModal #myModalLabel").text("Confirm Remove");
             $("#confirmationModal").modal();
             $("#confirmationModal .detailProductAmount input").val($orderRow.children(".orderAmount").text());
-            $("#confirmationModal .removeFromCartBody h4").text("Está seguro de borrar esta Orden?");
+            $("#confirmationModal .removeFromCartBody h4").text("ESTA SEGURO DE BORRAR LA ORDEN?");
             $("#confirmationModal .removeFromCartBody").show();
             $("#confirmationModal .confirmAction").attr("data-objectId", $(this).attr("data-objectId"));
             $("#confirmationModal .confirmAction").attr("data-productId", $(this).attr("data-productId"));
@@ -944,7 +944,7 @@ $(document).ready(function () {
                         'incremental': parseFloat($("#confirmationModal input[name='oldValueAmount']").val()) - parseFloat($("#confirmationModal .detailProductAmount input").val())
                     },
                     success: function (data, status, jqXHR) {
-                        $('.cartSuccess strong').text("Actualizado!!");
+                        $('.cartSuccess strong').text("HA SIDO ACTUALIZADO!!");
                         $('.cartSuccess').show();
                         $.ajax({
                             url: document.URL,
@@ -966,7 +966,7 @@ $(document).ready(function () {
                         'productId': $this.attr("data-productId")
                     },
                     success: function (data, status, jqXHR) {
-                        $('.cartSuccess strong').text("Eliminado exitósamente!");
+                        $('.cartSuccess strong').text("HA SIDO ELIMINADO !");
                         $('.cartSuccess').show();
                         $.ajax({
                             url: document.URL,

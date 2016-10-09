@@ -1,6 +1,6 @@
 <div class="col-md-4 col-md-offset-4" id="sigInPage">
     <br />
-    <div class="alert alert-danger" style="display:none;">Olvido su Contraseña?</div>
+    <div class="alert alert-danger" style="display:none;">Esta Seguro de su Pass o La Base de Datos esta Desconectada</div>
     <form class="form-signin" action="user/postSignIn" method="POST">
         <h2 class="form-signin-heading">Inicio de Sesión</h2>
         <br/>

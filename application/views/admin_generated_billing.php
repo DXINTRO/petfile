@@ -9,12 +9,12 @@
 			<tr>
 				<td><img style="width:100px;" src="<?php echo base_url();?>assets/images/logo.jpg"></td>
                                 <td style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
-					Av. Simón Bolívar #3356, Maipú   Fono : +56 - 2 - 4605285 hola fer prueba de commit
+                                    Av. Sim&oacute;n Bol&iacute;var #3356, Maip&uacute;   Fono : +56 - 2 - 4605285
 				</td>
 			</tr>
 		</tbody>
 	</table>
-<h1>Sistema de Pago <?php echo rand(100000,999999); ?></h1>
+<h1>Boleta <?php echo rand(100000,999999); ?></h1>
 <p>
 	Fecha de la Boleta : 
 	<?php
@@ -61,9 +61,9 @@
 
 </tr>
 <tr>
-	<td><p>Hospitalización (Valor Diario: $ 3000.00):</p>
+    <td><p>Hospitalizaci&oacute;n (Valor Diario: $ 3000.00):</p>
 		<p>Desde: <?php echo $reportDateFrom; ?>Hasta: <?php echo $reportDateto; ?></p>
-		<p>Número de dias: <?php echo $daysNumber ?></p>
+                <p>N&uacute;mero de d&iacute;as: <?php echo $daysNumber ?></p>
 	</td>
 	<td style='text-align:right;vertical-align: bottom;'>$ <?php echo number_format($daysNumber *300,2)  ; ?></td>
 </tr>

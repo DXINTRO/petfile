@@ -4,13 +4,13 @@
             </div>
             <div class="panel panel-default" id="userReserve">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Servicios Ofrecidos hjola der</div>
+                <div class="panel-heading">Servicios Ofrecidos</div>
                 <div class="panel-body">
                     <p>Seleccione uno de nuestros Servicios</p>
                     <p><small class="text-muted">Nota: Los Item en color Rojo no están disponibles.</small></p>
                     <?php
                     if ($activeReservation == "true") {
-                        echo"<p class='small' style='color:red;'>You've reach the maximum reservation..</p>";
+                        echo"<p class='small' style='color:red;'>Solo puedes realizar un Máximo de 2 Reservas, para Agregar otras favor llame a Secretaria de Clinica Morita</p>";
                     }
                     ?>
 
