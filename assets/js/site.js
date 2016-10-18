@@ -400,7 +400,7 @@ $(document).ready(function () {
                 data: {
                     'userEmailCheck': $(this).val()
                 },
-                url: "checkEmailExist",
+                url: "admin/checkEmailExist",
                 success: function (data, status, jQxr) {
                     console.log(data);
                     $(".petName").text(data);
@@ -825,7 +825,7 @@ $(document).ready(function () {
                     },
                     statusCode: {
                         400: function () {
-                            console.log("nooo");
+                            console.log("nooo 1");
                         }
                     }
                 });
@@ -852,7 +852,7 @@ $(document).ready(function () {
                     },
                     statusCode: {
                         400: function () {
-                            console.log("nooo");
+                            console.log("nooo 2");
                         }
                     }
                 });

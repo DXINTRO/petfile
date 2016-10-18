@@ -27,6 +27,7 @@ echo'<li class="navProducts"><a href="'.base_url().'admin/manageproducts">Produc
  	}
 	elseif ($userLevel ==2) {
  	       echo'<li class="navAdminUserManage"><a href="'.base_url().'admin">Usuarios</a></li>';
+		 
          	echo'<li class="navProducts"><a href="'.base_url().'admin/manageproducts">Productos</a></li>';
                 echo'<li class="navService"><a href="'.base_url().'admin/manageservice">Servicios</a></li>';
          	echo'<li class="navProducts"><a href="'.base_url().'admin/userorder">Ordenes</a></li>';

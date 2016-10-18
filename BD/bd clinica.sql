@@ -78,9 +78,13 @@ DROP TABLE IF EXISTS `pets`;
 CREATE TABLE `pets` (
   `objectId` int(10) NOT NULL AUTO_INCREMENT,
   `petName` varchar(45) DEFAULT NULL,
-  `petType` varchar(45) DEFAULT NULL,
+  `petSpecies` varchar(45) DEFAULT NULL,
+  `petRace` varchar(45) DEFAULT NULL,
   `petGender` varchar(10) DEFAULT NULL,
+  `petAge` numeric(2) DEFAULT NULL,
+  `petColor` varchar(20) DEFAULT NULL,
   `petHistory` varchar(100) DEFAULT NULL,
+  `petIncome` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `userId` int(10) DEFAULT NULL,
   PRIMARY KEY (`objectId`),
   KEY `userId` (`userId`),
@@ -97,6 +101,74 @@ LOCK TABLES `pets` WRITE;
 /*!40000 ALTER TABLE `pets` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `history`
+--
+
+DROP TABLE IF EXISTS `history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `history` (
+  `objectId` int(100) NOT NULL AUTO_INCREMENT,
+  `petVacunation` varchar(45) DEFAULT NULL,
+  `petDeworning` varchar(45) DEFAULT NULL,
+  `petDiet` varchar(45) DEFAULT NULL,
+  `petProduct` varchar(10) DEFAULT NULL,
+  `petDate` numeric(2) DEFAULT NULL,
+  `petReproductiveStatus` varchar(20) DEFAULT NULL,
+  `petProvenance` varchar(100) DEFAULT NULL,
+  `petRural` varchar(100) DEFAULT NULL,
+  `petUrban` varchar(100) DEFAULT NULL,
+  `petId` int(100) DEFAULT NULL,
+  PRIMARY KEY (`objectId`),
+  KEY `objectId` (`objectId`),
+  CONSTRAINT `pets_history` FOREIGN KEY (`objectId`) REFERENCES `pets` (`objectId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `history`
+--
+
+LOCK TABLES `history` WRITE;
+/*!40000 ALTER TABLE `history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `constant_physiological`
+--
+
+DROP TABLE IF EXISTS `constant_physiological`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `constant_physiological` (
+  `objectId` int(100) NOT NULL AUTO_INCREMENT,
+  `petWeight` varchar(45) DEFAULT NULL,
+  `petTemperature` varchar(45) DEFAULT NULL,
+  `petHeartRate` varchar(45) DEFAULT NULL,
+  `petBreathingFrecuency` varchar(10) DEFAULT NULL,
+  `petMucous` numeric(2) DEFAULT NULL,
+  `petSkinTurgor` varchar(20) DEFAULT NULL,
+  `petPulse` varchar(100) DEFAULT NULL,
+  `petOther` varchar(100) DEFAULT NULL,
+  `petAnamnesis` varchar(100) DEFAULT NULL,
+  `petDiseasesProcedures` varchar(100) DEFAULT NULL,
+  `petHistoryId` int(100) DEFAULT NULL,
+  PRIMARY KEY (`objectId`),
+  KEY `objectId` (`objectId`),
+  CONSTRAINT `constant_physiological` FOREIGN KEY (`objectId`) REFERENCES `pets` (`objectId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `constant_physiological`
+--
+
+LOCK TABLES `constant_physiological` WRITE;
+/*!40000 ALTER TABLE `constant_physiological` DISABLE KEYS */;
+/*!40000 ALTER TABLE `constant_physiological` ENABLE KEYS */;
+UNLOCK TABLES;
 --
 -- Table structure for table `products`
 --
@@ -168,6 +240,7 @@ CREATE TABLE `users` (
   `user_level` int(11) DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `address` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
   `contactNo` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`objectId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
@@ -179,7 +252,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (22,'test','21232f297a57a5a743894a0e4a801fc3','Juan','admin','test@test.com',1,'2013-12-05 17:11:09',NULL,NULL),(51,'admin','21232f297a57a5a743894a0e4a801fc3','admin','admin','admin@gmail.com',2,'2016-09-12 17:18:33','admin','21412432');
+INSERT INTO `users` VALUES (22,'test','21232f297a57a5a743894a0e4a801fc3','Juan','admin','test@test.com',1,'2013-12-05 17:11:09',null,NULL,NULL),(51,'admin','21232f297a57a5a743894a0e4a801fc3','admin','admin','admin@gmail.com',2,'2016-09-12 17:18:33','admin','graneros','21412432');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

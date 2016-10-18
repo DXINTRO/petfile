@@ -36,6 +36,9 @@
                                 <td><input type="text" class="form-control" name="username" id="username" placeholder="Nombre de Usuario" required></td>
                                 <td><input type="text" class="form-control" name="firstName" id="firstName" placeholder="Nombre" required></td>
                                 <td><input type="text" class="form-control" name="lastName" id="lastName" placeholder="Apellido" required></td>
+                                
+                                
+                                
                                 <td>
                                     <select class="form-control" name="userLevel" id="userLevelAdd">
                                         <option value=1>Cliente</option>
@@ -48,32 +51,51 @@
                                 </td>
                             </tr>
                             <tr>
+                            	<td><input type="text" class="form-control" name="address" id="address" placeholder="Direccion" required></td>
+                                <td><input type="text" class="form-control" name="city" id="city" placeholder="Comuna" required></td>
+                               	<td><input type="text" class="form-control" name="contactNo" id="contactNo" placeholder="Numero Contacto" required></td>
                                 <td> <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Contraseña" minlength="6" maxlength="50" required></td>
                                 <td> <input type="password" class="form-control" name="confirm_inputPassword" id="confirm_inputPassword" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required></td>
                             </tr>
                         </tbody>
                     </table>
                     <div id="petInformationContainer">
-                        <h3>Información de la Mascota</h3>
                         <div class="form-group">
-                            <label for="petName">Nombre de la Mascota</label>
-                            <input type="text" class="form-control" name="petName" id="petName" placeholder="Nombre de Mascota" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="petType">Tipo de Mascota</label>
-                            <input type="text" class="form-control" name="petType" id="petType" placeholder="Tipo de Mascota" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="petGender">Genero de Mascota</label>
-                            <select class="form-control" name="petGender" id="petGender" >
-                                <option value="female">Hembra</option>
-                                <option value="male">Macho</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="petHistory">Descripcion General</label>
-                            <textarea class="form-control" name="petHistory" id="petHistory" placeholder="Agregar una Descripción" required></textarea>
-                        </div>
+			    <label for="petName">Nombre de Mascota</label>
+			    <input type="text" class="form-control" name="petName" id="petName" placeholder="Nombre Mascota" required>
+			  </div>
+			  <div class="form-group">
+			    <label for="petSpecies">Especie</label>
+			    <select class="form-control" name="petSpecies" id="petSpecies" >
+			    	<option value="Perro">Perro</option>
+			    	<option value="Gato">Gato</option>
+			    </select>
+                </div>
+               <div class="form-group">
+			    <label for="petRace">Raza</label>
+			    <input type="text" class="form-control" name="petRace" id="petRace" placeholder="Raza Mascota" required>
+			  </div>
+			  <div class="form-group">
+			    <label for="petGender">Genero</label>
+			    <select class="form-control" name="petGender" id="petGender" >
+			    	<option value="Hembra">Hembra</option>
+			    	<option value="Macho">Macho</option>
+			    </select>
+                </div>
+              <div class="form-group">
+			    <label for="petAge">Edad</label>
+			    <input type="text" class="form-control" name="petAge" id="petAge" placeholder="Edad Mascota" required>
+			  </div>
+			    <!-- <input type="text" class="form-control" name="petGender" id="petGender" placeholder="Pet Gender" minlength="4" required> -->
+                <div class="form-group">
+			    <label for="petColor">Color</label>
+			    <input type="text" class="form-control" name="petColor" id="petColor" placeholder="Color" required>
+			  </div>
+			  
+			  <div class="form-group">
+				    <label for="petHistory">Observaciones</label>
+				    <textarea class="form-control" name="petHistory" id="petHistory" placeholder="Observacion de su mascota" required></textarea>
+			  	</div>
                     </div>
                     <button type="submit" name="adduserbtn" class="btn btn-success pull-right">Agregar Usuario</button>
                 </form>

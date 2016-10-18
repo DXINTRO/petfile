@@ -1075,31 +1075,34 @@ class Admin extends CI_Controller {
         $firstName = $this->input->post("firstName");
         $lastName = $this->input->post("lastName");
         $userLevel = $this->input->post("userLevel");
-
-
-        $address = $this->input->post("address");
+		$address = $this->input->post("address");
+		$city = $this->input->post("city");
         $contactNo = $this->input->post("contactNo");
+		
         $petName = $this->input->post("petName");
-        $petType = $this->input->post("petType");
-        $petGender = $this->input->post("petGender");
-        $petHistory = $this->input->post("petHistory");
-
-
+		$petSpecies= $this->input->post("petSpecies");
+		$petRace = $this->input->post("petRace");
+		$petGender =  $this->input->post("petGender");
+		$petAge = $this->input->post("petAge");
+		$petColor = $this->input->post("petColor");
+		$petHistory = $this->input->post("petHistory");
+		//$petIncome = $this->input->post("petIncome");
+		
         if ($inputEmail) {
 
 
 
             // $query = $this->db->query("INSERT INTO `vet_app`.`users` VALUES (NULL,'".$username."', '".$inputPassword."', '".$firstName."', '".$lastName."','".$inputEmail."',".$userLevel.",NULL);");
 
-            $query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $contactNo . "');");
+            //$query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $contactNo . "');");
 
-
+			$query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $city . "','" . $contactNo . "');");
 
             if ($this->db->affected_rows() > 0) {
                 if ($userLevel == 1) {
                     $queryEmail = $this->db->query("SELECT objectId FROM users WHERE email ='" . $inputEmail . "'");
                     $row = $queryEmail->row();
-                    $query2 = $this->db->query("INSERT INTO pets VALUES(NULL,'" . $petName . "','" . $petType . "','" . $petGender . "','" . $petHistory . "', '" . $row->objectId . "');");
+                    $query2 = $this->db->query("INSERT INTO pets VALUES(NULL,'".$petName."','".$petSpecies."','".$petRace."','".$petGender."','".$petAge."','".$petColor."','".$petHistory."',NULL, '".$row->objectId."');");
                     if ($this->db->affected_rows() > 0) {
                         set_status_header((int) 200);
                     } else {

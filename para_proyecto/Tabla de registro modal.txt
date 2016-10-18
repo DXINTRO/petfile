@@ -1,0 +1,35 @@
+<table border="0" width="100%">
+               		 <tr>
+                        <td colspan="2"><input type="text" required="required" readonly="readonly" id="id-pacie" name="id-pacie" readonly="readonly" style="visibility:hidden; height:5px;"/></td>
+                    </tr>
+                     <tr>
+                    	<td width="140">Nombre Mascota: </td>
+                        <td><input type="text" required="required" readonly="readonly" id="" name="pacie"/></td>
+                    </tr>
+                	<tr>
+                    	<td>Especie: </td>
+                        <td><input type="text" required="required" name="nombre" id="nombre" maxlength="100"/></td>
+                    </tr>
+                    <tr>
+                    	<td>Raza: </td>
+                        <td><select required="required" name="tipo" id="tipo">
+                        		<option value="enlatados">Enlatados</option>
+                                <option value="organicos">Organicos</option>
+                                <option value="nocomestibles">No Comestibles</option>
+                                <option value="otros">Otros</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                    	<td>Precio Unitario: </td>
+                        <td><input type="number" required="required" name="precio-uni" id="precio-uni"/></td>
+                    </tr>
+                    <tr>
+                    	<td>Precio Distribuidor: </td>
+                        <td><input type="number"  required="required" name="precio-dis" id="precio-dis"/></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2">
+                        	<div id="mensaje"></div>
+                        </td>
+                    </tr>
+                </table>
