@@ -54,9 +54,9 @@
                     } else if ($row['user_level'] == 2) {
                         echo "<span>Super Admin</span>";
                     } else if ($row['user_level'] == 3) {
-                        echo "<span>Usuario</span>";
+                        echo "<span>Doctor</span>";
                     } else if ($row['user_level'] == 4) {
-                        echo "<span>Reservas</span>";
+                        echo "<span>Secretaria</span>";
                     }
                     echo'</td>';
                     echo'</tr>';

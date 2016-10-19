@@ -1,6 +1,3 @@
-<iframe frameborder="0" src="<?php echo base_url(); ?>admin/userorderembed" style="width:100%;height: 550px;"></iframe>
-<iframe frameborder="0" src="<?php echo base_url(); ?>admin/manageReservationembed" style="width:100%;height: 620px;"></iframe>
-
 <div class="panel panel-default" id="adminUsersOrder">
     <!-- Default panel contents -->
     <div class="panel-heading">SISTEMA DE PAGOS</div>
@@ -39,7 +36,7 @@
             </div>
 
             <div class="form-group col-md-5">
-                <label for="username">Cirugía</label>
+                <label for="username">Servicio</label>
 
                 <select class="form-control surgery" name="surgery">
                     <?php

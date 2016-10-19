@@ -125,7 +125,7 @@ class User extends CI_Controller {
 
         $reserveDate = $this->input->post("reserveDate");
         $reserveTime = $this->input->post("reserveTime");
-        $reserveDateTime = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+        $reserveDateTime = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
         $serviceId = $this->input->post("serviceId");
         $doctorsId = $this->input->post("doctorsId");
 
@@ -169,7 +169,7 @@ class User extends CI_Controller {
 
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-            $reserveDateTime = date('d-m-y H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+            $reserveDateTime = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
             $serviceId = $this->input->post("serviceId");
             $userId = $this->session->userdata('user_objectId');
             $doctorsId = $this->input->post("doctorsId");
@@ -215,7 +215,7 @@ class User extends CI_Controller {
         if ($this->session->userdata('user_objectId')) {
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-            $reserveDateTime = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+            $reserveDateTime = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
             $serviceId = $this->input->post("serviceId");
             $userId = $this->session->userdata('user_objectId');
             $doctorsId = $this->input->post("doctorsId");
@@ -421,8 +421,8 @@ class User extends CI_Controller {
             $productId = $this->input->post('productId');
             $productAmount = $this->input->post('productAmount');
             $totalPrice = $this->input->post('totalPrice');
-            date_default_timezone_set('America/Brazil');
-            $orderDate = $dateToday = date('d-m-Y H:i:s');
+            date_default_timezone_set('America/Santiago');
+            $orderDate = $dateToday = date('Y-m-d H:i:s');
 
             $query = $this->db->query("INSERT INTO users_order  
 					VALUES (NULL,

@@ -34,9 +34,9 @@
 
                             echo "<tr>";
                             echo "<td class='vert productName'>" . $row['product_name'] . "</td>";
-                            echo "<td class='vert productPrice rightalignPadding'>&#8369; <span>" . $row['product_price'] . "</span></td>";
+                            echo "<td class='vert productPrice rightalignPadding'>$  <span>" . $row['product_price'] . "</span></td>";
                             echo "<td class='vert orderAmount rightalignPadding'>" . $row['productAmount'] . "</td>";
-                            echo "<td class='vert productTotal rightalignPadding'>&#8369; <span>" . $row['totalPrice'] . "</span></td>";
+                            echo "<td class='vert productTotal rightalignPadding'>$ <span>" . $row['totalPrice'] . "</span></td>";
                             echo "<input type='hidden' value='" . $row['batchOrderId'] . "' id='batchId' name='batchId'> ";
                             if ($activeOrder != "true") {
                                 echo "<td class='vert'>";

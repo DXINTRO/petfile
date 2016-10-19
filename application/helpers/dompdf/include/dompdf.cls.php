@@ -3,7 +3,7 @@
  * @package dompdf
  * @link    http://www.dompdf.com/
  * @author  Benj Carson <benjcarson@digitaljunkies.ca>
- * @author  Fabien Ménager <fabien.menager@gmail.com>
+ * @author  Fabien Mï¿½nager <fabien.menager@gmail.com>
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  * @version $Id: dompdf.cls.php 468 2012-02-05 10:51:40Z fabien.menager $
  */
@@ -219,6 +219,7 @@ class DOMPDF {
     if ( $this->_locale_standard ) return;
     
     $this->_system_locale = setlocale(LC_NUMERIC, "C");
+    $this->_system_locale = setlocale(LC_TIME, "es_ES");
   }
   
   /**
@@ -228,6 +229,7 @@ class DOMPDF {
     if ( $this->_locale_standard ) return;
     
     setlocale(LC_NUMERIC, $this->_system_locale);
+    setlocale(LC_TIME, $this->_system_locale);
   }
 
   /**

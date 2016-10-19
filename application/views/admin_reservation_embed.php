@@ -89,7 +89,7 @@
                                             </div>
                                             <input type="hidden" name="reservationId" id="reservationId" value="" />
                                             <button type="submit" name="adminAddReservation" id="addReservationButton" class="btn btn-success pull-right" style="margin-top:10px;">Agregar Reserva</button>
-                                            <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none; display:none;">Regresar</button>
+                                            <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none; display:none;">Volvern</button>
                                             <button type="submit" name="editadminAddReservation" class="btn btn-primary pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none;">Guardar Cambios</button>
 
                                         </div>
@@ -244,7 +244,7 @@
                         <span class="input-group-btn">
                             <button class="btn btn-default adminSearchReservation" type="button">Buscar</button>
                         </span>
-                        <input type="text" class="form-control adminSearchReservationText" placeholder="Enter USER EMAIL">
+                        <input type="text" class="form-control adminSearchReservationText" placeholder="Ingrese un Email">
                     </div>
                 </div>
 
@@ -267,8 +267,8 @@
                             <?php
                             foreach ($reservations as $row) {
 
-                                $date1 = date('d-m-y H:i A', strtotime(str_replace('-', '/', '' . $row['reserveDate'] . ' ' . $row['reserveTime'] . '')));
-                                $dateToday = date('d-m-y H:i A');
+                                $date1 = date('Y-m-d H:i A', strtotime(str_replace('-', '/', '' . $row['reserveDate'] . ' ' . $row['reserveTime'] . '')));
+                                $dateToday = date('Y-m-d H:i A');
                                 if ($date1 > $dateToday && $row['confirmed'] == "0") {
                                     echo "<tr>";
                                 } else if ($row['confirmed'] == "1") {
@@ -284,23 +284,23 @@
                                 echo "<td class='vert serviceDate'>" . $row['reserveDate'] . " <br/> " . "</td>";
                                 echo "<td class='vert serviceDate'>" . " " . date('m/d/Y', strtotime($row['timestamp'])) . "</td>";
                                 echo "<td class='vert serviceTime' >" . $row['reserveTime'] . "</td>";
-                                echo "<td class='vert servicePrice rightalignPadding'>&#8369; " . $row['price'] . "</td>";
+                                echo "<td class='vert servicePrice rightalignPadding'>$ " . $row['price'] . "</td>";
                                 echo "<td class='vert'>";
                                 if ($date1 > $dateToday && $row['confirmed'] == "0") {
-                                    echo "<p style='font-size:10px;'>Status: Pre Approval</p>";
+                                    echo "<p style='font-size:10px;'>Estado: Pre Aprobado</p>";
                                     echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-primary btn-sm adminEditReservation pull-left' style='margin-right: 5px;'>Editar</button>";
                                     echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
-                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminApproveReservation pull-right' style='margin-top: 4px;width: 100%;'>Approve</button>";
+                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminApproveReservation pull-right' style='margin-top: 4px;width: 100%;'>Aprobar</button>";
                                 } else if ($row['confirmed'] == "1") {
-                                    echo "<p style='font-size:10px;'>Status: Hecho</p>";
+                                    echo "<p style='font-size:10px;'>Estado: Realizado</p>";
                                     echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
                                 } else if ($row['confirmed'] == "2") {
                                     echo "<p style='font-size:10px;'>Estado: Pendiente</p>";
-                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminConfirmReservation pull-right' style='margin-top: 4px;width: 100%;margin-bottom:10px;'>Hecho</button>";
+                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminConfirmReservation pull-right' style='margin-top: 4px;width: 100%;margin-bottom:10px;'>Done</button>";
                                     echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
                                 } else {
-                                    echo "<p style='font-size:10px;'>Status: Expired!</p>";
-                                    echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
+                                    echo "<p style='font-size:10px;'>Estado: Expirado!</p>";
+                                    echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar!</button>";
                                 }
 
 

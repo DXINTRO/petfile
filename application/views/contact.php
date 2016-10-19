@@ -1,14 +1,23 @@
 <div class="jumbotron" id="about">
 
-<div id="Layer1"></div>
-<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="342" height="325" align="middle">
-  <param name="movie" value="dev.petfile.cod\application\views" />
-  <param name="quality" value="high" />
-  <param name="bgcolor" value="#999933" />
-  <embed src="dev.petfile.cod\application\views" width="342" height="325" align="middle" quality="high" bgcolor="#999933" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /> 
-</object>  
+    <h2>&nbsp;</h2>
+    <table width="550" height="90" align="center">
+        <tr>
+            <td width="112"><h3>EMAIL</h3></td> <td width="20"><h3>&nbsp;</h3></td>
+            <td width="372">clinicamorita@petfile.cl</td>
+        </tr>
+        <tr>
+            <td><h3>TELEFONO</h3></td> <td><h3>&nbsp;</h3></td>
+            <td>+56-2-4585253</td>
+        </tr>
+        <tr> <td> <h3>DIRECCION</h3></td> <td><h4>
+          <p>&nbsp;</p>
+      </h4></td>
+          <td>Avda Simon Bolivar #3356, Maipu</td>
+      </tr>
+    </table>
 
-w</div>
+</div>
 
 <!-- Example row of columns -->
 <div class="row">

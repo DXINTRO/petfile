@@ -6,7 +6,7 @@
                 <!-- Default panel contents -->
                 <div class="panel-heading">Administración de Reservas</div>
                 <div class="panel-body">
-                    <p>Las Reservas de usuarios se pueden confirmar y cancelar aquí, además se puede añadir nuevas Reservas.</p>
+                    <p>Las Reservas de usuarios pueden ser confirmadas y canceladas aquí, además de añadir nuevas Reservas.</p>
 
                     <div class="panel-group" id="accordion" style="margin-bottom:10px;">
                         <div class="panel panel-default" id="addOrEditReservation">
@@ -28,13 +28,13 @@
                                         <div class="col-md-12">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">(1)  Seleccione un Doctor</h3>
+                                                    <h3 class="panel-title">Doctor</h3>
                                                 </div>
                                                 <div class="panel-body">
 
                                                     <select class="form-control reserveDoctorSelect" name="doctorsId">
 
-                                                        <option>Doctores ... </option>
+                                                        <option>Seleccione un Doctor</option>
 
                                                         <?php
                                                         foreach ($list_of_doctors as $row) {
@@ -51,7 +51,7 @@
                                         <div class="col-md-6">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">(2)  Hora de Reserva</h3>
+                                                    <h3 class="panel-title">Hora de Reserva</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <select class="form-control reserveTimeSelect">
@@ -72,7 +72,7 @@
                                             </div>
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">(3)  Detalle de la Reserva</h3>
+                                                    <h3 class="panel-title">Detalle de la Reserva</h3>
                                                 </div>
                                                 <div class="panel-body" style="padding: 5px 15px;">
 
@@ -92,10 +92,8 @@
                                             </div>
                                             <input type="hidden" name="reservationId" id="reservationId" value="" />
                                             <button type="submit" name="adminAddReservation" id="addReservationButton" class="btn btn-success pull-right" style="margin-top:10px;">Agregar Reserva</button>
-                                            <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none; display:none;">Regresar</button>
-                                            <button type="submit" name="editadminAddReservation" class="btn btn-primary pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none;">Guardar Cambios</button>
-
-                                        </div>
+                                            <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right"  style="margin-top:10px; margin-right:10px; display:none; display:none;">Back Add Reservation</button>
+                                            <button type="submit" name="editadminAddReservation" class="btn btn-primary pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none;">Guardar Camb</button></div>
 
 
                                     </form>
@@ -256,22 +254,22 @@
                     <table class="table table-hover" id="adminReservationTable">
                         <thead>
                             <tr>
-                                <th style="width:100px;">ID de Reserva</th>
-                                <th style="width:170px;">Email</th>
-                                <th style="width:240px;">Servicio</th>
-                                <th style="width:120px">Fecha de Hora</th>
-                                <th style="width:120px">Fecha Toma de Hora</th>
+                                <th height="42" style="width:120px;">ID de Reserva</th>
+                                <th style="width:200px;">Email</th>
+                                <th style="width:160px;">Servicio</th>
+                                <th style="width:135px">Fecha del Servicio</th>
+                                <th style="width:135px">Fecha Toma de Hora</th>
                                 <th style="width:100px">Hora</th>
                                 <th style="text-align:right;padding-right:30px;">Precio</th>
-                                <th style="width:100px;"></th>
+                                <th style="width:130px;"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             foreach ($reservations as $row) {
 
-                                $date1 = date('d-m-y H:i A', strtotime(str_replace('-', '/', '' . $row['reserveDate'] . ' ' . $row['reserveTime'] . '')));
-                                $dateToday = date('d-m-y H:i A');
+                                $date1 = date('d-m-Y H:i A', strtotime(str_replace('-', '/', '' . $row['reserveDate'] . ' ' . $row['reserveTime'] . '')));
+                                $dateToday = date('d-m-Y H:i A');
                                 if ($date1 > $dateToday && $row['confirmed'] == "0") {
                                     echo "<tr>";
                                 } else if ($row['confirmed'] == "1") {
@@ -285,24 +283,24 @@
                                 echo "<td class='vert userEmail' style='word-wrap: break-word;word-break: break-all;'>" . $row['email'] . "</td>";
                                 echo "<td class='vert serviceTitle' data-serviceId='" . $row['serviceObjectId'] . "'>" . $row['service_name'] . "</td>";
                                 echo "<td class='vert serviceDate'>" . $row['reserveDate'] . " <br/> " . "</td>";
-                                echo "<td class='vert serviceDate'>" . " " . date('d/m/Y', strtotime($row['timestamp'])) . "</td>";
+                                echo "<td class='vert serviceDate'>" . " " . date('m/d/Y', strtotime($row['timestamp'])) . "</td>";
                                 echo "<td class='vert serviceTime' >" . $row['reserveTime'] . "</td>";
-                                echo "<td class='vert servicePrice rightalignPadding'> $ " . $row['price'] . "</td>";
+                                echo "<td class='vert servicePrice rightalignPadding'>$ " . $row['price'] . "</td>";
                                 echo "<td class='vert'>";
                                 if ($date1 > $dateToday && $row['confirmed'] == "0") {
-                                    echo "<p style='font-size:10px;'>Status: Pre Approval</p>";
+                                    echo "<p style='font-size:10px;'>Estado: Pre Aprobado</p>";
                                     echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-primary btn-sm adminEditReservation pull-left' style='margin-right: 5px;'>Editar</button>";
                                     echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
-                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminApproveReservation pull-right' style='margin-top: 4px;width: 100%;'>Approve</button>";
+                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminApproveReservation pull-right' style='margin-top: 4px;width: 100%;'>Aprobar</button>";
                                 } else if ($row['confirmed'] == "1") {
-                                    echo "<p style='font-size:10px;'>Status: Hecho</p>";
+                                    echo "<p style='font-size:10px;'>Estado: Confirmado</p>";
                                     echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
                                 } else if ($row['confirmed'] == "2") {
                                     echo "<p style='font-size:10px;'>Estado: Pendiente</p>";
-                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminConfirmReservation pull-right' style='margin-top: 4px;width: 100%;margin-bottom:10px;'>Hecho</button>";
+                                    echo "<button type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-warning btn-sm adminConfirmReservation pull-right' style='margin-top: 4px;width: 100%;margin-bottom:10px;'>Realizado</button>";
                                     echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar</button>";
                                 } else {
-                                    echo "<p style='font-size:10px;'>Status: Expired!</p>";
+                                    echo "<p style='font-size:10px;'>Estado: Expirado!</p>";
                                     echo "<button style='width:100%;' type='button' data-objectId='" . $row['reservationobjectId'] . "' class='btn btn-danger btn-sm adminDeleteReservation pull-right'>Borrar!</button>";
                                 }
 
@@ -328,7 +326,7 @@
                         </div>
 
                         <div class="modal-body clearfix">
-                           Estas seguro que quieres eliminar)???
+                           Está seguro que desea eliminar?
                         </div>
 
                         <div class="modal-footer">
@@ -346,7 +344,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Registro</h4>
+                            <h4 class="modal-title" id="myModalLabel">CONFIRMACION DE HORAS</h4>
+                            
                         </div>
 
                         <div class="modal-body clearfix">
@@ -367,8 +366,8 @@
 
                             <form action="confirmReservation" method="POST">
                                 <input type="hidden" name='registrationId' class='registrationId' value=''>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary confirmAction" id="processReservationBTN" data-confirm="processReservation">Proceso de Registro / Imprimir el proyecto</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary confirmAction" id="processReservationBTN" data-confirm="processReservation">Confirmar Hora y LLamar a Paciente</button>
                             </form>
                         </div>
                     </div><!-- /.modal-content -->
@@ -391,8 +390,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmDeleteAdmin">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary confirmAction" data-confirm="confirmDeleteAdmin">Confirmar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -405,7 +404,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Confirm/Approve Reservation</h4>
+                            <h4 class="modal-title" id="myModalLabel">Confirma/Aprueba la Reserva</h4>
                         </div>
 
                         <div class="modal-body clearfix">
@@ -426,7 +425,7 @@
 
                             <form action="approveReservation" method="POST">
                                 <input type="hidden" name='registrationId' class='registrationId' value=''>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-primary confirmAction" id="processReservationBTN" data-confirm="processReservation">888.</button>
                             </form>
                         </div>

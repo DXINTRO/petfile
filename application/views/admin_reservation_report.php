@@ -10,13 +10,14 @@
                     <td><img style="width:100px;" src="<?php echo base_url(); ?>assets/images/logo.jpg"></td>
                     <td style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
                         Avda. Simon Bolivar #3356, Maipu, Santiago
+                        
                     </td>
                 </tr>
             </tbody>
         </table>
 
         <h1>Registro de Reservas</h1>
-        Fecha : <?php echo date('d-m-y H:i:s'); ?>
+        Fecha : <?php echo date('d-m-Y H:i:s'); ?>
         <br/>
         <br/>
         <table class="detail" style="width:100%;margin: 0px; border-top: none;">
@@ -56,7 +57,7 @@
                     } else {
                         $status = "Pendiente";
                     }
-                    echo'<td class="center">Status : ' . $status . '<br/>' . $row['service_name'] . '</td>';
+                    echo'<td class="center">Estado : ' . $status . '<br/>' . $row['service_name'] . '</td>';
                     echo'<td>' . $row['first_name'] . ', ' . $row['last_name'] . '</td>';
                     echo'<td style="text-align:right;">$ ' . number_format($row['price'], 2) . '</td>';
                     echo'</tr>';
