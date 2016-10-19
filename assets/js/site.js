@@ -36,9 +36,36 @@ $(document).ready(function () {
         }
         return value.toLowerCase() !== target.val().toLowerCase();
     }, "Username must be different from Email");
-
+//////////////////////////////menuu/////////////////////////////////////////////////
     if ($('#userManageReservation').length) {
-
+        userManageReservation();
+    } else if ($('#homepage').length) {
+        $('.navMainLayout li#navHome').addClass('active');
+    } else if ($('#userRegister').length) {
+        userReserve();
+    } else if ($('#userReserve').length) {
+        userRegister();
+    } else if ($('#sigInPage').length) {
+        sigInPage();
+    } else if ($('#orderPage').length) {
+        orderPage();
+    } else if ($("#adminAddService").length) {
+        adminAddService();
+    } else if ($("#adminManageReservation").length) {
+        adminManageReservation();
+    } else if ($("#adminUsersOrder").length) {
+        adminUsersOrder();
+    } else if ($("#adminProducts").length) {
+        adminProducts();
+    } else if ($("#adminAddUser").length) {
+        adminAddUser();
+    } else if ($('#viewCartPage').length) {
+        viewCartPage();
+    } else if ($('#petPage').length) {//new
+        viewPetPage();
+    }
+////////////////////////////funciones del menu///////////////////////////////////////
+    function userManageReservation() {
         $('.userNavbar li.navReserveManage').addClass('active');
 
         $("body").on("click", ".editReservation", function (ccoie) {
@@ -109,8 +136,9 @@ $(document).ready(function () {
                 }
             });
         }
+    }
 
-    } else if ($('#userReserve').length) {
+    function userReserve() {
         $('.userNavbar li.navReserve').addClass('active');
 
         $("body").on("click", ".submitReservation", function (e) {
@@ -159,9 +187,9 @@ $(document).ready(function () {
                 $('#myModal .alert').show();
             }
         });
+    }
 
-    } else if ($('#sigInPage').length) {
-
+    function sigInPage() {
         $('.navMainLayout li#navSignin').addClass('active');
 
         $(".form-signin").validate({
@@ -185,11 +213,9 @@ $(document).ready(function () {
                 });
             }
         });
+    }
 
-    } else if ($('#homepage').length) {
-        $('.navMainLayout li#navHome').addClass('active');
-    } else if ($('#userRegister').length) {
-
+    function userRegister() {
         $('.navMainLayout li#navUserRegister').addClass('active');
         $('body').on('change', '#inputEmail', function (event) {
             $.ajax({
@@ -236,9 +262,9 @@ $(document).ready(function () {
                 });
             }
         });
+    }
 
-    } else if ($('#orderPage').length) {
-
+    function orderPage() {
         $('.userNavbar li.navOrder').addClass('active');
 
         $('body').on('click', '.addToCart', function (e) {
@@ -267,7 +293,7 @@ $(document).ready(function () {
                 $('.confirmAction').attr('data-objectId', $(this).attr('data-objectId'));
             }
 
-        })
+        });
 
         $("body").on("click", "#confirmationModal .confirmAction", function (e) {
             var $this = $(this);
@@ -300,8 +326,9 @@ $(document).ready(function () {
                 });
             }
         });
+    }
 
-    } else if ($("#adminAddService").length) {
+    function adminAddService() {
         $('body').on('click', '.editServiceFromAdmin', function (e) {
             $('#addServicecollapse').collapse('show');
             var $row = $(this).closest("tr");
@@ -361,39 +388,19 @@ $(document).ready(function () {
                 }
             });
         });
+    }
 
-
-
-    } else if ($("#adminManageReservation").length) {
-
-
+    function adminManageReservation() {
         $('body').on('click', '#generateReservationReport', function (e) {
             e.preventDefault();
             if ($('.reportYearTo').val() != 0 && $('.reportYearFrom').val() != 0 && ($('.reportYearFrom').val() <= $('.reportYearTo').val()) && ($('.reportMonthFrom').val() <= $('.reportMonthTo').val())) {
                 $("#generatePDF").submit();
                 $("#generateUserReportcollapse .alert-danger").hide();
-                // $("#generateUserReportcollapse .alert-danger").hide();
-                // $.ajax({
-                // 	method:"POST",
-                // 	async:true,
-                // 	data:{
-                // 		'reportMonthFrom':$('.reportMonthFrom').val(),
-                // 		'reportYearFrom':$('.reportYearFrom').val(),
-                // 		'reportMonthTo':$('.reportMonthTo').val(),
-                // 		'reportYearTo':$('.reportYearTo').val()
-                // 	},
-                // 	url:'generateReservationReport',
-                // 	success:function(data,status,jqXHR){
-
-                // 	}
-                // });
             } else {
                 $("#generateUserReportcollapse .alert-danger").show();
                 $("#generateUserReportcollapse .alert-danger strong").text("Favor seleccione una fecha apropiada!");
             }
         });
-
-
         $('body').on('change', '#reservationUserEmail', function (event) {
             $.ajax({
                 method: "POST",
@@ -413,7 +420,6 @@ $(document).ready(function () {
             });
         });
         $('.adminServicesReservation').select2();
-
         $('body').on('click', '#backToAddReservation', function (event) {
             $('#saveChangesReservation').hide();
             $('#backToAddReservation').hide();
@@ -427,7 +433,6 @@ $(document).ready(function () {
             $('#datepicker').datepicker('setDate');
             $('.reserveTimeSelect').prop('selectedIndex', 0);
         });
-
         $('body').on('click', '.adminEditReservation', function (event) {
             $('#collapseOne').collapse('show');
             $('#saveChangesReservation').show();
@@ -446,26 +451,20 @@ $(document).ready(function () {
             $('.reserveTime').text($row.find('.serviceTime').text("uuuuuuuu"));
 
         });
-
         $('body').on('click', '.adminConfirmReservation', function (event) {
             $("#processReservationModal .registrationId").val($(this).attr("data-objectid"));
             $("#processReservationModal").modal();
         });
-
         $('body').on('click', '.adminApproveReservation', function (event) {
             $("#approveReservationModal .registrationId").val($(this).attr("data-objectid"));
             $("#approveReservationModal").modal();
         });
-
-
-
         $('body').on('click', '.adminDeleteReservation', function (event) {
             $("#confirmationModal h5.message").text("Esta seguro que desea eliminar? " + $(this).parent().parent().children('.serviceTitle').text() + "?");
             $("#confirmationModal .confirmAction").attr("data-confirm", "confirmDelete");
             $("#confirmationModal .confirmAction").attr("data-objectId", $(this).attr("data-objectId"));
             $("#confirmationModal").modal();
         });
-
         $("body").on("click", "#confirmationModal .confirmAction", function (e) {
             var $this = $(this);
             if ($this.attr("data-confirm") == "confirmDelete") {
@@ -495,8 +494,6 @@ $(document).ready(function () {
                 });
             }
         });
-
-
         $("#addReservationAdmin").validate({
             submitHandler: function (form) {
                 if ($(".reserveDate").text() == "" || $(".reserveDate label").length) {
@@ -582,9 +579,9 @@ $(document).ready(function () {
                 }
             }
         });
+    }
 
-    } else if ($("#adminUsersOrder").length) {
-
+    function adminUsersOrder() {
         $('body').on('click', '.processOrderAdmin', function (e) {
             console.log("sss");
             var $row = $(this).closest('tr');
@@ -603,7 +600,6 @@ $(document).ready(function () {
                     $('#confirmationModal').modal();
                 }
             });
-
         });
 
         $('body').on('click', '.deleteOrderAdmin', function (e) {
@@ -624,7 +620,6 @@ $(document).ready(function () {
                         success: function (data, status, jqXHR) {
                             $("#adminOrderTable").html($(data).find("#adminOrderTable").html());
                             $("#adminPaymentTable").html($(data).find("#adminPaymentTable").html());
-
                         }
                     });
                 }
@@ -657,68 +652,35 @@ $(document).ready(function () {
                 }
             });
         });
-    } else if ($("#adminProducts").length) {
+    }
+
+    function adminProducts() {
         $('body').on('click', '#generateProductReport', function (e) {
             e.preventDefault();
             if ($('.reportYearTo').val() != 0 && $('.reportYearFrom').val() != 0 && ($('.reportYearFrom').val() <= $('.reportYearTo').val()) && ($('.reportMonthFrom').val() <= $('.reportMonthTo').val())) {
 
                 $("#generatePDF").submit();
                 $("#generateUserReportcollapse .alert-danger").hide();
-
-                // $("#generateUserReportcollapse .alert-danger").hide();
-                // $.ajax({
-                // 	method:"POST",
-                // 	async:true,
-                // 	data:{
-                // 		'reportMonthFrom':$('.reportMonthFrom').val(),
-                // 		'reportYearFrom':$('.reportYearFrom').val(),
-                // 		'reportMonthTo':$('.reportMonthTo').val(),
-                // 		'reportYearTo':$('.reportYearTo').val()
-                // 	},
-                // 	url:'generateProductReport',
-                // 	success:function(data,status,jqXHR){
-
-                // 	}
-                // });
             } else {
                 $("#generateUserReportcollapse .alert-danger").show();
                 $("#generateUserReportcollapse .alert-danger strong").text("Favor seleccione una fecha válida!");
             }
         });
+    }
 
-    } else if ($("#adminAddUser").length) {
-
+    function adminAddUser() {
         $(".adminNavbar .navAdminUserManage").addClass("active");
-
         $('body').on('click', '#generateUserReport', function (e) {
             e.preventDefault();
             if ($('.reportYearTo').val() != 0 && $('.reportYearFrom').val() != 0 && ($('.reportYearFrom').val() <= $('.reportYearTo').val()) && ($('.reportMonthFrom').val() <= $('.reportMonthTo').val())) {
 
                 $("#generatePDF").submit();
                 $("#generateUserReportcollapse .alert-danger").hide();
-
-                // $("#generateUserReportcollapse .alert-danger").hide();
-                // $.ajax({
-                // 	method:"POST",
-                // 	async:true,
-                // 	data:{
-                // 		'reportMonthFrom':$('.reportMonthFrom').val(),
-                // 		'reportYearFrom':$('.reportYearFrom').val(),
-                // 		'reportMonthTo':$('.reportMonthTo').val(),
-                // 		'reportYearTo':$('.reportYearTo').val()
-                // 	},
-                // 	url:'admin/generateUserPDF',
-                // 	success:function(data,status,jqXHR){
-
-                // 	}
-                // });
             } else {
                 $("#generateUserReportcollapse .alert-danger").show();
                 $("#generateUserReportcollapse .alert-danger strong").text("Favor seleccione una fecha válida!");
             }
         });
-
-
         $('body').on('change', '#userLevelAdd', function (e) {
             if ($(this).val() !== "1") {
                 $("#petInformationContainer").hide();
@@ -745,14 +707,12 @@ $(document).ready(function () {
             $(".panelAddEditUser > .panel-heading .panel-title").text("Agregar Usuario");
 
         });
-
         $('body').on('click', '.removeUserFromAdmin', function (e) {
             $('#confirmationModal .confirmAction').attr("data-objectid", $(this).attr("data-objectid"));
             $('#confirmationModal .confirmAction').attr("data-confirm", "confirmDeleteAdmin");
             $('#confirmationModal .modal-body').text(" ESTÁ SEGURO DE ELIMINAR?");
             $('#confirmationModal').modal();
         });
-
         $('body').on('click', '.generatenewPassword', function (e) {
             $('#confirmationModal .confirmAction').attr("data-objectid", $("#userObjectIdUpdate").val());
             $('#confirmationModal .confirmAction').attr("data-confirm", "confirmGenerateNewPassword");
@@ -760,7 +720,6 @@ $(document).ready(function () {
 
             $('#confirmationModal').modal();
         });
-
         $('body').on('click', '.confirmAction', function () {
             if ($(this).attr("data-confirm") == "confirmDeleteAdmin") {
                 $.ajax({
@@ -778,9 +737,9 @@ $(document).ready(function () {
                             success: function (data) {
                                 $("#adminUsersTable").html($(data).find("#adminUsersTable").html());
                             }
-                        })
+                        });
                     }
-                })
+                });
             } else if ($(this).attr("data-confirm") == "confirmGenerateNewPassword") {
                 $.ajax({
                     method: "POST",
@@ -795,9 +754,9 @@ $(document).ready(function () {
                         $('#confirmationModal').modal('hide');
 
                     }
-                })
+                });
             }
-        })
+        });
         $("#addUserAdmin").validate({
             rules: {
                 confirm_inputPassword: {
@@ -858,12 +817,12 @@ $(document).ready(function () {
                 });
             }
         });
+    }
 
-    } else if ($('#viewCartPage').length) {
+    function viewCartPage() {
         $('body').on('click', '.editOrder', function () {
             $orderRow = $(this).parent().parent();
             $orderQuantityInput = $orderRow.children(".orderAmount").text();
-
             $("#confirmationModal .detailProductName").text($orderRow.children(".productName").text());
             $("#confirmationModal .detailProductAmount input").val($orderRow.children(".orderAmount").text());
             $("#confirmationModal .detailPrice .value").text($orderRow.children(".productPrice").children("span").text());
@@ -1000,10 +959,67 @@ $(document).ready(function () {
                     }
                 });
             }
-        })
+        });
     }
 
+    function viewPetPage() {//new
+         $('.navMainLayout li#navAdminPetManage').addClass('active');
+        $('#bd-desde').on('change', function () {
+            var desde = $('#bd-desde').val();
+            var hasta = $('#bd-hasta').val();
+            var url = '../php/busca_paciente_fecha.php';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: 'desde=' + desde + '&hasta=' + hasta,
+                success: function (datos) {
+                    $('#agrega-registros').html(datos);
+                }
+            });
+            return false;
+        });
 
+        $('#bd-hasta').on('change', function () {
+            var desde = $('#bd-desde').val();
+            var hasta = $('#bd-hasta').val();
+            var url = '../php/busca_paciente_fecha.php';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: 'desde=' + desde + '&hasta=' + hasta,
+                success: function (datos) {
+                    $('#agrega-registros').html(datos);
+                }
+            });
+            return false;
+        });
+
+        $('#nuevo-paciente').on('click', function () {
+            $('#formulario')[0].reset();
+            $('#pac').val('Registro');
+            $('#edi').hide();
+            $('#reg').show();
+            $('#registra-paciente').modal({
+                show: true,
+                backdrop: 'static'
+            });
+        });
+
+        $('#bs-pacie').on('keyup', function () {
+            var dato = $('#bs-pacie').val();
+            var url = '../php/busca_paciente.php';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: 'dato=' + dato,
+                success: function (datos) {
+                    $('#agrega-registros').html(datos);
+                }
+            });
+            return false;
+        });
+    }
+///////////////////////////////////////////////////////////////////////////////
     function reloadUserManageReservationTable() {
         $.ajax({
             url: 'manageReservation',
@@ -1011,9 +1027,9 @@ $(document).ready(function () {
                 console.log("updatee");
                 $("#userManageReservation").html($(data).find("#userManageReservation").html());
             }
-        })
+        });
     }
-    
+
     function resetReservationModal(modalName) {
         $(".reserveDate").text("");
         $(".reserveTime").text("");
@@ -1022,10 +1038,78 @@ $(document).ready(function () {
         $('' + modalName + ' .alert').hide();
     }
 
+    function agregaPaciente() {
+        var url = '../php/agrega_paciente.php';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: $('#formulario').serialize(),
+            success: function (registro) {
+                if ($('#pro').val() == 'Registro') {
+                    $('#formulario')[0].reset();
+                    $('#mensaje').addClass('bien').html('Registro completado con exito').show(200).delay(2500).hide(200);
+                    $('#agrega-registros').html(registro);
+                    return false;
+                } else {
+                    $('#mensaje').addClass('bien').html('Edicion completada con exito').show(200).delay(2500).hide(200);
+                    $('#agrega-registros').html(registro);
+                    return false;
+                }
+            }
+        });
+        return false;
+    }
+
+    function eliminarPaciente(id) {
+        var url = '../php/elimina_paciente.php';
+        var pregunta = confirm('¿Esta seguro de eliminar este paciente?');
+        if (pregunta == true) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: 'id=' + id,
+                success: function (registro) {
+                    $('#agrega-registros').html(registro);
+                    return false;
+                }
+            });
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    function editarPaciente(id) {
+        console.log("asdasd");
+        $('#formulario')[0].reset();
+        var url = '../php/edita_paciente.php';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: 'id=' + id,
+            success: function (valores) {
+                var datos = eval(valores);
+                $('#reg').hide();
+                $('#edi').show();
+                $('#pro').val('Edicion');
+                $('#id-prod').val(id);
+                $('#nombre').val(datos[0]);
+                $('#tipo').val(datos[1]);
+                $('#precio-uni').val(datos[2]);
+                $('#precio-dis').val(datos[3]);
+                $('#registra-producto').modal({
+                    show: true,
+                    backdrop: 'static'
+                });
+                return false;
+            }
+        });
+        return false;
+    }
     //FIX FOR BS3 Alert dismissable
     $("body").on("click", ".alert .close", function (e) {
         $(this).closest("." + $(this).attr("data-hide")).hide();
-    })
+    });
 
     $('body').on('click', '.searchManageUser', function (e) {
         $.ajax({
@@ -1075,7 +1159,6 @@ $(document).ready(function () {
                 data: {
                     'userEmailSearch': $(".searchUserServicesText").val(),
                     'serviceSort': "S"
-
                 },
                 success: function (data, status, jqXHR) {
                     $("#userReserve table").html($(data).find("#userReserve table").html());
@@ -1089,7 +1172,6 @@ $(document).ready(function () {
                 data: {
                     'userEmailSearch': $(".searchUserServicesText").val(),
                     'serviceSort': "O"
-
                 },
                 success: function (data, status, jqXHR) {
                     $("#userReserve table").html($(data).find("#userReserve table").html());
@@ -1153,11 +1235,9 @@ $(document).ready(function () {
                 }
             });
         }
-
     });
 
     $('body').on('click', '.editProductAdmin', function (e) {
-
         $parentRow = $(this).closest("tr");
         $("#productIdToEdit").val($(this).attr("data-objectId"));
         $("#productNameEdit").val($parentRow.find(".productName").text());

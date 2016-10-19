@@ -304,13 +304,7 @@ Introduzca algunas letras del producto a buscar">
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-
-
-
-           
-
             <div class="footer">
                 <p>&copy; PetFile 2016</p>
             </div>
-
             </div>

@@ -8,7 +8,7 @@ class Admin extends CI_Controller {
         $this->load->library('session');
     }
 
-    private function checkAllowed($notAllowedLevels) {
+    private function checkAllowed($notAllowedLevels) {//checkea los permisos del usuario
         $userLevel = $this->session->userdata('user_level');
         if (in_array($userLevel, $notAllowedLevels)) {
             if ($userLevel == 3) {
@@ -41,26 +41,25 @@ class Admin extends CI_Controller {
     }
 
     public function addProduct() {
-
         $pname = $this->input->post('productName');
         $pqty = $this->input->post('productQty');
         $pprice = $this->input->post('productPrice');
         $ptype = $this->input->post('productType');
 
         $query = $this->db->query("INSERT INTO products 
-											(`objectId`,
-											`product_name`,
-											`product_quantity`,
-											`product_price`,
-											`product_type`)
-											VALUES
-											(
-											NULL,
-											'" . $pname . "',
-											" . $pqty . ",
-											" . $pprice . ",
-											'" . $ptype . "'
-											);");
+                                (`objectId`,
+                                `product_name`,
+                                `product_quantity`,
+                                `product_price`,
+                                `product_type`)
+                                VALUES
+                                (
+                                NULL,
+                                '" . $pname . "',
+                                " . $pqty . ",
+                                " . $pprice . ",
+                                '" . $ptype . "'
+                                );");
 
         if ($this->db->affected_rows() > 0) {
             set_status_header((int) 200);
@@ -76,14 +75,13 @@ class Admin extends CI_Controller {
         $pprice = $this->input->post('productPriceEdit');
         $ptype = $this->input->post('productTypeEdit');
         $pid = $this->input->post('productIdToEdit');
-
         $updateActive = $this->db->query("UPDATE products 
-											SET
-											`product_name` = '" . $pname . "',
-											`product_quantity` = " . $pqty . ",
-											`product_price` = " . $pprice . ",
-											`product_type` = '" . $ptype . "' 
-											WHERE objectId='" . $pid . "';");
+                                        SET
+                                        `product_name` = '" . $pname . "',
+                                        `product_quantity` = " . $pqty . ",
+                                        `product_price` = " . $pprice . ",
+                                        `product_type` = '" . $ptype . "' 
+                                        WHERE objectId='" . $pid . "';");
 
         redirect("/admin/manageproducts");
     }
@@ -479,8 +477,6 @@ class Admin extends CI_Controller {
     }
 
     public function userorder() {
-
-
         if ($this->session->userdata('admin_objectId')) {
             $arrayAllowed = array(4);
             $this->checkAllowed($arrayAllowed);
@@ -1075,34 +1071,32 @@ class Admin extends CI_Controller {
         $firstName = $this->input->post("firstName");
         $lastName = $this->input->post("lastName");
         $userLevel = $this->input->post("userLevel");
-		$address = $this->input->post("address");
-		$city = $this->input->post("city");
+        $address = $this->input->post("address");
+        $city = $this->input->post("city");
         $contactNo = $this->input->post("contactNo");
-		
+
         $petName = $this->input->post("petName");
-		$petSpecies= $this->input->post("petSpecies");
-		$petRace = $this->input->post("petRace");
-		$petGender =  $this->input->post("petGender");
-		$petAge = $this->input->post("petAge");
-		$petColor = $this->input->post("petColor");
-		$petHistory = $this->input->post("petHistory");
-		//$petIncome = $this->input->post("petIncome");
-		
+        $petSpecies = $this->input->post("petSpecies");
+        $petRace = $this->input->post("petRace");
+        $petGender = $this->input->post("petGender");
+        $petAge = $this->input->post("petAge");
+        $petColor = $this->input->post("petColor");
+        $petHistory = $this->input->post("petHistory");
+        //$petIncome = $this->input->post("petIncome");
         if ($inputEmail) {
 
 
 
             // $query = $this->db->query("INSERT INTO `vet_app`.`users` VALUES (NULL,'".$username."', '".$inputPassword."', '".$firstName."', '".$lastName."','".$inputEmail."',".$userLevel.",NULL);");
-
             //$query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $contactNo . "');");
 
-			$query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $city . "','" . $contactNo . "');");
+            $query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $city . "','" . $contactNo . "');");
 
             if ($this->db->affected_rows() > 0) {
                 if ($userLevel == 1) {
                     $queryEmail = $this->db->query("SELECT objectId FROM users WHERE email ='" . $inputEmail . "'");
                     $row = $queryEmail->row();
-                    $query2 = $this->db->query("INSERT INTO pets VALUES(NULL,'".$petName."','".$petSpecies."','".$petRace."','".$petGender."','".$petAge."','".$petColor."','".$petHistory."',NULL, '".$row->objectId."');");
+                    $query2 = $this->db->query("INSERT INTO pets VALUES(NULL,'" . $petName . "','" . $petSpecies . "','" . $petRace . "','" . $petGender . "','" . $petAge . "','" . $petColor . "','" . $petHistory . "',NULL, '" . $row->objectId . "');");
                     if ($this->db->affected_rows() > 0) {
                         set_status_header((int) 200);
                     } else {
@@ -1281,6 +1275,29 @@ class Admin extends CI_Controller {
         // $this->output->set_header('Content-Disposition: attachment; filename="admin_reservation_report.pdf"');
         // $data = pdf_create($html, '', false);
         // 	$this->output->append_output($data);
+    }
+
+    public function pet() {// new
+        print_r('fuera de servicio vuelva prontos .att Apu');
+        die();
+        if ($this->session->userdata('admin_objectId')) {// si es admin entra 
+            //////////////////////////Permisos/////////////////////////////////
+            $arrayAllowed = array(3, 4);
+            $this->checkAllowed($arrayAllowed);
+            $navbarData['userLevel'] = $this->session->userdata('user_level');
+            ///////////////////////////////////////////////////////////////////
+            //////////////////////////datos que se envian /////////////////////
+            $data['stylesheets'] = array('jumbotron-narrow.css');
+            $data['show_navbar'] = "true";//muestra la barra culia
+            $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);// la barra de menus 
+            $query = $this->db->query("SELECT * FROM products;");
+            $usersData['products'] = $query->result_array();
+            $data['content_body'] = $this->load->view('admin_Pets', $usersData, true);
+            ///////////////////////////////////////////////////////////////////
+            $this->load->view("layout", $data);
+        } else {
+            redirect("/");
+        }
     }
 
 }
