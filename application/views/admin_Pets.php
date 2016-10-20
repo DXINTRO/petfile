@@ -77,7 +77,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Raza: </td>
-                                                    <td><input type="number" required="required" name="petRace" id="petRace"/></td>
+                                                    <td><input type="text" required="required" name="petRace" id="petRace"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Genero:</td>
