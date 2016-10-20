@@ -40,8 +40,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="panel-heading clearfix">
                             <a style="color:#000000;" data-toggle="collapse" data-parent="#accordion" href="#generateUserReportcollapse">
                                 <span class="glyphicon glyphicon-hand-right"></span> 
@@ -304,6 +302,8 @@ Introduzca algunas letras del producto a buscar">
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
+            
+            
             <div class="footer">
                 <p>&copy; PetFile 2016</p>
             </div>

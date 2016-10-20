@@ -960,9 +960,6 @@ class Admin extends CI_Controller {
         $query = $this->db->query("SELECT  * FROM users where email='" . $inputEmail . "'");
         $row = $query->row();
         if ($query->num_rows() > 0) {
-
-            //$datauser['userobject']=$query->result_array();
-
             if ($row->user_level == 1) {
                 $queryPet = $this->db->query("SELECT * from pets where userId='" . $row->objectId . "'");
                 if ($queryPet->num_rows() > 0) {
@@ -1277,9 +1274,54 @@ class Admin extends CI_Controller {
         // 	$this->output->append_output($data);
     }
 
+    public function edita_paciente() {
+        die(print_r('sadassa'));
+    }
+
+    public function agrega_paciente() {
+        die(print_r($_POST));
+        $id = $this->input->post('id-prod');
+        $proceso = $this->input->post('pro');
+        $nombre = $this->input->post('nombre');
+        $tipo = $this->input->post('tipo');
+        $precio_uni = $this->input->post('precio-uni');
+        $precio_dis = $this->input->post('precio-dis');
+        $fecha = date('Y-m-d');
+        switch ($proceso) {
+            case 'Registro':
+                $query = "INSERT INTO productos (nomb_prod, tipo_prod, precio_unit, precio_dist, fecha_reg)VALUES('$nombre','$tipo','$precio_uni','$precio_dis', '$fecha')";
+                break;
+
+            case 'Edicion':
+                $query = "UPDATE productos SET nomb_prod = '$nombre', tipo_prod = '$tipo', precio_unit = '$precio_uni', precio_dist = '$precio_dis' WHERE id_prod = '$id'";
+                break;
+        }
+        if ($this->db->query($query)) {
+            $query = $this->db->query("SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId ORDER BY pets.objectId ASC");
+            $dfghj = '';
+            foreach ($query->result_array($query) as $dat) {
+                $dfghj.= '<tr>
+                        <td>' . $dat['petName'] . '</td>
+                                <td>' . $dat['petSpecies'] . '</td>
+                                <td>' . $dat['petRace'] . '</td>
+                                <td>' . $dat['petGender'] . '</td>
+                                <td>' . $dat['petIncome'] . '</td>
+                                <td>' . $dat['first_name'] . '</td>
+                                <td>' . $dat['last_name'] . '</td>
+                                <td><a href="javascript:editarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-edit"></a> <a href="javascript:eliminarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-remove-circle"></a></td>
+                         </tr>';
+            }
+            echo '{"response":"'.$dfghj.'"}';
+        }  else {
+            echo null;
+        }
+    }
+
+    public function elimina_paciente() {
+        die(print_r('sadassa'));
+    }
+
     public function pet() {// new
-        print_r('fuera de servicio vuelva prontos .att Apu');
-        die();
         if ($this->session->userdata('admin_objectId')) {// si es admin entra 
             //////////////////////////Permisos/////////////////////////////////
             $arrayAllowed = array(3, 4);
@@ -1288,11 +1330,11 @@ class Admin extends CI_Controller {
             ///////////////////////////////////////////////////////////////////
             //////////////////////////datos que se envian /////////////////////
             $data['stylesheets'] = array('jumbotron-narrow.css');
-            $data['show_navbar'] = "true";//muestra la barra culia
-            $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);// la barra de menus 
-            $query = $this->db->query("SELECT * FROM products;");
-            $usersData['products'] = $query->result_array();
-            $data['content_body'] = $this->load->view('admin_Pets', $usersData, true);
+            $data['show_navbar'] = "true"; //muestra la barra culia
+            $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true); // la barra de menus 
+            $query = $this->db->query("SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId ORDER BY pets.objectId ASC");
+            $Data['TABLE_REGISTROS'] = $query->result_array($query);
+            $data['content_body'] = $this->load->view('admin_Pets', $Data, true);
             ///////////////////////////////////////////////////////////////////
             $this->load->view("layout", $data);
         } else {
@@ -1301,5 +1343,3 @@ class Admin extends CI_Controller {
     }
 
 }
-
-?>

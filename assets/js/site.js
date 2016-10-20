@@ -61,7 +61,7 @@ $(document).ready(function () {
         adminAddUser();
     } else if ($('#viewCartPage').length) {
         viewCartPage();
-    } else if ($('#petPage').length) {//new
+    } else if ($('#admin_Pets').length) {//new
         viewPetPage();
     }
 ////////////////////////////funciones del menu///////////////////////////////////////
@@ -407,9 +407,8 @@ $(document).ready(function () {
                 data: {
                     'userEmailCheck': $(this).val()
                 },
-                url: "admin/checkEmailExist",
+                url: "checkEmailExist",
                 success: function (data, status, jQxr) {
-                    console.log(data);
                     $(".petName").text(data);
                 },
                 statusCode: {
@@ -963,6 +962,7 @@ $(document).ready(function () {
     }
 
     function viewPetPage() {//new
+        console.log('ddsadasdas');
          $('.navMainLayout li#navAdminPetManage').addClass('active');
         $('#bd-desde').on('change', function () {
             var desde = $('#bd-desde').val();
@@ -995,7 +995,7 @@ $(document).ready(function () {
         });
 
         $('#nuevo-paciente').on('click', function () {
-            $('#formulario')[0].reset();
+            $('#formulario1')[0].reset();
             $('#pac').val('Registro');
             $('#edi').hide();
             $('#reg').show();
@@ -1038,74 +1038,6 @@ $(document).ready(function () {
         $('' + modalName + ' .alert').hide();
     }
 
-    function agregaPaciente() {
-        var url = '../php/agrega_paciente.php';
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: $('#formulario').serialize(),
-            success: function (registro) {
-                if ($('#pro').val() == 'Registro') {
-                    $('#formulario')[0].reset();
-                    $('#mensaje').addClass('bien').html('Registro completado con exito').show(200).delay(2500).hide(200);
-                    $('#agrega-registros').html(registro);
-                    return false;
-                } else {
-                    $('#mensaje').addClass('bien').html('Edicion completada con exito').show(200).delay(2500).hide(200);
-                    $('#agrega-registros').html(registro);
-                    return false;
-                }
-            }
-        });
-        return false;
-    }
-
-    function eliminarPaciente(id) {
-        var url = '../php/elimina_paciente.php';
-        var pregunta = confirm('¿Esta seguro de eliminar este paciente?');
-        if (pregunta == true) {
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: 'id=' + id,
-                success: function (registro) {
-                    $('#agrega-registros').html(registro);
-                    return false;
-                }
-            });
-            return false;
-        } else {
-            return false;
-        }
-    }
-
-    function editarPaciente(id) {
-        console.log("asdasd");
-        $('#formulario')[0].reset();
-        var url = '../php/edita_paciente.php';
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: 'id=' + id,
-            success: function (valores) {
-                var datos = eval(valores);
-                $('#reg').hide();
-                $('#edi').show();
-                $('#pro').val('Edicion');
-                $('#id-prod').val(id);
-                $('#nombre').val(datos[0]);
-                $('#tipo').val(datos[1]);
-                $('#precio-uni').val(datos[2]);
-                $('#precio-dis').val(datos[3]);
-                $('#registra-producto').modal({
-                    show: true,
-                    backdrop: 'static'
-                });
-                return false;
-            }
-        });
-        return false;
-    }
     //FIX FOR BS3 Alert dismissable
     $("body").on("click", ".alert .close", function (e) {
         $(this).closest("." + $(this).attr("data-hide")).hide();
@@ -1248,7 +1180,6 @@ $(document).ready(function () {
     });
 
     $('body').on('click', '.removeProductAdmin', function (e) {
-        console.log("delll");
         $.ajax({
             url: 'deleteProductAdmin',
             method: "POST",
@@ -1266,3 +1197,73 @@ $(document).ready(function () {
         });
     });
 });
+
+    function agregaPaciente() {
+        $.ajax({
+            type: 'POST',
+            url: 'agrega_paciente',
+           data: $('#formulario1').serialize(),
+            success: function (registro) {
+                if (registro===null) {
+                     if ($('#pro').val() == 'Registro') {
+                    $('#formulario1')[0].reset();
+                    $('#mensaje').addClass('bien').html('Registro completado con exito').show(200).delay(2500).hide(200);
+                    $('#agrega-registros tbody').html(registro);
+                    return false;
+                } else {
+                    $('#mensaje').addClass('bien').html('Edicion completada con exito').show(200).delay(2500).hide(200);
+                    $('#agrega-registros').html(registro);
+                    return false;
+                }
+            }else{
+                
+            }
+
+            }
+        });
+        return false;
+    }
+
+    function eliminarPaciente(id) {
+        var pregunta = confirm('¿Esta seguro de eliminar este paciente?');
+        if (pregunta == true) {
+            $.ajax({
+                type: 'POST',
+                url: 'elimina_paciente',
+                data: 'id=' + id,
+                success: function (registro) {
+                    $('#agrega-registros').html(registro);
+                    return false;
+                }
+            });
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    function editarPaciente(id) {
+        $('#formulario1')[0].reset();
+        $.ajax({
+            type: 'POST',
+            url: 'edita_paciente',
+            data: 'id=' + id,
+            success: function (valores) {
+                var datos = eval(valores);
+                $('#reg').hide();
+                $('#edi').show();
+                $('#pro').val('Edicion');
+                $('#id-prod').val(id);
+                $('#nombre').val(datos[0]);
+                $('#tipo').val(datos[1]);
+                $('#precio-uni').val(datos[2]);
+                $('#precio-dis').val(datos[3]);
+                $('#registra-producto').modal({
+                    show: true,
+                    backdrop: 'static'
+                });
+                return false;
+            }
+        });
+        return false;
+    }

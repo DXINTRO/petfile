@@ -6,9 +6,9 @@
                 <!-- Default panel contents -->
                 <div class="panel-heading">Detalle de Medicamentos e Insumos</div>
                 <div class="panel-body">
-                  <p>Pasos</p>
+                    <p>Pasos</p>
                     <p>1.
-                    Revise su pedido y pulse el botón para Imprimir o Cancelar.</p>
+                        Revise su pedido y pulse el botón para Imprimir o Cancelar.</p>
                     <p>&nbsp;</p>
 
                 </div>
