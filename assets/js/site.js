@@ -962,8 +962,7 @@ $(document).ready(function () {
     }
 
     function viewPetPage() {//new
-        console.log('ddsadasdas');
-         $('.navMainLayout li#navAdminPetManage').addClass('active');
+        $('.navMainLayout li#navAdminPetManage').addClass('active');
         $('#bd-desde').on('change', function () {
             var desde = $('#bd-desde').val();
             var hasta = $('#bd-hasta').val();
@@ -1007,7 +1006,7 @@ $(document).ready(function () {
 
         $('#bs-pacie').on('keyup', function () {
             var dato = $('#bs-pacie').val();
-            var url = '../php/busca_paciente.php';
+            var url = 'busca_paciente';
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -1198,72 +1197,73 @@ $(document).ready(function () {
     });
 });
 
-    function agregaPaciente() {
-        $.ajax({
-            type: 'POST',
-            url: 'agrega_paciente',
-           data: $('#formulario1').serialize(),
-            success: function (registro) {
-                if (registro===null) {
-                     if ($('#pro').val() == 'Registro') {
-                    $('#formulario1')[0].reset();
-                    $('#mensaje').addClass('bien').html('Registro completado con exito').show(200).delay(2500).hide(200);
-                    $('#agrega-registros tbody').html(registro);
-                    return false;
-                } else {
-                    $('#mensaje').addClass('bien').html('Edicion completada con exito').show(200).delay(2500).hide(200);
-                    $('#agrega-registros').html(registro);
-                    return false;
-                }
-            }else{
-                
+function agregaPaciente() {
+    $.ajax({
+        type: 'POST',
+        url: 'agrega_paciente',
+        data: $('#formulario1').serialize(),
+        success: function (data) {
+            if (data !== null) {
+                $('#agrega-registros tbody').html('');
+//                   if ($('#pro').val() == 'Registro') {
+                $('#formulario1')[0].reset();
+                $('#mensaje').addClass('bien').html('Registro completado con exito').show(200).delay(2500).hide(200);
+                $('#agrega-registros tbody').html(data.response);
+                return false;
+//                } else {
+//                    $('#mensaje').addClass('bien').html('Edicion completada con exito').show(200).delay(2500).hide(200);
+//                    $('#agrega-registros').html(data);
+//                    return false;
+//                }
+            } else {
+                console.log('sin datos');
             }
 
-            }
-        });
-        return false;
-    }
-
-    function eliminarPaciente(id) {
-        var pregunta = confirm('¿Esta seguro de eliminar este paciente?');
-        if (pregunta == true) {
-            $.ajax({
-                type: 'POST',
-                url: 'elimina_paciente',
-                data: 'id=' + id,
-                success: function (registro) {
-                    $('#agrega-registros').html(registro);
-                    return false;
-                }
-            });
-            return false;
-        } else {
-            return false;
         }
-    }
+    });
+    return false;
+}
 
-    function editarPaciente(id) {
-        $('#formulario1')[0].reset();
+function eliminarPaciente(id) {
+    var pregunta = confirm('¿Esta seguro de eliminar este paciente?');
+    if (pregunta == true) {
         $.ajax({
             type: 'POST',
-            url: 'edita_paciente',
+            url: 'elimina_paciente',
             data: 'id=' + id,
-            success: function (valores) {
-                var datos = eval(valores);
-                $('#reg').hide();
-                $('#edi').show();
-                $('#pro').val('Edicion');
-                $('#id-prod').val(id);
-                $('#nombre').val(datos[0]);
-                $('#tipo').val(datos[1]);
-                $('#precio-uni').val(datos[2]);
-                $('#precio-dis').val(datos[3]);
-                $('#registra-producto').modal({
-                    show: true,
-                    backdrop: 'static'
-                });
+            success: function (registro) {
+                $('#agrega-registros').html(registro);
                 return false;
             }
         });
         return false;
+    } else {
+        return false;
     }
+}
+
+function editarPaciente(id) {
+    $('#formulario1')[0].reset();
+    $.ajax({
+        type: 'POST',
+        url: 'edita_paciente',
+        data: 'id=' + id,
+        success: function (valores) {
+            var datos = eval(valores);
+            $('#reg').hide();
+            $('#edi').show();
+            $('#pro').val('Edicion');
+            $('#id-prod').val(id);
+            $('#nombre').val(datos[0]);
+            $('#tipo').val(datos[1]);
+            $('#precio-uni').val(datos[2]);
+            $('#precio-dis').val(datos[3]);
+            $('#registra-producto').modal({
+                show: true,
+                backdrop: 'static'
+            });
+            return false;
+        }
+    });
+    return false;
+}

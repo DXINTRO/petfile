@@ -1277,9 +1277,11 @@ class Admin extends CI_Controller {
     public function edita_paciente() {
         die(print_r('sadassa'));
     }
+    public function busca_paciente() {
+        die(print_r('busca_paciente'));
+    }
 
     public function agrega_paciente() {
-        die(print_r($_POST));
         $id = $this->input->post('id-prod');
         $proceso = $this->input->post('pro');
         $nombre = $this->input->post('nombre');
@@ -1330,13 +1332,14 @@ class Admin extends CI_Controller {
             ///////////////////////////////////////////////////////////////////
             //////////////////////////datos que se envian /////////////////////
             $data['stylesheets'] = array('jumbotron-narrow.css');
-            $data['show_navbar'] = "true"; //muestra la barra culia
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true); // la barra de menus 
+            $data['show_navbar'] = "true"; //muestra la barra culia
             $query = $this->db->query("SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId ORDER BY pets.objectId ASC");
-            $Data['TABLE_REGISTROS'] = $query->result_array($query);
-            $data['content_body'] = $this->load->view('admin_Pets', $Data, true);
+            $dokpfdgh['TABLE_REGISTROS'] = $query->result_array($query);
+            $data['content_body'] = $this->load->view('admin_Pets', $dokpfdgh, true);
             ///////////////////////////////////////////////////////////////////
             $this->load->view("layout", $data);
+            
         } else {
             redirect("/");
         }

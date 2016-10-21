@@ -62,7 +62,7 @@
                                         <div class="modal-body">
                                             <table border="0" width="100%">
                                                 <tr>
-                                                    <td colspan="2"><input type="text" required="required" readonly="readonly" id="id-pacie" name="id-pacie" readonly="readonly" style="visibility:hidden; height:5px;"/></td>
+                                                    <td colspan="2"><input type="text" required="required" id="id-pacie" name="id-pacie" readonly="readonly" style="visibility:hidden; height:5px;"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="140">Nombre Mascota: </td>
@@ -116,7 +116,6 @@
                     </div>
                 </div>
 
-            </div>
 
             <div class="footer">
                 <p>&copy; PetFile 2016</p>
