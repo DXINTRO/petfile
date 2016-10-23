@@ -1004,18 +1004,25 @@ $(document).ready(function () {
             });
         });
 
-        $('#bs-pacie').on('keyup', function () {
-            var dato = $('#bs-pacie').val();
-            var url = 'busca_paciente';
+        $('#Search_pet').on('keyup', function () {
+            var dato = $('#Search_pet').val();
             $.ajax({
                 type: 'POST',
-                url: url,
+                url: 'busca_paciente',
                 data: 'dato=' + dato,
-                success: function (datos) {
-                    $('#agrega-registros').html(datos);
+                success: function (data) {
+                    var obj = jQuery.parseJSON(data);
+                    $('#agrega-registros tbody').html(obj.response);
                 }
             });
             return false;
+        });
+
+        $('body').on('click', '#eliminarpet', function (e) {
+            $('#confirmationModal .confirmAction').attr("data-objectid", $(this).attr("data-objectid"));
+            $('#confirmationModal .confirmAction').attr("data-confirm", "confirmDeleteAdmin");
+            $('#confirmationModal .modal-body').text(" Esta seguro de Eliminar este pet ?");
+            $('#confirmationModal').modal();
         });
     }
 ///////////////////////////////////////////////////////////////////////////////
@@ -1203,43 +1210,38 @@ function agregaPaciente() {
         url: 'agrega_paciente',
         data: $('#formulario1').serialize(),
         success: function (data) {
+            var obj = jQuery.parseJSON(data);
             if (data !== null) {
                 $('#agrega-registros tbody').html('');
-//                   if ($('#pro').val() == 'Registro') {
                 $('#formulario1')[0].reset();
-                $('#mensaje').addClass('bien').html('Registro completado con exito').show(200).delay(2500).hide(200);
-                $('#agrega-registros tbody').html(data.response);
+                $('#agrega-registros tbody').html(obj.response);
+                $('#registra-paciente').modal('hide');
                 return false;
-//                } else {
-//                    $('#mensaje').addClass('bien').html('Edicion completada con exito').show(200).delay(2500).hide(200);
-//                    $('#agrega-registros').html(data);
-//                    return false;
-//                }
             } else {
                 console.log('sin datos');
             }
-
         }
     });
     return false;
 }
 
-function eliminarPaciente(id) {
-    var pregunta = confirm('¿Esta seguro de eliminar este paciente?');
-    if (pregunta == true) {
-        $.ajax({
-            type: 'POST',
-            url: 'elimina_paciente',
-            data: 'id=' + id,
-            success: function (registro) {
-                $('#agrega-registros').html(registro);
-                return false;
-            }
-        });
-        return false;
-    } else {
-        return false;
-    }
+function eliminarPaciente(obj) {
+
+    var id = $(obj).attr('data-objectid');
+    console.log(id);
+    $.ajax({
+        type: 'POST',
+        url: 'elimina_paciente',
+        data: 'id=' + id,
+        success: function (registro) {
+            var obj = jQuery.parseJSON(registro);
+            $('#confirmationModal').modal('hide');
+            $('#agrega-registros tbody').html(obj.response);
+            return false;
+        }
+    });
+    return false;
+
 }
 
 function editarPaciente(id) {
@@ -1248,21 +1250,17 @@ function editarPaciente(id) {
         type: 'POST',
         url: 'edita_paciente',
         data: 'id=' + id,
-        success: function (valores) {
-            var datos = eval(valores);
-            $('#reg').hide();
-            $('#edi').show();
-            $('#pro').val('Edicion');
-            $('#id-prod').val(id);
-            $('#nombre').val(datos[0]);
-            $('#tipo').val(datos[1]);
-            $('#precio-uni').val(datos[2]);
-            $('#precio-dis').val(datos[3]);
-            $('#registra-producto').modal({
-                show: true,
-                backdrop: 'static'
-            });
-            return false;
+        success: function (data) {
+            var obj = jQuery.parseJSON(data);
+            if (data !== null) {
+                $('#agrega-registros tbody').html('');
+                $('#formulario1')[0].reset();
+                $('#agrega-registros tbody').html(obj.response);
+                $('#registra-paciente').modal('hide');
+                return false;
+            } else {
+                console.log('sin datos');
+            }
         }
     });
     return false;

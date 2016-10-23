@@ -1275,52 +1275,78 @@ class Admin extends CI_Controller {
     }
 
     public function edita_paciente() {
-        die(print_r('sadassa'));
+        $id = $this->input->post('id-pacie');
+        $nombre = $this->input->post('petName');
+        $Species = $this->input->post('petSpecies');
+        $Race = $this->input->post('petRace');
+        $sexo = $this->input->post('petGender');
+        $edad = $this->input->post('petAge');
+        $color = $this->input->post('petColor');
+        $obse = $this->input->post('petHistory');
+
+        $this->db->query("update  sniosad,s");
+        if ($this->db->affected_rows() > 0) {
+            echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
+        }
     }
+
     public function busca_paciente() {
-        die(print_r('busca_paciente'));
+        $dato = $this->input->post('dato');
+        if (!empty($dato)) {
+            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petAge,pets.petColor,pets.petHistory,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE (petName LIKE '%" . $dato . "%' or petSpecies LIKE '%" . $dato . "%' or first_name like '%" . $dato . "%' or last_name like '%" . $dato . "%')  and pets.userId = users.objectId ORDER BY pets.objectId ASC";
+            $datos = $this->refrescartablapet(false, $q);
+        } else {
+            $datos = $this->refrescartablapet();
+        }
+
+        echo '{"response":' . json_encode($datos) . '}';
     }
 
     public function agrega_paciente() {
-        $id = $this->input->post('id-prod');
-        $proceso = $this->input->post('pro');
-        $nombre = $this->input->post('nombre');
-        $tipo = $this->input->post('tipo');
-        $precio_uni = $this->input->post('precio-uni');
-        $precio_dis = $this->input->post('precio-dis');
-        $fecha = date('Y-m-d');
-        switch ($proceso) {
-            case 'Registro':
-                $query = "INSERT INTO productos (nomb_prod, tipo_prod, precio_unit, precio_dist, fecha_reg)VALUES('$nombre','$tipo','$precio_uni','$precio_dis', '$fecha')";
-                break;
+        $id = $this->input->post('id-pacie');
+        $nombre = $this->input->post('petName');
+        $Species = $this->input->post('petSpecies');
+        $Race = $this->input->post('petRace');
+        $sexo = $this->input->post('petGender');
+        $edad = $this->input->post('petAge');
+        $color = $this->input->post('petColor');
+        $obse = $this->input->post('petHistory');
 
-            case 'Edicion':
-                $query = "UPDATE productos SET nomb_prod = '$nombre', tipo_prod = '$tipo', precio_unit = '$precio_uni', precio_dist = '$precio_dis' WHERE id_prod = '$id'";
-                break;
-        }
-        if ($this->db->query($query)) {
-            $query = $this->db->query("SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId ORDER BY pets.objectId ASC");
-            $dfghj = '';
-            foreach ($query->result_array($query) as $dat) {
-                $dfghj.= '<tr>
-                        <td>' . $dat['petName'] . '</td>
-                                <td>' . $dat['petSpecies'] . '</td>
-                                <td>' . $dat['petRace'] . '</td>
-                                <td>' . $dat['petGender'] . '</td>
-                                <td>' . $dat['petIncome'] . '</td>
-                                <td>' . $dat['first_name'] . '</td>
-                                <td>' . $dat['last_name'] . '</td>
-                                <td><a href="javascript:editarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-edit"></a> <a href="javascript:eliminarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-remove-circle"></a></td>
-                         </tr>';
-            }
-            echo '{"response":"'.$dfghj.'"}';
-        }  else {
+        $q = "INSERT INTO `pets`
+                            (`petName`,
+                            `petSpecies`,
+                            `petRace`,
+                            `petGender`,
+                            `petAge`,
+                            `petColor`,
+                            `petHistory`,
+                            `petIncome`,
+                            `userId`)
+                            VALUES
+                            ('" . $nombre . "',
+                            '" . $Species . "',
+                            '" . $Race . "',
+                            '" . $sexo . "',
+                            '" . $edad . "',
+                            '" . $color . "',
+                            '" . $obse . "',
+                            NOW(),
+                            '53');"; // PUCHO QL CAMBIA AKI POR EL ID DEL CLIENTE DE TU SELLLECT QUE TUUU ARAS XD
+        if ($this->db->query($q)) {
+            echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
+        } else {
             echo null;
         }
     }
 
     public function elimina_paciente() {
-        die(print_r('sadassa'));
+        $id = $this->input->post("id");
+        $query = $this->db->query("DELETE FROM pets WHERE objectId = '$id'");
+        if ($this->db->affected_rows() > 0) {
+            echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
+        } else {
+            set_status_header((int) 500);
+        }
     }
 
     public function pet() {// new
@@ -1334,15 +1360,39 @@ class Admin extends CI_Controller {
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true); // la barra de menus 
             $data['show_navbar'] = "true"; //muestra la barra culia
-            $query = $this->db->query("SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId ORDER BY pets.objectId ASC");
-            $dokpfdgh['TABLE_REGISTROS'] = $query->result_array($query);
+            $dokpfdgh['TABLE_REGISTROS'] = $this->refrescartablapet(true);
             $data['content_body'] = $this->load->view('admin_Pets', $dokpfdgh, true);
             ///////////////////////////////////////////////////////////////////
             $this->load->view("layout", $data);
-            
         } else {
             redirect("/");
         }
+    }
+
+    public function refrescartablapet($bol = false, $q = null) {
+        $aaa = '';
+        if ($q == null) {
+            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId ORDER BY pets.objectId ASC";
+        }
+
+        $query = $this->db->query($q);
+        $TABLE_REGISTROS = $query->result_array();
+        if ($bol) {
+            return $TABLE_REGISTROS;
+        }
+        foreach ($TABLE_REGISTROS as $dat) {
+            $aaa.= '<tr>
+                    <td>' . $dat['petName'] . '</td>
+                            <td>' . $dat['petSpecies'] . '</td>
+                            <td>' . $dat['petRace'] . '</td>
+                            <td>' . $dat['petGender'] . '</td>
+                            <td>' . $dat['petIncome'] . '</td>
+                            <td>' . $dat['first_name'] . '</td>
+                            <td>' . $dat['last_name'] . '</td>
+                            <td><a href="javascript:editarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-edit"></a> <a data-objectid="' . $dat['objectId'] . '" id="eliminarpet" class="glyphicon glyphicon-remove-circle"></a></td>
+                     </tr>';
+        }
+        return $aaa;
     }
 
 }

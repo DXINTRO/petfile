@@ -11,8 +11,7 @@
                         <section>
                             <table border="0" align="center">
                                 <tr>
-                                    <td width="335"><input type="text" placeholder="Buscar mascota" id="bs-pacie"/></td>
-                                    
+                                    <td width="335"><input type="text" placeholder="Buscar mascota" id="Search_pet"/></td>
                                     <td width="100"><button id="nuevo-paciente" class="btn btn-primary btn-sm">Nuevo</button></td>
                                 </tr>
                             </table>
@@ -43,7 +42,7 @@
                                                 <td>' . $dat['petIncome'] . '</td>
                                                 <td>' . $dat['first_name'] . '</td>
                                                 <td>' . $dat['last_name'] . '</td>
-                                                <td><a href="javascript:editarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-edit"></a> <a href="javascript:eliminarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-remove-circle"></a></td>
+                                                <td><a href="javascript:editarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-edit"></a> <a data-objectid="'. $dat['objectId'] .'" id="eliminarpet" class="glyphicon glyphicon-remove-circle"></a></td>
                                          </tr>';
                                     }
                                     echo $aaa;
@@ -99,11 +98,7 @@
                                                     <td>Observaciones: </td>
                                                     <td><textarea required="required" name="petHistory" id="petHistory">  </textarea></td>
                                                 </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div id="mensaje"></div>
-                                                    </td>
-                                                </tr>
+                                          
                                             </table>
                                         </div>
                                         <div class="modal-footer">
@@ -117,6 +112,26 @@
                     </div>
                 </div>
 
+                 <!-- Modal -->
+            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmar Eliminar</h4>
+                        </div>
+
+                        <div class="modal-body clearfix">
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button"  onclick="eliminarPaciente($(this))"class="btn btn-primary confirmAction">Aceptar</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
             <div class="footer">
                 <p>&copy; PetFile 2016</p>
