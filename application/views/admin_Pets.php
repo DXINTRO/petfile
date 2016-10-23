@@ -12,6 +12,7 @@
                             <table border="0" align="center">
                                 <tr>
                                     <td width="335"><input type="text" placeholder="Buscar mascota" id="bs-pacie"/></td>
+                                    
                                     <td width="100"><button id="nuevo-paciente" class="btn btn-primary btn-sm">Nuevo</button></td>
                                 </tr>
                             </table>
@@ -32,9 +33,9 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $dfghj = '';
+                                    $aaa = '';
                                     foreach ($TABLE_REGISTROS as $dat) {
-                                        $dfghj.= '<tr>
+                                        $aaa.= '<tr>
                                         <td>' . $dat['petName'] . '</td>
                                                 <td>' . $dat['petSpecies'] . '</td>
                                                 <td>' . $dat['petRace'] . '</td>
@@ -45,7 +46,7 @@
                                                 <td><a href="javascript:editarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-edit"></a> <a href="javascript:eliminarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-remove-circle"></a></td>
                                          </tr>';
                                     }
-                                    echo $dfghj;
+                                    echo $aaa;
                                     ?>
                                 </tbody>
                             </table>
@@ -88,7 +89,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Edad: </td>
-                                                    <td><input type="text"  required="required" name="petAge" id="petAge"/></td>
+                                                    <td><input type="number"  required="required" name="petAge" id="petAge"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Color: </td>

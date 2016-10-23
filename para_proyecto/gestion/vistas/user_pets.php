@@ -20,6 +20,7 @@
                                     <table border="0" align="center">
                                         <tr>
                                             <td width="335"><input type="text" placeholder="Buscar mascota" id="bs-pacie"/></td>
+                                            <td width="100"><button id="nuevo-paciente" class="btn btn-primary btn-sm">jkjkjk</button></td>
                                             <td width="100"><button id="nuevo-paciente" class="btn btn-primary btn-sm">Nuevo</button></td>
                                         </tr>
                                     </table>
@@ -71,7 +72,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td>Raza: </td>
-                                                            <td><input type="number" required="required" name="petRace" id="petRace"/></td>
+                                                            <td><input type="text" required="required" name="petRace" id="petRace"/></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Genero:</td>
