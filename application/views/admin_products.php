@@ -27,10 +27,20 @@
                                     <div class="panel-body clearfix">
                                         <form action="addProduct" method="POST" id="addProduct">
 
-                                            <input type="text" style="width:250px;" class="form-control" name="productName" id="productName" placeholder="Nombre del Producto" required>
-                                            <input type="number" style="width:250px;" class="form-control" name="productQty" id="productQty" placeholder="Cantidad" min="1" required>
-                                            <input type="number" style="width:250px;" class="form-control" name="productPrice" id="productPrice" placeholder="Precio" min="1" required>
-                                            <input type="text" style="width:250px;" class="form-control" name="productType" id="productType" placeholder="Tipo" required>
+                                            <input type="text" style="width:250px;" class="form-control" name="productName" id="productName" placeholder="Nombre del Producto" required  onkeypress="return soloLetras(event)">
+                                            <input style="width:250px;" class="form-control" name="productQty" id="productQty" placeholder="Cantidad" min="1" required  onkeypress="return numeros(event)">
+                                            <input style="width:250px;" class="form-control" name="productPrice" id="productPrice" placeholder="Precio" min="1" required  onkeypress="return numeros(event)">
+                                           
+                                             <!--<input type="text" style="width:250px;" class="form-control" name="productType" id="productType" placeholder="Tipo" required>-->
+                                            
+                                            <div class="form-group">
+                                                <label for="productType">Tipo de Producto</label>
+                                                <select class="form-control" name="productType" id="productType" >
+                                                    <option value="Tabletas y Vitaminas">Tabletas y Vitaminas</option>
+                                                    <option value="Jarabe">Jarabe</option>
+                                                    <option value="Otro">Otro</option>
+                                                </select>
+                                            </div>
 
                                             <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="addproduct">Agregar Producto</button>
                                         </form>
@@ -262,12 +272,23 @@ Introduzca algunas letras del producto a buscar">
                             <div class="panel-body clearfix">
                                 <form action="editProduct" method="POST" id="editProduct">
                                     <label>Nombre Producto</label>
-                                    <input type="text" style="width:250px;" class="form-control" name="productNameEdit" id="productNameEdit" placeholder="Nombre del Producto" required>
+                                    <input type="text" style="width:250px;" class="form-control" name="productNameEdit" id="productNameEdit" placeholder="Nombre del Producto" required onkeypress="return soloLetras(event)">
                                     Cantidad
-                                    <input type="number" style="width:250px;" class="form-control" name="productQtyEdit" id="productQtyEdit" placeholder="Cantidad" min="1" required>
+                                    <input  style="width:250px;" class="form-control" name="productQtyEdit" id="productQtyEdit" placeholder="Cantidad" min="1" required onkeypress="return numeros(event)">
                                     <label>Precio</label>
-                                    <input type="number" style="width:250px;" class="form-control" name="productPriceEdit" id="productPriceEdit" placeholder="Precio" min="1" required>
-                                    <label>Tipo</label><input type="text" style="width:250px;" class="form-control" name="productTypeEdit" id="productTypeEdit" placeholder="Tipo" required>
+                                    <input  style="width:250px;" class="form-control" name="productPriceEdit" id="productPriceEdit" placeholder="Precio" min="1" required onkeypress="return numeros(event)">
+                                    <!--<label>Tipo</label><input type="text" style="width:250px;" class="form-control" name="productTypeEdit" id="productTypeEdit" placeholder="Tipo" required>-->
+
+                                    <div class="form-group">
+                                        <label for="productType">Tipo de Producto</label>
+                                        <select class="form-control" name="productTypeEdit" id="productTypeEdit" >
+                                            <option value="Tabletas y Vitaminas">Tabletas y Vitaminas</option>
+                                            <option value="Jarabe">Jarabe</option>
+                                            <option value="Otro">Otro</option>
+                                        </select>
+                                    </div>
+
+
                                     <input type="hidden" name="productIdToEdit" id="productIdToEdit" value="">
                                     <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="addproduct">Grabar Producto</button>
                                 </form>

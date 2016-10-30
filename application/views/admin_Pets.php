@@ -11,7 +11,7 @@
                         <section>
                             <table border="0" align="center">
                                 <tr>
-                                    <td width="335"><input type="text" placeholder="Buscar mascota" id="Search_pet"/></td>
+                                    <td width="380"><input type="text" placeholder="ingrese el nombre de Mascota" id="Search_pet"/ ></td>
                                     <td width="100"><button id="nuevo-paciente" class="btn btn-primary btn-sm">Nuevo</button></td>
                                 </tr>
                             </table>
@@ -66,7 +66,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td width="140">Nombre Mascota: </td>
-                                                    <td><input type="text" required="required"  id="petName" name="petName"/></td>
+                                                    <td><input type="text" required="required"  id="petName" name="petName" onkeypress="return soloLetras(event)"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Especie:</td>
@@ -77,7 +77,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Raza: </td>
-                                                    <td><input type="text" required="required" name="petRace" id="petRace"/></td>
+                                                    <td><input type="text" required="required" name="petRace" id="petRace" onkeypress="return soloLetras(event)"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Genero:</td>
@@ -88,11 +88,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Edad: </td>
-                                                    <td><input type="number"  required="required" name="petAge" id="petAge"/></td>
+                                                    <td><input type="number"  required="required" name="petAge" id="petAge" onkeypress="return soloLetras(event)"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Color: </td>
-                                                    <td><input type="text"  required="required" name="petColor" id="petColor"/></td>
+                                                    <td><input type="text"  required="required" name="petColor" id="petColor" onkeypress="return soloLetras(event)"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Observaciones: </td>

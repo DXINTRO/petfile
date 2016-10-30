@@ -33,9 +33,9 @@
                         <tbody>
                             <tr>
                                 <td><input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Ingresar Email" required></td>
-                                <td><input type="text" class="form-control" name="username" id="username" placeholder="Nombre de Usuario" required></td>
-                                <td><input type="text" class="form-control" name="firstName" id="firstName" placeholder="Nombre" required></td>
-                                <td><input type="text" class="form-control" name="lastName" id="lastName" placeholder="Apellido" required></td>
+                                <td><input type="text" class="form-control" name="username" id="username" placeholder="Nombre de Usuario" required onkeypress="return soloLetras(event)"></td>
+                                <td><input type="text" class="form-control" name="firstName" id="firstName" placeholder="Nombre"  onkeypress="return soloLetras(event)"></td>
+                                <td><input type="text" class="form-control" name="lastName" id="lastName" placeholder="Apellido" required onkeypress="return soloLetras(event)"></td>
                                 
                                 
                                 
@@ -51,9 +51,9 @@
                                 </td>
                             </tr>
                             <tr>
-                            	<td><input type="text" class="form-control" name="address" id="address" placeholder="Direccion" required></td>
-                                <td><input type="text" class="form-control" name="city" id="city" placeholder="Comuna" required></td>
-                               	<td><input type="text" class="form-control" name="contactNo" id="contactNo" placeholder="Numero Contacto" required></td>
+                            	<td><input type="text" class="form-control" name="address" id="address" placeholder="Direccion" required ></td>
+                                <td><input type="text" class="form-control" name="city" id="city" placeholder="Comuna" required onkeypress="return soloLetras(event)"></td>
+                               	<td><input class="form-control" name="contactNo" id="contactNo" placeholder="Numero Contacto" required onkeypress="return numeros(event)"></td>
                                 <td> <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Contraseña" minlength="6" maxlength="50" required></td>
                                 <td> <input type="password" class="form-control" name="confirm_inputPassword" id="confirm_inputPassword" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required></td>
                             </tr>
@@ -62,7 +62,7 @@
                     <div id="petInformationContainer">
                         <div class="form-group">
 			    <label for="petName">Nombre de Mascota</label>
-			    <input type="text" class="form-control" name="petName" id="petName" placeholder="Nombre Mascota" required>
+			    <input type="text" class="form-control" name="petName" id="petName" placeholder="Nombre Mascota" required onkeypress="return soloLetras(event)">
 			  </div>
 			  <div class="form-group">
 			    <label for="petSpecies">Especie</label>
@@ -73,7 +73,7 @@
                 </div>
                <div class="form-group">
 			    <label for="petRace">Raza</label>
-			    <input type="text" class="form-control" name="petRace" id="petRace" placeholder="Raza Mascota" required>
+			    <input type="text" class="form-control" name="petRace" id="petRace" placeholder="Raza Mascota" required onkeypress="return soloLetras(event)">
 			  </div>
 			  <div class="form-group">
 			    <label for="petGender">Genero</label>
@@ -84,12 +84,12 @@
                 </div>
               <div class="form-group">
 			    <label for="petAge">Edad</label>
-			    <input type="text" class="form-control" name="petAge" id="petAge" placeholder="Edad Mascota" required>
+			    <input type="number" class="form-control" name="petAge" id="petAge" placeholder="Edad Mascota" required>
 			  </div>
 			    <!-- <input type="text" class="form-control" name="petGender" id="petGender" placeholder="Pet Gender" minlength="4" required> -->
                 <div class="form-group">
 			    <label for="petColor">Color</label>
-			    <input type="text" class="form-control" name="petColor" id="petColor" placeholder="Color" required>
+			    <input type="text" class="form-control" name="petColor" id="petColor"  placeholder="Color" required onkeypress="return soloLetras(event)">
 			  </div>
 			  
 			  <div class="form-group">
@@ -113,9 +113,9 @@
                         <tbody>
                             <tr>
                                 <td><input type="hidden" name="userObjectIdUpdate" value="" id="userObjectIdUpdate"><input type="email" class="form-control" name="inputEmailUpdate" id="inputEmailUpdate" placeholder="Enter email" required></td>
-                                <td><input type="text" class="form-control" name="usernameUpdate" id="usernameUpdate" placeholder="Username" required></td>
-                                <td><input type="text" class="form-control" name="firstNameUpdate" id="firstNameUpdate" placeholder="First Name" required></td>
-                                <td><input type="text" class="form-control" name="lastNameUpdate" id="lastNameUpdate" placeholder="Last Name" required></td>
+                                <td><input type="text" class="form-control" name="usernameUpdate" id="usernameUpdate" placeholder="Username" required onkeypress="return soloLetras(event)"></td>
+                                <td><input type="text" class="form-control" name="firstNameUpdate" id="firstNameUpdate" placeholder="First Name" required required onkeypress="return soloLetras(event)"></td>
+                                <td><input type="text" class="form-control" name="lastNameUpdate" id="lastNameUpdate" placeholder="Last Name" required required onkeypress="return soloLetras(event)"></td>
                                 <td>
                                     <select class="form-control" name="userLevelUpdate" id="userLevelUpdate">
                                         <option value=1>Cliente</option>

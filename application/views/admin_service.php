@@ -18,15 +18,26 @@
                                     <thead>
                                         <tr>
                                             <th style="">Nombre del Servicio</th>
-                                            <th style="">Grupo</th>
+                                           
                                             <th style="">Precio</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input type="text" class="form-control" name="serviceName" id="serviceName" placeholder="Ingresa un Servicio" required></td>
-                                            <td><input type="text" class="form-control" name="groupName" id="groupName" placeholder="Ingresa un Grupo" required></td>
-                                            <td><input type="number" step="any" class="form-control" name="priceBox" id="priceBox" placeholder="Precio" min="0" required></td>    
+                                            <td><input type="text" class="form-control" name="serviceName" id="serviceName" placeholder="Ingresa un Servicio" required onkeypress="return soloLetras(event)"></td>
+                                            <!--<td><input type="text" class="form-control" name="groupName" id="groupName" placeholder="Ingresa un Grupo" required onkeypress="return soloLetras(event)"></td>-->
+                                            
+                                            <div class="form-group">
+                                                <label for="productType">GRUPO</label>
+                                                <select class="form-control" name="groupName" id="groupName" >
+                                                    <option value="CIRUGIA">CIRUGIA</option>
+                                                    <option value="PROCEDIMIENTO">PROCEDIMIENTO</option>
+                                                    <option value="OTRO">OTRO</option>
+                                                </select>
+                                            </div>
+                                            
+                                            
+                                            <td><input  step="any" class="form-control" name="priceBox" id="priceBox" placeholder="Precio" min="0" required onkeypress="return numeros(event)"></td>    
                                         </tr>
                                     </tbody>
 
@@ -38,16 +49,25 @@
                                     <thead>
                                         <tr>
                                             <th style="">Nombre del Servicio</th>
-                                            <th style="">Grupo</th>
                                             <th style="">Precio</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                     <input type="hidden" name="serviceObjectIdUpdate" value="" id="serviceObjectIdUpdate">
-                                    <td><input type="text" class="form-control" name="serviceNameUpdate" id="serviceNameUpdate" placeholder="Ingrese nombre del servicio" required></td>
-                                    <td><input type="text" class="form-control" name="groupNameUpdate" id="groupNameUpdate" placeholder="Ingrese grupo" required></td>
-                                    <td><input type="number" step="any" class="form-control" name="priceBoxUpdate" id="priceBoxUpdate" min="0" placeholder="Ingrese precio" required></td>    
+                                    <td><input type="text" class="form-control" name="serviceNameUpdate" id="serviceNameUpdate" placeholder="Ingrese nombre del servicio" required onkeypress="return soloLetras(event)"></td>
+                                    <!--<td><input type="text" class="form-control" name="groupNameUpdate" id="groupNameUpdate" placeholder="Ingrese grupo" required></td>-->
+                                    
+                                    <div class="form-group">
+                                                <label for="productType">GRUPO</label>
+                                                <select class="form-control" name="groupNameUpdate" id="groupNameUpdate" >
+                                                    <option value="CIRUGIA">CIRUGIA</option>
+                                                    <option value="PROCEDIMIENTO">PROCEDIMIENTO</option>
+                                                    <option value="OTRO">OTRO</option>
+                                                </select>
+                                            </div>
+                                    
+                                    <td><input type="number" step="any" class="form-control" name="priceBoxUpdate" id="priceBoxUpdate" min="0" placeholder="Ingrese precio" required onkeypress="return numeros(event)"></td>    
                                     </tr>
                                     </tbody>
                                 </table>
