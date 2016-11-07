@@ -17,6 +17,7 @@
 	else if ($userLevel ==5) {
             echo'<li class="navBilling"><a href="'.base_url().'admin/billing">Facturación</a></li>';
             echo'<li class="navBilling"><a href="'.base_url().'admin/audit">Auditoria</a></li>';
+            echo'<li class="navAdminPetManage"><a href="'.base_url().'admin/pet">Mascotas</a></li>';
             echo'<li class="navProducts"><a href="'.base_url().'admin/manageproducts">Productos</a></li>';
             echo'<li class="navSalesReport"><a href="'.base_url().'admin/sales">Ventas</a></li>';
             echo'<li><a href="'.base_url().'user/logout">Cerrar Sesion</a></li>';

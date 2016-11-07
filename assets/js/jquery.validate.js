@@ -290,7 +290,7 @@ $.extend($.validator, {
 		creditcard: "Favor ingrese un numero válido de Tarjeta de Crédito.",
 		equalTo: "Favor ingrese un mismo valor.",
 		maxlength: $.validator.format("Please enter no more than {0} characters."),
-		minlength: $.validator.format("Please enter at least {0} characters."),
+		minlength: $.validator.format("Favor ingrese no menos de {0} caracteres."),
 		rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
 		range: $.validator.format("Please enter a value between {0} and {1}."),
 		max: $.validator.format("Please enter a value less than or equal to {0}."),
