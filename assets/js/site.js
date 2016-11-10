@@ -42,9 +42,9 @@ $(document).ready(function () {
     } else if ($('#homepage').length) {
         $('.navMainLayout li#navHome').addClass('active');
     } else if ($('#userRegister').length) {
-        userReserve();
-    } else if ($('#userReserve').length) {
         userRegister();
+    } else if ($('#userReserve').length) {
+        userReserve();
     } else if ($('#sigInPage').length) {
         sigInPage();
     } else if ($('#orderPage').length) {
@@ -245,14 +245,11 @@ $(document).ready(function () {
             submitHandler: function (form) {
                 $.ajax({
                     type: "POST",
-                    url: $("form").attr("action"),
-                    data: $("form").serialize(),
+                    url: $(form).attr("action"),
+                    data: $(form).serialize(),
                     success: function (data, status, jqXHR) {
                         $("form").hide();
                         $(".alert-success").show();
-                    },
-                    error: function (data, status, jqXHR) {
-
                     },
                     statusCode: {
                         400: function () {

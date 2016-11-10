@@ -15,7 +15,6 @@
 		}
 
 		public function register(){
-
 			$this->load->library('encrypt');
 			$inputEmail = $this->input->post("inputEmail");
 			$inputPassword = md5($this->input->post("inputPassword"));
