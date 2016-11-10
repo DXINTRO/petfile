@@ -10,12 +10,8 @@ class Admin extends CI_Controller {
 
     private function checkAllowed($notAllowedLevels) {//checkea los permisos del usuario
         $userLevel = $this->session->userdata('user_level');
-        if (in_array($userLevel, $notAllowedLevels)) {
-            if ($userLevel == 3) {
-                redirect("admin");
-            } else if ($userLevel == 4) {
-                redirect("admin/manageReservation");
-            }
+        if (in_array($userLevel, $notAllowedLevels)) {// si en el array $notAllowedLevels existen los datos del $userLevel return true 
+        
         }
     }
 
@@ -774,7 +770,6 @@ class Admin extends CI_Controller {
 
     public function manageReservationembed() {
         if ($this->session->userdata('admin_objectId')) {
-
             $arrayAllowed = array(3);
             $this->checkAllowed($arrayAllowed);
 

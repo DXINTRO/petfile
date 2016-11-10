@@ -1,4 +1,4 @@
-<div class="alert alert-success addUserSuccess" style="display:none;">
+<div class="alert alert-success addProductSuccess" style="display:none;">
     <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
     <strong><strong>
             </div>

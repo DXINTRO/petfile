@@ -351,6 +351,7 @@ $(document).ready(function () {
             $('#confirmationModal .modal-body').text(" Esta seguro de Eliminar ?");
             $('#confirmationModal').modal();
         });
+
         $('body').on('click', '.confirmAction', function () {
 
             $.ajax({
@@ -662,6 +663,101 @@ $(document).ready(function () {
                 $("#generateUserReportcollapse .alert-danger strong").text("Favor seleccione una fecha válida!");
             }
         });
+        $('body').on('click', '.searchProductUser', function (e) {
+            if ($('input[name=sortCategory1]:checked').val() == "C") {
+                console.log("Capsule");
+                $.ajax({
+                    method: "POST",
+                    url: 'searchorder',
+                    data: {
+                        'userEmailSearch': $(".searchProductUserText").val(),
+                        'userSort': "Cap"
+                    },
+                    success: function (data, status, jqXHR) {
+                        $("#orderPage table").html($(data).find("#orderPage table").html());
+                    }
+                });
+            } else if ($('input[name=sortCategory1]:checked').val() == "V") {
+                console.log("Vitamins");
+                $.ajax({
+                    method: "POST",
+                    url: 'searchorder',
+                    data: {
+                        'userEmailSearch': $(".searchProductUserText").val(),
+                        'userSort': "Vit"
+                    },
+                    success: function (data, status, jqXHR) {
+                        $("#orderPage table").html($(data).find("#orderPage table").html());
+                    }
+                });
+            } else {
+                console.log("Vitamins");
+                $.ajax({
+                    method: "POST",
+                    url: 'searchorder',
+                    data: {
+                        'userEmailSearch': $(".searchProductUserText").val(),
+                        'userSort': ""
+                    },
+                    success: function (data, status, jqXHR) {
+                        $("#orderPage table").html($(data).find("#orderPage table").html());
+                    }
+                });
+            }
+        });
+
+        $('body').on('click', '.editProductAdmin', function (e) {
+            $parentRow = $(this).closest("tr");
+            $("#productIdToEdit").val($(this).attr("data-objectId"));
+            $("#productNameEdit").val($parentRow.find(".productName").text());
+            $("#productQtyEdit").val($parentRow.find(".productQuanitty").text());
+            $("#productPriceEdit").val($parentRow.find(".productPrice").text().substring(2));
+            $("#productTypeEdit").val($parentRow.find(".productType").text());
+            $("#productEditModal").modal();
+        });
+
+        $('body').on('click', '.removeProductAdmin', function (e) {
+            $('#confirmationModal .confirmAction').attr("data-objectid", $(this).attr("data-objectid"));
+            $('#confirmationModal .confirmAction').attr("data-confirm", "confirmDeleteAdmin");
+            $('#confirmationModal .modal-body').text(" Esta seguro de Eliminar ?");
+            $('#confirmationModal').modal();
+        });
+
+        $('body').on('click', '.confirmAction', function () {
+            $.ajax({
+                url: 'deleteProductAdmin',
+                method: "POST",
+                data: {
+                    'objectId': $(this).attr("data-objectId")
+                },
+                success: function (data, status, jqXHR) {
+                    $(".addProductSuccess strong").text("Producto Eliminado Satisfactoriamente!");
+                            $(".addProductSuccess").show();
+                            $('#confirmationModal').modal('hide');
+                    $.ajax({
+                        url: document.URL,
+                        success: function (data) {
+                            $("#adminManageProducts").html($(data).find("#adminManageProducts").html());
+                            
+                        }
+                    });
+                }
+            });
+        });
+
+        $('body').on('click', '.searchManageProductsAdmin', function (e) {
+            $.ajax({
+                method: "POST",
+                url: 'searchAdminProducts',
+                data: {
+                    'userEmailSearch': $(".searchManageProductsTextAdmin").val()
+                },
+                success: function (data, status, jqXHR) {
+                    $("#adminManageProducts").html($(data).find("#adminManageProducts").html());
+                }
+            });
+        });
+
     }
 
     function adminAddUser() {
@@ -1059,19 +1155,6 @@ $(document).ready(function () {
         });
     });
 
-    $('body').on('click', '.searchManageProductsAdmin', function (e) {
-        $.ajax({
-            method: "POST",
-            url: 'searchAdminProducts',
-            data: {
-                'userEmailSearch': $(".searchManageProductsTextAdmin").val()
-            },
-            success: function (data, status, jqXHR) {
-                $("#adminManageProducts").html($(data).find("#adminManageProducts").html());
-            }
-        });
-    });
-
     $('body').on('click', '.adminSearchReservation', function (e) {
         $.ajax({
             method: "POST",
@@ -1129,76 +1212,9 @@ $(document).ready(function () {
         }
     });
 
-    $('body').on('click', '.searchProductUser', function (e) {
-        if ($('input[name=sortCategory1]:checked').val() == "C") {
-            console.log("Capsule");
-            $.ajax({
-                method: "POST",
-                url: 'searchorder',
-                data: {
-                    'userEmailSearch': $(".searchProductUserText").val(),
-                    'userSort': "Cap"
-                },
-                success: function (data, status, jqXHR) {
-                    $("#orderPage table").html($(data).find("#orderPage table").html());
-                }
-            });
-        } else if ($('input[name=sortCategory1]:checked').val() == "V") {
-            console.log("Vitamins");
-            $.ajax({
-                method: "POST",
-                url: 'searchorder',
-                data: {
-                    'userEmailSearch': $(".searchProductUserText").val(),
-                    'userSort': "Vit"
-                },
-                success: function (data, status, jqXHR) {
-                    $("#orderPage table").html($(data).find("#orderPage table").html());
-                }
-            });
-        } else {
-            console.log("Vitamins");
-            $.ajax({
-                method: "POST",
-                url: 'searchorder',
-                data: {
-                    'userEmailSearch': $(".searchProductUserText").val(),
-                    'userSort': ""
-                },
-                success: function (data, status, jqXHR) {
-                    $("#orderPage table").html($(data).find("#orderPage table").html());
-                }
-            });
-        }
-    });
 
-    $('body').on('click', '.editProductAdmin', function (e) {
-        $parentRow = $(this).closest("tr");
-        $("#productIdToEdit").val($(this).attr("data-objectId"));
-        $("#productNameEdit").val($parentRow.find(".productName").text());
-        $("#productQtyEdit").val($parentRow.find(".productQuanitty").text());
-        $("#productPriceEdit").val($parentRow.find(".productPrice").text().substring(2));
-        $("#productTypeEdit").val($parentRow.find(".productType").text());
-        $("#productEditModal").modal();
-    });
 
-    $('body').on('click', '.removeProductAdmin', function (e) {
-        $.ajax({
-            url: 'deleteProductAdmin',
-            method: "POST",
-            data: {
-                'objectId': $(this).attr("data-objectId")
-            },
-            success: function (data, status, jqXHR) {
-                $.ajax({
-                    url: document.URL,
-                    success: function (data) {
-                        $("#adminManageProducts").html($(data).find("#adminManageProducts").html());
-                    }
-                });
-            }
-        });
-    });
+
 });
 
 function agregaPaciente() {
@@ -1263,39 +1279,39 @@ function editarPaciente(id) {
     return false;
 }
 
-function soloLetras(e){
-       key = e.keyCode || e.which;
-       tecla = String.fromCharCode(key).toLowerCase();
-       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
-       especiales = "8-37-39-46";
+function soloLetras(e) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+    especiales = "8-37-39-46";
 
-       tecla_especial = false
-       for(var i in especiales){
-            if(key == especiales[i]){
-                tecla_especial = true;
-                break;
-            }
-        }
-
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            return false;
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
         }
     }
-    
-function numeros(e){
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        return false;
+    }
+}
+
+function numeros(e) {
     key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toLowerCase();
     letras = " 0123456789";
     especiales = [0];
- 
+
     tecla_especial = false
-    for(var i in especiales){
- if(key == especiales[i]){
-     tecla_especial = true;
-     break;
-        } 
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
     }
- 
-    if(letras.indexOf(tecla)==-1 && !tecla_especial)
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial)
         return false;
 }
