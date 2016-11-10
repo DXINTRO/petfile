@@ -57,6 +57,10 @@
                         echo "<span>Doctor</span>";
                     } else if ($row['user_level'] == 4) {
                         echo "<span>Secretaria</span>";
+                    }else if ($row['user_level'] == 5) {
+                        echo "<span>Contabilidad</span>";
+                    }else if ($row['user_level'] == 6) {
+                        echo "<span>Admin Clinica</span>";
                     }
                     echo'</td>';
                     echo'</tr>';
