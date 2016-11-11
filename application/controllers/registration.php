@@ -16,6 +16,7 @@
 
 		public function register(){
 			$this->load->library('encrypt');
+			$inputRut = $this->input->post("inputRut");
 			$inputEmail = $this->input->post("inputEmail");
 			$inputPassword = md5($this->input->post("inputPassword"));
 			$username = $this->input->post("username");
@@ -37,7 +38,7 @@
 	
 
 			if($inputEmail){
-				$query = $this->db->query("INSERT INTO users VALUES (NULL,'".$username."', '".$inputPassword."', '".$firstName."', '".$lastName."','".$inputEmail."',1,NULL,'".$address."','".$city."','".$contactNo."');");
+				$query = $this->db->query("INSERT INTO users VALUES (NULL,'".$inputRut."','".$username."', '".$inputPassword."', '".$firstName."', '".$lastName."','".$inputEmail."',1,NULL,'".$address."','".$city."','".$contactNo."');");
 				$query= $this->db->query("SELECT objectId FROM users WHERE email ='".$inputEmail."'");
 				$row = $query->row();
 				if ($this->db->affected_rows() > 0)

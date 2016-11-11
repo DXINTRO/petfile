@@ -1,12 +1,16 @@
 <div class="container" style="margin-top:25px;">
 <div class="col-md-6 col-md-offset-3 panel panel-default" style="padding:0px;">
-  <div class="panel-heading"> REGISTRO DE USUARIO</div>
+	<div class="panel-heading"> REGISTRO DE USUARIO</div>
   <div class="panel-body">
     <div class="col-md-12">
     	<div class="alert alert-success" style="display:none;">USUARIO REGISTRADO !!</div>
     	<form id="userRegister" role="form" action="registration/register" method="POST">
 		  <div>
 		  	<h3>INFORMACION DEL USUARIO</h3>
+		  	<div class="form-group">
+			    <label for="inputEmail">Rut Usuario </label>
+			    <input type="text" class="form-control" name="inputRut" id="inputRut" placeholder="Ingrese Rut Cliente" required>
+			  </div>
 			  <div class="form-group">
 			    <label for="inputEmail">Email </label>
 			    <input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="ingrese email" required>

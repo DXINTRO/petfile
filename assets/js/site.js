@@ -217,6 +217,26 @@ $(document).ready(function () {
 
     function userRegister() {
         $('.navMainLayout li#navUserRegister').addClass('active');
+		
+		 $('body').on('change', '#inputRut', function (event) {
+            $.ajax({
+                method: "POST",
+                data: {
+                    'userRutCheck': $(this).val()
+                },
+                url: "admin/checkRutExist",
+                success: function (data, status, jQxr) {
+                    console.log("AA");
+                    $("#inputRut").val("RUT ya existe!");
+                },
+                statusCode: {
+                    400: function () {
+
+                    }
+                }
+            });
+        });
+		
         $('body').on('change', '#inputEmail', function (event) {
             $.ajax({
                 method: "POST",

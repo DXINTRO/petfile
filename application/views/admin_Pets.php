@@ -12,7 +12,7 @@
                             <table border="0" align="center">
                                 <tr>
                                     <td width="380"><input type="text" placeholder="ingrese el nombre de Mascota" id="Search_pet"/ ></td>
-                                    <td width="100"><button id="nuevo-paciente" class="btn btn-primary btn-sm">Nuevo</button></td>
+                                    <td width="100"><button id="nuevo-paciente" class="btn btn-primary btn-sm">Nueva Mascota</button></td>
                                 </tr>
                             </table>
                         </section>
@@ -62,41 +62,69 @@
                                         <div class="modal-body">
                                             <table border="0" width="100%">
                                                 <tr>
-                                                    <td colspan="2"><input type="text" required="required" id="id-pacie" name="id-pacie" readonly="readonly" style="visibility:hidden; height:5px;"/></td>
+                                                    <td colspan="2"><input type="text" required="required" id="id-pacie" name="id-pacie" readonly style="visibility:hidden; height:5px;"/></td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="140">Nombre Mascota: </td>
-                                                    <td><input type="text" required="required"  id="petName" name="petName" onkeypress="return soloLetras(event)"/></td>
+                                                    <td>
+                                                    	<div class="col-lg-12">
+  	  														<label for="lastName">Nombre Mascota</label>
+				    										<input type="text" class="form-control" id="petName" name="petName" onkeypress="return soloLetras(event)" minlength="3" required>
+  	  													</div>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Especie:</td>
-                                                    <td><select required="required" name="petSpecies" id="petSpecies">
-                                                            <option value="Perro">Perro</option>
-                                                            <option value="Gato">Gato</option>    
-                                                        </select></td>
+                                                    <td>
+                                                    	<div class="col-lg-12">
+															<label for="lastName">Especie</label>
+				    										<select class="form-control" name="petSpecies" id="petSpecies" >
+			    												<option value="Perro">Perro</option>
+                    											<option value="Gato">Gato</option>   
+			   												</select>
+				    									</div>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Raza: </td>
-                                                    <td><input type="text" required="required" name="petRace" id="petRace" onkeypress="return soloLetras(event)"/></td>
+                                                    <td>
+                                                    	<div class="col-lg-12">
+  	  														<label for="lastName">Raza</label>
+				    										<input type="text" class="form-control" name="petRace" id="petRace" onkeypress="return soloLetras(event)"/ placeholder="" minlength="3" required>
+  	  													</div>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Genero:</td>
-                                                    <td><select required="required" name="petGender" id="petGender">
-                                                            <option value="Macho">Macho</option>
-                                                            <option value="Hembra">Hembra</option>    
-                                                        </select></td>
+                                                    <td>
+                                                        <div class="col-lg-12">
+															<label for="lastName">Genero</label>
+				    										<select class="form-control" name="petGender" id="petGender" >
+			    												<option value="Macho">Macho</option>
+                    											<option value="Hembra">Hembra</option>   
+			   												</select>
+				    									</div>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Edad: </td>
-                                                    <td><input type="number"  required="required" name="petAge" id="petAge" onkeypress="return soloLetras(event)"/></td>
+                                                    <td>
+                                                    	<div class="col-lg-12">
+  	  														<label for="lastName">Edad</label>
+				    										<input type="text" class="form-control" name="petAge" id="petAge" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required>
+  	 													</div>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Color: </td>
-                                                    <td><input type="text"  required="required" name="petColor" id="petColor" onkeypress="return soloLetras(event)"/></td>
+                                                    <td>
+                                                    	<div class="col-lg-12">
+  	   														<label for="lastName">Color</label>
+				    										<input type="text" class="form-control" name="petColor" id="petColor" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required>
+  	  													</div>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Observaciones: </td>
-                                                    <td><textarea required="required" name="petHistory" id="petHistory">  </textarea></td>
+                                                    <td>
+                                                    	<div class="col-lg-12">
+  	   														<label for="lastName">Observaciones</label>
+															<textarea  class="form-control" name="petHistory" id="petHistory" onkeypress="return soloLetras(event)"/ placeholder="" minlength="3" required></textarea>
+														</div>
+                                                    </td>
                                                 </tr>
                                           
                                             </table>

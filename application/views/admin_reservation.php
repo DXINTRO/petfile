@@ -42,7 +42,7 @@
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>
+												</div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -91,7 +91,9 @@
                                                 </div>
                                             </div>
                                             <input type="hidden" name="reservationId" id="reservationId" value="" />
+                                            
                                             <button type="submit" name="adminAddReservation" id="addReservationButton" class="btn btn-success pull-right" style="margin-top:10px;">Agregar Reserva</button>
+                                            
                                             <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right"  style="margin-top:10px; margin-right:10px; display:none; display:none;">Back Add Reservation</button>
                                             <button type="submit" name="editadminAddReservation" class="btn btn-primary pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none;">Guardar Camb</button></div>
 

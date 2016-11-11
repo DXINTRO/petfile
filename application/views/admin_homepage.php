@@ -23,6 +23,14 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th style="width:200px;">Rut Usuario</th>
+                            </tr>
+                         </thead>
+                          <tr>
+							  <td><input type="text" class="form-control" name="inputRut" id="inputRut" placeholder="Ingresar Rut Cliente" required></td>
+						</tr>
+                        <thead>
+                            <tr>
                                 <th style="width:200px;">Email</th>
                                 <th>Usuario</th>
                                 <th style="">Nombre</th>
@@ -36,9 +44,6 @@
                                 <td><input type="text" class="form-control" name="username" id="username" placeholder="Nombre de Usuario" required onkeypress="return soloLetras(event)"></td>
                                 <td><input type="text" class="form-control" name="firstName" id="firstName" placeholder="Nombre"  onkeypress="return soloLetras(event)"></td>
                                 <td><input type="text" class="form-control" name="lastName" id="lastName" placeholder="Apellido" required onkeypress="return soloLetras(event)"></td>
-                                
-                                
-                                
                                 <td>
                                     <select class="form-control" name="userLevel" id="userLevelAdd">
                                         <option value=1>Cliente</option>
@@ -50,6 +55,15 @@
                                     </select>
                                 </td>
                             </tr>
+                            <thead>
+                            <tr>
+                                <th style="width:200px;">Direccion</th>
+                                <th>Comuna</th>
+                                <th style="">Numero Contacto</th>
+                                <th style="">Contraseña</th>
+                                <th style="">Conf. Contraseña</th>
+                            </tr>
+                        </thead>
                             <tr>
                             	<td><input type="text" class="form-control" name="address" id="address" placeholder="Direccion" required ></td>
                                 <td><input type="text" class="form-control" name="city" id="city" placeholder="Comuna" required onkeypress="return soloLetras(event)"></td>
@@ -287,7 +301,8 @@
         <table class="table table-hover" id="adminUsersTable">
             <thead>
                 <tr>
-                    <th style="width:210px;">Email</th>
+                    <th style="width:110px;">Rut</th>
+                    <th style="">Email</th>
                     <th>Usuario</th>
                     <th style="">Nombre</th>
                     <th style="">Apellido</th>
@@ -300,6 +315,7 @@
                 foreach ($users as $row) {
 
                     echo "<tr>";
+					echo "<td class='vert userEmail'>" . $row['rut'] . "</td>";
                     echo "<td class='vert userEmail'>" . $row['email'] . "</td>";
                     echo "<td class='vert userUsername'>" . $row['username'] . "</td>";
                     echo "<td class='vert userFirstName'>" . $row['first_name'] . "</td>";

@@ -157,13 +157,14 @@ CREATE TABLE `constant_physiological` (
   `petPulse` varchar(100) DEFAULT NULL,
   `PetTllc` varchar(100) DEFAULT NULL,
   `PetObservation` varchar(500) DEFAULT NULL,
-  `petAnamnesis` varchar(500) DEFAULT NULL, --ampliar
+  `petAnamnesis` varchar(500) DEFAULT NULL,
   `petPreviousDiseases` varchar(500) DEFAULT NULL,
   `petPosiblesDiagnoses` varchar(500) DEFAULT NULL,
   `petDefinitiveDiagnoses` varchar(500) DEFAULT NULL,
   `petCboResponsibleTab` varchar(100) DEFAULT NULL,
   `petCboResponsiblePet` varchar(100) DEFAULT NULL,
   `petCreationAnamnesis` varchar(100) DEFAULT NULL,
+  `petAnamnesisCreation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `petHistoryId` int(100) DEFAULT NULL,
   PRIMARY KEY (`objectId`),
   KEY `objectId` (`objectId`),
@@ -242,6 +243,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `objectId` int(10) NOT NULL AUTO_INCREMENT,
+  `rut` varchar (13)not null,
   `username` varchar(30) NOT NULL,
   `password` varchar(40) NOT NULL,
   `first_name` varchar(40) NOT NULL,
@@ -262,7 +264,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (22,'test','21232f297a57a5a743894a0e4a801fc3','Juan','admin','test@test.com',1,'2013-12-05 17:11:09',null,NULL,NULL),(51,'admin','21232f297a57a5a743894a0e4a801fc3','admin','admin','admin@gmail.com',2,'2016-09-12 17:18:33','admin','graneros','21412432');
+INSERT INTO `users` VALUES (22,'13.720.544-K','test','21232f297a57a5a743894a0e4a801fc3','Juan','admin','test@test.com',1,'2013-12-05 17:11:09',null,NULL,NULL),(51,'13.775.844-K','admin','21232f297a57a5a743894a0e4a801fc3','admin','admin','admin@gmail.com',2,'2016-09-12 17:18:33','admin','graneros','21412432');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
