@@ -163,7 +163,6 @@ CREATE TABLE `constant_physiological` (
   `petDefinitiveDiagnoses` varchar(500) DEFAULT NULL,
   `petCboResponsibleTab` varchar(100) DEFAULT NULL,
   `petCboResponsiblePet` varchar(100) DEFAULT NULL,
-  `petCreationAnamnesis` varchar(100) DEFAULT NULL,
   `petAnamnesisCreation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `petHistoryId` int(100) DEFAULT NULL,
   PRIMARY KEY (`objectId`),

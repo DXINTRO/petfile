@@ -1330,27 +1330,13 @@ class Admin extends CI_Controller {
         $edad = $this->input->post('petAge');
         $color = $this->input->post('petColor');
         $obse = $this->input->post('petHistory');
+		$clie = $this->input->post ('petOwnerReg');
+		$cliente = intval($clie);
+//$str = "10"; 
+//$num = (int)$str; 
 
-        $q = "INSERT INTO `pets`
-                            (`petName`,
-                            `petSpecies`,
-                            `petRace`,
-                            `petGender`,
-                            `petAge`,
-                            `petColor`,
-                            `petHistory`,
-                            `petIncome`,
-                            `userId`)
-                            VALUES
-                            ('" . $nombre . "',
-                            '" . $Species . "',
-                            '" . $Race . "',
-                            '" . $sexo . "',
-                            '" . $edad . "',
-                            '" . $color . "',
-                            '" . $obse . "',
-                            NOW(),
-                            '53');"; // PUCHO QL CAMBIA AKI POR EL ID DEL CLIENTE DE TU SELLLECT QUE TUUU ARAS XD
+
+        $q = "INSERT INTO `pets` (`objectId`,`petName`,`petSpecies`,`petRace`,`petGender`,`petAge`,`petColor`,`petHistory`,`petIncome`,`userId`) VALUES(null,'".$nombre."','".$Species."','".$Race."','".$sexo."','".$edad."','".$color."','".$obse."',NOW(),'".$cliente."')"; // PUCHO QL CAMBIA AKI POR EL ID DEL CLIENTE DE TU SELLLECT QUE TUUU ARAS XD
         if ($this->db->query($q)) {
             echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
         } else {
@@ -1401,15 +1387,28 @@ class Admin extends CI_Controller {
         }
         foreach ($TABLE_REGISTROS as $dat) {
             $aaa.= '<tr>
-                    <td>' . $dat['petName'] . '</td>
-                            <td>' . $dat['petSpecies'] . '</td>
-                            <td>' . $dat['petRace'] . '</td>
-                            <td>' . $dat['petGender'] . '</td>
-                            <td>' . $dat['petIncome'] . '</td>
-                            <td>' . $dat['first_name'] . '</td>
-                            <td>' . $dat['last_name'] . '</td>
-                            <td><a href="javascript:editarPaciente(' . $dat['objectId'] . ');" class="glyphicon glyphicon-edit"></a> <a data-objectid="' . $dat['objectId'] . '" id="eliminarpet" class="glyphicon glyphicon-remove-circle"></a></td>
-                     </tr>';
+                                        			<td>' . $dat['petName'] . '</td>
+                                                	<td>' . $dat['petSpecies'] . '</td>
+                                                	<td>' . $dat['petRace'] . '</td>
+                                                	<td>' . $dat['petGender'] . '</td>
+                                                	<td>' . $dat['petIncome'] . '</td>
+                                                	<td>' . $dat['first_name'] . '</td>
+                                                	<td>' . $dat['last_name'] . '</td>
+													<td><button id="petBtnAnamnesis" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#anamnesis">Anamnesis</button></td>
+													<td><button id="petBtnHistorial" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#historial">Historial</button></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td><button id="nuevo-paciente" class="btn-warning btn-sm">Editar</button></td>
+													<td><button id="nuevo-paciente" class="btn-danger btn-sm">Eliminar</button></td>
+												
+												</tr>';
         }
         return $aaa;
     }
