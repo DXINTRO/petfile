@@ -19,9 +19,9 @@
                             <label>Orden:</label> 
                             <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchUserServices" name = "sortService1" value = "" checked = "true">
                             Todos
-                        <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchUserServices" name = "sortService1" value = "S" >
+                            <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchUserServices" name = "sortService1" value = "S" >
                             Cirugía
-                        <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchUserServices" name = "sortService1" value = "O" > 
+                            <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchUserServices" name = "sortService1" value = "O" > 
                             Otros</span></div>
                     <div class="input-group">
                         <span class="input-group-btn">
@@ -107,16 +107,17 @@
                                     <div class="panel-body">
                                         <select class="form-control reserveTimeSelect">
                                             <option value=0>Hora</option>
-                                            <option value=5>10:00 AM</option>
-                                            <option value=6>11:00 AM</option>
-                                            <option value=7>12:00 PM</option>
-                                            <option value=8>2:00 PM</option>
-                                            <option value=9>3:00 PM</option>
-                                            <option value=10>4:00 PM</option>
-                                            <option value=11>5:00 PM</option>
-                                            <option value=12>6:00 PM</option>
-                                            <option value=13>7:00 PM</option>
-                                            <option value=14>8:00 PM</option>
+                                            <option value="10:00 AM">10:00 AM</option>
+                                            <option value="11:00 AM">11:00 AM</option>
+                                            <option value="12:00 AM">12:00 PM</option>
+                                            <option value="1:00 PM">1:00 PM</option>
+                                            <option value="2:00 PM">2:00 PM</option>
+                                            <option value="3:00 PM">3:00 PM</option>
+                                            <option value="4:00 PM">4:00 PM</option>
+                                            <option value="5:00 PM">5:00 PM</option>
+                                            <option value="6:00 PM">6:00 PM</option>
+                                            <option value="7:00 PM">7:00 PM</option>
+                                            <option value="8:00 PM">8:00 PM</option>
                                         </select>
                                     </div>
                                 </div>

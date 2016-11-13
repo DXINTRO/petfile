@@ -5,11 +5,11 @@
 <div class="panel panel-default" id="adminAddUser">
     <!-- Default panel contents -->
     <div class="panel-heading">
-        <span>Listado de Usuarios</span>
+        <span>USUARIOS DEL SISTEMA PETFILE</span>
 
     </div>
     <div class="panel-body clearfix">
-        <p>...</p>
+      
 
 
         <div class="panel panel-default panelAddEditUser">
@@ -27,8 +27,14 @@
                             </tr>
                          </thead>
                           <tr>
-							  <td><input type="text" class="form-control" name="inputRut" id="inputRut" placeholder="Ingresar Rut Cliente" required></td>
-						</tr>
+							  
+                              
+                              
+                              
+                             <td><input type="text" class="form-control" name="inputRut" id="inputRut" placeholder="Ingresar Rut Cliente" required maxlength="10"></td>
+                              
+                              
+			</tr>
                         <thead>
                             <tr>
                                 <th style="width:200px;">Email</th>

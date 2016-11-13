@@ -11,7 +11,6 @@ class Admin extends CI_Controller {
     private function checkAllowed($notAllowedLevels) {//checkea los permisos del usuario
         $userLevel = $this->session->userdata('user_level');
         if (in_array($userLevel, $notAllowedLevels)) {// si en el array $notAllowedLevels existen los datos del $userLevel return true 
-        
         }
     }
 
@@ -874,53 +873,44 @@ class Admin extends CI_Controller {
     }
 
     public function addReservation() {
-        if ($this->session->userdata('admin_objectId')) {
-			$serviceId = $this->input->post("serviceId");
-			
-            $reserveDate = $this->input->post("reserveDate");
-            $reserveTime = $this->input->post("reserveTime");
+        $doctorsId = $this->input->post("doctorsId");
+        $inputEmail = $this->input->post("reservationUserEmail");
+        $reserveDate = $this->input->post("reserveDate");
+        $reserveTime = $this->input->post("reserveTime");
+        $serviceId = $this->input->post("serviceId");
+        //'2012-06-18 10:34:09'
+        $reserveDateTime = $reserveDate.' '.$reserveTime;
+        if ($this->session->userdata('admin_objectId')) {// si existe la seccion has esto 
             //Consutar si la hora esta tomada
-			$reserveDateTime = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
-            
-			
-            $doctorsId = $this->input->post("doctorsId");
-
-            $inputEmail = $this->input->post("reservationUserEmail");
-
             $userByEmail = $this->db->query("SELECT * FROM users where email='" . $inputEmail . "'");
-
             $user = $userByEmail->row();
-
-            // $query = $this->db->query("INSERT INTO users_reservation  
-            // VALUES (NULL,'".$serviceId."',
-            // '".$user->objectId."',
-            // '".$reserveDate."',
-            // '".$reserveTime."',
-            // '".$reserveDateTime."',
-            // 0,NULL);");
-
-            $query = $this->db->query("INSERT INTO 
-					 users_reservation(objectId,
-						serviceId,
-						userId,
-						reserveDate,
-						reserveTime,
-						reserveDateTime,
-						confirmed,
-						doctorsId,
-						timestamp)
-					VALUES (NULL,
-						'" . $serviceId . "',
-						'" . $user->objectId . "',
-						'" . $reserveDate . "',
-						'" . $reserveTime . "',
-						'" . $reserveDateTime . "',2," . $doctorsId . ",
-						NULL);");
-
-            if ($this->db->affected_rows() > 0) {
-                set_status_header((int) 200);
-            } else {
-                set_status_header((int) 400);
+  
+            $pokiyt="INSERT INTO `users_reservation`
+                    (
+                    `serviceId`,
+                    `userId`,
+                    `reserveDate`,
+                    `reserveTime`,
+                    `reserveDateTime`,
+                    `confirmed`,
+                    `doctorsId`,
+                    `timestamp`)
+                    VALUES
+                    (
+                   '" . $serviceId . "',
+                    '" . $user->objectId . "',
+                   '" . $reserveDate . "',
+                   '" . $reserveTime . "',
+                   STR_TO_DATE('".$reserveDateTime."','%d/%m/%Y %h:%i %p'),
+                    2,
+                     '" . $doctorsId . "',
+                    NOW());";
+            if ($this->db->query($pokiyt)) {
+                if ($this->db->affected_rows() > 0) {
+                    set_status_header((int) 200);
+                } else {
+                    set_status_header((int) 400);
+                }
             }
         }
     }
@@ -929,7 +919,7 @@ class Admin extends CI_Controller {
         if ($this->session->userdata('admin_objectId')) {
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-            $reserveDateTime = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+            $reserveDateTime = $reserveDate.' '.$reserveTime;
             $serviceId = $this->input->post("serviceId");
             $reservationId = $this->input->post("reservationId");
 
@@ -944,7 +934,7 @@ class Admin extends CI_Controller {
 				userId='" . $user->objectId . "',
 				reserveDate='" . $reserveDate . "',
 				reserveTime='" . $reserveTime . "',
-				reserveDateTime='" . $reserveDateTime . "' 
+				reserveDateTime= STR_TO_DATE('".$reserveDateTime."','%d/%m/%Y %h:%i %p')
 				where objectId ='" . $reservationId . "';");
 
             if ($this->db->affected_rows() > 0) {
@@ -954,8 +944,8 @@ class Admin extends CI_Controller {
             }
         }
     }
-	
-	public function checkRutExist() {
+
+    public function checkRutExist() {
         $inputRut = $this->input->post("userRutCheck");
         $query = $this->db->query("SELECT  * FROM users where rut='" . $inputRut . "'");
         $row = $query->row();
@@ -1080,7 +1070,7 @@ class Admin extends CI_Controller {
 
     public function addUser() {
         $this->load->library('encrypt');
-		$inputRut = $this->input->post("inputRut");
+        $inputRut = $this->input->post("inputRut");
         $inputEmail = $this->input->post("inputEmail");
         $inputPassword = md5($this->input->post("inputPassword"));
         $username = $this->input->post("username");
@@ -1106,7 +1096,7 @@ class Admin extends CI_Controller {
             // $query = $this->db->query("INSERT INTO `vet_app`.`users` VALUES (NULL,'".$username."', '".$inputPassword."', '".$firstName."', '".$lastName."','".$inputEmail."',".$userLevel.",NULL);");
             //$query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $contactNo . "');");
 
-            $query = $this->db->query("INSERT INTO users VALUES (NULL,'".$inputRut."','" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $city . "','" . $contactNo . "');");
+            $query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $inputRut . "','" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $city . "','" . $contactNo . "');");
 
             if ($this->db->affected_rows() > 0) {
                 if ($userLevel == 1) {
@@ -1330,13 +1320,13 @@ class Admin extends CI_Controller {
         $edad = $this->input->post('petAge');
         $color = $this->input->post('petColor');
         $obse = $this->input->post('petHistory');
-		$clie = $this->input->post ('petOwnerReg');
-		$cliente = intval($clie);
+        $clie = $this->input->post('petOwnerReg');
+        $cliente = intval($clie);
 //$str = "10"; 
 //$num = (int)$str; 
 
 
-        $q = "INSERT INTO `pets` (`objectId`,`petName`,`petSpecies`,`petRace`,`petGender`,`petAge`,`petColor`,`petHistory`,`petIncome`,`userId`) VALUES(null,'".$nombre."','".$Species."','".$Race."','".$sexo."','".$edad."','".$color."','".$obse."',NOW(),'".$cliente."')"; // PUCHO QL CAMBIA AKI POR EL ID DEL CLIENTE DE TU SELLLECT QUE TUUU ARAS XD
+        $q = "INSERT INTO `pets` (`objectId`,`petName`,`petSpecies`,`petRace`,`petGender`,`petAge`,`petColor`,`petHistory`,`petIncome`,`userId`) VALUES(null,'" . $nombre . "','" . $Species . "','" . $Race . "','" . $sexo . "','" . $edad . "','" . $color . "','" . $obse . "',NOW(),'" . $cliente . "')"; // PUCHO QL CAMBIA AKI POR EL ID DEL CLIENTE DE TU SELLLECT QUE TUUU ARAS XD
         if ($this->db->query($q)) {
             echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
         } else {

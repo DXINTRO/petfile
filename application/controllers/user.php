@@ -122,21 +122,23 @@ class User extends CI_Controller {
     }
 
     public function checkReservationAvailable() {
-
         $reserveDate = $this->input->post("reserveDate");
         $reserveTime = $this->input->post("reserveTime");
-        $reserveDateTime = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+        $reserveDateTime = $reserveDate.' '.$reserveTime;
+        //SELECT STR_TO_DATE('16/11/2016 04:00 PM','%d/%m/%Y %h:%i %p');  
+        
         $serviceId = $this->input->post("serviceId");
         $doctorsId = $this->input->post("doctorsId");
 
-        $query = $this->db->query("SELECT * from users_reservation 
-					where reserveDateTime='" . $reserveDateTime . "' 
-					AND serviceId='" . $serviceId . "' and doctorsId=" . $doctorsId . ";");
-
-        if ($this->db->affected_rows() > 0) {
-            set_status_header((int) 500);
-        } else {
-            set_status_header((int) 200);
+        $Wedf = "SELECT * from users_reservation 
+					where reserveDateTime= STR_TO_DATE('".$reserveDateTime."','%d/%m/%Y %h:%i %p') 
+					AND serviceId='" . $serviceId . "' and doctorsId=" . $doctorsId . ";";
+        if ($this->db->query($Wedf)) {
+            if ($this->db->affected_rows() > 0) {
+                set_status_header((int) 500);
+            } else {
+                set_status_header((int) 200);
+            }
         }
     }
 
@@ -169,7 +171,7 @@ class User extends CI_Controller {
 
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-            $reserveDateTime = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+             $reserveDateTime = $reserveDate.' '.$reserveTime;
             $serviceId = $this->input->post("serviceId");
             $userId = $this->session->userdata('user_objectId');
             $doctorsId = $this->input->post("doctorsId");
@@ -188,22 +190,22 @@ class User extends CI_Controller {
 						'" . $userId . "',
 						'" . $reserveDate . "',
 						'" . $reserveTime . "',
-						'" . $reserveDateTime . "',2," . $doctorsId . ",
+						STR_TO_DATE('".  $reserveDateTime ."','%d/%m/%Y %h:%i %p'),2," . $doctorsId . ",
 						NULL);");
 
             if ($this->db->affected_rows() > 0) {
                 $auditLog = $this->db->query("INSERT INTO audit_trail 
-										(`objectId`,
-										`description`,
-										`time`,
-										`type`)
-										VALUES
-										(NULL,
-										'User " . $this->session->userdata('user_objectId') . " added reservation. Reservation ID: " . $this->db->insert_id() . "',
-										NULL,
-										'ADD RESERVATION'
-										);
-										");
+                                                (`objectId`,
+                                                `description`,
+                                                `time`,
+                                                `type`)
+                                                VALUES
+                                                (NULL,
+                                                'User " . $this->session->userdata('user_objectId') . " added reservation. Reservation ID: " . $this->db->insert_id() . "',
+                                                NULL,
+                                                'ADD RESERVATION'
+                                                );
+                                                ");
                 set_status_header((int) 200);
             } else {
                 set_status_header((int) 500);
@@ -215,7 +217,7 @@ class User extends CI_Controller {
         if ($this->session->userdata('user_objectId')) {
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-            $reserveDateTime = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reserveDate . ' ' . $reserveTime . '')));
+             $reserveDateTime = $reserveDate.' '.$reserveTime;
             $serviceId = $this->input->post("serviceId");
             $userId = $this->session->userdata('user_objectId');
             $doctorsId = $this->input->post("doctorsId");
@@ -223,7 +225,7 @@ class User extends CI_Controller {
             $query = $this->db->query("UPDATE  users_reservation 
 					SET  reserveDate= '" . $reserveDate . "',
 					reserveTime='" . $reserveTime . "',
-					reserveDateTime='" . $reserveDateTime . "', doctorsId=" . $doctorsId . "   
+					reserveDateTime= STR_TO_DATE('".$reserveDateTime."','%d/%m/%Y %h:%i %p'), doctorsId=" . $doctorsId . "   
 					WHERE users_reservation.objectId =" . $serviceId . ";");
 
             if ($this->db->affected_rows() > 0) {
