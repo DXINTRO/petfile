@@ -191,17 +191,57 @@
 				  <div class="modal-body">
 	
 <div class="row">
-  	<div class="col-sm-3"><input type="text" class="form-control" id="petWeight" name="petWeight" placeholder="Peso"></div>
-    <div class="col-sm-3"><input type="text" class="form-control" id="petTemperature" name="petTemperature" placeholder="Temperatura"></div>
-    <div class="col-sm-3"><input type="text" class="form-control" id="petHeartRate" name="petHeartRate" placeholder="Frec. Cardiaca"></div>
-    <div class="col-sm-3"><input type="text" class="form-control" id="petMucous" name="petMucous" placeholder="Mucosas"></div>
+ 	<div class="col-sm-3">
+ 		<label for="lastName">Peso</label>
+  		<input type="text" class="form-control" id="petWeight" name="petWeight" placeholder="Peso">
+  	</div>
+    <div class="col-sm-3">
+    	<label for="lastName">Temperatura</label>
+    	<input type="text" class="form-control" id="petTemperature" name="petTemperature" placeholder="Temperatura">
+    </div>
+    <div class="col-sm-3">
+    	<label for="lastName">Frec. Cardiaca</label>
+    	<input type="text" class="form-control" id="petHeartRate" name="petHeartRate" placeholder="Frec. Cardiaca">
+    </div>
+    <div class="col-sm-3">
+    	<label for="lastName">Mucosas</label>
+      		<select class="form-control" name="petMucous" id="petMucous" >
+       		
+        	<option value="Congestionada">Congestionada</option>
+            <option value="Normal">Normal</option>   
+		</select>
+    
+    <!--<input type="text" class="form-control" id="petMucous" name="petMucous" placeholder="Mucosas">-->
+    
+    </div>
 </div>
  <br/>
   <div class="row">
-    <div class="col-sm-3"><input type="text" class="form-control" id="petBreathingFrecuency" name="petBreathingFrecuency" placeholder="Frec. Respiratoria"></div>
-    <div class="col-sm-3"><input type="text" class="form-control" id="petSkinTurgor" name="petSkinTurgor" placeholder="Turgencia Piel"></div>
-    <div class="col-sm-3"><input type="text" class="form-control" id="petPulse" name="petPulse" placeholder="Pulso"></div>
-    <div class="col-sm-3"><input type="text" class="form-control" id="PetTllc" name="PetTllc" placeholder="TLL.C"></div>
+    <div class="col-sm-3">
+    	<label for="lastName">Frec. Resp.</label>
+    	<input type="text" class="form-control" id="petBreathingFrecuency" name="petBreathingFrecuency" placeholder="Frec. Respiratoria">
+    </div>
+    <div class="col-sm-3">
+    	<label for="lastName">Turgencia Piel</label>
+    	<select class="form-control" name="petTllc" id="petTllc" >
+			<option value=" 1 Segundo"> 0 Segundo</option> 
+            <option value=" 1 Segundo">1 Segundo</option>
+            <option value=" 2 Segundos">2 Segundo</option>    
+		</select>
+    </div>
+    <div class="col-sm-3">
+    	<label for="lastName">Pulso</label>
+    	<input type="text" class="form-control" id="petPulse" name="petPulse" placeholder="Pulso">
+    </div>
+    <div class="col-sm-3">
+    	<label for="lastName">Pliege Cutaneo</label>
+      		<select class="form-control" name="petTllc" id="petTllc" >
+        	<option value="< 1 Segundo">< 1 Segundo</option>
+            <option value="> 1 Segundo">> 1 Segundo</option>   
+		</select>
+    	<!--<input type="text" class="form-control" id="PetTllc" name="PetTllc" placeholder="TLL.C">-->
+    	
+    </div>
   </div>
   <br/>
   <div class="row">
