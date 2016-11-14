@@ -1,19 +1,19 @@
 <div class="panel panel-default" id="admin_Pets">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Constantes Fisiologicas</div>
+                <div class="panel-heading">Ficha de Atenciòn Mèdica</div>
                 <div class="panel-body">
  <div class="container">
   
   <br/>
 <div class="row">
-  	<div class="col-sm-3"><input type="text" class="form-control" id="petWeight" name="petWeight" placeholder="Peso"></div>
-    <div class="col-sm-3"><input type="text" class="form-control" id="petTemperature" name="petTemperature" placeholder="Temperatura"></div>
-    <div class="col-sm-3"><input type="text" class="form-control" id="petHeartRate" name="petHeartRate" placeholder="Frecuencia Cardiaca"></div>
-    <div class="col-sm-3"><input type="text" class="form-control" id="petMucous" name="petMucous" placeholder="Mucosas"></div>
+  	<div class="col-sm-3"><input type="text" class="form-control" id="petWeight" name="petWeight" placeholder="Peso" onkeypress="return numeros(event)"></div>
+    <div class="col-sm-3"><input type="text" class="form-control" id="petTemperature" name="petTemperature" placeholder="Temperatura" onkeypress="return numeros(event)"></div>
+    <div class="col-sm-3"><input type="text" class="form-control" id="petHeartRate" name="petHeartRate" placeholder="Frecuencia Cardiaca" onkeypress="return numeros(event)"></div>
+    <div class="col-sm-3"><input type="text" class="form-control" id="petMucous" name="petMucous" placeholder="Mucosas" onkeypress="return numeros(event)"></div>
 </div>
  <br/>
   <div class="row">
-    <div class="col-sm-3"><input type="text" class="form-control" id="petBreathingFrecuency" name="petBreathingFrecuency" placeholder="Frecuencia Resp"></div>
+    <div class="col-sm-3"><input type="text" class="form-control" id="petBreathingFrecuency" name="petBreathingFrecuency" placeholder="Frecuencia Resp" onkeypress="return numeros(event)"></div>
     <div class="col-sm-3"><input type="text" class="form-control" id="petSkinTurgor" name="petSkinTurgor" placeholder="Turgencia Piel"></div>
     <div class="col-sm-3"><input type="text" class="form-control" id="petPulse" name="petPulse" placeholder="Pulso"></div>
     <div class="col-sm-3"><input type="text" class="form-control" id="PetTllc" name="PetTllc" placeholder="TLL.C"></div>

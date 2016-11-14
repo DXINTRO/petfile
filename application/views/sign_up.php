@@ -9,7 +9,7 @@
 		  	<h3>INFORMACION DEL USUARIO</h3>
 		  	<div class="form-group">
 			    <label for="inputEmail">Rut Usuario </label>
-			    <input type="text" class="form-control" name="inputRut" id="inputRut" placeholder="Ingrese Rut Cliente" required>
+                            <input type="text" class="form-control" name="inputRut" id="inputRut" placeholder="Ingrese Rut Cliente"  maxlength="10">
 			  </div>
 			  <div class="form-group">
 			    <label for="inputEmail">Email </label>
@@ -29,11 +29,11 @@
 			  </div>
 			  <div class="form-group">
 			    <label for="firstName">Nombre</label>
-			    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="nombre" minlength="3" required>
+			    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="nombre" minlength="3" required onkeypress="return soloLetras(event)">
 			  </div>
 				<div class="form-group">
 				    <label for="lastName">Apellido</label>
-				    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="apellido" minlength="3" required>
+				    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="apellido" minlength="3" required onkeypress="return soloLetras(event)">
 			  	</div>
 			  	<div class="form-group">
 				    <label for="address">Dirección</label>
@@ -41,17 +41,17 @@
 			  	</div>
                 <div class="form-group">
 				    <label for="address">Comuna</label>
-				    <input type="text" class="form-control" name="city" id="city" placeholder="Comuna" required></textarea>
+				    <input type="text" class="form-control" name="city" id="city" placeholder="Comuna" required onkeypress="return soloLetras(event)"></textarea>
 			  	</div>
 			  	<div class="form-group">
 				    <label for="lastName">Numero de Contacto</label>
-				    <input type="number" class="form-control" name="contactNo" id="contactNo" placeholder="numero contacto" minlength="6" required>
+				    <input type="number" class="form-control" name="contactNo" id="contactNo" placeholder="numero contacto" minlength="6" required onkeypress="return numeros(event)">
 			  	</div>
 		  	</div>
 		  	<h3>INFORMACION DE LA MASCOTA</h3>
 			  <div class="form-group">
 			    <label for="petName">Nombre de Mascota</label>
-			    <input type="text" class="form-control" name="petName" id="petName" placeholder="Nombre Mascota" required>
+			    <input type="text" class="form-control" name="petName" id="petName" placeholder="Nombre Mascota" required onkeypress="return soloLetras(event)">
 			  </div>
 			  <div class="form-group">
 			    <label for="petSpecies">Especie</label>
@@ -62,7 +62,7 @@
                 </div>
                <div class="form-group">
 			    <label for="petRace">Raza</label>
-			    <input type="text" class="form-control" name="petRace" id="petRace" placeholder="Raza Mascota" required>
+			    <input type="text" class="form-control" name="petRace" id="petRace" placeholder="Raza Mascota" required onkeypress="return soloLetras(event)">
 			  </div>
 			  <div class="form-group">
 			    <label for="petGender">Genero</label>
@@ -73,12 +73,12 @@
                 </div>
               <div class="form-group">
 			    <label for="petAge">Edad</label>
-			    <input type="text" class="form-control" name="petAge" id="petAge" placeholder="Edad Mascota" required>
+			    <input type="number" class="form-control" name="petAge" id="petAge" placeholder="Edad Mascota" required>
 			  </div>
 			    <!-- <input type="text" class="form-control" name="petGender" id="petGender" placeholder="Pet Gender" minlength="4" required> -->
                 <div class="form-group">
 			    <label for="petColor">Color</label>
-			    <input type="text" class="form-control" name="petColor" id="petColor" placeholder="Color" required>
+			    <input type="text" class="form-control" name="petColor" id="petColor" placeholder="Color" required onkeypress="return soloLetras(event)">
 			  </div>
 			  
 			  <div class="form-group">

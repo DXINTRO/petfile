@@ -24,7 +24,7 @@
  	}
 	else if ($userLevel ==6) {//admin
             echo'<li class="navProducts"><a href="'.base_url().'admin/manageproducts">Productos</a></li>';
-            echo'<li class="navProducts"><a href="'.base_url().'admin/userorder">Ordenes</a></li>';
+            //echo'<li class="navProducts"><a href="'.base_url().'admin/userorder">Ordenes</a></li>';
             echo'<li class="navSalesReport"><a href="'.base_url().'admin/sales">Ventas</a></li>';
             echo'<li class="navBilling"><a href="'.base_url().'admin/billing">Facturación</a></li>';
             echo'<li class="navAdminUserManage"><a href="'.base_url().'admin">Usuarios</a></li>';
@@ -36,7 +36,7 @@
  	    echo'<li class="navAdminPetManage"><a href="'.base_url().'admin/pet">Mascotas</a></li>';//new
             echo'<li class="navProducts"><a href="'.base_url().'admin/manageproducts">Productos</a></li>';
             echo'<li class="navService"><a href="'.base_url().'admin/manageservice">Servicios</a></li>';
-            echo'<li class="navProducts"><a href="'.base_url().'admin/userorder">Ordenes</a></li>';
+            //echo'<li class="navProducts"><a href="'.base_url().'admin/userorder">Ordenes</a></li>';
             echo'<li class="navReserveManage"><a href="'.base_url().'admin/manageReservation">Toma Horas</a></li>';
             echo'<li class="navSalesReport"><a href="'.base_url().'admin/sales">Ventas</a></li>';
             echo'<li class="navBilling"><a href="'.base_url().'admin/billing">Facturación</a></li>';

@@ -1,6 +1,6 @@
 <div class="panel panel-default" id="adminUsersOrder">
     <!-- Default panel contents -->
-    <div class="panel-heading">SISTEMA DE PAGOS</div>
+    <div class="panel-heading"> SISTEMA DE PAGO PARA HOSPITALIZACIONES (MAS DE 1 DIA EN LA CLINICA)</div>
     <div class="panel-body">
         <div>
           <!-- <p>Only confirmed transactions are being calculated here.</p> -->

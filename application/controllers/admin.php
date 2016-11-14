@@ -1384,8 +1384,8 @@ class Admin extends CI_Controller {
                                                 	<td>' . $dat['petIncome'] . '</td>
                                                 	<td>' . $dat['first_name'] . '</td>
                                                 	<td>' . $dat['last_name'] . '</td>
-													<td><button id="petBtnAnamnesis" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#anamnesis">Anamnesis</button></td>
-													<td><button id="petBtnHistorial" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#historial">Historial</button></td>
+													<td><button id="petBtnAnamnesis" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#anamnesis">Ficha Atenciòn</button></td>
+													<td><button id="petBtnHistorial" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#historial">Ficha Clinica</button></td>
 												</tr>
 												<tr>
 													<td></td>
