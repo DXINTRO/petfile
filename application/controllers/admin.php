@@ -1402,5 +1402,89 @@ class Admin extends CI_Controller {
         }
         return $aaa;
     }
+	
+	public function agregar_fichamascota(){
+	   
+		$id 					= $this->input->post('id_ficha');		
+		$petWeight 				= $this->input->post('petWeiht');
+		$petTemperature 		= $this->input->post('petTemperature');
+		$petHeartRate			= $this->input->post('petHeartRate');
+		$petMucous 				= $this->input->post('petMucous');
+		$petBreathingFrecuency	= $this->input->post('petBreathingFrecuency');
+		$petSkinTurgor			= $this->input->post('petSkinTurgor');
+		$petPulse				= $this->input->post('petPulse');
+		$PetTllc				= $this->input->post('PetTllc');
+		$PetObservation			= $this->input->post('PetObservation');
+		$petAnamnesis			= $this->input->post('petAnamnesis');
+		$petPreviousDiseases	= $this->input->post('petPreviousDiseases');
+		$petPosiblesDiagnoses	= $this->input->post('petPosiblesDiagnoses');
+		$petDefinitiveDiagnoses	= $this->input->post('petDefinitiveDiagnoses');
+		
+		$petCboRespTab			= $this->input->post('petCboResponsibleTab');
+		$petCboResponsibleTab	= intval($petCboRespTab);
+		
+		$petCboRespPet			= $this->input->post('petCboResponsiblePet');
+		$petCboResponsiblePet	= intval($petRespPet);
+		
+		$petAnamnesisCreation	= $this->input->post('petAnamnesisCreation');
+		
+		$petHistoId		= $this->input->post('petHistoryId');
+		$petHistoryId = intval(7);
+		
+		
+		$q = "INSERT INTO `constant_physiological`(
+			`petWeight`,
+			`petTemperature`,
+			`petHeartRate`,
+			`petMucous`,
+			`petBreathingFrecuency`,
+			`petSkinTurgor`,
+			`petPulse`,
+			`PetTllc`,
+			`PetObservation`,
+			`petAnamnesis`,
+			`petPreviousDiseases`,
+			`petPosiblesDiagnoses`,
+			`petDefinitiveDiagnoses`,
+			`petCboResponsibleTab`,
+			`petCboResponsiblePet`,
+			`petAnamnesisCreation`,
+			`petHistoryId`)
+				VALUES
+			(
+			'".$petWeight."',
+			'".$petTemperature."',
+			'".$petHeartRate."',
+			'".$petMucous."',
+			'".$petBreathingFrecuency."',
+			'".$petSkinTurgor."',
+			'".$petPulse."',
+			'".$PetTllc."',
+			'".$PetObservation."',
+			'".$petAnamnesis."',
+			'".$petPreviousDiseases."',
+			'".$petPosiblesDiagnoses."',
+			'".$petDefinitiveDiagnoses."',
+			'".$petCboResponsibleTab."',
+			'".$petCboResponsiblePet."',
+			now(),
+			'".$petHistoryId."')";
+		
+		
+		
+        
+		if ($this->db->query($q)) {
+            echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
+        } else {
+            echo null;
+        }
+
+		
+		
+		
+		
+	}
+	
+	
 
 }

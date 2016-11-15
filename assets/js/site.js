@@ -1337,3 +1337,69 @@ function numeros(e) {
 }
 
 
+
+function cargaDatosMascotaFicha(NombreMascota,IdMascota){
+	
+$('#mascota-ficha').val(NombreMascota);
+$('#mascota-id').val(IdMascota);
+	
+}
+
+
+function guardarFichaMascota(){
+	
+alert("se va a enviar datos de mascota id " + $('#mascota-id').val() + "");
+alert("se va a enviar datos de mascota id " + $('#petWeight').val() + "");
+alert("se va a enviar datos de mascota id " + $('#petPulse').val() + "");	
+$.post( 
+	"admin.php", { 
+		idMascota					: $('#mascota-id').val(),
+		petWeight					: $('#petWeight').val() ,
+		petTemperature				: $('#petTemperature').val(),
+		petHeartRate				: $('#petHeartRate').val(),
+		
+		petMucous					: $('#petMucous').val(),
+		petBreathingFrecuency		: $('#petBreathingFrecuency').val(),
+		petSkinTurgor				: $('#petSkinTurgor').val(),
+		petPulse					: $('#petPulse').val(),
+		PetTllc						: $('#PetTllc').val(),
+		PetObservation				: $('#PetObservation').val(),
+		petAnamnesis				: $('#petAnamnesis').val(),
+		petPreviousDiseases			: $('#petPreviousDiseases').val(),
+		petPosiblesDiagnoses		: $('#petPosiblesDiagnoses').val(),
+		petDefinitiveDiagnoses		: $('#petDefinitiveDiagnoses').val(),
+		petCboResponsibleTab		: $('#petCboResponsibleTab').val(),
+		petCboResponsiblePet		: $('#petCboResponsiblePet').val(),
+		petAnamnesisCreation		: $('#petAnamnesisCreation').val(),
+		petHistoryId				: $('#petHistoryId ').val(),
+	
+	
+	} 
+	  
+	  
+	  );
+	
+	
+	
+}
+function hola() {
+    $.ajax({
+        type: 'POST',
+        url: 'agrega_fichamascota',
+        data: $('#formulario2').serialize(),
+        success: function (data) {
+            var obj = jQuery.parseJSON(data);
+            if (data !== null) {
+                $('#agrega-registros tbody').html('');
+                $('#formulario2')[0].reset();
+                $('#agrega-registros tbody').html(obj.response);
+                $('#registra-paciente').modal('hide');
+                return false;
+            } else {
+                console.log('sin datos');
+            }
+        }
+    });
+    return false;
+}
+

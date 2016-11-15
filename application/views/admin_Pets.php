@@ -53,7 +53,7 @@
                                                 	<td>' . $dat['petIncome'] . '</td>
                                                 	<td>' . $dat['first_name'] . '</td>
                                                 	<td>' . $dat['last_name'] . '</td>
-													<td><button id="petBtnAnamnesis" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#anamnesis">Ficha Atenciòn</button></td>
+													<td><button id="petBtnAnamnesis" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#anamnesis" onclick="cargaDatosMascotaFicha(\'' . $dat['petName'] . '\',\'' . $dat['objectId'] . '\')">Ficha Atenciòn</button></td>
 													<td><button id="petBtnHistorial" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#historial">Ficha Clìnica</button></td>
 												</tr>
 												<tr>
@@ -188,7 +188,28 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
                                         <div class="col-sm-12"><label for=""> <h4>Ficha de Atenciòn Mèdica<h4></label></div>
                                                         </div>
+                                          <form id="formulario2" class="formulario"  onsubmit="return false;" >
                                                         <div class="modal-body">
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label for="lastName">Mascota</label>
+                                                                    <input type="text" class="form-control" id="mascota-ficha" name="petWeight" value="..." onkeypress="return numeros(event)" readonly />
+                                                                    
+                                                                    
+                                                                    
+                                                                    <input type="hidden" id="mascota-id" name="mascota-id" value="">
+                                                                    
+                                                                </div>
+															</div>      
+                                                           
+                                                            
+                                                            
+
+                                                            
 
                                                             <div class="row">
                                                                 <div class="col-sm-3">
@@ -311,7 +332,7 @@
                                                                     </div>
                                                                     <div class="col-md-4">
                                                                         <label for="petCreationDate">Fecha de Creacion</label>
-                                                                        <input class="form-control" rows="3"  name="petCreationDate" id="petCreationDate" readonly>
+                                                                        <input class="form-control" value="<?php echo date("Y-m-d H:i:s") ?>" rows="3"  name="petCreationDate" id="petCreationDate" readonly>
 
                                                                     </div>
                                                                 </div>
@@ -319,10 +340,11 @@
 
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Registrar</button>
+                                                            <button type="submit" class="btn btn-primary" data-dismiss="modal" onClick="guardarFichaMascota();">Registrar</button>
                                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
 
                                                         </div>
+											</form>
                                                         </div>
                                                         </div>
                                                         </div>
@@ -417,7 +439,8 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                     <label for="petCreationDate">Fecha de Creacion</label>
-                                                                                                    <input class="form-control" rows="3"  name="petCreationDate" id="petCreationDate" readonly>
+                                                                                                    <input class="form-control" rows="3"  name="petCreationDate"
+                                                                                                    value="<?php echo date("Y-m-d H:i:s") ?>" id="petCreationDate" readonly>
                                                                                                 </div>
                                                                                             </div>
 
