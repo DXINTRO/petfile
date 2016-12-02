@@ -7,14 +7,14 @@
                 <div class="panel-heading">Servicios Ofrecidos</div>
                 <div class="panel-body">
                     <p>Seleccione uno de nuestros Servicios</p>
-                    <p><small class="text-muted">Nota: Los Item en color Rojo no están disponibles.</small></p>
+                    
                     <?php
                     if ($activeReservation == "true") {
                         echo"<p class='small' style='color:red;'>Solo puedes realizar un Máximo de 2 Reservas, para Agregar otras favor llame a Secretaria de Clinica Morita</p>";
                     }
                     ?>
 
-                    <div class="input-group">
+                    <!--!<div class="input-group">
                         <span class="input-group-btn">
                             <label>Orden:</label> 
                             <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchUserServices" name = "sortService1" value = "" checked = "true">
@@ -23,13 +23,13 @@
                             Cirugía
                             <input type="radio" style="width:10px; height:10px; vertical-align:baseline;" class="form-control searchUserServices" name = "sortService1" value = "O" > 
                             Otros</span></div>
-                    <div class="input-group">
+                    <div class="input-group"
                         <span class="input-group-btn">
                             <button class="btn btn-default searchUserServices" type="button">Buscar</button>
                         </span>
                         <input type="text" class="form-control searchUserServicesText" placeholder="Ingrese texto para buscar">               
                     </div>
-                </div>
+                </div>>-->
 
                 <!-- Table -->
                 <table class="table table-hover">

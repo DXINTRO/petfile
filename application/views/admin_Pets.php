@@ -267,7 +267,7 @@
                                                             <br/>
                                                             <div class="row">
                                                                 <div class="col-sm-12">
-                                                                    <label for="petObservation">Observaciones</label>
+                                                                    <label for="petObservation">Medicamentos Prohibidos para la Mascota</label>
                                                                     <textarea class="form-control" rows="3" id="petObservation" name="petObservation" placeholder="Otras Observaciones"></textarea>
                                                                 </div>
                                                             </div>
