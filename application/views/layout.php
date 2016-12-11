@@ -28,8 +28,6 @@
             ?>
 
             <?= $content_body ?>
-
-
         </div>
         <script src="<?php echo base_url(); ?>assets/js/jquery-1.10.2.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery-ui-1.10.3.custom.js"></script>

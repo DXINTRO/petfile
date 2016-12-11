@@ -6,36 +6,22 @@
     <!-- Default panel contents -->
     <div class="panel-heading">
         <span>USUARIOS DEL SISTEMA PETFILE</span>
-
     </div>
     <div class="panel-body clearfix">
-      
-
-
         <div class="panel panel-default panelAddEditUser">
             <div class="panel-heading clearfix">
-                <a style="color:#000000;" data-toggle="collapse" data-parent="#accordion" href="#addUsercollpase">
+                <a style="color:#000000;" data-toggle="collapse" id="accordion" data-parent="#accordion" href="#addUsercollpase">
                     <span class="glyphicon glyphicon-hand-right"></span> 
                     <h3 class="panel-title" style="display:inline;">Agregar Usuario</h3></a></div>
             <div class="panel-body panel-collapse collapse clearfix" id="addUsercollpase">
 
-                <form action="admin/addUser" method="POST" id="addUserAdmin" name="adduseradmin" class="clearfix">
+                <form action="admin/addUser" method="POST" id="addUserAdmin" name="adduseradmin" class="clearfix" >
+                    <div class="form-group col-lg-3">
+                        <label for="inputEmail">Rut Usuario </label>
+                        <input type="text" class="form-control" name="inputRut" id="inputRut" placeholder="Ingrese Rut " required="" pattern="\d{3,8}-[\d|kK]{1}" title="Debe ser un Rut válido">
+                    </div>
                     <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th style="width:200px;">Rut Usuario</th>
-                            </tr>
-                         </thead>
-                          <tr>
-							  
-                              
-                              
-                              
-                             <td><input type="text" class="form-control" name="inputRut" id="inputRut" placeholder="Ingresar Rut Cliente" required maxlength="10"></td>
-                              
-                              
-			</tr>
-                        <thead>
+                        <tbody>
                             <tr>
                                 <th style="width:200px;">Email</th>
                                 <th>Usuario</th>
@@ -43,25 +29,22 @@
                                 <th style="">Apellido</th>
                                 <th style="">Nivel de Usuario</th>
                             </tr>
-                        </thead>
-                        <tbody>
                             <tr>
                                 <td><input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Ingresar Email" required></td>
                                 <td><input type="text" class="form-control" name="username" id="username" placeholder="Nombre de Usuario" required onkeypress="return soloLetras(event)"></td>
-                                <td><input type="text" class="form-control" name="firstName" id="firstName" placeholder="Nombre"  onkeypress="return soloLetras(event)"></td>
+                                <td><input type="text" class="form-control" name="firstName" id="firstName" placeholder="Nombre"  required onkeypress="return soloLetras(event)"></td>
                                 <td><input type="text" class="form-control" name="lastName" id="lastName" placeholder="Apellido" required onkeypress="return soloLetras(event)"></td>
                                 <td>
                                     <select class="form-control" name="userLevel" id="userLevelAdd">
                                         <option value=1>Cliente</option>
+                                        <option value=2>Super Admin</option>
                                         <option value=3>Doctor</option>
                                         <option value=4>Secretaria</option>
                                         <option value=5>Contabilidad</option>
                                         <option value=6>Administrador Clínica</option>
-                                        <option value=2>Super Admin</option>
                                     </select>
                                 </td>
                             </tr>
-                            <thead>
                             <tr>
                                 <th style="width:200px;">Direccion</th>
                                 <th>Comuna</th>
@@ -69,90 +52,33 @@
                                 <th style="">Contraseña</th>
                                 <th style="">Conf. Contraseña</th>
                             </tr>
-                        </thead>
                             <tr>
-                            	<td><input type="text" class="form-control" name="address" id="address" placeholder="Direccion" required ></td>
+                                <td><input type="text" class="form-control" name="address" id="address" placeholder="Direccion" required ></td>
                                 <td><input type="text" class="form-control" name="city" id="city" placeholder="Comuna" required onkeypress="return soloLetras(event)"></td>
-                               	<td><input class="form-control" name="contactNo" id="contactNo" placeholder="Numero Contacto" required onkeypress="return numeros(event)"></td>
+                                <td><input class="form-control" name="contactNo" id="contactNo" placeholder="Numero Contacto" required onkeypress="return numeros(event)"></td>
                                 <td> <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Contraseña" minlength="6" maxlength="50" required></td>
                                 <td> <input type="password" class="form-control" name="confirm_inputPassword" id="confirm_inputPassword" placeholder="Confirmar Contraseña" minlength="6" maxlength="50" required></td>
                             </tr>
                         </tbody>
                     </table>
-                    <div id="petInformationContainer">
+                    <div >
                         <div class="form-group">
-			    <label for="petName">Nombre de Mascota</label>
-			    <input type="text" class="form-control" name="petName" id="petName" placeholder="Nombre Mascota" required onkeypress="return soloLetras(event)">
-			  </div>
-			  <div class="form-group">
-			    <label for="petSpecies">Especie</label>
-			    <select class="form-control" name="petSpecies" id="petSpecies" >
-			    	<option value="Perro">Perro</option>
-			    	<option value="Gato">Gato</option>
-			    </select>
-                </div>
-               <div class="form-group">
-			    <label for="petRace">Raza</label>
-			    <input type="text" class="form-control" name="petRace" id="petRace" placeholder="Raza Mascota" required onkeypress="return soloLetras(event)">
-			  </div>
-			  <div class="form-group">
-			    <label for="petGender">Genero</label>
-			    <select class="form-control" name="petGender" id="petGender" >
-			    	<option value="Hembra">Hembra</option>
-			    	<option value="Macho">Macho</option>
-			    </select>
-                </div>
-              <div class="form-group">
-			    <label for="petAge">Edad</label>
-			    <input type="number" class="form-control" name="petAge" id="petAge" placeholder="Edad Mascota" required>
-			  </div>
-			    <!-- <input type="text" class="form-control" name="petGender" id="petGender" placeholder="Pet Gender" minlength="4" required> -->
-                <div class="form-group">
-			    <label for="petColor">Color</label>
-			    <input type="text" class="form-control" name="petColor" id="petColor"  placeholder="Color" required onkeypress="return soloLetras(event)">
-			  </div>
-			  
-			  <div class="form-group">
-				    <label for="petHistory">Observaciones</label>
-				    <textarea class="form-control" name="petHistory" id="petHistory" placeholder="Observacion de su mascota" required></textarea>
-			  	</div>
+                            <label for="petHistory">Observaciones</label>
+                            <textarea class="form-control" name="Observacion" id="Observacion" placeholder="Observacion"></textarea>
+                        </div>
                     </div>
-                    <button type="submit" name="adduserbtn" class="btn btn-success pull-right">Agregar Usuario</button>
-                </form>
-                <form action="admin/updateUser" method="POST" id="updateUser" name="updateuseradmin" style="display:none;">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th style="width:200px;">Email</th>
-                                <th>Usuario</th>
-                                <th style="">Nombre	</th>
-                                <th style="">Apellido</th>
-                                <th style="">Privilegios</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="hidden" name="userObjectIdUpdate" value="" id="userObjectIdUpdate"><input type="email" class="form-control" name="inputEmailUpdate" id="inputEmailUpdate" placeholder="Enter email" required></td>
-                                <td><input type="text" class="form-control" name="usernameUpdate" id="usernameUpdate" placeholder="Username" required onkeypress="return soloLetras(event)"></td>
-                                <td><input type="text" class="form-control" name="firstNameUpdate" id="firstNameUpdate" placeholder="First Name" required required onkeypress="return soloLetras(event)"></td>
-                                <td><input type="text" class="form-control" name="lastNameUpdate" id="lastNameUpdate" placeholder="Last Name" required required onkeypress="return soloLetras(event)"></td>
-                                <td>
-                                    <select class="form-control" name="userLevelUpdate" id="userLevelUpdate">
-                                        <option value=1>Cliente</option>
-                                        <option value=3>Doctor</option>
-                                        <option value=4>Secretaria</option>
-                                        <option value=5>Contabilidad</option>
-                                        <option value=6>Admin Clinica</option>
-                                        <option value=2>Super Admin</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button type="button" data-objectid="1" name="backtoadd" class="btn btn-success backToAddUser pull-right">Regresar</button>
-                    <button type="button" data-objectid="1" name="generatenewPassword" class="btn btn-info generatenewPassword pull-right" style="margin-right:10px;">Generar Nueva Contraseña</button>
-                    <button type="submit" class="btn btn-primary pull-right" name="updateuserbtn" style="margin-right:10px;">Guardar Cambios</button>
+                    <div >
+                        <div class="row">
+                            <div >
+                                <button type="submit" name="adduserbtn" class="btn btn-success pull-right" style="margin-left: 2em;">Guardar</button>
+                            </div>
+                            <div> 
+                                <button type="button" id="resett" class="btn btn pull-right">Cancelar</button>
+                            </div>
 
+                        </div>
+                    </div>
+                    <input type="hidden" name="pk_form" value="0" class="pk_form"/>
                 </form>
             </div>
         </div>
@@ -319,9 +245,9 @@
             <tbody>
                 <?php
                 foreach ($users as $row) {
-
+                    $rut = (isset($row['user_rut'])) ? $row['user_rut'] : '';
                     echo "<tr>";
-					echo "<td class='vert userEmail'>" . $row['rut'] . "</td>";
+                    echo "<td class='vert userRut'>" . $rut . "</td>";
                     echo "<td class='vert userEmail'>" . $row['email'] . "</td>";
                     echo "<td class='vert userUsername'>" . $row['username'] . "</td>";
                     echo "<td class='vert userFirstName'>" . $row['first_name'] . "</td>";
@@ -400,7 +326,7 @@
 </div><!-- /.modal -->
 
 <div class="footer">
-     <p>&copy; PetFile 2016</p>
+    <p>&copy; PetFile 2016</p>
 </div>
 
 </div>

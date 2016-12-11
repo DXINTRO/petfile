@@ -12,26 +12,17 @@ class User extends CI_Controller {
         if ($this->session->userdata('user_objectId')) {
 
             $userId = $this->session->userdata('user_objectId');
-            $checkActiveReservation = $this->db->query("SELECT * from users_reservation
-					WHERE userId='" . $userId . "' 
-					AND confirmed = 2;");
-            $num = $checkActiveReservation->num_rows();
-            if ($num > 1) {
-                $servicesData['activeReservation'] = "true";
-            } else {
-                $servicesData['activeReservation'] = "false";
-            }
-
-            $query = $this->db->query("SELECT * FROM services;");
+            $query = $this->db->query("SELECT * FROM services WHERE `services`.`group` = 'BASICO'");
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
-            $data['content_navbar'] = $this->load->view('user_navbar', '', true);
+            $navbarData['current_name'] = $this->session->userdata('current_name');
+            $data['content_navbar'] = $this->load->view('user_navbar', $navbarData, true);
 
-            $doctorsData['list_of_doctors'] = $this->getAllDoctors();
+            $servicesData['list_of_doctors'] = $this->getAllDoctors();
+            $servicesData['list_of_Pets'] = $this->getAllPets();
             $servicesData['services'] = $query->result_array();
 
             $data['content_body'] = $this->load->view('user_homepage', $servicesData, true);
-            $data['content_body'] = $this->load->view('user_homepage', $doctorsData, true);
 
             $this->load->view("layout", $data);
         } else {
@@ -39,10 +30,95 @@ class User extends CI_Controller {
         }
     }
 
-    public function getAllDoctors() {
+    public function manageReservation() {
         if ($this->session->userdata('user_objectId')) {
-            $query = $this->db->query("SELECT * FROM doctors;");
-            return $query->result_array();
+
+            $userId = $this->session->userdata('user_objectId');
+            $q = "SELECT * FROM get_users_reservation
+         WHERE userId='" . $userId . "' ORDER BY reserveDateTime DESC;";
+            $query = $this->db->query($q);
+            $data['stylesheets'] = array('jumbotron-narrow.css');
+            $data['show_navbar'] = "true";
+            $navbarData['current_name'] = $this->session->userdata('current_name');
+            $data['content_navbar'] = $this->load->view('user_navbar', $navbarData, true);
+            $servicesData['list_of_doctors'] = $this->getAllDoctors();
+            $servicesData['list_of_Pets'] = $this->getAllPets();
+            $servicesData['list_of_reservations'] = $query->result_array();
+            $data['content_body'] = $this->load->view('user_manage_reservation', $servicesData, true);
+
+
+            $this->load->view("layout", $data);
+        } else {
+            redirect("/");
+        }
+    }
+
+    public function order() {
+        if ($this->session->userdata('user_objectId')) {
+
+            $userId = $this->session->userdata('user_objectId');
+
+
+            $checkActiveorders = $this->db->query("SELECT * from users_order 
+					WHERE usersId='" . $userId . "' 
+					AND batchOrderId IS NOT NULL 
+					AND active=1;");
+
+            $servicesData['activeOrder'] = "false";
+            if ($checkActiveorders->num_rows() > 0) {
+                $servicesData['activeOrder'] = "true";
+            }
+
+            $query = $this->db->query("SELECT * from products LIMIT 0 , 2000;");
+
+            $data['stylesheets'] = array('jumbotron-narrow.css');
+            $data['show_navbar'] = "true";
+            $navbarData['current_name'] = $this->session->userdata('current_name');
+            $data['content_navbar'] = $this->load->view('user_navbar', $navbarData, true);
+
+            $servicesData['list_of_poducts'] = $query->result_array();
+
+            $data['content_body'] = $this->load->view('user_order', $servicesData, true);
+
+
+            $this->load->view("layout", $data);
+        } else {
+            redirect("/");
+        }
+    }
+
+    public function searchorder() {
+        if ($this->session->userdata('user_objectId')) {
+
+            $userId = $this->session->userdata('user_objectId');
+
+
+            $checkActiveorders = $this->db->query("SELECT * from users_order 
+					WHERE usersId='" . $userId . "' 
+					AND batchOrderId IS NOT NULL 
+					AND active=1;");
+
+            $servicesData['activeOrder'] = "false";
+            if ($checkActiveorders->num_rows() > 0) {
+                $servicesData['activeOrder'] = "true";
+            }
+            $inputEmail = $this->input->post('userEmailSearch');
+            $categorysort = $this->input->post('userSort');
+            $query = $this->db->query("SELECT * from products WHERE product_name LIKE '%" . $inputEmail . "%' AND product_type LIKE '%" . $categorysort . "%' LIMIT 0 , 2000;");
+
+            $data['stylesheets'] = array('jumbotron-narrow.css');
+            $data['show_navbar'] = "true";
+            $navbarData['current_name'] = $this->session->userdata('current_name');
+            $data['content_navbar'] = $this->load->view('user_navbar', $navbarData, true);
+
+            $servicesData['list_of_poducts'] = $query->result_array();
+
+            $data['content_body'] = $this->load->view('user_order', $servicesData, true);
+
+
+            $this->load->view("layout", $data);
+        } else {
+            redirect("/");
         }
     }
 
@@ -66,7 +142,8 @@ class User extends CI_Controller {
             $query = $this->db->query("SELECT * FROM services WHERE service_name LIKE '%" . $inputEmail . "%' AND `group` LIKE '%" . $servicesort . "%';");
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
-            $data['content_navbar'] = $this->load->view('user_navbar', '', true);
+            $navbarData['current_name'] = $this->session->userdata('current_name');
+            $data['content_navbar'] = $this->load->view('user_navbar', $navbarData, true);
 
             $servicesData['services'] = $query->result_array();
 
@@ -79,65 +156,50 @@ class User extends CI_Controller {
         }
     }
 
-    public function signIn() {
-        
+    public function getAllDoctors() {
+        if ($this->session->userdata('user_objectId')) {
+            $query = $this->db->query("SELECT * FROM doctors;");
+            return $query->result_array();
+        }
     }
 
-    public function postSignIn() {
-        try {
-
-            $this->load->library('encrypt');
-            $email = $this->input->post("userEmail");
-            $password = $this->input->post("userPassword");
-            $query = $this->db->query("SELECT objectId,user_level,email from users where password='" . md5($password) . "' AND email='" . $email . "';");
-            if ($query->num_rows() > 0) {
-                $row = $query->row();
-                if ($row->user_level == 1) {
-                    $this->session->set_userdata('user_objectId', '' . $row->objectId . '');
-                    $this->session->set_userdata('user_level', '' . $row->user_level . '');
-                } else if ($row->user_level == 2 || $row->user_level == 3 || $row->user_level == 4 || $row->user_level == 5 || $row->user_level == 6) {
-                    $this->session->set_userdata('admin_objectId', '' . $row->objectId . '');
-                    $this->session->set_userdata('user_level', '' . $row->user_level . '');
-                }
-                $auditLog = $this->db->query("INSERT INTO audit_trail 
-                                            (`objectId`,
-                                            `description`,
-                                            `time`,
-                                            `type`)
-                                            VALUES
-                                            (NULL,
-                                            '" . $_SERVER['REMOTE_ADDR'] . " conectado <br/> Email :" . $row->email . "',
-                                            NULL,
-                                            'LOG IN'
-                                            );
-                                            ");
-
-                set_status_header((int) 200);
-            } else {
-                set_status_header((int) 401);
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+    public function getAllPets() {
+        if ($id = $this->session->userdata('user_objectId')) {
+            $query = $this->db->query("SELECT * FROM pets where userId ='" . $id . "';");
+            return $query->result_array();
         }
     }
 
     public function checkReservationAvailable() {
+        $pk_form = $this->input->post("pk_form");
+        $Q = '';
+        if (!is_null($pk_form)) {
+            $Q = " AND  objectId<>'" . $pk_form . "' ";
+        }
         $reserveDate = $this->input->post("reserveDate");
         $reserveTime = $this->input->post("reserveTime");
-        $reserveDateTime = $reserveDate.' '.$reserveTime;
+        $reserveDateTime = $reserveDate . ' ' . $reserveTime;
         //SELECT STR_TO_DATE('16/11/2016 04:00 PM','%d/%m/%Y %h:%i %p');  
-        
+        $Id = $this->session->userdata('user_objectId');
         $serviceId = $this->input->post("serviceId");
         $doctorsId = $this->input->post("doctorsId");
+        $PetsId = $this->input->post("petsId");
 
         $Wedf = "SELECT * from users_reservation 
-					where reserveDateTime= STR_TO_DATE('".$reserveDateTime."','%d/%m/%Y %h:%i %p') 
-					AND serviceId='" . $serviceId . "' and doctorsId=" . $doctorsId . ";";
-        if ($this->db->query($Wedf)) {
-            if ($this->db->affected_rows() > 0) {
-                set_status_header((int) 500);
-            } else {
-                set_status_header((int) 200);
+					where reserveDateTime= STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p') 
+					AND serviceId='" . $serviceId . "' " . $Q . " and doctorsId=" . $doctorsId . " and pettId='" . $PetsId . "';";
+        $f = "SELECT * FROM users_reservation where userId ='" . $Id . "' " . $Q . " and  pettId='" . $PetsId . "';";
+        if ($queryPet = $this->db->query($Wedf)) {
+            if ($queryPet->num_rows() > 0) {
+                set_status_header(500);
+            } ELSE {
+                if ($fs = $this->db->query($f)) {
+                    if ($fs->num_rows() > 1) {
+                        set_status_header(203);
+                    } else {
+                        set_status_header(200);
+                    }
+                }
             }
         }
     }
@@ -156,42 +218,35 @@ class User extends CI_Controller {
     }
 
     public function addReservation() {
-        if ($this->session->userdata('user_objectId')) {
-
-            $userId = $this->session->userdata('user_objectId');
-            $checkActiveReservation = $this->db->query("SELECT * from users_reservation
-					WHERE userId='" . $userId . "' 
-					AND confirmed = 2;");
-            $num = $checkActiveReservation->num_rows();
-            if ($num > 1) {
-                $servicesData['activeReservation'] = "true";
-            } else {
-                $servicesData['activeReservation'] = "false";
-            }
-
+        if ($userId = $this->session->userdata('user_objectId')) {
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-             $reserveDateTime = $reserveDate.' '.$reserveTime;
+            $reserveDateTime = $reserveDate . ' ' . $reserveTime;
+            //SELECT STR_TO_DATE('16/11/2016 04:00 PM','%d/%m/%Y %h:%i %p');  
+
             $serviceId = $this->input->post("serviceId");
-            $userId = $this->session->userdata('user_objectId');
             $doctorsId = $this->input->post("doctorsId");
+            $PetsId = $this->input->post("petsId");
+
 
             $query = $this->db->query("INSERT INTO 
-					 users_reservation(objectId,
+					 users_reservation(
 						serviceId,
 						userId,
+						pettId,
 						reserveDate,
 						reserveTime,
 						reserveDateTime,
 						confirmed,
 						doctorsId,
 						timestamp)
-					VALUES (NULL,'" . $serviceId . "',
+					VALUES ('" . $serviceId . "',
 						'" . $userId . "',
+						'" . $PetsId . "',
 						'" . $reserveDate . "',
 						'" . $reserveTime . "',
-						STR_TO_DATE('".  $reserveDateTime ."','%d/%m/%Y %h:%i %p'),2," . $doctorsId . ",
-						NULL);");
+						STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p'),2," . $doctorsId . ",
+						NOW());");
 
             if ($this->db->affected_rows() > 0) {
                 $auditLog = $this->db->query("INSERT INTO audit_trail 
@@ -215,32 +270,41 @@ class User extends CI_Controller {
 
     public function updateReservation() {
         if ($this->session->userdata('user_objectId')) {
+              $pk_form = $this->input->post("pk_form");
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-             $reserveDateTime = $reserveDate.' '.$reserveTime;
-            $serviceId = $this->input->post("serviceId");
-            $userId = $this->session->userdata('user_objectId');
-            $doctorsId = $this->input->post("doctorsId");
+            $reserveDateTime = $reserveDate . ' ' . $reserveTime;
+            //SELECT STR_TO_DATE('16/11/2016 04:00 PM','%d/%m/%Y %h:%i %p');  
 
-            $query = $this->db->query("UPDATE  users_reservation 
-					SET  reserveDate= '" . $reserveDate . "',
-					reserveTime='" . $reserveTime . "',
-					reserveDateTime= STR_TO_DATE('".$reserveDateTime."','%d/%m/%Y %h:%i %p'), doctorsId=" . $doctorsId . "   
-					WHERE users_reservation.objectId =" . $serviceId . ";");
+            $serviceId = $this->input->post("serviceId");
+            $doctorsId = $this->input->post("doctorsId");
+            $PetsId = $this->input->post("petsId");
+            $r = "UPDATE `users_reservation` 
+                        SET 
+                            `serviceId` = '" . $serviceId . "',
+                            `pettId` = '" . $PetsId . "',
+                            `reserveDate` = '" . $reserveDate . "',
+                            `reserveTime` = '" . $reserveTime . "',
+                            `reserveDateTime` = STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p'),
+                            `confirmed` = '2',
+                            `doctorsId` = '" . $doctorsId . "',
+                            `timestamp` = now()
+                        WHERE
+                            `objectId` = '".$pk_form."'; ";
+            $query = $this->db->query($r);
 
             if ($this->db->affected_rows() > 0) {
                 $auditLog = $this->db->query("INSERT INTO audit_trail 
-                                (`objectId`,
+                                (
                                 `description`,
                                 `time`,
                                 `type`)
                                 VALUES
-                                (NULL,
+                                (
                                 'User " . $this->session->userdata('user_objectId') . " updated a reservation. Reservation ID: " . $serviceId . "',
                                 NULL,
                                 'UPDATE RESERVATION'
-                                );
-                                ");
+                                );  ");
                 set_status_header((int) 200);
             } else {
                 set_status_header((int) 500);
@@ -248,9 +312,16 @@ class User extends CI_Controller {
         }
     }
 
+    public function getREservation() {
+        $userObjectId = $this->input->post("id");
+        $query = $this->db->query("SELECT * FROM users_reservation where objectId='" . $userObjectId . "';");
+        $data = $query->result();
+        echo '{"response":1,"data":' . json_encode($data[0]) . '}';
+    }
+
     public function printForUser() {
         $this->load->helper(array('dompdf', 'file'));
-        $registrationId = $this->input->post('registrationId');
+        $registrationId = $this->input->get('id');
         $query = $this->db->query("SELECT * from users_reservation ur 
 					INNER JOIN users us ON us.objectId = ur.userId 
 					INNER JOIN services serv ON ur.serviceId = serv.objectId 
@@ -286,133 +357,6 @@ class User extends CI_Controller {
             } else {
                 set_status_header((int) 500);
             }
-        }
-    }
-
-    public function manageReservation() {
-        if ($this->session->userdata('user_objectId')) {
-
-            $userId = $this->session->userdata('user_objectId');
-
-            $query = $this->db->query("SELECT ur.objectId as reservationobjectId,
-					svs.objectId as serviceObjectId,
-					svs.service_name,
-					ur.reserveDate,
-					ur.reserveTime,
-					ur.confirmed,
-					svs.price, ur.doctorsId 
-					FROM users_reservation ur 
-					INNER JOIN services svs 
-					ON ur.serviceId = svs.objectId  
-					WHERE ur.userId='" . $userId . "' 
-					ORDER BY ur.reserveDateTime DESC;");
-
-            $data['stylesheets'] = array('jumbotron-narrow.css');
-            $data['show_navbar'] = "true";
-            $data['content_navbar'] = $this->load->view('user_navbar', '', true);
-
-            $servicesData['list_of_reservations'] = $query->result_array();
-            $doctorsData['list_of_doctors'] = $this->getAllDoctors();
-            $data['content_body'] = $this->load->view('user_manage_reservation', $doctorsData, true);
-            $data['content_body'] = $this->load->view('user_manage_reservation', $servicesData, true);
-
-
-            $this->load->view("layout", $data);
-        } else {
-            redirect("/");
-        }
-    }
-
-    // public function sortProduct(){
-    // 	if($this->session->userdata('user_objectId')){
-    // 		$userId = $this->session->userdata('user_objectId');
-    // 		$sortType = $this->input->post('productType');
-    // 		$checkActiveorders = $this->db->query("SELECT * from users_order 
-    // 			WHERE usersId='".$userId."' 
-    // 			AND batchOrderId IS NOT NULL 
-    // 			AND active=1;");
-    // 		$servicesData['activeOrder'] ="false";
-    // 		if ($checkActiveorders->num_rows() > 0)
-    // 		{
-    // 			$servicesData['activeOrder'] ="true";
-    // 		}
-    // 		$query = $this->db->query("SELECT * from products where product_type like '%".$sortType."' LIMIT 0 , 2000;");	
-    // 		$data['stylesheets'] =array('jumbotron-narrow.css');
-    // 		$data['show_navbar'] ="true";
-    // 		$data['content_navbar'] = $this->load->view('user_navbar','',true);
-    // 		$servicesData['list_of_poducts'] = $query->result_array();
-    // 		$data['content_body'] = $this->load->view('user_order',$servicesData,true);
-    // 		$this->load->view("layout",$data);
-    // 	}else{
-    // 		redirect("/");
-    // 	}
-    // }
-
-    public function order() {
-        if ($this->session->userdata('user_objectId')) {
-
-            $userId = $this->session->userdata('user_objectId');
-
-
-            $checkActiveorders = $this->db->query("SELECT * from users_order 
-					WHERE usersId='" . $userId . "' 
-					AND batchOrderId IS NOT NULL 
-					AND active=1;");
-
-            $servicesData['activeOrder'] = "false";
-            if ($checkActiveorders->num_rows() > 0) {
-                $servicesData['activeOrder'] = "true";
-            }
-
-            $query = $this->db->query("SELECT * from products LIMIT 0 , 2000;");
-
-            $data['stylesheets'] = array('jumbotron-narrow.css');
-            $data['show_navbar'] = "true";
-            $data['content_navbar'] = $this->load->view('user_navbar', '', true);
-
-            $servicesData['list_of_poducts'] = $query->result_array();
-
-            $data['content_body'] = $this->load->view('user_order', $servicesData, true);
-
-
-            $this->load->view("layout", $data);
-        } else {
-            redirect("/");
-        }
-    }
-
-    public function searchorder() {
-        if ($this->session->userdata('user_objectId')) {
-
-            $userId = $this->session->userdata('user_objectId');
-
-
-            $checkActiveorders = $this->db->query("SELECT * from users_order 
-					WHERE usersId='" . $userId . "' 
-					AND batchOrderId IS NOT NULL 
-					AND active=1;");
-
-            $servicesData['activeOrder'] = "false";
-            if ($checkActiveorders->num_rows() > 0) {
-                $servicesData['activeOrder'] = "true";
-            }
-            $inputEmail = $this->input->post('userEmailSearch');
-            $categorysort = $this->input->post('userSort');
-/////// gojo
-            $query = $this->db->query("SELECT * from products WHERE product_name LIKE '%" . $inputEmail . "%' AND product_type LIKE '%" . $categorysort . "%' LIMIT 0 , 2000;");
-
-            $data['stylesheets'] = array('jumbotron-narrow.css');
-            $data['show_navbar'] = "true";
-            $data['content_navbar'] = $this->load->view('user_navbar', '', true);
-
-            $servicesData['list_of_poducts'] = $query->result_array();
-
-            $data['content_body'] = $this->load->view('user_order', $servicesData, true);
-
-
-            $this->load->view("layout", $data);
-        } else {
-            redirect("/");
         }
     }
 
@@ -590,7 +534,8 @@ class User extends CI_Controller {
 
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
-            $data['content_navbar'] = $this->load->view('user_navbar', '', true);
+            $navbarData['current_name'] = $this->session->userdata('current_name');
+            $data['content_navbar'] = $this->load->view('user_navbar', $navbarData, true);
 
             $servicesData['list_of_orders'] = $query->result_array();
 
@@ -601,11 +546,6 @@ class User extends CI_Controller {
         } else {
             redirect("/");
         }
-    }
-
-    public function logout() {
-        $this->session->sess_destroy();
-        redirect("/");
     }
 
     public function cancelOrder() {

@@ -31,14 +31,29 @@
                                                     <h3 class="panel-title">Doctor</h3>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <select class="form-control reserveDoctorSelect" name="doctorsId">
-                                                        <option>Seleccione un Doctor</option>
-                                                        <?php
-                                                        foreach ($list_of_doctors as $row) {
-                                                            echo "<option value='" . $row['objectId'] . "'>" . $row['doctor_name'] . "</option>";
-                                                        }
-                                                        ?>
-                                                    </select>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <select class="form-control reserveDoctorSelect" name="doctorsId">
+                                                                <option>Seleccione un Doctor</option>
+                                                                <?php
+                                                                foreach ($list_of_doctors as $row) {
+                                                                    echo "<option value='" . $row['objectId'] . "'>" . $row['doctor_name'] . "</option>";
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                             </br>
+                                                        <div class="col-md-12">
+                                                            <select class="form-control reservePetsSelect" name="PetsId">
+                                                                <option>Seleccione un Paciente</option>
+                                                                <?php
+                                                                foreach ($list_of_Pets as $row) {
+                                                                    echo "<option value='" . $row['objectId'] . "'>" . $row['petName'] . "</option>";
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -325,7 +340,7 @@
                         </div>
 
                         <div class="modal-body clearfix">
-                           Esta seguro de eliminar?
+                            Esta seguro de eliminar?
                         </div>
 
                         <div class="modal-footer">

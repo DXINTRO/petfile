@@ -20,13 +20,13 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
+            $navbarData['current_name'] = $this->session->userdata('current_name');
 
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
-            $query = $this->db->query("SELECT * FROM users");
+            $query = $this->db->query("SELECT * FROM users where activo=1");
             $usersData['users'] = $query->result_array();
-
             $data['content_body'] = $this->load->view('admin_homepage', $usersData, true);
 
             $this->load->view("layout", $data);
@@ -136,7 +136,7 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -158,7 +158,7 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -182,7 +182,7 @@ class Admin extends CI_Controller {
             $inputEmail = $this->input->post('userEmailSearch');
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -205,7 +205,7 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -240,7 +240,7 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -364,7 +364,7 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -477,7 +477,7 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -507,7 +507,7 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -730,7 +730,7 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -773,7 +773,7 @@ class Admin extends CI_Controller {
             $this->checkAllowed($arrayAllowed);
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -820,7 +820,7 @@ class Admin extends CI_Controller {
             $inputEmail = $this->input->post('userEmailSearch');
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -879,13 +879,13 @@ class Admin extends CI_Controller {
         $reserveTime = $this->input->post("reserveTime");
         $serviceId = $this->input->post("serviceId");
         //'2012-06-18 10:34:09'
-        $reserveDateTime = $reserveDate.' '.$reserveTime;
+        $reserveDateTime = $reserveDate . ' ' . $reserveTime;
         if ($this->session->userdata('admin_objectId')) {// si existe la seccion has esto 
             //Consutar si la hora esta tomada
             $userByEmail = $this->db->query("SELECT * FROM users where email='" . $inputEmail . "'");
             $user = $userByEmail->row();
-  
-            $pokiyt="INSERT INTO `users_reservation`
+
+            $pokiyt = "INSERT INTO `users_reservation`
                     (
                     `serviceId`,
                     `userId`,
@@ -901,7 +901,7 @@ class Admin extends CI_Controller {
                     '" . $user->objectId . "',
                    '" . $reserveDate . "',
                    '" . $reserveTime . "',
-                   STR_TO_DATE('".$reserveDateTime."','%d/%m/%Y %h:%i %p'),
+                   STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p'),
                     2,
                      '" . $doctorsId . "',
                     NOW());";
@@ -919,7 +919,7 @@ class Admin extends CI_Controller {
         if ($this->session->userdata('admin_objectId')) {
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
-            $reserveDateTime = $reserveDate.' '.$reserveTime;
+            $reserveDateTime = $reserveDate . ' ' . $reserveTime;
             $serviceId = $this->input->post("serviceId");
             $reservationId = $this->input->post("reservationId");
 
@@ -934,7 +934,7 @@ class Admin extends CI_Controller {
 				userId='" . $user->objectId . "',
 				reserveDate='" . $reserveDate . "',
 				reserveTime='" . $reserveTime . "',
-				reserveDateTime= STR_TO_DATE('".$reserveDateTime."','%d/%m/%Y %h:%i %p')
+				reserveDateTime= STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p')
 				where objectId ='" . $reservationId . "';");
 
             if ($this->db->affected_rows() > 0) {
@@ -947,17 +947,9 @@ class Admin extends CI_Controller {
 
     public function checkRutExist() {
         $inputRut = $this->input->post("userRutCheck");
-        $query = $this->db->query("SELECT  * FROM users where rut='" . $inputRut . "'");
+        $query = $this->db->query("SELECT  * FROM users where user_rut='" . $inputRut . "'");
         $row = $query->row();
-        if ($query->num_rows() > 0) {
-            if ($row->user_level == 1) {
-                $queryPet = $this->db->query("SELECT * from pets where userId='" . $row->objectId . "'");
-                if ($queryPet->num_rows() > 0) {
-                    $pet = $queryPet->row();
-                    $this->output->append_output($pet->petName);
-                }
-            }
-
+        if (!empty($row)) {
             set_status_header((int) 200);
         } else {
             set_status_header((int) 400);
@@ -1029,7 +1021,7 @@ class Admin extends CI_Controller {
             $servicesName = $this->input->post('servicesNameSearch');
 
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -1051,7 +1043,7 @@ class Admin extends CI_Controller {
             $arrayAllowed = array(3, 4);
             $this->checkAllowed($arrayAllowed);
             $navbarData['userLevel'] = $this->session->userdata('user_level');
-
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
@@ -1070,89 +1062,133 @@ class Admin extends CI_Controller {
 
     public function addUser() {
         $this->load->library('encrypt');
+        $pk_form = $this->input->post("pk_form");
+
         $inputRut = $this->input->post("inputRut");
         $inputEmail = $this->input->post("inputEmail");
-        $inputPassword = md5($this->input->post("inputPassword"));
+        $inputPassword = $this->input->post("inputPassword");
         $username = $this->input->post("username");
         $firstName = $this->input->post("firstName");
-        $lastName = $this->input->post("lastName");
+        $lastName = $this->input->post("firstName");
         $userLevel = $this->input->post("userLevel");
         $address = $this->input->post("address");
         $city = $this->input->post("city");
         $contactNo = $this->input->post("contactNo");
+//
+//        $petName = $this->input->post("petName");
+//        $petSpecies = $this->input->post("petSpecies");
+//        $petRace = $this->input->post("petRace");
+//        $petGender = $this->input->post("petGender");
+//        $petAge = $this->input->post("petAge");
+//        $petColor = $this->input->post("petColor");
+//        $petHistory = $this->input->post("petHistory");
+        if ($pk_form == '0') {
 
-        $petName = $this->input->post("petName");
-        $petSpecies = $this->input->post("petSpecies");
-        $petRace = $this->input->post("petRace");
-        $petGender = $this->input->post("petGender");
-        $petAge = $this->input->post("petAge");
-        $petColor = $this->input->post("petColor");
-        $petHistory = $this->input->post("petHistory");
-        //$petIncome = $this->input->post("petIncome");
-        if ($inputEmail) {
-
-
-
-            // $query = $this->db->query("INSERT INTO `vet_app`.`users` VALUES (NULL,'".$username."', '".$inputPassword."', '".$firstName."', '".$lastName."','".$inputEmail."',".$userLevel.",NULL);");
-            //$query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $contactNo . "');");
-
-            $query = $this->db->query("INSERT INTO users VALUES (NULL,'" . $inputRut . "','" . $username . "', '" . $inputPassword . "', '" . $firstName . "', '" . $lastName . "','" . $inputEmail . "'," . $userLevel . ",NULL,'" . $address . "','" . $city . "','" . $contactNo . "');");
-
-            if ($this->db->affected_rows() > 0) {
-                if ($userLevel == 1) {
-                    $queryEmail = $this->db->query("SELECT objectId FROM users WHERE email ='" . $inputEmail . "'");
-                    $row = $queryEmail->row();
-                    $query2 = $this->db->query("INSERT INTO pets VALUES(NULL,'" . $petName . "','" . $petSpecies . "','" . $petRace . "','" . $petGender . "','" . $petAge . "','" . $petColor . "','" . $petHistory . "',NULL, '" . $row->objectId . "');");
-                    if ($this->db->affected_rows() > 0) {
-                        set_status_header((int) 200);
-                    } else {
-                        set_status_header((int) 400);
-                    }
-                } else {
+            if (filter_var($inputEmail, FILTER_VALIDATE_EMAIL)) {
+                $FVAD = "INSERT INTO `users`
+                    (
+                    `user_rut`,
+                    `username`,
+                    `password`,
+                    `first_name`,
+                    `last_name`,
+                    `email`,
+                    `user_level`,
+                    `createdAt`,
+                    `address`,
+                    `city`,
+                    `contactNo`,
+                    `activo`)
+                    VALUES
+                    (
+                    '" . $inputRut . "',
+                    '" . $username . "',
+                    '" . md5($inputPassword) . "',
+                    '" . $firstName . "',
+                    '" . $lastName . "',
+                    '" . $inputEmail . "',
+                    '" . $userLevel . "',
+                    NOW(),
+                    '" . $address . "',
+                    '" . $city . "',
+                    '" . $contactNo . "',
+                    1);
+                    ";
+                $this->db->query($FVAD);
+//            if ($this->db->affected_rows() > 0) {
+//                if ($userLevel == 1) {
+//                    $queryEmail = $this->db->query("SELECT objectId FROM users WHERE email ='" . $inputEmail . "'");
+//                    $row = $queryEmail->row();
+//                    $DFGH = "INSERT INTO `pets`
+//                                (
+//                                `petName`,
+//                                `petSpecies`,
+//                                `petRace`,
+//                                `petGender`,
+//                                `petAge`,
+//                                `petColor`,
+//                                `petHistory`,
+//                                `petIncome`,
+//                                `userId`,
+//                                `activo`)
+//                                VALUES
+//                                (
+//                                '" . $petName . "',
+//                                '" . $petSpecies . "',
+//                                '" . $petRace . "',
+//                                '" . $petGender . "',
+//                                '" . $petAge . "',
+//                                '" . $petColor . "',
+//                                '" . $petHistory . "',
+//                                now(),
+//                                '" . $row->objectId . "',
+//                                1);";
+//                    $this->db->query($DFGH);
+                if ($this->db->affected_rows() > 0) {
                     set_status_header((int) 200);
+                } else {
+                    set_status_header((int) 400);
                 }
             } else {
                 set_status_header((int) 400);
             }
         } else {
-            set_status_header((int) 400);
-        }
-    }
-
-    public function updateUser() {
-        $this->load->library('encrypt');
-
-        $inputEmail = $this->input->post("inputEmailUpdate");
-        $username = $this->input->post("usernameUpdate");
-        $firstName = $this->input->post("firstNameUpdate");
-        $lastName = $this->input->post("lastNameUpdate");
-        $userLevel = $this->input->post("userLevelUpdate");
-        $userObjectIdUpdate = $this->input->post("userObjectIdUpdate");
-
-
-        if ($inputEmail) {
-            $query = $this->db->query("UPDATE users SET username='" . $username . "',first_name ='" . $firstName . "',last_name='" . $lastName . "', email='" . $inputEmail . "',user_level=" . $userLevel . " WHERE objectId='" . $userObjectIdUpdate . "';");
-
-            if ($this->db->affected_rows() > 0) {
-                set_status_header((int) 200);
-            } else {
+            $e = '';
+            if (!preg_match('/^[a-f0-9]{32}$/', $inputPassword)) {
+                $e = " `password`= '" . md5($inputPassword) . "',";
+            }
+            $fv = "UPDATE `users` SET `user_rut`='" . $inputRut . "',
+                `username`='" . $username . "',
+                $e
+                `first_name`= '" . $firstName . "',
+                `last_name`= '" . $lastName . "',
+                `email`= '" . $inputEmail . "',
+                `user_level`= '" . $userLevel . "',
+                `address`= '" . $address . "',
+                `city`= '" . $city . "',
+                `contactNo`= '" . $contactNo . "' WHERE `objectId`='" . $pk_form . "';";
+            if ($this->db->query($fv)) {
                 set_status_header((int) 200);
             }
-        } else {
-            set_status_header((int) 400);
         }
     }
 
     public function deleteUser() {
         $userObjectId = $this->input->post("userObjectId");
-        $deletePetUser = $this->db->query("DELETE FROM pets WHERE userId = " . $userObjectId . ";");
-        $query = $this->db->query("DELETE FROM users WHERE users.objectId = " . $userObjectId . ";");
-
+        $deletePetUser = $this->db->query("UPDATE `pets` SET `activo`='0' WHERE `userId`= " . $userObjectId . ";");
+        $query = $this->db->query("UPDATE `clinica`.`users` SET `activo`='0' WHERE objectId = " . $userObjectId . ";");
         if ($this->db->affected_rows() > 0) {
             set_status_header((int) 200);
         } else {
-            set_status_header((int) 500);
+            set_status_header((int) 400);
         }
+    }
+
+    public function getUser() {
+        $userObjectId = $this->input->post("id");
+        $query = $this->db->query("SELECT * FROM users where objectId='" . $userObjectId . "'  and activo=1;");
+        $data = $query->result();
+        echo '{"response":1,"data":' . json_encode($data[0]) . '}';
     }
 
     public function generateNewPassword() {
@@ -1179,22 +1215,19 @@ class Admin extends CI_Controller {
         $reportMonthTo = $this->input->post("reportMonthTo");
         $reportYearTo = $this->input->post("reportYearTo");
 
-        $reportDateFrom = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
-        $reportDateto = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
-        $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'Y-m-d H:i:s');
+        $reportDateFrom = date('d-m-Y ', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
+        $reportDateto = date('d-m-Y ', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
+        $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-Y ');
 
         $query = $this->db->query("SELECT * FROM users 
 				WHERE createdAt >= '" . $reportDateFrom . "' 
-				AND createdAt <='" . $reportDateto . "';");
+				AND createdAt <='" . $reportDateto . "' and activo=1;");
         $usersData['users'] = $query->result_array();
-
 
         $usersData['reportDateFrom'] = $reportDateFrom;
         $usersData['reportDateto'] = $reportDateto;
 
-
         $html = $this->load->view('admin_user_report', $usersData, true);
-        // $this->output->append_output($html);
         pdf_create($html, 'userReport');
     }
 
@@ -1302,7 +1335,7 @@ class Admin extends CI_Controller {
     public function busca_paciente() {
         $dato = $this->input->post('dato');
         if (!empty($dato)) {
-            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petAge,pets.petColor,pets.petHistory,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE (petName LIKE '%" . $dato . "%' or petSpecies LIKE '%" . $dato . "%' or first_name like '%" . $dato . "%' or last_name like '%" . $dato . "%')  and pets.userId = users.objectId ORDER BY pets.objectId ASC";
+            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petAge,pets.petColor,pets.petHistory,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE (petName LIKE '%" . $dato . "%' or petSpecies LIKE '%" . $dato . "%' or first_name like '%" . $dato . "%' or last_name like '%" . $dato . "%')  and pets.userId = users.objectId and users.activo = 1 ORDER BY pets.objectId ASC";
             $datos = $this->refrescartablapet(false, $q);
         } else {
             $datos = $this->refrescartablapet();
@@ -1322,9 +1355,6 @@ class Admin extends CI_Controller {
         $obse = $this->input->post('petHistory');
         $clie = $this->input->post('petOwnerReg');
         $cliente = intval($clie);
-//$str = "10"; 
-//$num = (int)$str; 
-
 
         $q = "INSERT INTO `pets` (`objectId`,`petName`,`petSpecies`,`petRace`,`petGender`,`petAge`,`petColor`,`petHistory`,`petIncome`,`userId`) VALUES(null,'" . $nombre . "','" . $Species . "','" . $Race . "','" . $sexo . "','" . $edad . "','" . $color . "','" . $obse . "',NOW(),'" . $cliente . "')"; // PUCHO QL CAMBIA AKI POR EL ID DEL CLIENTE DE TU SELLLECT QUE TUUU ARAS XD
         if ($this->db->query($q)) {
@@ -1350,11 +1380,12 @@ class Admin extends CI_Controller {
             $arrayAllowed = array(3, 4);
             $this->checkAllowed($arrayAllowed);
             $navbarData['userLevel'] = $this->session->userdata('user_level');
+            $navbarData['current_name'] = $this->session->userdata('current_name');
             ///////////////////////////////////////////////////////////////////
             //////////////////////////datos que se envian /////////////////////
             $data['stylesheets'] = array('jumbotron-narrow.css');
-            $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true); // la barra de menus 
             $data['show_navbar'] = "true"; //muestra la barra culia
+            $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true); // la barra de menus 
             $dokpfdgh['TABLE_REGISTROS'] = $this->refrescartablapet(true);
             $data['content_body'] = $this->load->view('admin_Pets', $dokpfdgh, true);
             ///////////////////////////////////////////////////////////////////
@@ -1367,7 +1398,7 @@ class Admin extends CI_Controller {
     public function refrescartablapet($bol = false, $q = null) {
         $aaa = '';
         if ($q == null) {
-            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId ORDER BY pets.objectId ASC";
+            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId and users.activo=1 ORDER BY pets.objectId ASC";
         }
 
         $query = $this->db->query($q);
@@ -1376,7 +1407,7 @@ class Admin extends CI_Controller {
             return $TABLE_REGISTROS;
         }
         foreach ($TABLE_REGISTROS as $dat) {
-            $aaa.= '<tr>
+            $aaa .= '<tr>
                                         			<td>' . $dat['petName'] . '</td>
                                                 	<td>' . $dat['petSpecies'] . '</td>
                                                 	<td>' . $dat['petRace'] . '</td>
@@ -1402,37 +1433,37 @@ class Admin extends CI_Controller {
         }
         return $aaa;
     }
-	
-	public function agregar_fichamascota(){
-	   
-		$id 					= $this->input->post('id_ficha');		
-		$petWeight 				= $this->input->post('petWeiht');
-		$petTemperature 		= $this->input->post('petTemperature');
-		$petHeartRate			= $this->input->post('petHeartRate');
-		$petMucous 				= $this->input->post('petMucous');
-		$petBreathingFrecuency	= $this->input->post('petBreathingFrecuency');
-		$petSkinTurgor			= $this->input->post('petSkinTurgor');
-		$petPulse				= $this->input->post('petPulse');
-		$PetTllc				= $this->input->post('PetTllc');
-		$PetObservation			= $this->input->post('PetObservation');
-		$petAnamnesis			= $this->input->post('petAnamnesis');
-		$petPreviousDiseases	= $this->input->post('petPreviousDiseases');
-		$petPosiblesDiagnoses	= $this->input->post('petPosiblesDiagnoses');
-		$petDefinitiveDiagnoses	= $this->input->post('petDefinitiveDiagnoses');
-		
-		$petCboRespTab			= $this->input->post('petCboResponsibleTab');
-		$petCboResponsibleTab	= intval($petCboRespTab);
-		
-		$petCboRespPet			= $this->input->post('petCboResponsiblePet');
-		$petCboResponsiblePet	= intval($petRespPet);
-		
-		$petAnamnesisCreation	= $this->input->post('petAnamnesisCreation');
-		
-		$petHistoId		= $this->input->post('petHistoryId');
-		$petHistoryId = intval(7);
-		
-		
-		$q = "INSERT INTO `constant_physiological`(
+
+    public function agregar_fichamascota() {
+
+        $id = $this->input->post('id_ficha');
+        $petWeight = $this->input->post('petWeiht');
+        $petTemperature = $this->input->post('petTemperature');
+        $petHeartRate = $this->input->post('petHeartRate');
+        $petMucous = $this->input->post('petMucous');
+        $petBreathingFrecuency = $this->input->post('petBreathingFrecuency');
+        $petSkinTurgor = $this->input->post('petSkinTurgor');
+        $petPulse = $this->input->post('petPulse');
+        $PetTllc = $this->input->post('PetTllc');
+        $PetObservation = $this->input->post('PetObservation');
+        $petAnamnesis = $this->input->post('petAnamnesis');
+        $petPreviousDiseases = $this->input->post('petPreviousDiseases');
+        $petPosiblesDiagnoses = $this->input->post('petPosiblesDiagnoses');
+        $petDefinitiveDiagnoses = $this->input->post('petDefinitiveDiagnoses');
+
+        $petCboRespTab = $this->input->post('petCboResponsibleTab');
+        $petCboResponsibleTab = intval($petCboRespTab);
+
+        $petCboRespPet = $this->input->post('petCboResponsiblePet');
+        $petCboResponsiblePet = intval($petRespPet);
+
+        $petAnamnesisCreation = $this->input->post('petAnamnesisCreation');
+
+        $petHistoId = $this->input->post('petHistoryId');
+        $petHistoryId = intval(7);
+
+
+        $q = "INSERT INTO `constant_physiological`(
 			`petWeight`,
 			`petTemperature`,
 			`petHeartRate`,
@@ -1452,39 +1483,32 @@ class Admin extends CI_Controller {
 			`petHistoryId`)
 				VALUES
 			(
-			'".$petWeight."',
-			'".$petTemperature."',
-			'".$petHeartRate."',
-			'".$petMucous."',
-			'".$petBreathingFrecuency."',
-			'".$petSkinTurgor."',
-			'".$petPulse."',
-			'".$PetTllc."',
-			'".$PetObservation."',
-			'".$petAnamnesis."',
-			'".$petPreviousDiseases."',
-			'".$petPosiblesDiagnoses."',
-			'".$petDefinitiveDiagnoses."',
-			'".$petCboResponsibleTab."',
-			'".$petCboResponsiblePet."',
+			'" . $petWeight . "',
+			'" . $petTemperature . "',
+			'" . $petHeartRate . "',
+			'" . $petMucous . "',
+			'" . $petBreathingFrecuency . "',
+			'" . $petSkinTurgor . "',
+			'" . $petPulse . "',
+			'" . $PetTllc . "',
+			'" . $PetObservation . "',
+			'" . $petAnamnesis . "',
+			'" . $petPreviousDiseases . "',
+			'" . $petPosiblesDiagnoses . "',
+			'" . $petDefinitiveDiagnoses . "',
+			'" . $petCboResponsibleTab . "',
+			'" . $petCboResponsiblePet . "',
 			now(),
-			'".$petHistoryId."')";
-		
-		
-		
-        
-		if ($this->db->query($q)) {
+			'" . $petHistoryId . "')";
+
+
+
+
+        if ($this->db->query($q)) {
             echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
         } else {
             echo null;
         }
-
-		
-		
-		
-		
-	}
-	
-	
+    }
 
 }

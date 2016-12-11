@@ -1,31 +1,4 @@
 $(document).ready(function () {
-    $("body").on("click", ".addReservation", function (e) {
-        $("#myModal #myModalLabel").text($(this).parent().parent().children('.serviceTitle').text());
-        $(".submitReservation").attr("data-objectId", $(this).attr("data-objectId"));
-        $("#myModal").modal();
-        $.ajax({
-            url: "user/getPetName",
-            success: function (data) {
-                $(".petNameUser").text(data);
-            }
-        });
-    });
-    $('#myModal').on('hidden.bs.modal', function () {
-        resetReservationModal("#myModal");
-    });
-    $("body").on("change", ".reserveTimeSelect", function (e) {
-        if ($(this).val() != 0) {
-            $(".reserveTime").text($(".reserveTimeSelect option:selected").text());
-        }
-    });
-    $("#datepicker").datepicker({
-        onSelect: function (date, obj) {
-            if ($(".reserveDate").length) {
-                $(".reserveDate").text(date);
-            }
-        },
-        minDate: '0'
-    });
 
     jQuery.validator.addMethod("notEqual", function (value, element, param) {
         var target = $(param);
@@ -66,47 +39,101 @@ $(document).ready(function () {
     }
 ////////////////////////////funciones del menu///////////////////////////////////////
     function userManageReservation() {
+        $('#myModal').on('hidden.bs.modal', function () {
+            resetReservationModal("#myModal");
+        });
+        $("body").on("change", ".reserveTimeSelect", function (e) {
+            if ($(this).val() != 0) {
+                $(".reserveTime").text($(".reserveTimeSelect option:selected").text());
+            }
+        });
+        $("#datepicker").datepicker({
+            onSelect: function (date, obj) {
+                if ($(".reserveDate").length) {
+                    $(".reserveDate").text(date);
+                }
+            },
+            minDate: '0'
+        });
+        $("[name='PetsId']").on('change', function () {
+            if ($(this).val() != "Seleccione un Paciente") {
+                $(".petNameUser").text($("[name='PetsId'] option:selected").text());
+            } else {
+                $(".petNameUser").text('');
+            }
+        });
         $('.userNavbar li.navReserveManage').addClass('active');
 
-        $("body").on("click", ".editReservation", function (ccoie) {
-            $("#reserveDoctorSelect option[value='" + $(this).parent().parent().children('.doctorsId').val() + "']").attr("selected", "selected");
-            $("#editReserveModal .doctorsIdEdit").text($(this).parent().parent().children('.doctorsId').text());
-            $("#editReserveModal #myModalLabel").text($(this).parent().parent().children('.serviceTitle').text());
-            $("#editReserveModal .reserveDate").text($(this).parent().parent().children('.serviceDate').text());
-            $("#editReserveModal .reserveTime").text($(this).parent().parent().children('.serviceTime').text());
-            $(".updateReservation").attr("data-objectId", $(this).attr("data-objectId"));
-            $("#editReserveModal").modal();
+        $("body").on("click", ".editReservation", function () {
+            $("#editReserveModal #myModalLabel").text($(this).parent().parent().parent().children('.serviceTitle').text());
+            get($(this).attr("data-objectId"));
+
+
         });
 
         $('#editReserveModal').on('hidden.bs.modal', function () {
+            $(".pk_form").val(0);
             resetReservationModal("#editReserveModal");
         });
 
         $("body").on("click", ".updateReservation", function (e) {
-            var doctorsId = parseInt($("#reserveDoctorSelect option:selected").val());
-            if ($(".reserveDate").text() != "" && $(".reserveTime").text() != "" && $("#reserveDoctorSelect").text() != "Choose Doctor") {
+            var $pk_form = $(".pk_form").val();
+            if ($(".reserveDate").text() != "" && $(".reserveTime").text() != "" && $(".reserveDoctorSelect").val() != "" && $(".reservePetsSelect").val() != "") {
+                var serviceId = $(this).attr("data-objectId");
+                var doctorsId = parseInt($(".reserveDoctorSelect option:selected").val());
+                var petsId = parseInt($(".reservePetsSelect option:selected").val());
                 $.ajax({
                     method: "POST",
-                    async: true,
+                    async: false,
                     data: {
                         'reserveDate': $(".reserveDate").text(),
                         'reserveTime': $(".reserveTime").text(),
-                        'serviceId': $(this).attr("data-objectId"),
+                        'serviceId': $pk_form,
+                        'petsId': petsId,
+                        'pk_form': $pk_form,
                         'doctorsId': doctorsId
                     },
-                    url: "updateReservation",
-                    success: function (data, status, jqXHR) {
-                        $('#editReserveModal').modal('hide');
-                        reloadUserManageReservationTable();
+                    url: "checkReservationAvailable",
+                    statusCode: {
+                        500: function () {
+                            $('.addSuccess').hide();
+                            alert("Esta fecha y hora ya está reservada. Favor seleccione otra.");
+                        },
+                        203: function () {
+                            $('.addSuccess').hide();
+                            alert("Solo puedes realizar un Máximo de 2 Reservas, para Agregar otras favor llame a Secretaria de Clinica Morita");
+                            $('#editReserveModal').modal('hide');
+                        },
+                        200: function () {
+                            $.ajax({
+                                method: "POST",
+                                async: false,
+                                data: {
+                                    'reserveDate': $(".reserveDate").text(),
+                                    'reserveTime': $(".reserveTime").text(),
+                                    'serviceId': serviceId,
+                                    'petsId': petsId,
+                                    'pk_form': $pk_form,
+                                    'doctorsId': doctorsId
+                                },
+                                url: "updateReservation",
+                                success: function (data, status, jqXHR) {
+                                    $('#editReserveModal').modal('hide');
+                                    reloadUserManageReservationTable();
+                                }
+                            });
+                        }
                     }
+
                 });
+                $('#myModal .alert').hide();
             } else {
-                $('#editReserveModal .alert').show();
+                $('#myModal .alert').show();
             }
+
         });
 
         $("body").on("click", ".deleteReservation", function (e) {
-
             $("#confirmationModal h5.message").text("Esta seguro de eliminar? " + $(this).parent().parent().children('.serviceTitle').text() + "?")
             $("#confirmationModal .confirmAction").attr("data-confirm", "confirmDelete");
             $("#confirmationModal .confirmAction").attr("data-objectId", $(this).attr("data-objectId"));
@@ -119,7 +146,24 @@ $(document).ready(function () {
                 deleteUserReserVation();
             }
         });
-
+        function get(idpk) {
+            $(".pk_form").val(0);
+            $.post("getREservation",
+                    {id: idpk})
+                    .done(function (data) {
+                        var r = JSON.parse(data);
+                        if (r.response === 1) {
+                            $(".reserveDate").text(r.data.reserveDate);
+                            $(".petNameUser").text(r.data.petNameUser);
+                            $("[name='PetsId']").val(r.data.pettId).trigger('change');
+                            $(".reserveDoctorSelect").val(r.data.doctorsId);
+                            $(".reserveTime").text(r.data.reserveTime);
+                            $("#editReserveModal").modal();
+                            $(".pk_form").val(r.data.objectId);
+                            $(".updateReservation").attr("data-objectId", r.data.serviceId);
+                        }
+                    });
+        }
         function deleteUserReserVation() {
             $.ajax({
                 method: "POST",
@@ -141,11 +185,44 @@ $(document).ready(function () {
     function userReserve() {
         $('.userNavbar li.navReserve').addClass('active');
 
+        $("body").on("click", ".addReservation", function (e) {
+            $("#myModal #myModalLabel").text($(this).parent().parent().children('.serviceTitle').text());
+            $(".submitReservation").attr("data-objectId", $(this).attr("data-objectId"));
+            $("#myModal").modal();
+
+        });
+        $(".petNameUser").text($("[name='PetsId'] option:selected").text());
+
+        $('#myModal').on('hidden.bs.modal', function () {
+            resetReservationModal("#myModal");
+        });
+
+
+        $("[name='PetsId']").on('change', function () {
+            if ($(this).val() != "Seleccione un Paciente") {
+                $(".petNameUser").text($("[name='PetsId'] option:selected").text());
+            } else {
+                $(".petNameUser").text('');
+            }
+        });
+        $("body").on("change", ".reserveTimeSelect", function (e) {
+            if ($(this).val() != 0) {
+                $(".reserveTime").text($(".reserveTimeSelect option:selected").text());
+            }
+        });
+        $("#datepicker").datepicker({
+            onSelect: function (date, obj) {
+                if ($(".reserveDate").length) {
+                    $(".reserveDate").text(date);
+                }
+            },
+            minDate: '0'
+        });
         $("body").on("click", ".submitReservation", function (e) {
-            if ($(".reserveDate").text() != "" && $(".reserveTime").text() != "" && $("#reserveDoctorSelect").text() != "Choose Doctor") {
+            if ($(".reserveDate").text() != "" && $(".reserveTime").text() != "" && $(".reserveDoctorSelect").val() != "" && $(".reservePetsSelect").val() != "") {
                 var serviceId = $(this).attr("data-objectId");
                 var doctorsId = parseInt($(".reserveDoctorSelect option:selected").val());
-                console.log(doctorsId);
+                var petsId = parseInt($(".reservePetsSelect option:selected").val());
                 $.ajax({
                     method: "POST",
                     async: false,
@@ -153,31 +230,38 @@ $(document).ready(function () {
                         'reserveDate': $(".reserveDate").text(),
                         'reserveTime': $(".reserveTime").text(),
                         'serviceId': serviceId,
+                        'petsId': petsId,
                         'doctorsId': doctorsId
                     },
                     url: "user/checkReservationAvailable",
-                    success: function (data, status, jqXHR) {
-                        $.ajax({
-                            method: "POST",
-                            async: false,
-                            data: {
-                                'reserveDate': $(".reserveDate").text(),
-                                'reserveTime': $(".reserveTime").text(),
-                                'serviceId': serviceId,
-                                'doctorsId': doctorsId
-                            },
-                            url: "user/addReservation",
-                            success: function (data, status, jqXHR) {
-                                $('#myModal').modal('hide');
-                                $('.addSuccess').show();
-                                $('.searchUserServices').click();
-                                ////gojo						
-                            }
-                        });
-                    },
                     statusCode: {
                         500: function () {
+                            $('.addSuccess').hide();
                             alert("Esta fecha y hora ya está reservada. Favor seleccione otra.");
+                        },
+                        203: function () {
+                            $('.addSuccess').hide();
+                            alert("Solo puedes realizar un Máximo de 2 Reservas, para Agregar otras favor llame a Secretaria de Clinica Morita");
+                            $('#myModal').modal('hide');
+                        },
+                        200: function () {
+                            $.ajax({
+                                method: "POST",
+                                async: false,
+                                data: {
+                                    'reserveDate': $(".reserveDate").text(),
+                                    'reserveTime': $(".reserveTime").text(),
+                                    'serviceId': serviceId,
+                                    'petsId': petsId,
+                                    'doctorsId': doctorsId
+                                },
+                                url: "user/addReservation",
+                                success: function (data, status, jqXHR) {
+                                    $('#myModal').modal('hide');
+                                    $('.addSuccess').show();
+                                    $('.searchUserServices').click();
+                                }
+                            });
                         }
                     }
 
@@ -217,26 +301,25 @@ $(document).ready(function () {
 
     function userRegister() {
         $('.navMainLayout li#navUserRegister').addClass('active');
-		
-		 $('body').on('change', '#inputRut', function (event) {
+
+        $('body').on('change', '#inputRut', function (event) {
+            var val = $(this).val();
             $.ajax({
                 method: "POST",
                 data: {
-                    'userRutCheck': $(this).val()
+                    'userRutCheck': val
                 },
                 url: "admin/checkRutExist",
                 success: function (data, status, jQxr) {
-                    console.log("AA");
                     $("#inputRut").val("RUT ya existe!");
                 },
                 statusCode: {
                     400: function () {
-
                     }
                 }
             });
         });
-		
+
         $('body').on('change', '#inputEmail', function (event) {
             $.ajax({
                 method: "POST",
@@ -245,18 +328,24 @@ $(document).ready(function () {
                 },
                 url: "admin/checkEmailExist",
                 success: function (data, status, jQxr) {
-                    console.log("ee");
                     $("#inputEmail").val("Email ya existe!");
                 },
                 statusCode: {
                     400: function () {
-
                     }
                 }
             });
         });
+        jQuery.validator.addMethod("checkRut", function (value, element) {
+            // allow any non-whitespace characters as the host part
+            return Fn.validaRut(value);
+        }, 'Rut invalido.');
+
         $("#userRegister").validate({
             rules: {
+                inputRut: {
+                    checkRut: true
+                },
                 confirm_inputPassword: {
                     equalTo: "#inputPassword"
                 },
@@ -279,6 +368,26 @@ $(document).ready(function () {
                 });
             }
         });
+
+        var Fn = {
+            // Valida el rut con su cadena completa "XXXXXXXX-X"
+            validaRut: function (rutCompleto) {
+                if (!/^[0-9]+-[0-9kK]{1}$/.test(rutCompleto))
+                    return false;
+                var tmp = rutCompleto.split('-');
+                var digv = tmp[1];
+                var rut = tmp[0];
+                if (digv == 'K')
+                    digv = 'k';
+                return (Fn.dv(rut) == digv);
+            },
+            dv: function (T) {
+                var M = 0, S = 1;
+                for (; T; T = Math.floor(T / 10))
+                    S = (S + T % 10 * (9 - M++ % 6)) % 11;
+                return S ? S - 1 : 'k';
+            }
+        };
     }
 
     function orderPage() {
@@ -409,6 +518,7 @@ $(document).ready(function () {
     }
 
     function adminManageReservation() {
+
         $('body').on('click', '#generateReservationReport', function (e) {
             e.preventDefault();
             if ($('.reportYearTo').val() != 0 && $('.reportYearFrom').val() != 0 && ($('.reportYearFrom').val() <= $('.reportYearTo').val()) && ($('.reportMonthFrom').val() <= $('.reportMonthTo').val())) {
@@ -511,6 +621,7 @@ $(document).ready(function () {
                 });
             }
         });
+
         $("#addReservationAdmin").validate({
             submitHandler: function (form) {
                 if ($(".reserveDate").text() == "" || $(".reserveDate label").length) {
@@ -752,13 +863,13 @@ $(document).ready(function () {
                 },
                 success: function (data, status, jqXHR) {
                     $(".addProductSuccess strong").text("Producto Eliminado Satisfactoriamente!");
-                            $(".addProductSuccess").show();
-                            $('#confirmationModal').modal('hide');
+                    $(".addProductSuccess").show();
+                    $('#confirmationModal').modal('hide');
                     $.ajax({
                         url: document.URL,
                         success: function (data) {
                             $("#adminManageProducts").html($(data).find("#adminManageProducts").html());
-                            
+
                         }
                     });
                 }
@@ -801,22 +912,21 @@ $(document).ready(function () {
             }
         });
         $('body').on('click', '.editUserFromAdmin', function (e) {
-            $('#addUsercollpase').collapse('show');
-            var $row = $(this).closest("tr");
-            $("#inputEmailUpdate").val($row.find(".userEmail").text());
-            $("#usernameUpdate").val($row.find(".userUsername").text());
-            $("#firstNameUpdate").val($row.find(".userFirstName").text());
-            $("#lastNameUpdate").val($row.find(".userLastName").text());
-            $("#userLevelUpdate").val($row.find(".userUserLevel span").attr("data-userlevel"));
-            $("#userObjectIdUpdate").val($(this).attr("data-objectid"));
-            $("#addUserAdmin").hide();
-            $("#updateUser").show();
-            $(".panelAddEditUser > .panel-heading .panel-title").text("Actualizar Usuario");
+
+            get($(this).attr('data-objectid'));
+
         });
         $('body').on('click', '.backToAddUser', function (e) {
             $("#updateUser").hide();
             $("#addUserAdmin").show();
             $(".panelAddEditUser > .panel-heading .panel-title").text("Agregar Usuario");
+
+        });
+        $('body').on('click', '#resett', function (e) {
+            $('#accordion').click();
+            $("#addUserAdmin")[0].reset();
+            $(".panelAddEditUser > .panel-heading .panel-title").text("Agregar Usuario");
+            $(".pk_form").val(0);
 
         });
         $('body').on('click', '.removeUserFromAdmin', function (e) {
@@ -832,6 +942,32 @@ $(document).ready(function () {
 
             $('#confirmationModal').modal();
         });
+
+        function get(idpk) {
+            $.post("admin/getUser",
+                    {id: idpk})
+                    .done(function (data) {
+                        var r = JSON.parse(data);
+                        if (r.response === 1) {
+                            $("[name='inputRut']").val(r.data.user_rut);
+                            $("[name='inputEmail']").val(r.data.email);
+                            $("[name='username']").val(r.data.username);
+                            $("[name='firstName']").val(r.data.first_name);
+                            $("[name='lastName']").val(r.data.last_name);
+                            $("[name=userLevel]").val(r.data.user_level);
+                            $("[name='address']").val(r.data.address);
+                            $("[name='city']").val(r.data.city);
+                            $("[name='contactNo']").val(r.data.contactNo);
+                            $("[name='inputPassword']").val(r.data.password);
+                            $("[name='confirm_inputPassword']").val(r.data.password);
+                            $("[name='Observacion']").val(r.data.Observacion);
+                            $(".pk_form").val(idpk);
+                            $('#addUsercollpase').collapse('show');
+                            $("#addUserAdmin").show();
+                            $(".panelAddEditUser > .panel-heading .panel-title").text("Actualizar Usuario");
+                        }
+                    });
+        }
         $('body').on('click', '.confirmAction', function () {
             if ($(this).attr("data-confirm") == "confirmDeleteAdmin") {
                 $.ajax({
@@ -869,8 +1005,35 @@ $(document).ready(function () {
                 });
             }
         });
+        jQuery.validator.addMethod("checkRut", function (value, element) {
+            // allow any non-whitespace characters as the host part
+            return Fn.validaRut(value);
+        }, 'Rut invalido.');
+
+        var Fn = {
+            // Valida el rut con su cadena completa "XXXXXXXX-X"
+            validaRut: function (rutCompleto) {
+                if (!/^[0-9]+-[0-9kK]{1}$/.test(rutCompleto))
+                    return false;
+                var tmp = rutCompleto.split('-');
+                var digv = tmp[1];
+                var rut = tmp[0];
+                if (digv == 'K')
+                    digv = 'k';
+                return (Fn.dv(rut) == digv);
+            },
+            dv: function (T) {
+                var M = 0, S = 1;
+                for (; T; T = Math.floor(T / 10))
+                    S = (S + T % 10 * (9 - M++ % 6)) % 11;
+                return S ? S - 1 : 'k';
+            }
+        };
         $("#addUserAdmin").validate({
             rules: {
+                inputRut: {
+                    checkRut: true
+                },
                 confirm_inputPassword: {
                     equalTo: "#inputPassword"
                 },
@@ -879,8 +1042,8 @@ $(document).ready(function () {
             submitHandler: function (form) {
                 $.ajax({
                     type: "POST",
-                    url: $("#addUserAdmin").attr("action"),
-                    data: $("#addUserAdmin").serialize(),
+                    url: $(form).attr("action"),
+                    data: $(form).serialize(),
                     success: function (data, status, jqXHR) {
                         $(".addUserSuccess strong").text("USUARIO AGREGADO EXITOSAMENTE!");
                         $(".addUserSuccess").show();
@@ -888,6 +1051,10 @@ $(document).ready(function () {
                             url: document.URL,
                             success: function (data) {
                                 $("#adminUsersTable").html($(data).find("#adminUsersTable").html());
+                                $('#accordion').click();
+                                $("#addUserAdmin")[0].reset();
+                                $(".panelAddEditUser > .panel-heading .panel-title").text("Agregar Usuario");
+                                $(".pk_form").val(0);
                             }
                         });
                     },
@@ -896,39 +1063,12 @@ $(document).ready(function () {
                     },
                     statusCode: {
                         400: function () {
-                            console.log("nooo 1");
                         }
                     }
                 });
             }
         });
-        $("#updateUser").validate({
-            submitHandler: function (form) {
-                $.ajax({
-                    type: "POST",
-                    url: $("#updateUser").attr("action"),
-                    data: $("#updateUser").serialize(),
-                    success: function (data, status, jqXHR) {
-                        $(".addUserSuccess strong").text("USUARIO ACTUALIZADO!");
-                        $(".addUserSuccess").show();
-                        $.ajax({
-                            url: document.URL,
-                            success: function (data) {
-                                $("#adminUsersTable").html($(data).find("#adminUsersTable").html());
-                            }
-                        });
-                    },
-                    error: function (data, status, jqXHR) {
 
-                    },
-                    statusCode: {
-                        400: function () {
-                            console.log("nooo 2");
-                        }
-                    }
-                });
-            }
-        });
     }
 
     function viewCartPage() {
@@ -1336,51 +1476,47 @@ function numeros(e) {
         return false;
 }
 
+function cargaDatosMascotaFicha(NombreMascota, IdMascota) {
 
+    $('#mascota-ficha').val(NombreMascota);
+    $('#mascota-id').val(IdMascota);
 
-function cargaDatosMascotaFicha(NombreMascota,IdMascota){
-	
-$('#mascota-ficha').val(NombreMascota);
-$('#mascota-id').val(IdMascota);
-	
 }
 
+function guardarFichaMascota() {
 
-function guardarFichaMascota(){
-	
-alert("se va a enviar datos de mascota id " + $('#mascota-id').val() + "");
-alert("se va a enviar datos de mascota id " + $('#petWeight').val() + "");
-alert("se va a enviar datos de mascota id " + $('#petPulse').val() + "");	
-$.post( 
-	"admin.php", { 
-		idMascota					: $('#mascota-id').val(),
-		petWeight					: $('#petWeight').val() ,
-		petTemperature				: $('#petTemperature').val(),
-		petHeartRate				: $('#petHeartRate').val(),
-		
-		petMucous					: $('#petMucous').val(),
-		petBreathingFrecuency		: $('#petBreathingFrecuency').val(),
-		petSkinTurgor				: $('#petSkinTurgor').val(),
-		petPulse					: $('#petPulse').val(),
-		PetTllc						: $('#PetTllc').val(),
-		PetObservation				: $('#PetObservation').val(),
-		petAnamnesis				: $('#petAnamnesis').val(),
-		petPreviousDiseases			: $('#petPreviousDiseases').val(),
-		petPosiblesDiagnoses		: $('#petPosiblesDiagnoses').val(),
-		petDefinitiveDiagnoses		: $('#petDefinitiveDiagnoses').val(),
-		petCboResponsibleTab		: $('#petCboResponsibleTab').val(),
-		petCboResponsiblePet		: $('#petCboResponsiblePet').val(),
-		petAnamnesisCreation		: $('#petAnamnesisCreation').val(),
-		petHistoryId				: $('#petHistoryId ').val(),
-	
-	
-	} 
-	  
-	  
-	  );
-	
-	
-	
+    alert("se va a enviar datos de mascota id " + $('#mascota-id').val() + "");
+    alert("se va a enviar datos de mascota id " + $('#petWeight').val() + "");
+    alert("se va a enviar datos de mascota id " + $('#petPulse').val() + "");
+    $.post(
+            "admin.php", {
+                idMascota: $('#mascota-id').val(),
+                petWeight: $('#petWeight').val(),
+                petTemperature: $('#petTemperature').val(),
+                petHeartRate: $('#petHeartRate').val(),
+
+                petMucous: $('#petMucous').val(),
+                petBreathingFrecuency: $('#petBreathingFrecuency').val(),
+                petSkinTurgor: $('#petSkinTurgor').val(),
+                petPulse: $('#petPulse').val(),
+                PetTllc: $('#PetTllc').val(),
+                PetObservation: $('#PetObservation').val(),
+                petAnamnesis: $('#petAnamnesis').val(),
+                petPreviousDiseases: $('#petPreviousDiseases').val(),
+                petPosiblesDiagnoses: $('#petPosiblesDiagnoses').val(),
+                petDefinitiveDiagnoses: $('#petDefinitiveDiagnoses').val(),
+                petCboResponsibleTab: $('#petCboResponsibleTab').val(),
+                petCboResponsiblePet: $('#petCboResponsiblePet').val(),
+                petAnamnesisCreation: $('#petAnamnesisCreation').val(),
+                petHistoryId: $('#petHistoryId ').val(),
+
+            }
+
+
+    );
+
+
+
 }
 function hola() {
     $.ajax({
@@ -1402,4 +1538,40 @@ function hola() {
     });
     return false;
 }
-
+/* 
+ Detalles de página pe ile
+ 1. Entregar alerta de medicamentos prohibidos para el animal, ficha atención cliente ->
+ campo observaciones
+ 2. Crear un formulario para ingresar recetas y mostrar PDF del formulario (en este punto
+ muestra alerta de medicamentos prohibidos por el veterinario).
+ Para crear nueva receta insertar un botón en listados de mascotas con su respec vo modal
+ para registrar.
+ 
+ 3.Usar botón órdenes para mostrar en listado las fichas clínicas y con un botón mostrar pdf
+ de la ficha (reporte para imprimir) libre diagramación.
+ 
+ 4.Hacer que las fichas de atención y fichas clínicas registren, editen y eliminen.
+ 
+ 5.Inicio sesión, mostrar usuario logueado en su sesión mientras esté conectado y guardar
+ sesión en bd una vez desconectado mostrando hora y fecha.
+ 
+ 6.Campo Rut, colocar maskedtextbox (mascara de texto).
+ 
+ 7.Usuario debe poder resetear su contraseña
+ 
+ 8.Agregar olvido su contraseña y confirmar cambio por correo
+ 
+ 9.Poder desac var usuario sin borrar y colocar una observación (ej. Administrador que
+ llevaba las platas fue despedido)
+ 
+ 10.Separar rut y correo en el campo email al editar usuario
+ 
+ 11.Servicios que se deben montar para el usuario solo debe ser urgencias, consultas y
+ peluquería, solo estos que se muestran en admin (usuario) deben ser usados para
+ hospitalizaciones
+ 
+ 12.Realizar sistema de toma de horas mostrando disponibilidad de horario.
+ 
+ 13.En facturación debe asociar en nombre de la mascota al cliente, ya que en este momento
+ puede agregar manual.
+ */

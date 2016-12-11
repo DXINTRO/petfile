@@ -9,7 +9,7 @@
                 <tr>
                     <td width="100"><img style="width:100px;" src="<?php echo base_url(); ?>assets/images/logo.jpg"></td>
                     <td width="315" style="vertical-align:top;"><h1 style="margin:10px 0px;">Clinica Morita</h1>
-                    Avenida Simon Bolivar #3356, Maipu, Santiago</td>
+                        Avenida Simon Bolivar #3356, Maipu, Santiago</td>
                 </tr>
             </tbody>
         </table>
@@ -35,6 +35,7 @@
         <table class="list" style="width: 99%; margin-top: 1em;" id="generatedReportUser">
 
             <tbody><tr class="head">
+                    <td class="center" style="width: 30%">Rut</td>
                     <td class="center" style="width: 30%">Email</td>
                     <td style="width: 15%">Usuario</td>
                     <td class="center" style="width: 15%">Nombre</td>
@@ -44,6 +45,7 @@
                 <?php
                 foreach ($users as $row) {
                     echo'<tr class="list_row">';
+                    echo'<td class="center">' . $row['user_rut'] . '</td>';
                     echo'<td class="center">' . $row['email'] . '</td>';
                     echo'<td>' . $row['username'] . '</td>';
                     echo'<td class="center">' . $row['first_name'] . '</td>';
@@ -57,9 +59,9 @@
                         echo "<span>Doctor</span>";
                     } else if ($row['user_level'] == 4) {
                         echo "<span>Secretaria</span>";
-                    }else if ($row['user_level'] == 5) {
+                    } else if ($row['user_level'] == 5) {
                         echo "<span>Contabilidad</span>";
-                    }else if ($row['user_level'] == 6) {
+                    } else if ($row['user_level'] == 6) {
                         echo "<span>Admin Clinica</span>";
                     }
                     echo'</td>';

@@ -31,18 +31,27 @@
                                                     <h3 class="panel-title">Doctor</h3>
                                                 </div>
                                                 <div class="panel-body">
-
-                                                    <select class="form-control reserveDoctorSelect" name="doctorsId">
-
-                                                        <option>Seleccione un Doctor</option>
-
-                                                        <?php
-                                                        foreach ($list_of_doctors as $row) {
-                                                            echo "<option value='" . $row['objectId'] . "'>" . $row['doctor_name'] . "</option>";
-                                                        }
-                                                        ?>
-                                                    </select>
-												</div>
+                                                    <div class="row">
+                                                        <select class="form-control reserveDoctorSelect" name="doctorsId">
+                                                            <option>Seleccione un Doctor</option>
+                                                            <?php
+                                                            foreach ($list_of_doctors as $row) {
+                                                                echo "<option value='" . $row['objectId'] . "'>" . $row['doctor_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="row">
+                                                        <select class="form-control reservePetsSelect" name="PetsId">
+                                                            <option>Seleccione un Paciente</option>
+                                                            <?php
+                                                            foreach ($list_of_Pets as $row) {
+                                                                echo "<option value='" . $row['objectId'] . "'>" . $row['petName'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -91,9 +100,9 @@
                                                 </div>
                                             </div>
                                             <input type="hidden" name="reservationId" id="reservationId" value="" />
-                                            
+
                                             <button type="submit" name="adminAddReservation" id="addReservationButton" class="btn btn-success pull-right" style="margin-top:10px;">Agregar Reserva</button>
-                                            
+
                                             <button type="button" name="backToAddReservation" id="backToAddReservation" class="btn btn-success pull-right"  style="margin-top:10px; margin-right:10px; display:none; display:none;">Back Add Reservation</button>
                                             <button type="submit" name="editadminAddReservation" class="btn btn-primary pull-right" id="saveChangesReservation" style="margin-top:10px; margin-right:10px; display:none;">Guardar Camb</button></div>
 
@@ -129,9 +138,9 @@
                                         <div class="col-md-6">
                                             <select class="form-control reportMonthFrom" name="reportMonthFrom">
                                                 <option value="01">Enero</option>
-												<option value="02">Febrero</option>
-												<option value="03">Marzo</option>
-												<option value="04">Abril</option>
+                                                <option value="02">Febrero</option>
+                                                <option value="03">Marzo</option>
+                                                <option value="04">Abril</option>
                                                 <option value="05">Mayo</option>
                                                 <option value="06">Junio</option>
                                                 <option value="07">Julio</option>
@@ -183,9 +192,9 @@
                                         <div class="col-md-6">
                                             <select class="form-control reportMonthTo" name="reportMonthTo">
                                                 <option value="01">Enero</option>
-												<option value="02">Febrero</option>
-												<option value="03">Marzo</option>
-												<option value="04">Abril</option>
+                                                <option value="02">Febrero</option>
+                                                <option value="03">Marzo</option>
+                                                <option value="04">Abril</option>
                                                 <option value="05">Mayo</option>
                                                 <option value="06">Junio</option>
                                                 <option value="07">Julio</option>
@@ -195,7 +204,7 @@
                                                 <option value="11">Noviembre</option>
                                                 <option value="12">Diciembre</option>
                                             </select>
-                                            
+
                                         </div>
                                         <div class="col-md-6">
                                             <select class="form-control reportYearTo" name="reportYearTo">
@@ -328,7 +337,7 @@
                         </div>
 
                         <div class="modal-body clearfix">
-                           Está seguro que desea eliminar?
+                            Está seguro que desea eliminar?
                         </div>
 
                         <div class="modal-footer">
@@ -347,7 +356,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title" id="myModalLabel">CONFIRMACION DE HORAS</h4>
-                            
+
                         </div>
 
                         <div class="modal-body clearfix">
@@ -388,7 +397,7 @@
                         </div>
 
                         <div class="modal-body clearfix">
-                           Estás seguro de que quieres intentarlo
+                            Estás seguro de que quieres intentarlo
                         </div>
 
                         <div class="modal-footer">
