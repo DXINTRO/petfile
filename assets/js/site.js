@@ -458,19 +458,19 @@ $(document).ready(function () {
         $('body').on('click', '.editServiceFromAdmin', function (e) {
             $('#addServicecollapse').collapse('show');
             var $row = $(this).closest("tr");
-            $("#serviceNameUpdate").val($row.find(".servicesName").text());
-            $("#groupNameUpdate").val($row.find(".group").text());
-            $("#priceBoxUpdate").val($row.find(".price").text());
-            $("#serviceObjectIdUpdate").val($(this).attr("data-objectid"));
-            $("#addServiceAdmin").hide();
-            $("#updateServiceAdmin").show();
+            $("#serviceName").val($row.find(".servicesName").text());
+            $("#groupName").val($row.find(".group").text());
+            var price = ($row.find(".price").text());
+            var pattern = /[0-9]+/g;
+            var matches = price.match(pattern);
+            $("#priceBox").val(matches[0]);
+            $(".pk_form").val($(this).attr("data-objectid"));
             $(".panelAddEditService > .panel-heading .panel-title").text("Actualizar Servicio");
 
         });
 
         $('body').on('click', '.backToAddService', function (e) {
-            $("#updateServiceAdmin").hide();
-            $("#addServiceAdmin").show();
+            $("#addServicecollapse").collapse('show');
             $(".panelAddEditService > .panel-heading .panel-title").text("Agregar Servicio");
         });
 
@@ -482,7 +482,6 @@ $(document).ready(function () {
         });
 
         $('body').on('click', '.confirmAction', function () {
-
             $.ajax({
                 method: "POST",
                 url: 'deleteService',
@@ -502,8 +501,8 @@ $(document).ready(function () {
                 }
             });
         });
-        $('body').on('click', '.searchServicesBtn', function (e) {
 
+        $('body').on('click', '.searchServicesBtn', function (e) {
             $.ajax({
                 method: "POST",
                 url: 'searchServicesName',
@@ -514,6 +513,37 @@ $(document).ready(function () {
                     $("#adminServiceTables").html($(data).find("#adminServiceTables").html());
                 }
             });
+        });
+        $("#addServiceAdmin").validate({
+            rules: {
+                serviceName: {
+                    required: true
+                },
+                groupName: {
+                    required: true
+                },
+                priceBox: {
+                    required: true
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    type: "POST",
+                    url: $(form).attr("action"),
+                    data: $(form).serialize(),
+                    success: function (data, status, jqXHR) {
+                        $("#adminServiceTables tbody").html(data);
+                        form.reset();
+                        $(".pk_form").val(0);
+                        $(".panelAddEditService > .panel-heading .panel-title").text("Agregar un Servicio");
+                        $("#addServicecollapse").collapse('hide');
+                    },
+                    statusCode: {
+                        400: function () {
+                        }
+                    }
+                });
+            }
         });
     }
 
@@ -1283,7 +1313,6 @@ $(document).ready(function () {
         $.ajax({
             url: 'manageReservation',
             success: function (data) {
-                console.log("updatee");
                 $("#userManageReservation").html($(data).find("#userManageReservation").html());
             }
         });
@@ -1537,6 +1566,36 @@ function hola() {
         }
     });
     return false;
+}
+
+function rebuildReservation() {
+    $("body").on("click", ".addReservation", function (e) {
+        $("#myModal #myModalLabel").text($(this).parent().parent().children('.serviceTitle').text());
+        $(".submitReservation").attr("data-objectId", $(this).attr("data-objectId"));
+        $("#myModal").modal();
+        $.ajax({
+            url: "user/getPetName",
+            success: function (data) {
+                $(".petNameUser").text(data);
+            }
+        });
+    });
+    $('#myModal').on('hidden.bs.modal', function () {
+        resetReservationModal("#myModal");
+    });
+    $("body").on("change", ".reserveTimeSelect", function (e) {
+        if ($(this).val() != 0) {
+            $(".reserveTime").text($(".reserveTimeSelect option:selected").text());
+        }
+    });
+    $("#datepicker").datepicker({
+        onSelect: function (date, obj) {
+            if ($(".reserveDate").length) {
+                $(".reserveDate").text(date);
+            }
+        },
+        minDate: '0'
+    });
 }
 /* 
  Detalles de página pe ile

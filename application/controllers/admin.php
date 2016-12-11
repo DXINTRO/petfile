@@ -975,38 +975,54 @@ class Admin extends CI_Controller {
         }
     }
 
+    
+    
     public function addService() {
         $serviceName = $this->input->post("serviceName");
         $groupName = $this->input->post("groupName");
         $priceBox = $this->input->post("priceBox");
-        $query = $this->db->query("INSERT INTO services VALUES (NULL,1,'" . $serviceName . "','" . $groupName . "','" . $priceBox . "');");
+        $pk_form = $this->input->post("pk_form");
+        if ($pk_form == '0' || $pk_form == null) {
+            $query = $this->db->query("INSERT INTO `services`
+                                        (
+                                        `service_name`,
+                                        `group`,
+                                        `price`,
+                                        `active`)
+                                        VALUES
+                                        (
+                                        '" . $serviceName . "',
+                                        '" . $groupName . "',
+                                        '" . $priceBox . "',
+                                        1);");
+        } else {
+            $query = $this->db->query("UPDATE services set service_name='" . $serviceName . "', `group`='" . $groupName . "', price =" . $priceBox . " where objectId=" . $pk_form . ";");
+        }
 
         if ($this->db->affected_rows() > 0) {
-            set_status_header((int) 200);
-            redirect("admin/manageService");
+            set_status_header(200);
         } else {
-            set_status_header((int) 400);
+            set_status_header(203);
         }
-    }
-
-    public function updateService() {
-        $serviceName = $this->input->post("serviceNameUpdate");
-        $groupName = $this->input->post("groupNameUpdate");
-        $priceBox = $this->input->post("priceBoxUpdate");
-        $objectId = $this->input->post("serviceObjectIdUpdate");
-        $query = $this->db->query("UPDATE services set service_name='" . $serviceName . "', `group`='" . $groupName . "', price =" . $priceBox . " where objectId=" . $objectId . ";");
-
-        if ($this->db->affected_rows() > 0) {
-            set_status_header((int) 200);
-            redirect("admin/manageService");
-        } else {
-            set_status_header((int) 400);
-        }
+        $query = $this->db->query("SELECT * FROM services where active<>0;");
+        $services= $query->result_array();
+        foreach ($services as $row) {
+                    echo "<tr>";
+                    echo "<td class='vert servicesId'>" . $row['objectId'] . "</td>";
+                    echo "<td class='vert servicesName'>" . $row['service_name'] . "</td>";
+                    echo "<td class='vert group'>" . $row['group'] . "</td>";
+                    echo "<td class='vert price'>$ " . $row['price'] . "</td>";
+                    echo "<td class='vert'>";
+                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editServiceFromAdmin pull-left' style='margin-right: 5px;'>Editar</button>";
+                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeServiceFromAdmin pull-right'>Borrar</button>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
     }
 
     public function deleteService() {
         $serviceObjectId = $this->input->post("serviceObjectId");
-        $query = $this->db->query("DELETE FROM services WHERE objectId = " . $serviceObjectId . ";");
+        $query = $this->db->query("UPDATE `services` SET `active`='1' WHERE `objectId` = " . $serviceObjectId . ";");
         if ($this->db->affected_rows() > 0) {
             set_status_header((int) 200);
         } else {
@@ -1019,19 +1035,14 @@ class Admin extends CI_Controller {
             $arrayAllowed = array(3, 4);
             $this->checkAllowed($arrayAllowed);
             $servicesName = $this->input->post('servicesNameSearch');
-
             $navbarData['userLevel'] = $this->session->userdata('user_level');
             $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
-
-            $query = $this->db->query("SELECT * FROM services where service_name LIKE '%" . $servicesName . "%';");
-
+            $query = $this->db->query("SELECT * FROM services where service_name LIKE '%" . $servicesName . "%' and active<>0;");
             $servicesData['services'] = $query->result_array();
-
             $data['content_body'] = $this->load->view('admin_service', $servicesData, true);
-
             $this->load->view("layout", $data);
         } else {
             redirect("/");
@@ -1047,13 +1058,9 @@ class Admin extends CI_Controller {
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
-
-            $query = $this->db->query("SELECT * FROM services;");
-
+            $query = $this->db->query("SELECT * FROM services where active<>0;");
             $servicesData['services'] = $query->result_array();
-
             $data['content_body'] = $this->load->view('admin_service', $servicesData, true);
-
             $this->load->view("layout", $data);
         } else {
             redirect("/");
@@ -1074,14 +1081,7 @@ class Admin extends CI_Controller {
         $address = $this->input->post("address");
         $city = $this->input->post("city");
         $contactNo = $this->input->post("contactNo");
-//
-//        $petName = $this->input->post("petName");
-//        $petSpecies = $this->input->post("petSpecies");
-//        $petRace = $this->input->post("petRace");
-//        $petGender = $this->input->post("petGender");
-//        $petAge = $this->input->post("petAge");
-//        $petColor = $this->input->post("petColor");
-//        $petHistory = $this->input->post("petHistory");
+
         if ($pk_form == '0') {
 
             if (filter_var($inputEmail, FILTER_VALIDATE_EMAIL)) {
