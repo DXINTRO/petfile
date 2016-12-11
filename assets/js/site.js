@@ -47,6 +47,7 @@ $(document).ready(function () {
                 $(".reserveTime").text($(".reserveTimeSelect option:selected").text());
             }
         });
+
         $("#datepicker").datepicker({
             onSelect: function (date, obj) {
                 if ($(".reserveDate").length) {
@@ -62,12 +63,12 @@ $(document).ready(function () {
                 $(".petNameUser").text('');
             }
         });
+
         $('.userNavbar li.navReserveManage').addClass('active');
 
         $("body").on("click", ".editReservation", function () {
             $("#editReserveModal #myModalLabel").text($(this).parent().parent().parent().children('.serviceTitle').text());
             get($(this).attr("data-objectId"));
-
 
         });
 
@@ -184,40 +185,8 @@ $(document).ready(function () {
 
     function userReserve() {
         $('.userNavbar li.navReserve').addClass('active');
+        rebuildReservation();
 
-        $("body").on("click", ".addReservation", function (e) {
-            $("#myModal #myModalLabel").text($(this).parent().parent().children('.serviceTitle').text());
-            $(".submitReservation").attr("data-objectId", $(this).attr("data-objectId"));
-            $("#myModal").modal();
-
-        });
-        $(".petNameUser").text($("[name='PetsId'] option:selected").text());
-
-        $('#myModal').on('hidden.bs.modal', function () {
-            resetReservationModal("#myModal");
-        });
-
-
-        $("[name='PetsId']").on('change', function () {
-            if ($(this).val() != "Seleccione un Paciente") {
-                $(".petNameUser").text($("[name='PetsId'] option:selected").text());
-            } else {
-                $(".petNameUser").text('');
-            }
-        });
-        $("body").on("change", ".reserveTimeSelect", function (e) {
-            if ($(this).val() != 0) {
-                $(".reserveTime").text($(".reserveTimeSelect option:selected").text());
-            }
-        });
-        $("#datepicker").datepicker({
-            onSelect: function (date, obj) {
-                if ($(".reserveDate").length) {
-                    $(".reserveDate").text(date);
-                }
-            },
-            minDate: '0'
-        });
         $("body").on("click", ".submitReservation", function (e) {
             if ($(".reserveDate").text() != "" && $(".reserveTime").text() != "" && $(".reserveDoctorSelect").val() != "" && $(".reservePetsSelect").val() != "") {
                 var serviceId = $(this).attr("data-objectId");
@@ -548,7 +517,6 @@ $(document).ready(function () {
     }
 
     function adminManageReservation() {
-
         $('body').on('click', '#generateReservationReport', function (e) {
             e.preventDefault();
             if ($('.reportYearTo').val() != 0 && $('.reportYearFrom').val() != 0 && ($('.reportYearFrom').val() <= $('.reportYearTo').val()) && ($('.reportMonthFrom').val() <= $('.reportMonthTo').val())) {
@@ -869,12 +837,14 @@ $(document).ready(function () {
 
         $('body').on('click', '.editProductAdmin', function (e) {
             $parentRow = $(this).closest("tr");
-            $("#productIdToEdit").val($(this).attr("data-objectId"));
-            $("#productNameEdit").val($parentRow.find(".productName").text());
-            $("#productQtyEdit").val($parentRow.find(".productQuanitty").text());
-            $("#productPriceEdit").val($parentRow.find(".productPrice").text().substring(2));
-            $("#productTypeEdit").val($parentRow.find(".productType").text());
-            $("#productEditModal").modal();
+            $(".pk_form").val($(this).attr("data-objectId"));
+
+            $("#productName").val($parentRow.find(".productName").text());
+            $("#productQty").val($parentRow.find(".productQuanitty").text());
+            $("#productPrice").val($parentRow.find(".productPrice").text().substring(2));
+            $("#productType").val($parentRow.find(".productType").text());
+            $("#addOrEditReservation > .panel-heading .panel-title").text("Editar Producto");
+            $("#collapseOne").collapse('show');
         });
 
         $('body').on('click', '.removeProductAdmin', function (e) {
@@ -918,7 +888,41 @@ $(document).ready(function () {
                 }
             });
         });
-
+        
+        $("#addProduct").validate({
+            rules: {
+                productName: {
+                    required: true
+                },
+                productQty: {
+                    required: true
+                },
+                productPrice: {
+                    required: true
+                },
+                productType: {
+                    required: true
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    type: "POST",
+                    url: $(form).attr("action"),
+                    data: $(form).serialize(),
+                    success: function (data, status, jqXHR) {
+                      $("#adminManageProducts tbody").html(data);
+                        form.reset();
+                        $(".pk_form").val(0);
+                        $("#addOrEditReservation > .panel-heading .panel-title").text("Agregar un Producto");
+                        $("#collapseOne").collapse('hide');
+                    },
+                    statusCode: {
+                        400: function () {
+                        }
+                    }
+                });
+            }
+        });
     }
 
     function adminAddUser() {
@@ -1318,14 +1322,6 @@ $(document).ready(function () {
         });
     }
 
-    function resetReservationModal(modalName) {
-        $(".reserveDate").text("");
-        $(".reserveTime").text("");
-        $('#datepicker').datepicker('setDate');
-        $('.reserveTimeSelect').prop('selectedIndex', 0);
-        $('' + modalName + ' .alert').hide();
-    }
-
     //FIX FOR BS3 Alert dismissable
     $("body").on("click", ".alert .close", function (e) {
         $(this).closest("." + $(this).attr("data-hide")).hide();
@@ -1406,6 +1402,13 @@ $(document).ready(function () {
 
 });
 
+function resetReservationModal(modalName) {
+    $(".reserveDate").text("");
+    $(".reserveTime").text("");
+    $('#datepicker').datepicker('setDate');
+    $('.reserveTimeSelect').prop('selectedIndex', 0);
+    $('' + modalName + ' .alert').hide();
+}
 function agregaPaciente() {
     $.ajax({
         type: 'POST',
@@ -1547,6 +1550,7 @@ function guardarFichaMascota() {
 
 
 }
+
 function hola() {
     $.ajax({
         type: 'POST',
@@ -1573,15 +1577,19 @@ function rebuildReservation() {
         $("#myModal #myModalLabel").text($(this).parent().parent().children('.serviceTitle').text());
         $(".submitReservation").attr("data-objectId", $(this).attr("data-objectId"));
         $("#myModal").modal();
-        $.ajax({
-            url: "user/getPetName",
-            success: function (data) {
-                $(".petNameUser").text(data);
-            }
-        });
+
     });
+    $(".petNameUser").text($("[name='PetsId'] option:selected").text());
+
     $('#myModal').on('hidden.bs.modal', function () {
         resetReservationModal("#myModal");
+    });
+    $("[name='PetsId']").on('change', function () {
+        if ($(this).val() != "Seleccione un Paciente") {
+            $(".petNameUser").text($("[name='PetsId'] option:selected").text());
+        } else {
+            $(".petNameUser").text('');
+        }
     });
     $("body").on("change", ".reserveTimeSelect", function (e) {
         if ($(this).val() != 0) {
@@ -1597,6 +1605,7 @@ function rebuildReservation() {
         minDate: '0'
     });
 }
+
 /* 
  Detalles de página pe ile
  1. Entregar alerta de medicamentos prohibidos para el animal, ficha atención cliente ->

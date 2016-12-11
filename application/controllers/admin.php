@@ -40,45 +40,60 @@ class Admin extends CI_Controller {
         $pqty = $this->input->post('productQty');
         $pprice = $this->input->post('productPrice');
         $ptype = $this->input->post('productType');
+        $pk_form = $this->input->post("pk_form");
+        $Q = '';
+        if ($pk_form == '0' || is_null($pk_form)) {
 
-        $query = $this->db->query("INSERT INTO products 
-                                (`objectId`,
+            $q = "INSERT INTO products 
+                                (
                                 `product_name`,
                                 `product_quantity`,
                                 `product_price`,
                                 `product_type`)
                                 VALUES
                                 (
-                                NULL,
                                 '" . $pname . "',
                                 " . $pqty . ",
                                 " . $pprice . ",
                                 '" . $ptype . "'
-                                );");
-
-        if ($this->db->affected_rows() > 0) {
-            set_status_header((int) 200);
-            redirect('/admin/manageproducts');
+                                );";
         } else {
-            set_status_header((int) 400);
-        }
-    }
-
-    public function editProduct() {
-        $pname = $this->input->post('productNameEdit');
-        $pqty = $this->input->post('productQtyEdit');
-        $pprice = $this->input->post('productPriceEdit');
-        $ptype = $this->input->post('productTypeEdit');
-        $pid = $this->input->post('productIdToEdit');
-        $updateActive = $this->db->query("UPDATE products 
+            $q = "UPDATE products 
                                         SET
                                         `product_name` = '" . $pname . "',
                                         `product_quantity` = " . $pqty . ",
                                         `product_price` = " . $pprice . ",
                                         `product_type` = '" . $ptype . "' 
-                                        WHERE objectId='" . $pid . "';");
+                                        WHERE objectId='" . $pk_form . "';";
+        }
 
-        redirect("/admin/manageproducts");
+        if ($this->db->query($q)) {
+            set_status_header((int) 200);
+            $query = $this->db->query("SELECT * FROM products;");
+
+            $products = $query->result_array();
+            foreach ($products as $row) {
+                $productquantity = intval($row['product_quantity']);
+                if ($productquantity <= 10) {
+                    echo "<tr style='color:red'>";
+                } else {
+                    echo "<tr>";
+                }
+                echo "<td class='vert productObjectId'>" . $row['objectId'] . "</td>";
+                echo "<td class='vert productName'>" . $row['product_name'] . "</td>";
+                echo "<td class='vert productQuanitty'>" . $row['product_quantity'] . "</td>";
+                echo "<td class='vert productPrice'>$ " . $row['product_price'] . "</td>";
+                echo "<td class='vert productType'>" . $row['product_type'] . "</td>";
+                echo "<td class='vert'>";
+                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editProductAdmin pull-left' style='margin-right: 5px;'>Editar</button>";
+                echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeProductAdmin pull-right'>Borrar</button>";
+                echo "</td>";
+                echo "</td>";
+                echo "</tr>";
+            }
+        } else {
+            set_status_header((int) 400);
+        }
     }
 
     public function deleteProductAdmin() {
@@ -210,7 +225,7 @@ class Admin extends CI_Controller {
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
 
-            $customer = $this->db->query("SELECT * FROM users WHERE user_level=1;");
+            $customer = $this->db->query("SELECT * FROM users WHERE user_level=1 and activo=1;");
             $billingData['customers'] = $customer->result_array();
 
             $doc = $this->db->query("SELECT * FROM doctors");
@@ -225,7 +240,7 @@ class Admin extends CI_Controller {
 						GROUP BY batchOrderId 
 						ORDER BY orderDate DESC;");
             $billingData['payments'] = $payment->result_array();
-
+            $billingData['list_of_Pets'] = $this->getAllPets();
             $data['content_body'] = $this->load->view('admin_billing', $billingData, true);
 
             $this->load->view("layout", $data);
@@ -245,10 +260,10 @@ class Admin extends CI_Controller {
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
 
-            $customer = $this->db->query("SELECT * FROM users WHERE user_level=1;");
+            $customer = $this->db->query("SELECT * FROM users WHERE user_level=1 AND activo=1;");
             $billingData['customers'] = $customer->result_array();
 
-            $doc = $this->db->query("SELECT * FROM doctors");
+            $doc = $this->db->query("SELECT * FROM doctors where activo=1");
             $billingData['docs'] = $doc->result_array();
 
             $surgery = $this->db->query("SELECT * FROM services WHERE active=3;");
@@ -267,10 +282,7 @@ class Admin extends CI_Controller {
 						GROUP BY batchOrderId 
 						ORDER BY orderDate DESC;");
 
-            $ordersData['list_of_orders'] = $query->result_array();
-
-            $billingData['order_table'] = $this->load->view('admin_order_table', $ordersData, true);
-
+            $billingData['list_of_orders'] = $query->result_array();
 
             $query = $this->db->query("SELECT 
 					ur.objectId as reservationobjectId,
@@ -293,10 +305,8 @@ class Admin extends CI_Controller {
 
             $services = $this->db->query("SELECT * FROM services where active=1;");
 
-            $usersData['reservations'] = $query->result_array();
+            $billingData['reservations'] = $query->result_array();
             $billingData['serviceslist'] = $services->result_array();
-
-
 
 
             $data['content_body'] = $this->load->view('admin_billing_merge_all', $billingData, true);
@@ -310,7 +320,10 @@ class Admin extends CI_Controller {
     public function generateBilling() {
         if ($this->session->userdata('admin_objectId')) {
             $this->load->helper(array('dompdf', 'file'));
-
+            $customerId = $this->input->post("customer");
+            $petName = $this->input->post("PetsId");
+            $doctorId = $this->input->post("doctor");
+            $surgeryId = $this->input->post("surgery");
 
             $reportMonthFrom = $this->input->post("reportMonthFrom");
             $reportYearFrom = $this->input->post("reportYearFrom");
@@ -319,10 +332,6 @@ class Admin extends CI_Controller {
             $reportYearTo = $this->input->post("reportYearTo");
             $reportDayTo = $this->input->post("reportDayTo");
 
-            $customerId = $this->input->post("customer");
-            $petName = $this->input->post("petName");
-            $surgeryId = $this->input->post("surgery");
-            $doctorId = $this->input->post("doctor");
 
 
             $reportDateFrom = date('d-m-Y', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/' . $reportDayFrom . '/' . $reportYearFrom . '')));
@@ -335,10 +344,13 @@ class Admin extends CI_Controller {
 
 
             $billingData['daysNumber'] = $numDays;
-            $billingData['petName'] = $petName;
+
 
             $customer = $this->db->query("SELECT * FROM users WHERE objectId='" . $customerId . "';");
             $billingData['customers'] = $customer->result_array();
+
+            $PET = $this->db->query("SELECT * FROM pets WHERE objectId='" . $petName . "';");
+            $petdata = $PET->result()[0];
 
             $doc = $this->db->query("SELECT * FROM doctors WHERE objectId='" . $doctorId . "';");
             $billingData['docs'] = $doc->result_array();
@@ -349,7 +361,7 @@ class Admin extends CI_Controller {
 
             $billingData['reportDateFrom'] = $reportDateFrom;
             $billingData['reportDateto'] = $reportDateto;
-
+            $billingData['petName'] = $petdata->petName;
             $html = $this->load->view('admin_generated_billing', $billingData, true);
             // $this->output->append_output($html);
             pdf_create($html, 'salesReport');
@@ -496,6 +508,13 @@ class Admin extends CI_Controller {
             $this->load->view("layout", $data);
         } else {
             redirect("/");
+        }
+    }
+
+    public function getAllPets() {
+        if ($id = $this->session->userdata('admin_objectId')) {
+            $query = $this->db->query("SELECT * FROM pets where userId ='" . $id . "' and activo=1;");
+            return $query->result_array();
         }
     }
 
@@ -975,14 +994,12 @@ class Admin extends CI_Controller {
         }
     }
 
-    
-    
     public function addService() {
         $serviceName = $this->input->post("serviceName");
         $groupName = $this->input->post("groupName");
         $priceBox = $this->input->post("priceBox");
         $pk_form = $this->input->post("pk_form");
-        if ($pk_form == '0' || $pk_form == null) {
+        if ($pk_form == '0' || is_null($pk_form)) {
             $query = $this->db->query("INSERT INTO `services`
                                         (
                                         `service_name`,
@@ -1005,19 +1022,19 @@ class Admin extends CI_Controller {
             set_status_header(203);
         }
         $query = $this->db->query("SELECT * FROM services where active<>0;");
-        $services= $query->result_array();
+        $services = $query->result_array();
         foreach ($services as $row) {
-                    echo "<tr>";
-                    echo "<td class='vert servicesId'>" . $row['objectId'] . "</td>";
-                    echo "<td class='vert servicesName'>" . $row['service_name'] . "</td>";
-                    echo "<td class='vert group'>" . $row['group'] . "</td>";
-                    echo "<td class='vert price'>$ " . $row['price'] . "</td>";
-                    echo "<td class='vert'>";
-                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editServiceFromAdmin pull-left' style='margin-right: 5px;'>Editar</button>";
-                    echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeServiceFromAdmin pull-right'>Borrar</button>";
-                    echo "</td>";
-                    echo "</tr>";
-                }
+            echo "<tr>";
+            echo "<td class='vert servicesId'>" . $row['objectId'] . "</td>";
+            echo "<td class='vert servicesName'>" . $row['service_name'] . "</td>";
+            echo "<td class='vert group'>" . $row['group'] . "</td>";
+            echo "<td class='vert price'>$ " . $row['price'] . "</td>";
+            echo "<td class='vert'>";
+            echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-primary btn-sm editServiceFromAdmin pull-left' style='margin-right: 5px;'>Editar</button>";
+            echo "<button type='button' data-objectId='" . $row['objectId'] . "' class='btn btn-danger btn-sm removeServiceFromAdmin pull-right'>Borrar</button>";
+            echo "</td>";
+            echo "</tr>";
+        }
     }
 
     public function deleteService() {
@@ -1082,7 +1099,7 @@ class Admin extends CI_Controller {
         $city = $this->input->post("city");
         $contactNo = $this->input->post("contactNo");
 
-        if ($pk_form == '0') {
+        if ($pk_form == '0' || is_null($pk_form)) {
 
             if (filter_var($inputEmail, FILTER_VALIDATE_EMAIL)) {
                 $FVAD = "INSERT INTO `users`
@@ -1115,35 +1132,7 @@ class Admin extends CI_Controller {
                     1);
                     ";
                 $this->db->query($FVAD);
-//            if ($this->db->affected_rows() > 0) {
-//                if ($userLevel == 1) {
-//                    $queryEmail = $this->db->query("SELECT objectId FROM users WHERE email ='" . $inputEmail . "'");
-//                    $row = $queryEmail->row();
-//                    $DFGH = "INSERT INTO `pets`
-//                                (
-//                                `petName`,
-//                                `petSpecies`,
-//                                `petRace`,
-//                                `petGender`,
-//                                `petAge`,
-//                                `petColor`,
-//                                `petHistory`,
-//                                `petIncome`,
-//                                `userId`,
-//                                `activo`)
-//                                VALUES
-//                                (
-//                                '" . $petName . "',
-//                                '" . $petSpecies . "',
-//                                '" . $petRace . "',
-//                                '" . $petGender . "',
-//                                '" . $petAge . "',
-//                                '" . $petColor . "',
-//                                '" . $petHistory . "',
-//                                now(),
-//                                '" . $row->objectId . "',
-//                                1);";
-//                    $this->db->query($DFGH);
+
                 if ($this->db->affected_rows() > 0) {
                     set_status_header((int) 200);
                 } else {
@@ -1244,10 +1233,6 @@ class Admin extends CI_Controller {
         $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-Y H:i:s');
 
 
-        // $query = $this->db->query("SELECT * FROM products 
-        // 	WHERE createdAt >= '".$reportDateFrom."' 
-        // 	AND createdAt <='".$reportDateto."';");
-        // NOTE CHANGE THIS
         $query = $this->db->query("SELECT * FROM products;");
 
         $usersData['products'] = $query->result_array();

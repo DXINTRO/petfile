@@ -1,31 +1,35 @@
+<div class="alert alert-success alert-dismissable addSuccess" style="display:none;">
+    <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
+    <strong> agregado Exitosamente!!.</strong>
+</div>
 <div class="panel panel-default" id="adminUsersOrder">
     <!-- Default panel contents -->
     <div class="panel-heading"> SISTEMA DE PAGO PARA HOSPITALIZACIONES (MAS DE 1 DIA EN LA CLINICA)</div>
     <div class="panel-body">
-        <div>
-          <!-- <p>Only confirmed transactions are being calculated here.</p> -->
-        </div>
+
         <form id="billing" role="form" action="generateBilling" method="POST">
             <div class="form-group col-md-5">
                 <label for="username">Cliente</label>
-
-                <select class="form-control customer" name="customer">
+                <select class="form-control customer" required name="customer">
                     <?php
                     foreach ($customers as $row) {
                         echo'<option value="' . $row['objectId'] . '">' . $row['last_name'] . ', ' . $row['first_name'] . '  (' . $row['email'] . ')</option>';
                     }
                     ?>
-
                 </select>
             </div>
             <div class="form-group col-md-5">
                 <label for="username">Nombre de la Mascota</label>
-                <input type="text" class="form-control" name="petName" id="petName" placeholder="nombre de la mascota" minlength="3" required>          
-            </div>
+                <select class="form-control reservePetsSelect" required name="PetsId">
+                    <?php
+                    foreach ($list_of_Pets as $row) {
+                        echo "<option value='" . $row['objectId'] . "'>" . $row['petName'] . "</option>";
+                    }
+                    ?>
+                </select> </div>
             <div class="form-group col-md-5">
                 <label for="username">Doctor</label>
-
-                <select class="form-control doctor" name="doctor">
+                <select class="form-control doctor"  required name="doctor">
                     <?php
                     foreach ($docs as $row) {
                         echo'<option value="' . $row['objectId'] . '">' . $row['doctor_name'] . '</option>';
@@ -34,11 +38,9 @@
 
                 </select>
             </div>
-
             <div class="form-group col-md-5">
                 <label for="username">Servicio</label>
-
-                <select class="form-control surgery" name="surgery">
+                <select class="form-control surgery" required name="surgery">
                     <?php
                     foreach ($surgerys as $row) {
                         echo'<option value="' . $row['objectId'] . '">' . $row['service_name'] . ' (P ' . number_format($row['price'], 2) . ')</option>';
@@ -107,8 +109,7 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <select class="form-control reportYearFrom" name="reportYearFrom">
-                            <option value="0">Año</option>
+                        <select class="form-control reportYearFrom" required name="reportYearFrom">
                             <option value="2016">2016</option>
                             <option value="2015">2015</option>
                             <option value="2014">2014</option>
@@ -197,8 +198,7 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <select class="form-control reportYearTo" name="reportYearTo">
-                            <option value="0">Año</option>
+                        <select class="form-control reportYearTo" required name="reportYearTo">
                             <option value="2016">2016</option>
                             <option value="2015">2015</option>
                             <option value="2014">2014</option>
@@ -232,7 +232,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" id="generateReservationReport">Generar Boleta</button>
+            <button type="submit" class="btn btn-sm btn-info" style="float:right;margin-top:10px;" >Generar Boleta</button>
         </form>
     </div>
 </div>
@@ -240,14 +240,13 @@
 <div style="height:300px; overflow:auto;border: 1px solid rgba(51, 51, 51, 0.17);margin: 5px;">
     <!-- Table -->
     <table class="table table-hover" id="adminPaymentTable">
-
         <thead>
             <tr>
-                <th style="width:270px;">
-                   Lotes de ID de pedido / Recibo #
+                <th style="width:170px;">
+                    Lotes
                 </th>
                 <th>
-                    SeguimientoNo. #
+                    Seguimiento.
                 </th>
                 <th>
                     Via
@@ -306,10 +305,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-</div>
 
 
 <div class="footer">
-     <p>&copy; PetFile 2016</p>
+    <p>&copy; PetFile 2016</p>
 </div>
 

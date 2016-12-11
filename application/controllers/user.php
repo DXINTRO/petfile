@@ -165,7 +165,7 @@ class User extends CI_Controller {
 
     public function getAllPets() {
         if ($id = $this->session->userdata('user_objectId')) {
-            $query = $this->db->query("SELECT * FROM pets where userId ='" . $id . "';");
+            $query = $this->db->query("SELECT * FROM pets where userId ='" . $id . "' and activo=1;");
             return $query->result_array();
         }
     }
@@ -270,7 +270,7 @@ class User extends CI_Controller {
 
     public function updateReservation() {
         if ($this->session->userdata('user_objectId')) {
-              $pk_form = $this->input->post("pk_form");
+            $pk_form = $this->input->post("pk_form");
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
             $reserveDateTime = $reserveDate . ' ' . $reserveTime;
@@ -290,7 +290,7 @@ class User extends CI_Controller {
                             `doctorsId` = '" . $doctorsId . "',
                             `timestamp` = now()
                         WHERE
-                            `objectId` = '".$pk_form."'; ";
+                            `objectId` = '" . $pk_form . "'; ";
             $query = $this->db->query($r);
 
             if ($this->db->affected_rows() > 0) {

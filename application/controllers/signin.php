@@ -43,7 +43,7 @@ class Signin extends CI_Controller {
             $this->load->library('encrypt');
             $email = $this->input->post("userEmail");
             $password = $this->input->post("userPassword");
-            $query = $this->db->query("SELECT objectId,user_level,email,first_name from users where password='" . md5($password) . "' AND email='" . $email . "';");
+            $query = $this->db->query("SELECT objectId,user_level,email,first_name from users where activo=1 AND password='" . md5($password) . "' AND email='" . $email . "';");
             if ($query->num_rows() > 0) {
                 $row = $query->row();
                 if ($row->user_level == 1) {

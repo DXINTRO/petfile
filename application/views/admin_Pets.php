@@ -44,32 +44,39 @@
                         $aaa = '';
                         foreach ($TABLE_REGISTROS as $dat) {
                             $aaa .= '<tr>
-                                        			<td>' . $dat['petName'] . '</td>
-                                                	<td>' . $dat['petSpecies'] . '</td>
-                                                	<td>' . $dat['petRace'] . '</td>
-                                                	<td>' . $dat['petGender'] . '</td>
-                                                	<td>' . $dat['petIncome'] . '</td>
-                                                	<td>' . $dat['first_name'] . '</td>
-                                                	<td>' . $dat['last_name'] . '</td>
-                                                        <td><button id="petBtnAnamnesis" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#anamnesis" onclick="cargaDatosMascotaFicha(\'' . $dat['petName'] . '\',\'' . $dat['objectId'] . '\')">Ficha Atenciòn</button></td>
-                                                        <td><button id="petBtnHistorial" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#historial">Ficha Clìnica</button></td>
-                                                </tr>
-                                                <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><button id="nuevo-paciente" class="btn-warning btn-sm">Editar</button></td>
-                                                        <td><button id="nuevo-paciente" class="btn-danger btn-sm">Eliminar</button></td>
-
-                                                </tr>
-                                        </tr> ';
+                                        <td>' . $dat['petName'] . '</td>
+                                <td>' . $dat['petSpecies'] . '</td>
+                                <td>' . $dat['petRace'] . '</td>
+                                <td>' . $dat['petGender'] . '</td>
+                                <td>' . $dat['petIncome'] . '</td>
+                                <td>' . $dat['first_name'] . '</td>
+                                <td>' . $dat['last_name'] . '</td>
+                                <td><div class="btn-group" data-dataid="' . $dat['objectId'] . '">
+                                    <button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-gear"></i>  <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a class="txt-color-green" id="nuevo-paciente"  href="#" onclick="return false;"><i class="fa fa-edit"></i> Editar</a>
+                                        </li>
+                                        <li>
+                                            <a class="txt-color-red" href="#" onclick="return false;"><i class="fa fa-trash-o"></i> Eliminar</a>
+                                        </li>
+                                      
+                                        <li>
+                                            <a class="txt-color-red" href="#" id="petBtnHistorial" onclick="return false;"><i class="fa fa-paw" aria-hidden="true"></i></i> Ficha Clìnica</a>
+                                        </li>
+                                        <li>
+                                            <a class="txt-color-red" href="#" onclick="cargaDatosMascotaFicha(\'' . $dat['petName'] . '\',\'' . $dat['objectId'] . '\')return false;"><i class="fa fa-paw" aria-hidden="true"></i></i> Ficha Atenciòn</a>
+                                        </li>
+                                    </ul>
+                                  </div>
+                                </td>
+                          </tr> ';
                         }
                         echo $aaa;
                         ?>
+
                     </tbody>
                 </table>
             </div>
