@@ -1439,7 +1439,7 @@ class Admin extends CI_Controller {
             $dokpfdgh['TABLE_REGISTROS'] = $this->refrescartablapet(true);
             $dokpfdgh['list_of_users'] = $this->getAllUsers();
             $query = $this->db->query("SELECT * FROM products;");
-
+            $dokpfdgh['list_of_doc'] = $this->getAlldoc();
             $dokpfdgh['products'] = $query->result_array();
             $data['content_body'] = $this->load->view('admin_Pets', $dokpfdgh, true);
             ///////////////////////////////////////////////////////////////////
@@ -1451,6 +1451,11 @@ class Admin extends CI_Controller {
 
     private function getAllUsers() {
         $query = $this->db->query("SELECT * FROM clinica.users where activo=1");
+        return $query->result_array();
+    }
+
+    private function getAlldoc() {
+        $query = $this->db->query("SELECT * FROM clinica.doctors where activo=1");
         return $query->result_array();
     }
 
@@ -1500,80 +1505,131 @@ class Admin extends CI_Controller {
         return $aaa;
     }
 
-    public function agregar_fichamascota() {
+    public function get_fichaAtention_modal() {
+        $id = $this->input->post("id");
+        $Q = "SELECT 
+                    `constant_physiological`.`objectId`,
+                    `constant_physiological`.`petId`,
+                    `constant_physiological`.`petWeight`,
+                    `constant_physiological`.`petTemperature`,
+                    `constant_physiological`.`petHeartRate`,
+                    `constant_physiological`.`petMucous`,
+                    `constant_physiological`.`petBreathingFrecuency`,
+                    `constant_physiological`.`PetTllc`,
+                    `constant_physiological`.`petPulse`,
+                    `constant_physiological`.`thickness`,
+                    `constant_physiological`.`lstmedicament_textarea`,
+                    `constant_physiological`.`petAnamnesis`,
+                    `constant_physiological`.`petPreviousDiseases`,
+                    `constant_physiological`.`petPosibles_Diagnosticos`,
+                    `constant_physiological`.`petDiagnostico_Definitivo`,
+                    `constant_physiological`.`PetObservation`,
+                    `constant_physiological`.`Responsable_doc`,
+                    `constant_physiological`.`userid`,
+                    `constant_physiological`.`petCreationAnamnesis`
+                FROM
+                    `clinica`.`constant_physiological`
+                WHERE
+                    `constant_physiological`.`petId` = '" . $id . "';";
 
-        $id = $this->input->post('id_ficha');
-        $petWeight = $this->input->post('petWeiht');
+        if ($query = $this->db->query($Q)) {
+            $datos = $query->result();
+            if (!empty($datos)) {
+                $dataarray=[];
+                if ($query2 = $this->db->query("SELECT idproducts_pets FROM clinica.products_pets where idpet='" . $id . "';")) {
+                    $array = $query2->result();
+                    foreach ($array as $value) {
+                        foreach ($value as $valuse) {
+                        array_push($dataarray, $valuse);
+                            
+                        }
+                    }
+                }
+                echo '{"dataarray":' . json_encode($dataarray) . ',"data":' . json_encode($datos[0]) . '}';
+            } else {
+                echo '{"data":null}';
+            }
+        }
+    }
+
+    public function addfichaAtention() {
+        $petId = $this->input->post('pk_form');
+        $petWeight = $this->input->post('petWeight');
         $petTemperature = $this->input->post('petTemperature');
         $petHeartRate = $this->input->post('petHeartRate');
-        $petMucous = $this->input->post('petMucous');
         $petBreathingFrecuency = $this->input->post('petBreathingFrecuency');
-        $petSkinTurgor = $this->input->post('petSkinTurgor');
+        $petTllc = $this->input->post('petTllc');
         $petPulse = $this->input->post('petPulse');
-        $PetTllc = $this->input->post('PetTllc');
-        $PetObservation = $this->input->post('PetObservation');
+        $petMucous = $this->input->post('petMucous');
+        $thickness = $this->input->post('thickness');
         $petAnamnesis = $this->input->post('petAnamnesis');
+        $lstmedicament_textarea = $this->input->post('lstmedicament_textarea');
         $petPreviousDiseases = $this->input->post('petPreviousDiseases');
-        $petPosiblesDiagnoses = $this->input->post('petPosiblesDiagnoses');
-        $petDefinitiveDiagnoses = $this->input->post('petDefinitiveDiagnoses');
+        $petPosiblesDiagnoses = $this->input->post('petPosibles_Diagnosticos');
+        $petDefinitiveDiagnoses = $this->input->post('petDiagnostico_Definitivo');
+        $Responsable_doc = $this->input->post('Responsable_doc');
+        $userid = $this->input->post('userid');
+        if ($this->db->query("DELETE FROM `clinica`.`constant_physiological` WHERE `petId`='" . $petId . "';")) {
+            $q = "INSERT INTO `clinica`.`constant_physiological`
+                                (
+                                `petId`,
+                                `petWeight`,
+                                `petTemperature`,
+                                `petHeartRate`,
+                                `petBreathingFrecuency`,
+                                `PetTllc`,
+                                `petMucous`,
+                                `petPulse`,
+                                `thickness`,
+                                `lstmedicament_textarea`,
+                                `petAnamnesis`,
+                                `petPreviousDiseases`,
+                                `petPosibles_Diagnosticos`,
+                                `petDiagnostico_Definitivo`,
+                                `PetObservation`,
+                                `Responsable_doc`,
+                                `userid`,
+                                `petCreationAnamnesis`)
+                                VALUES
+                                (
+                                '" . $petId . "',
+                                '" . $petWeight . "',
+                                '" . $petTemperature . "',
+                                '" . $petHeartRate . "',
+                                '" . $petBreathingFrecuency . "',
+                                 '" . $petTllc . "',
+                                 '" . $petMucous . "',
+                                  '" . $petPulse . "',
+                                  '" . $thickness . "',
+                                 '" . $lstmedicament_textarea . "',
+                                  '" . $petAnamnesis . "',
+                                  '" . $petPreviousDiseases . "',
+                                 '" . $petPosiblesDiagnoses . "',
+                                 '" . $petDefinitiveDiagnoses . "',
+                                  'null',
+                                 '" . $Responsable_doc . "',
+                                 '" . $userid . "',
+                                NOW());";
+            if ($this->db->query($q)) {
+                if ($this->db->query("DELETE FROM `clinica`.`products_pets` WHERE `idpet`='" . $petId . "';")) {
 
-        $petCboRespTab = $this->input->post('petCboResponsibleTab');
-        $petCboResponsibleTab = intval($petCboRespTab);
-
-        $petCboRespPet = $this->input->post('petCboResponsiblePet');
-        $petCboResponsiblePet = intval($petRespPet);
-
-        $petAnamnesisCreation = $this->input->post('petAnamnesisCreation');
-
-        $petHistoId = $this->input->post('petHistoryId');
-        $petHistoryId = intval(7);
-
-
-        $q = "INSERT INTO `constant_physiological`(
-			`petWeight`,
-			`petTemperature`,
-			`petHeartRate`,
-			`petMucous`,
-			`petBreathingFrecuency`,
-			`petSkinTurgor`,
-			`petPulse`,
-			`PetTllc`,
-			`PetObservation`,
-			`petAnamnesis`,
-			`petPreviousDiseases`,
-			`petPosiblesDiagnoses`,
-			`petDefinitiveDiagnoses`,
-			`petCboResponsibleTab`,
-			`petCboResponsiblePet`,
-			`petAnamnesisCreation`,
-			`petHistoryId`)
-				VALUES
-			(
-			'" . $petWeight . "',
-			'" . $petTemperature . "',
-			'" . $petHeartRate . "',
-			'" . $petMucous . "',
-			'" . $petBreathingFrecuency . "',
-			'" . $petSkinTurgor . "',
-			'" . $petPulse . "',
-			'" . $PetTllc . "',
-			'" . $PetObservation . "',
-			'" . $petAnamnesis . "',
-			'" . $petPreviousDiseases . "',
-			'" . $petPosiblesDiagnoses . "',
-			'" . $petDefinitiveDiagnoses . "',
-			'" . $petCboResponsibleTab . "',
-			'" . $petCboResponsiblePet . "',
-			now(),
-			'" . $petHistoryId . "')";
-
-
-
-
-        if ($this->db->query($q)) {
-            echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
-        } else {
-            echo null;
+                    $list = (isset($_POST['lstmedicament']))?$_POST['lstmedicament']:[];
+                    foreach ($list as $key => $value) {
+                        $r = "INSERT INTO `clinica`.`products_pets`
+                                        (`idproducts_pets`,
+                                        `idpet`)
+                                        VALUES
+                                        ('" . $value . "',
+                                        '" . $petId . "');";
+                        if (!$this->db->query($r)) {
+                            echo 'fail';
+                        }
+                    }
+                    set_status_header((int) 200);
+                }
+            } else {
+                echo null;
+            }
         }
     }
 

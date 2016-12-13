@@ -89,7 +89,7 @@
 <div class="modal fade" id="registra-paciente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 54%;">
         <div class="modal-content">
-            <form  id="addpets"  method="post"   action="addPets"class="form-horizontal">
+            <form  id="addpets"  method="post"   action="addPets" class="form-horizontal">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel"><b>Registro de Pacientes</b></h4>
@@ -178,7 +178,7 @@
                                             <select class="form-control" name="petOwnerReg" id="petOwnerReg" >
                                                 <?php
                                                 foreach ($list_of_users as $row) {
-                                                    echo "<option value='" . $row['objectId'] . "'>" . $row['first_name'] ."-". $row['last_name'] . "</option>";
+                                                    echo "<option value='" . $row['objectId'] . "'>" . $row['first_name'] . "-" . $row['last_name'] . "</option>";
                                                 }
                                                 ?>
                                             </select> 
@@ -219,13 +219,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel"><b>Ficha de Atenciòn Mèdica</b></h4>
             </div>
-            <form id="formulario2" class="formulario"  onsubmit="return false;" >
+            <form id="fichaAtention"   action="addfichaAtention"  class="form-horizontal">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6">
                             <label for="lastName">Mascota</label>
-                            <input type="text" class="form-control" id="mascota-ficha" name="petWeight" value="..." onkeypress="return numeros(event)" readonly />
-                            <input type="hidden" id="mascota-id" name="mascota-id" value="">
+                            <input type="text" class="form-control" id="petname" name="petname" value="..." readonly />
                         </div>
                     </div>   
                     <br/>
@@ -273,8 +272,8 @@
                         <div class="col-sm-3">
                             <label for="lastName">Pliege Cutaneo</label>
                             <select class="form-control" name="thickness" id="thickness" >
-                                <option value="< 1 Segundo">< 1 Segundo</option>
-                                <option value="> 1 Segundo">> 1 Segundo</option>   
+                                <option value="<1 Segundo"> mayor 1 Segundo</option>
+                                <option value=">1 Segundo"> menor 1 Segundo</option>   
                             </select>
                         </div>
                     </div>
@@ -285,12 +284,12 @@
                                 <label class="col-sm-12 control-label">Medicamentos Prohibidos para la Mascota</label>
                                 <div class="col-sm-12">
                                     <div class="bs-component">
-                                        <select size="5" name="lstmedicament" multiple="multiple" id="lstmedicament">
-                                              <?php
-                                                foreach ($products as $row) {
-                                                    echo "<option value='" . $row['objectId'] . "'>" . $row['product_name'] . "</option>";
-                                                }
-                                                ?>
+                                        <select size="5" name="lstmedicament[]" multiple="multiple" id="lstmedicament">
+                                            <?php
+                                            foreach ($products as $row) {
+                                                echo "<option value='" . $row['objectId'] . "'>" . substr($row['product_name'], 0, 25) . "</option>";
+                                            }
+                                            ?>
                                         </select>   
                                     </div>
                                 </div>
@@ -336,13 +335,24 @@
                             <label for="petCboResponsibleTab">Responsable Ficha</label>
                             <select class="form-control" name="Responsable_doc" id="Responsable_doc" >
                                 <option>Seleccione Doctor</option>
+                                <?php
+                                foreach ($list_of_doc as $row) {
+                                    echo "<option value='" . $row['objectId'] . "'>" . $row['doctor_name'] . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <label for="petCboResponsiblePet">Responsable Mascota</label>
 
-                            <select class="form-control" name="petCboResponsiblePet" id="petCboResponsiblePet" >
+                            <select class="form-control" name="userid" id="userid" >
                                 <option >Seleccione Cliente</option>
+                                <?php
+                                foreach ($list_of_users as $row) {
+                                    echo "<option value='" . $row['objectId'] . "'>" . $row['first_name'] . "-" . $row['last_name'] . "</option>";
+                                }
+                                ?>
+
                             </select>
 
                         </div>
@@ -355,7 +365,7 @@
                 </div>
                 <div class="modal-footer"> <input type="hidden" name="pk_form" value="0" class="pk_form"/>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal" onClick="guardarFichaMascota();">Guardar</button>
+                    <button type="submit" class="btn btn-primary" >Guardar</button>
 
                 </div>
             </form>

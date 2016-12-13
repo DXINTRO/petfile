@@ -1380,8 +1380,33 @@ $(document).ready(function () {
         });
         $('body').on('click', '.anamnesis', function (e) {
             var id = $(this).closest('tr').attr('data-dataid');
-            console.log(id);
-            $('#anamnesis').modal('toggle');
+            var name = $(this).closest('tr').find('td:nth-child(1)').text();
+            $('#fichaAtention')[0].reset();
+            $.ajax({
+                type: 'POST',
+                url: 'get_fichaAtention_modal',
+                data: 'id=' + id,
+                success: function (data) {
+                    try {
+                        var r = jQuery.parseJSON(data);
+                        if (r.data !== null) {
+                            for (var i in r.data) {
+                                $("[name=" + i + "]").val(r.data[i]).trigger("chosen:updated");
+                            }
+                            $(".pk_form").val(r.data.petId);
+                            $("[name='petname']").val(name);
+                            $("#lstmedicament").val(r.dataarray);
+
+// Then refresh
+
+                            $("#lstmedicament").multiselect("refresh");
+                        }
+                        $('#anamnesis').modal('toggle');
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
+            });
 
         });
         $('body').on('click', '.delete', function (e) {
@@ -1392,7 +1417,7 @@ $(document).ready(function () {
             $('#confirmationModal').modal('toggle');
 
         });
-           $('#Search_pet').on('keyup', function () {
+        $('#Search_pet').on('keyup', function () {
             var dato = $('#Search_pet').val();
             $.ajax({
                 type: 'POST',
@@ -1505,12 +1530,65 @@ $(document).ready(function () {
                         }
                         $('#addpets')[0].reset();
                         $('#registra-paciente').modal('toggle');
-                                                    return false;
+                        return false;
 
                     }
                 });
             }
         });
+
+        $("#fichaAtention").validate({
+            rules: {
+                petWeight: {
+                    required: true
+                }, petTemperature: {
+                    required: true
+                }, petHeartRate: {
+                    required: true
+                }, petBreathingFrecuency: {
+                    required: true
+                }, petPulse: {
+                    required: true
+                }, Responsable_doc: {
+                    required: true
+                }, userid: {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    type: 'POST',
+                    url: $(form).attr("action"),
+                    data: $(form).serialize(),
+                    success: function (registro) {
+                        $('#anamnesis').modal('toggle');
+                          $("#lstmedicament").multiselect("refresh");
+                        return false;
+
+                    }
+                });
+            }
+        });
+
+
+
+
+
     }
 ///////////////////////////////////////////////////////////////////////////////
     function reloadUserManageReservationTable() {
@@ -1649,42 +1727,6 @@ function cargaDatosMascotaFicha(NombreMascota, IdMascota) {
 
     $('#mascota-ficha').val(NombreMascota);
     $('#mascota-id').val(IdMascota);
-
-}
-
-function guardarFichaMascota() {
-
-    alert("se va a enviar datos de mascota id " + $('#mascota-id').val() + "");
-    alert("se va a enviar datos de mascota id " + $('#petWeight').val() + "");
-    alert("se va a enviar datos de mascota id " + $('#petPulse').val() + "");
-    $.post(
-            "admin.php", {
-                idMascota: $('#mascota-id').val(),
-                petWeight: $('#petWeight').val(),
-                petTemperature: $('#petTemperature').val(),
-                petHeartRate: $('#petHeartRate').val(),
-
-                petMucous: $('#petMucous').val(),
-                petBreathingFrecuency: $('#petBreathingFrecuency').val(),
-                petSkinTurgor: $('#petSkinTurgor').val(),
-                petPulse: $('#petPulse').val(),
-                PetTllc: $('#PetTllc').val(),
-                PetObservation: $('#PetObservation').val(),
-                petAnamnesis: $('#petAnamnesis').val(),
-                petPreviousDiseases: $('#petPreviousDiseases').val(),
-                petPosiblesDiagnoses: $('#petPosiblesDiagnoses').val(),
-                petDefinitiveDiagnoses: $('#petDefinitiveDiagnoses').val(),
-                petCboResponsibleTab: $('#petCboResponsibleTab').val(),
-                petCboResponsiblePet: $('#petCboResponsiblePet').val(),
-                petAnamnesisCreation: $('#petAnamnesisCreation').val(),
-                petHistoryId: $('#petHistoryId ').val(),
-
-            }
-
-
-    );
-
-
 
 }
 
