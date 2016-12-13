@@ -1132,8 +1132,9 @@ class Admin extends CI_Controller {
                     1);
                     ";
                 $this->db->query($FVAD);
-
                 if ($this->db->affected_rows() > 0) {
+                    $id = $this->db->insert_id();
+                    $this->addPets($_POST, $id);
                     set_status_header((int) 200);
                 } else {
                     set_status_header((int) 400);
@@ -1232,19 +1233,15 @@ class Admin extends CI_Controller {
         $reportDateto = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
         $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-Y H:i:s');
 
-
         $query = $this->db->query("SELECT * FROM products;");
 
         $usersData['products'] = $query->result_array();
-
 
         $usersData['reportDateFrom'] = $reportDateFrom;
         $usersData['reportDateto'] = $reportDateto;
 
 
         $html = $this->load->view('admin_products_report', $usersData, true);
-        // $this->output->append_output($html);
-        pdf_create($html, 'productReport');
     }
 
     public function generateReservationReport() {
@@ -1281,40 +1278,10 @@ class Admin extends CI_Controller {
 
 
         $usersData['reservations'] = $query->result_array();
-
-
         $usersData['reportDateFrom'] = $reportDateFrom;
         $usersData['reportDateto'] = $reportDateto;
-
-
         $html = $this->load->view('admin_reservation_report', $usersData, true);
-
-
-        // $this->output->append_output($html);
-
         pdf_create($html, 'admin_reservation_report');
-
-
-        // $this->output->set_header('Content-type: application/pdf');
-        // $this->output->set_header('Content-Disposition: attachment; filename="admin_reservation_report.pdf"');
-        // $data = pdf_create($html, '', false);
-        // 	$this->output->append_output($data);
-    }
-
-    public function edita_paciente() {
-        $id = $this->input->post('id-pacie');
-        $nombre = $this->input->post('petName');
-        $Species = $this->input->post('petSpecies');
-        $Race = $this->input->post('petRace');
-        $sexo = $this->input->post('petGender');
-        $edad = $this->input->post('petAge');
-        $color = $this->input->post('petColor');
-        $obse = $this->input->post('petHistory');
-
-        $this->db->query("update  sniosad,s");
-        if ($this->db->affected_rows() > 0) {
-            echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
-        }
     }
 
     public function busca_paciente() {
@@ -1329,29 +1296,127 @@ class Admin extends CI_Controller {
         echo '{"response":' . json_encode($datos) . '}';
     }
 
-    public function agrega_paciente() {
-        $id = $this->input->post('id-pacie');
-        $nombre = $this->input->post('petName');
-        $Species = $this->input->post('petSpecies');
-        $Race = $this->input->post('petRace');
-        $sexo = $this->input->post('petGender');
-        $edad = $this->input->post('petAge');
-        $color = $this->input->post('petColor');
-        $obse = $this->input->post('petHistory');
-        $clie = $this->input->post('petOwnerReg');
-        $cliente = intval($clie);
-
-        $q = "INSERT INTO `pets` (`objectId`,`petName`,`petSpecies`,`petRace`,`petGender`,`petAge`,`petColor`,`petHistory`,`petIncome`,`userId`) VALUES(null,'" . $nombre . "','" . $Species . "','" . $Race . "','" . $sexo . "','" . $edad . "','" . $color . "','" . $obse . "',NOW(),'" . $cliente . "')"; // PUCHO QL CAMBIA AKI POR EL ID DEL CLIENTE DE TU SELLLECT QUE TUUU ARAS XD
-        if ($this->db->query($q)) {
-            echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
-        } else {
-            echo null;
+    public function get_pet_modal() {
+        $id = $this->input->post("id");
+        $Q = "SELECT `pets_v_users`.`user_rut`,
+                `pets_v_users`.`first_name`,
+                `pets_v_users`.`last_name`,
+                `pets_v_users`.`email`,
+                `pets_v_users`.`user_level`,
+                `pets_v_users`.`createdAt`,
+                `pets_v_users`.`address`,
+                `pets_v_users`.`city`,
+                `pets_v_users`.`contactNo`,
+                `pets_v_users`.`usersactivo`,
+                `pets_v_users`.`petsobjectId`,
+                `pets_v_users`.`petName`,
+                `pets_v_users`.`petSpecies`,
+                `pets_v_users`.`petRace`,
+                `pets_v_users`.`petGender`,
+                `pets_v_users`.`petAge`,
+                `pets_v_users`.`petColor`,
+                `pets_v_users`.`petHistory`,
+                `pets_v_users`.`petIncome`,
+                `pets_v_users`.`userId`
+            FROM `pets_v_users` where petsobjectId='" . $id . "'   ";
+        if ($query = $this->db->query($Q)) {
+            $datos = $query->result();
+            echo '{"data":' . json_encode($datos[0]) . '}';
         }
     }
 
-    public function elimina_paciente() {
+    public function addPets($param = [], $id = '') {
+        if ((isset($param['petName'])) && (isset($param['petSpecies']) && (isset($param['petRace'])))) {
+            $Q = "INSERT INTO `clinica`.`pets`
+                            (
+                            `petName`,
+                            `petSpecies`,
+                            `petRace`,
+                            `petGender`,
+                            `petAge`,
+                            `petColor`,
+                            `petHistory`,
+                            `petIncome`,
+                            `userId`,
+                            `activo`)
+                            VALUES
+                            (
+                           '" . $param['petName'] . "',
+                           '" . $param['petSpecies'] . "',
+                            '" . $param['petRace'] . "',
+                           '" . $param['petGender'] . "',
+                          '" . $param['petAge'] . "',
+                          '" . $param['petColor'] . "',
+                          '" . $param['petHistory'] . "',
+                            NOW(),
+                           '" . $id . "',
+                            1);";
+            if ($this->db->query($Q)) {
+                return true;
+            }
+        } else {
+            $petName = $this->input->post("petName");
+            $petSpecies = $this->input->post("petSpecies");
+            $petRace = $this->input->post("petRace");
+            $petAge = $this->input->post("petAge");
+            $petColor = $this->input->post("petColor");
+            $petOwnerReg = $this->input->post("petOwnerReg");
+            $petGender = $this->input->post("petGender");
+            $petHistory = $this->input->post("petHistory");
+            $pk_form = $this->input->post("pk_form");
+            if ($pk_form == '0' || is_null($pk_form)) {
+
+                $q = "INSERT INTO `clinica`.`pets`
+                            (
+                            `petName`,
+                            `petSpecies`,
+                            `petRace`,
+                            `petGender`,
+                            `petAge`,
+                            `petColor`,
+                            `petHistory`,
+                            `petIncome`,
+                            `userId`,
+                            `activo`)
+                            VALUES
+                            (
+                           '" . $petName . "',
+                           '" . $petSpecies . "',
+                            '" . $petRace . "',
+                           '" . $petGender . "',
+                          '" . $petAge . "',
+                          '" . $petColor . "',
+                          '" . $petHistory . "',
+                            NOW(),
+                           '" . $petOwnerReg . "',
+                            1);";
+            } else {
+                $q = "UPDATE `clinica`.`pets` 
+                            SET 
+                                `petName` = '$petName',
+                                `petSpecies` = '$petSpecies',
+                                `petRace` = '$petRace',
+                                `petGender` = '$petGender',
+                                `petAge` = '$petAge',
+                                `petColor` = '$petColor',
+                                `petHistory` = ' $petHistory',
+                                `userId` = '$petOwnerReg'
+                            WHERE
+                                `objectId` = '$pk_form';";
+            }
+            if ($this->db->query($q)) {
+                if ($this->db->affected_rows() > 0) {
+                    echo '{"data":' . json_encode($this->refrescartablapet()) . '}';
+                } else {
+                    echo '{"data":null}';
+                }
+            }
+        }
+    }
+
+    public function delete_pets() {
         $id = $this->input->post("id");
-        $query = $this->db->query("DELETE FROM pets WHERE objectId = '$id'");
+        $query = $this->db->query("UPDATE `pets` SET `activo`='0' WHERE `objectId`= '$id'");
         if ($this->db->affected_rows() > 0) {
             echo '{"response":' . json_encode($this->refrescartablapet()) . '}';
         } else {
@@ -1372,6 +1437,10 @@ class Admin extends CI_Controller {
             $data['show_navbar'] = "true"; //muestra la barra culia
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true); // la barra de menus 
             $dokpfdgh['TABLE_REGISTROS'] = $this->refrescartablapet(true);
+            $dokpfdgh['list_of_users'] = $this->getAllUsers();
+            $query = $this->db->query("SELECT * FROM products;");
+
+            $dokpfdgh['products'] = $query->result_array();
             $data['content_body'] = $this->load->view('admin_Pets', $dokpfdgh, true);
             ///////////////////////////////////////////////////////////////////
             $this->load->view("layout", $data);
@@ -1380,10 +1449,15 @@ class Admin extends CI_Controller {
         }
     }
 
+    private function getAllUsers() {
+        $query = $this->db->query("SELECT * FROM clinica.users where activo=1");
+        return $query->result_array();
+    }
+
     public function refrescartablapet($bol = false, $q = null) {
         $aaa = '';
         if ($q == null) {
-            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId and users.activo=1 ORDER BY pets.objectId ASC";
+            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE pets.userId = users.objectId and users.activo=1 and pets.activo=1 ORDER BY pets.objectId ASC";
         }
 
         $query = $this->db->query($q);
@@ -1392,29 +1466,36 @@ class Admin extends CI_Controller {
             return $TABLE_REGISTROS;
         }
         foreach ($TABLE_REGISTROS as $dat) {
-            $aaa .= '<tr>
-                                        			<td>' . $dat['petName'] . '</td>
-                                                	<td>' . $dat['petSpecies'] . '</td>
-                                                	<td>' . $dat['petRace'] . '</td>
-                                                	<td>' . $dat['petGender'] . '</td>
-                                                	<td>' . $dat['petIncome'] . '</td>
-                                                	<td>' . $dat['first_name'] . '</td>
-                                                	<td>' . $dat['last_name'] . '</td>
-													<td><button id="petBtnAnamnesis" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#anamnesis">Ficha Atenciòn</button></td>
-													<td><button id="petBtnHistorial" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#historial">Ficha Clinica</button></td>
-												</tr>
-												<tr>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td><button id="nuevo-paciente" class="btn-warning btn-sm">Editar</button></td>
-													<td><button id="nuevo-paciente" class="btn-danger btn-sm">Eliminar</button></td>
-												
-												</tr>';
+            $aaa .= '<tr data-dataid="' . $dat['objectId'] . '">
+                                <td>' . $dat['petName'] . '</td>
+                                <td>' . $dat['petSpecies'] . '</td>
+                                <td>' . $dat['petRace'] . '</td>
+                                <td>' . $dat['petGender'] . '</td>
+                                <td>' . $dat['petIncome'] . '</td>
+                                <td>' . $dat['first_name'] . '</td>
+                                <td>' . $dat['last_name'] . '</td>
+                                <td><div class="btn-group">
+                                    <button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-gear"></i>  <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a class="txt-color-green registra-paciente"  href="#" onclick="return false;"><i class="fa fa-edit"></i> Editar</a>
+                                        </li>
+                                        <li>
+                                            <a class="txt-color-red delete" href="#"  onclick="return false;"><i class="fa fa-trash-o"></i> Eliminar</a>
+                                        </li>
+                                      
+                                        <li>
+                                            <a class="txt-color-red historial" href="#"  onclick="return false;"><i class="fa fa-paw" aria-hidden="true"></i></i> Ficha Clìnica</a>
+                                        </li>
+                                        <li>
+                                            <a class="txt-color-red anamnesis" href="#"  onclick="return false;" ><i class="fa fa-paw" aria-hidden="true"></i></i> Ficha Atenciòn</a>
+                                        </li>
+                                    </ul>
+                                  </div>
+                                </td>
+                          </tr> ';
         }
         return $aaa;
     }

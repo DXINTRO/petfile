@@ -1,3 +1,4 @@
+<style>span.multiselect-native-select{position:relative}span.multiselect-native-select select{border:0!important;clip:rect(0 0 0 0)!important;height:1px!important;margin:-1px -1px -1px -3px!important;overflow:hidden!important;padding:0!important;position:absolute!important;width:1px!important;left:50%;top:30px}.multiselect-container{position:absolute;list-style-type:none;margin:0;padding:0}.multiselect-container .input-group{margin:5px}.multiselect-container>li{padding:0}.multiselect-container>li>a.multiselect-all label{font-weight:700}.multiselect-container>li.multiselect-group label{margin:0;padding:3px 20px 3px 20px;height:100%;font-weight:700}.multiselect-container>li.multiselect-group-clickable label{cursor:pointer}.multiselect-container>li>a{padding:0}.multiselect-container>li>a>label{margin:0;height:100%;cursor:pointer;font-weight:400;padding:3px 20px 3px 40px}.multiselect-container>li>a>label.radio,.multiselect-container>li>a>label.checkbox{margin:0}.multiselect-container>li>a>label>input[type=checkbox]{margin-bottom:5px}.btn-group>.btn-group:nth-child(2)>.multiselect.btn{border-top-left-radius:4px;border-bottom-left-radius:4px}.form-inline .multiselect-container label.checkbox,.form-inline .multiselect-container label.radio{padding:3px 20px 3px 40px}.form-inline .multiselect-container li a label.checkbox input[type=checkbox],.form-inline .multiselect-container li a label.radio input[type=radio]{margin-left:-20px;margin-right:0}</style>
 <div class="alert alert-success addpetSuccess" style="display:none;">
     <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
     <strong></strong>
@@ -43,31 +44,30 @@
                         <?php
                         $aaa = '';
                         foreach ($TABLE_REGISTROS as $dat) {
-                            $aaa .= '<tr>
-                                        <td>' . $dat['petName'] . '</td>
+                            $aaa .= '<tr data-dataid="' . $dat['objectId'] . '">
+                                <td>' . $dat['petName'] . '</td>
                                 <td>' . $dat['petSpecies'] . '</td>
                                 <td>' . $dat['petRace'] . '</td>
                                 <td>' . $dat['petGender'] . '</td>
                                 <td>' . $dat['petIncome'] . '</td>
                                 <td>' . $dat['first_name'] . '</td>
                                 <td>' . $dat['last_name'] . '</td>
-                                <td><div class="btn-group" data-dataid="' . $dat['objectId'] . '">
+                                <td><div class="btn-group">
                                     <button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-gear"></i>  <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a class="txt-color-green" id="nuevo-paciente"  href="#" onclick="return false;"><i class="fa fa-edit"></i> Editar</a>
+                                            <a class="txt-color-green registra-paciente"  href="#" onclick="return false;"><i class="fa fa-edit"></i> Editar</a>
                                         </li>
                                         <li>
-                                            <a class="txt-color-red" href="#" onclick="return false;"><i class="fa fa-trash-o"></i> Eliminar</a>
-                                        </li>
-                                      
-                                        <li>
-                                            <a class="txt-color-red" href="#" id="petBtnHistorial" onclick="return false;"><i class="fa fa-paw" aria-hidden="true"></i></i> Ficha Clìnica</a>
+                                            <a class="txt-color-red delete" href="#"  onclick="return false;"><i class="fa fa-trash-o"></i> Eliminar</a>
                                         </li>
                                         <li>
-                                            <a class="txt-color-red" href="#" onclick="cargaDatosMascotaFicha(\'' . $dat['petName'] . '\',\'' . $dat['objectId'] . '\')return false;"><i class="fa fa-paw" aria-hidden="true"></i></i> Ficha Atenciòn</a>
+                                            <a class="txt-color-red historial" href="#"  onclick="return false;"><i class="fa fa-paw" aria-hidden="true"></i></i> Ficha Clìnica</a>
+                                        </li>
+                                        <li>
+                                            <a class="txt-color-red anamnesis" href="#"  onclick="return false;" ><i class="fa fa-paw" aria-hidden="true"></i></i> Ficha Atenciòn</a>
                                         </li>
                                     </ul>
                                   </div>
@@ -83,78 +83,137 @@
         </div> 
     </div>
 </div>
+
 <!-- MODAL PARA EL REGISTRO DE MASCOTAS-->
 
 <div class="modal fade" id="registra-paciente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg" style="width: 54%;">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"><b>Registro de Pacientes</b></h4>
-            </div>
-            <div class="modal-body">
-                <form id="formulario1" class="formulario"  onsubmit="return false;" >
-                    <div class="row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <label ></label>
-                                <input type="text" required="required" id="id-pacie" name="id-pacie" readonly style="visibility:hidden; height:5px;"/>
+            <form  id="addpets"  method="post"   action="addPets"class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><b>Registro de Pacientes</b></h4>
+                </div>
+                <div class="modal-body">
+                    <section id="content" class="table-layout">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Nombre Paciente:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <input type="text" class="form-control" id="petName" name="petName" onkeypress="return soloLetras(event)"  required>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label >Nombre Mascota:</label>
-                                <input type="text" class="form-control" id="petName" name="petName" onkeypress="return soloLetras(event)" minlength="5" required>
-                            </div><div class="form-group">
-                                <label >Especie:</label>
-                                <select class="form-control" name="petSpecies" id="petSpecies" >
-                                    <option value="Perro">Perro</option>
-                                    <option value="Gato">Gato</option>   
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label >Raza:</label>
-                                <input type="text" class="form-control" name="petRace" id="petRace" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required>
 
-                            </div>
-                            <div class="form-group">
-                                <label >Genero:</label>
-                                <select class="form-control" name="petGender" id="petGender" >
-                                    <option value="Macho">Macho</option>
-                                    <option value="Hembra">Hembra</option>   
-                                </select>
-                            </div><div class="form-group">
-                                <label for="usr">Edad:</label>
-                                <input type="number" class="form-control" name="petAge" id="petAge" placeholder="" maxlength="2" required>
-                            </div>
-                            <div class="form-group">
-                                <label >Color:</label>
-                                <input type="text" class="form-control" name="petColor" id="petColor" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required>
-                            </div>
-                            <div class="form-group">
-                                <label >Seleccione un Cliente:</label>
-                                <select class="form-control" name="petOwnerReg" id="petOwnerReg" >
-                                </select>     
-                            </div>
-                            <div class="form-group">
-                                <label >Observaciones:</label>
-                                <textarea  class="form-control" name="petHistory" id="petHistory" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required></textarea>
-
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Especie:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <select class="form-control valid" name="petSpecies" id="petSpecies">
+                                                <option value="Perro">Perro</option>
+                                                <option value="Gato">Gato</option>
+                                            </select> </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" value="Registrar" onclick="agregaPaciente()" class="btn btn-success" id="reg"/>
-                <input type="submit" value="Editar" class="btn btn-warning"  id="edi"/>
-            </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Raza:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <input type="text" class="form-control" name="petRace" id="petRace" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Genero:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <select class="form-control" name="petGender" id="petGender" >
+                                                <option value="Macho">Macho</option>
+                                                <option value="Hembra">Hembra</option>   
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Edad:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <input type="number" class="form-control" name="petAge" id="petAge" placeholder="" maxlength="2" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Color:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <input type="text" class="form-control" name="petColor" id="petColor" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Seleccione un Cliente:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <select class="form-control" name="petOwnerReg" id="petOwnerReg" >
+                                                <?php
+                                                foreach ($list_of_users as $row) {
+                                                    echo "<option value='" . $row['objectId'] . "'>" . $row['first_name'] ."-". $row['last_name'] . "</option>";
+                                                }
+                                                ?>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Observaciones:</label>
+                                    <div class="col-sm-7">
+                                        <div class="bs-component">
+                                            <textarea  class="form-control" name="petHistory" id="petHistory" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer"> <input type="hidden" name="pk_form" value="0" class="pk_form"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Guardar" class="btn btn-success" />
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
 <!-- MODAL PARA ANAMNESIS-->
 <div class="modal fade" id="anamnesis" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div  class="modal-dialog">   
+    <div class="modal-dialog" style="
+         width: 50%;
+         ">    
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -168,7 +227,9 @@
                             <input type="text" class="form-control" id="mascota-ficha" name="petWeight" value="..." onkeypress="return numeros(event)" readonly />
                             <input type="hidden" id="mascota-id" name="mascota-id" value="">
                         </div>
-                    </div>      
+                    </div>   
+                    <br/>
+                    <br/>
                     <div class="row">
                         <div class="col-sm-3">
                             <label for="lastName">Peso</label>
@@ -185,13 +246,13 @@
                         <div class="col-sm-3">
                             <label for="lastName">Mucosas</label>
                             <select class="form-control" name="petMucous" id="petMucous" >
-
                                 <option value="Congestionada">Congestionada</option>
                                 <option value="Normal">Normal</option>   
                             </select>
                         </div>
                     </div>
                     <br/>
+
                     <div class="row">
                         <div class="col-sm-3">
                             <label for="lastName">Frec. Resp.</label>
@@ -211,7 +272,7 @@
                         </div>
                         <div class="col-sm-3">
                             <label for="lastName">Pliege Cutaneo</label>
-                            <select class="form-control" name="petTllc" id="petTllc" >
+                            <select class="form-control" name="thickness" id="thickness" >
                                 <option value="< 1 Segundo">< 1 Segundo</option>
                                 <option value="> 1 Segundo">> 1 Segundo</option>   
                             </select>
@@ -219,9 +280,26 @@
                     </div>
                     <br/>
                     <div class="row">
-                        <div class="col-sm-12">
-                            <label for="petObservation">Medicamentos Prohibidos para la Mascota</label>
-                            <textarea class="form-control" rows="3" id="petObservation" name="petObservation" placeholder="Otras Observaciones"></textarea>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label">Medicamentos Prohibidos para la Mascota</label>
+                                <div class="col-sm-12">
+                                    <div class="bs-component">
+                                        <select size="5" name="lstmedicament" multiple="multiple" id="lstmedicament">
+                                              <?php
+                                                foreach ($products as $row) {
+                                                    echo "<option value='" . $row['objectId'] . "'>" . $row['product_name'] . "</option>";
+                                                }
+                                                ?>
+                                        </select>   
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="bs-component">
+                                        <textarea class="form-control" rows="3" id="lstmedicament_textarea" name="lstmedicament_textarea" placeholder="Otros"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <br/>
@@ -242,29 +320,22 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <label for="petPosiblesDiagnoses">Posibles Diagnosticos</label>
-                            <textarea class="form-control" rows="3" id="petPosiblesDiagnoses" name="petPosiblesDiagnoses" placeholder="Describir procedimientos"></textarea>
+                            <textarea class="form-control"  rows="3" id="petPosibles_Diagnosticos" name="petPosibles_Diagnosticos" placeholder="Describir procedimientos"></textarea>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-sm-12">
                             <label for="petDefinitiveDiagnoses">Diagnostico Definitivo</label>
-                            <textarea class="form-control" rows="3" id="petDefinitiveDiagnoses" name="petDefinitiveDiagnoses" placeholder="Describir procedimientos"></textarea>
+                            <textarea class="form-control" rows="3" id="petDiagnostico_Definitivo" name="petDiagnostico_Definitivo" placeholder="Describir procedimientos"></textarea>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-md-4">
                             <label for="petCboResponsibleTab">Responsable Ficha</label>
-                            <select class="form-control" name="petCboResponsibleTab" id="petCboResponsibleTab" >
+                            <select class="form-control" name="Responsable_doc" id="Responsable_doc" >
                                 <option>Seleccione Doctor</option>
-<!--                                                                    <?phSp
-                                $sql = "Select doctors.objectId,doctors.doctor_name from doctors where doctors.objectId order by doctors.objectId ASC";
-                                $rec = mysql_query($sql);
-                                while ($row = mysql_fetch_array($rec)) {
-                                    echo "<option value='" . $row['objectId'] . "'>" . $row['doctor_name'] . "</option>";
-                                }
-                                ?>-->
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -272,13 +343,6 @@
 
                             <select class="form-control" name="petCboResponsiblePet" id="petCboResponsiblePet" >
                                 <option >Seleccione Cliente</option>
-                                <!--<?phSp
-                                $sql = "SELECT users.objectId,users.first_name,users.last_name FROM users WHERE users.objectId ORDER BY users.objectId desc";
-                                $rec = mysql_query($sql);
-                                while ($row = mysql_fetch_array($rec)) {
-                                    echo "<option value='" . $row['objectId'] . "'>" . $row['first_name'] . "  " . $row['last_name'] . "</option>";
-                                }
-                                ?>-->
                             </select>
 
                         </div>
@@ -289,9 +353,9 @@
                     </div>
 
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal" onClick="guardarFichaMascota();">Registrar</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <div class="modal-footer"> <input type="hidden" name="pk_form" value="0" class="pk_form"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal" onClick="guardarFichaMascota();">Guardar</button>
 
                 </div>
             </form>
@@ -299,8 +363,6 @@
     </div>
 </div>
 <!--termina modal para anamnesis-->
-
-<!--Comienza modal historial-->
 
 <div class="modal fade" id="historial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div  class="modal-dialog">   
@@ -395,17 +457,15 @@
                 </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Registrar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            <div class="modal-footer"> <input type="hidden" name="pk_form" value="0" class="pk_form"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" >Guardar</button>
             </div>
         </div>
 
     </div>
 </div>
-<!--Termina modal para Historial>
- 
-<!-- Modal -->
+
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -413,14 +473,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Confirmar Eliminar</h4>
             </div>
-
             <div class="modal-body clearfix">
-
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" onclick="eliminarPaciente($(this))" class="btn btn-primary confirmAction">Aceptar</button>
+                <button type="button" id="elimina_paciente" class="btn btn-primary confirmAction">Aceptar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

@@ -32,6 +32,8 @@ $(document).ready(function () {
         adminProducts();
     } else if ($("#adminAddUser").length) {
         adminAddUser();
+    } else if ($("#admin_Pets").length) {
+        admin_Pets();
     } else if ($('#viewCartPage').length) {
         viewCartPage();
     } else if ($('#admin_Pets').length) {//new
@@ -888,7 +890,7 @@ $(document).ready(function () {
                 }
             });
         });
-        
+
         $("#addProduct").validate({
             rules: {
                 productName: {
@@ -910,7 +912,7 @@ $(document).ready(function () {
                     url: $(form).attr("action"),
                     data: $(form).serialize(),
                     success: function (data, status, jqXHR) {
-                      $("#adminManageProducts tbody").html(data);
+                        $("#adminManageProducts tbody").html(data);
                         form.reset();
                         $(".pk_form").val(0);
                         $("#addOrEditReservation > .panel-heading .panel-title").text("Agregar un Producto");
@@ -926,6 +928,7 @@ $(document).ready(function () {
     }
 
     function adminAddUser() {
+        dataaddpets = [];
         $(".adminNavbar .navAdminUserManage").addClass("active");
         $('body').on('click', '#generateUserReport', function (e) {
             e.preventDefault();
@@ -946,7 +949,7 @@ $(document).ready(function () {
             }
         });
         $('body').on('click', '.editUserFromAdmin', function (e) {
-
+            $("#addpetsbtn").hide();
             get($(this).attr('data-objectid'));
 
         });
@@ -956,11 +959,23 @@ $(document).ready(function () {
             $(".panelAddEditUser > .panel-heading .panel-title").text("Agregar Usuario");
 
         });
+        $('body').on('click', '#addpetsbtn', function (e) {
+
+            $('#registra-paciente').modal({
+                show: true,
+                backdrop: 'static'
+            });
+        });
+
         $('body').on('click', '#resett', function (e) {
             $('#accordion').click();
             $("#addUserAdmin")[0].reset();
             $(".panelAddEditUser > .panel-heading .panel-title").text("Agregar Usuario");
             $(".pk_form").val(0);
+
+        });
+        $('body').on('click', '#accordion', function (e) {
+            $("#addpetsbtn").show();
 
         });
         $('body').on('click', '.removeUserFromAdmin', function (e) {
@@ -1077,7 +1092,7 @@ $(document).ready(function () {
                 $.ajax({
                     type: "POST",
                     url: $(form).attr("action"),
-                    data: $(form).serialize(),
+                    data: $(form).serialize() + '&' + dataaddpets,
                     success: function (data, status, jqXHR) {
                         $(".addUserSuccess strong").text("USUARIO AGREGADO EXITOSAMENTE!");
                         $(".addUserSuccess").show();
@@ -1087,6 +1102,7 @@ $(document).ready(function () {
                                 $("#adminUsersTable").html($(data).find("#adminUsersTable").html());
                                 $('#accordion').click();
                                 $("#addUserAdmin")[0].reset();
+                                $('#addpets')[0].reset();
                                 $(".panelAddEditUser > .panel-heading .panel-title").text("Agregar Usuario");
                                 $(".pk_form").val(0);
                             }
@@ -1100,6 +1116,45 @@ $(document).ready(function () {
                         }
                     }
                 });
+            }
+        });
+
+        $("#addpets").validate({
+            rules: {
+                petName: {
+                    required: true
+                }, petSpecies: {
+                    required: true
+                }, petRace: {
+                    required: true
+                }, petGender: {
+                    required: true
+                }, petAge: {
+                    required: true
+                }, petColor: {
+                    required: true
+                }, petHistory: {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function (form) {
+                dataaddpets = $('#addpets').serialize();
+                $('#registra-paciente').modal('toggle');
             }
         });
 
@@ -1281,7 +1336,7 @@ $(document).ready(function () {
         });
 
         $('#nuevo-paciente').on('click', function () {
-            $('#formulario1')[0].reset();
+            $('#addpets')[0].reset();
             $('#pac').val('Registro');
             $('#edi').hide();
             $('#reg').show();
@@ -1310,6 +1365,151 @@ $(document).ready(function () {
             $('#confirmationModal .confirmAction').attr("data-confirm", "confirmDeleteAdmin");
             $('#confirmationModal .modal-body').text(" Esta seguro de Eliminar este pet ?");
             $('#confirmationModal').modal();
+        });
+    }
+
+    function admin_Pets() {
+
+        $('#lstmedicament').multiselect({});
+
+        $('body').on('click', '.historial', function (e) {
+            var id = $(this).closest('tr').attr('data-dataid');
+            console.log(id);
+            $('#historial').modal('toggle');
+
+        });
+        $('body').on('click', '.anamnesis', function (e) {
+            var id = $(this).closest('tr').attr('data-dataid');
+            console.log(id);
+            $('#anamnesis').modal('toggle');
+
+        });
+        $('body').on('click', '.delete', function (e) {
+            var id = $(this).closest('tr').attr('data-dataid');
+            $('#confirmationModal .confirmAction').attr("data-objectid", id);
+            $('#confirmationModal .confirmAction').attr("data-confirm", "confirmDeleteAdmin");
+            $('#confirmationModal .modal-body').text(" ESTÁ SEGURO DE ELIMINAR?");
+            $('#confirmationModal').modal('toggle');
+
+        });
+           $('#Search_pet').on('keyup', function () {
+            var dato = $('#Search_pet').val();
+            $.ajax({
+                type: 'POST',
+                url: 'busca_paciente',
+                data: 'dato=' + dato,
+                success: function (data) {
+                    var obj = jQuery.parseJSON(data);
+                    $('#agrega-registros tbody').html(obj.response);
+                }
+            });
+            return false;
+        });
+        $('body').on('click', '.registra-paciente', function (e) {
+            var id = $(this).closest('tr').attr('data-dataid');
+            $('#addpets')[0].reset();
+            $.ajax({
+                type: 'POST',
+                url: 'get_pet_modal',
+                data: 'id=' + id,
+                success: function (data) {
+                    try {
+                        var r = jQuery.parseJSON(data);
+                        if (r.data !== null) {
+
+                            $("[name='petName']").val(r.data.petName);
+                            $("[name='petSpecies']").val(r.data.petSpecies);
+                            $("[name='petRace']").val(r.data.petRace);
+                            $("[name='petGender']").val(r.data.petGender);
+                            $("[name='petAge']").val(r.data.petAge);
+                            $("[name='petColor']").val(r.data.petColor);
+                            $("[name='petOwnerReg']").val(r.data.last_name);
+                            $("[name='petHistory']").val(r.data.petHistory);
+                            $("[name='petOwnerReg']").val(r.data.userId);
+                            $(".pk_form").val(r.data.petsobjectId);
+                        }
+                    } catch (e) {
+                        console.log(e);
+                    }
+
+
+                }
+            });
+            $('#registra-paciente').modal('toggle');
+
+        });
+
+        $('body').on('click', '#nuevo-paciente', function (e) {
+            $('#registra-paciente').modal('toggle');
+
+        });
+        $('body').on('click', '#elimina_paciente', function (e) {
+
+            var id = $(this).attr('data-objectid');
+            $.ajax({
+                type: 'POST',
+                url: 'delete_pets',
+                data: 'id=' + id,
+                success: function (registro) {
+                    var obj = jQuery.parseJSON(registro);
+                    $('#confirmationModal').modal('hide');
+                    $('#agrega-registros tbody').html(obj.response);
+                    return false;
+                }
+            });
+
+        });
+
+        $("#addpets").validate({
+            rules: {
+                petName: {
+                    required: true
+                }, petSpecies: {
+                    required: true
+                }, petRace: {
+                    required: true
+                }, petGender: {
+                    required: true
+                }, petAge: {
+                    required: true
+                }, petColor: {
+                    required: true
+                }, petHistory: {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    type: 'POST',
+                    url: $(form).attr("action"),
+                    data: $(form).serialize(),
+                    success: function (registro) {
+                        var obj = jQuery.parseJSON(registro);
+                        if (obj.data != null) {
+                            $('#agrega-registros tbody').html(obj.data);
+                        }
+                        $('#addpets')[0].reset();
+                        $('#registra-paciente').modal('toggle');
+                                                    return false;
+
+                    }
+                });
+            }
         });
     }
 ///////////////////////////////////////////////////////////////////////////////
@@ -1397,9 +1597,6 @@ $(document).ready(function () {
         }
     });
 
-
-
-
 });
 
 function resetReservationModal(modalName) {
@@ -1409,67 +1606,7 @@ function resetReservationModal(modalName) {
     $('.reserveTimeSelect').prop('selectedIndex', 0);
     $('' + modalName + ' .alert').hide();
 }
-function agregaPaciente() {
-    $.ajax({
-        type: 'POST',
-        url: 'agrega_paciente',
-        data: $('#formulario1').serialize(),
-        success: function (data) {
-            var obj = jQuery.parseJSON(data);
-            if (data !== null) {
-                $('#agrega-registros tbody').html('');
-                $('#formulario1')[0].reset();
-                $('#agrega-registros tbody').html(obj.response);
-                $('#registra-paciente').modal('hide');
-                return false;
-            } else {
-                console.log('sin datos');
-            }
-        }
-    });
-    return false;
-}
 
-function eliminarPaciente(obj) {
-
-    var id = $(obj).attr('data-objectid');
-    console.log(id);
-    $.ajax({
-        type: 'POST',
-        url: 'elimina_paciente',
-        data: 'id=' + id,
-        success: function (registro) {
-            var obj = jQuery.parseJSON(registro);
-            $('#confirmationModal').modal('hide');
-            $('#agrega-registros tbody').html(obj.response);
-            return false;
-        }
-    });
-    return false;
-
-}
-
-function editarPaciente(id) {
-    $('#formulario1')[0].reset();
-    $.ajax({
-        type: 'POST',
-        url: 'edita_paciente',
-        data: 'id=' + id,
-        success: function (data) {
-            var obj = jQuery.parseJSON(data);
-            if (data !== null) {
-                $('#agrega-registros tbody').html('');
-                $('#formulario1')[0].reset();
-                $('#agrega-registros tbody').html(obj.response);
-                $('#registra-paciente').modal('hide');
-                return false;
-            } else {
-                console.log('sin datos');
-            }
-        }
-    });
-    return false;
-}
 
 function soloLetras(e) {
     key = e.keyCode || e.which;

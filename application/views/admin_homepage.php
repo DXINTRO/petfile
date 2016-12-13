@@ -70,10 +70,13 @@
                     <div >
                         <div class="row">
                             <div >
-                                <button type="submit" name="adduserbtn" class="btn btn-success pull-right" style="margin-left: 2em;">Guardar</button>
+                                <button type="submit"  class="btn btn-success pull-right" style="margin-left: 2em;">Guardar</button>
                             </div>
                             <div> 
-                                <button type="button" id="resett" class="btn btn pull-right">Cancelar</button>
+                                <button type="button" id="resett" class="btn btn pull-right" style="margin-left: 2em;">Cancelar</button>
+                            </div>
+                            <div> 
+                                <button type="button" id="addpetsbtn" class="btn btn-warning pull-right" style="margin-left: 2em;">Agregar Paciente</button>
                             </div>
 
                         </div>
@@ -325,8 +328,125 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" id="registra-paciente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 54%;">
+        <div class="modal-content">
+           <form  id="addpets"  method="post" class="form-horizontal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"><b>Registro de Pacientes</b></h4>
+            </div>
+            <div class="modal-body">
+                <section id="content" class="table-layout">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Nombre Paciente:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <input type="text" class="form-control" id="petName" name="petName" onkeypress="return soloLetras(event)"  required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Especie:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <select class="form-control valid" name="petSpecies" id="petSpecies">
+                                                <option value="Perro">Perro</option>
+                                                <option value="Gato">Gato</option>
+                                            </select> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Raza:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <input type="text" class="form-control" name="petRace" id="petRace" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Genero:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <select class="form-control" name="petGender" id="petGender" >
+                                                <option value="Macho">Macho</option>
+                                                <option value="Hembra">Hembra</option>   
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Edad:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <input type="number" class="form-control" name="petAge" id="petAge" placeholder="" maxlength="2" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Color:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <input type="text" class="form-control" name="petColor" id="petColor" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!--                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Seleccione un Cliente:</label>
+                                    <div class="col-sm-9">
+                                        <div class="bs-component">
+                                            <select class="form-control" name="petOwnerReg" id="petOwnerReg" >
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Observaciones:</label>
+                                    <div class="col-sm-7">
+                                        <div class="bs-component">
+                                            <textarea  class="form-control" name="petHistory" id="petHistory" onkeypress="return soloLetras(event)" placeholder="" minlength="3" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+                    </form>
+        </div>
+    </div>
+</div>
+
 <div class="footer">
     <p>&copy; PetFile 2016</p>
 </div>
 
-</div>

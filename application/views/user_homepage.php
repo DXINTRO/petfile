@@ -3,7 +3,8 @@
     <button type="button" class="close" data-hide="alert" aria-hidden="true">&times;</button>
     <strong>Reserva agregada Exitosamente!!.</strong>
 </div>
-<!--<div class="row">
+<!--
+<div class="row">
     <div class="col-md-6">
         <div class="form-group">
             <label class="col-sm-3 control-label">Paciente:</label>

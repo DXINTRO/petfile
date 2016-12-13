@@ -36,6 +36,7 @@
         <script src="<?php echo base_url(); ?>assets/js/jquery.validate.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery.ui.autocomplete.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/select2-3.4.5/select2.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/bootstrap-multiselect.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/site.js"></script>
 
     </body>
