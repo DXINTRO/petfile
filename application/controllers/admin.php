@@ -485,26 +485,18 @@ class Admin extends CI_Controller {
 
     public function userorder() {
         if ($this->session->userdata('admin_objectId')) {
-            $arrayAllowed = array(4);
-            $this->checkAllowed($arrayAllowed);
-
             $navbarData['userLevel'] = $this->session->userdata('user_level');
             $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
 
-            $query = $this->db->query("SELECT batchOrderId,usersId,active from users_order 
-						WHERE batchOrderId IS NOT NULL
-						GROUP BY batchOrderId 
-						ORDER BY orderDate DESC;");
+            $query = $this->db->query("SELECT * FROM clinica.prescription_view WHERE petsactivo='1'
+						ORDER BY idprescription DESC;");
 
-            $ordersData['list_of_orders'] = $query->result_array();
+            $ordersData['TABLE_REGISTROS'] = $query->result_array();
             $tableOrder['order_table'] = $this->load->view('admin_order_table', $ordersData, true);
-
-
             $data['content_body'] = $this->load->view('admin_order', $tableOrder, true);
-
             $this->load->view("layout", $data);
         } else {
             redirect("/");

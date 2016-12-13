@@ -1805,7 +1805,6 @@ function resetReservationModal(modalName) {
     $('' + modalName + ' .alert').hide();
 }
 
-
 function soloLetras(e) {
     key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toLowerCase();
