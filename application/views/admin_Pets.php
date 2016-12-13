@@ -363,7 +363,7 @@
                     </div>
 
                 </div>
-                <div class="modal-footer"> <input type="hidden" name="pk_form" value="0" class="pk_form"/>
+                <div class="modal-footer"> <input type="hidden" name="pk_form" value="0" class="pk_formA"/>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary" >Guardar</button>
 
@@ -376,6 +376,7 @@
 
 <div class="modal fade" id="historial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div  class="modal-dialog">   
+          <form  id="historialform"  method="post"   action="addHistory" class="form-horizontal">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -385,14 +386,14 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <label for="petCboVacine">Vacuna</label>
-                        <select class="form-control" name="petCboVacine" id="petCboVacine" >
-                            <option value="Rural">Si</option>
+                        <select class="form-control" name="petCboVaccine" id="petCboVaccine" >
+                            <option value="Si">Si</option>
                             <option value="No">No</option>
                         </select>
                     </div>
                     <div class="col-sm-3">
                         <label for="petCboDeworning">Desparasitaciones</label>
-                        <select class="form-control" name="petCboDeworning" id="petCboDeworning" >
+                        <select class="form-control" name="petCboDeworming" id="petCboDeworming" >
                             <option value="Si">Si</option>
                             <option value="No">No</option>
                         </select>
@@ -414,13 +415,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3"><textarea class="form-control" rows="3" name="petAppliedProduct" id="petAppliedProduct" placeholder="Productos Aplicados"></textarea></div>
+                    <div class="col-sm-3"><textarea class="form-control" rows="3" name="petAppliedProducts" id="petAppliedProducts" placeholder="Productos Aplicados"></textarea></div>
                     <div class="col-sm-3"><textarea class="form-control" rows="3" name="petDateDeworming" id="petDateDeworming" placeholder="Fechas Desparasitaciones"></textarea></div>
                     <div class="col-sm-3"><textarea class="form-control" rows="3" name="petDietApplied" id="petDietApplied" placeholder="Dietas Aplicadas"></textarea></div>
 
                     <div class="col-sm-3">
                         <label for="petCboStatusReproductive">Estado Reproductivo</label>
-                        <select class="form-control" name="petCboStatusReproductive" id="petCboStatusReproductive" >
+                        <select class="form-control" name="petCboReproductiveStatus" id="petCboReproductiveStatus" >
                             <option value="Si">Si</option>
                             <option value="No">No</option>
                         </select>
@@ -430,7 +431,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <label for="petObservatiosHistory">Observaciones</label>
-                        <textarea class="form-control" rows="3" name="petObservatiosHistory" id="petObservatiosHistory" placeholder="Otras Observaciones"></textarea>
+                        <textarea class="form-control" rows="3" name="petObservationHistory" id="petObservationHistory" placeholder="Otras Observaciones"></textarea>
                     </div>
                 </div>
                 <br/>
@@ -447,16 +448,16 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label for="petResponsibleHistory">Responsable Historial</label>
-                        <select class="form-control" name="petResponsibleHistory" id="petResponsibleHistory" >
-                            <option value="Donald Trump">Si</option>
-                            <option value="Hilary Clinton">No</option>
+                        <select class="form-control" name="petCboResponbibleHistory" id="petCboResponbibleHistory" >
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label for="petOwner">Dueño Mascota</label>
-                        <select class="form-control" name="petOwner" id="petOwner" >
-                            <option value="Obama">Si</option>
-                            <option value="Michelle">No</option>
+                        <select class="form-control" name="petCboPetOwner" id="petCboPetOwner" >
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
                         </select>
                     </div>
                     <div class="col-md-4">
@@ -467,12 +468,12 @@
                 </div>
 
             </div>
-            <div class="modal-footer"> <input type="hidden" name="pk_form" value="0" class="pk_form"/>
+            <div class="modal-footer"> <input type="hidden" name="pk_form" value="0" class="pk_formH"/>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" >Guardar</button>
+                <button type="submit" class="btn btn-primary" >Guardar</button>
             </div>
         </div>
-
+   </form>
     </div>
 </div>
 

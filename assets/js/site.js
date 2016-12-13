@@ -1374,10 +1374,31 @@ $(document).ready(function () {
 
         $('body').on('click', '.historial', function (e) {
             var id = $(this).closest('tr').attr('data-dataid');
-            console.log(id);
-            $('#historial').modal('toggle');
-
+            $('#historialform')[0].reset();
+            $.ajax({
+                type: 'POST',
+                url: 'get_history_modal',
+                data: 'id=' + id,
+                success: function (data) {
+                    try {
+                        var r = jQuery.parseJSON(data);
+                        if (r.data !== null) {
+                            for (var i in r.data) {
+                                $("[name=" + i + "]").val(r.data[i]).trigger("chosen:updated");
+                            }
+                        }
+                            $(".pk_formH").val(id);
+                        $("#petCboVaccine").trigger("change");
+                        $("#petCboDeworming").trigger("change");
+                        $("#petCboDiet").trigger("change");
+                        $('#historial').modal('toggle');
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
+            });
         });
+
         $('body').on('click', '.anamnesis', function (e) {
             var id = $(this).closest('tr').attr('data-dataid');
             var name = $(this).closest('tr').find('td:nth-child(1)').text();
@@ -1393,14 +1414,11 @@ $(document).ready(function () {
                             for (var i in r.data) {
                                 $("[name=" + i + "]").val(r.data[i]).trigger("chosen:updated");
                             }
-                            $(".pk_form").val(r.data.petId);
                             $("[name='petname']").val(name);
                             $("#lstmedicament").val(r.dataarray);
-
-// Then refresh
-
                             $("#lstmedicament").multiselect("refresh");
                         }
+                            $(".pk_formA").val(id);
                         $('#anamnesis').modal('toggle');
                     } catch (e) {
                         console.log(e);
@@ -1409,6 +1427,30 @@ $(document).ready(function () {
             });
 
         });
+
+        $("#petCboVaccine").change(function () {
+            if ($(this).val() !== 'Si') {
+                $("[name='petAppliedProducts']").val('').prop("disabled", true);
+            } else {
+                $("[name='petAppliedProducts']").prop("disabled", false);
+            }
+        });
+
+        $("#petCboDeworming").change(function () {
+            if ($(this).val() !== 'Si') {
+                $("[name='petDateDeworming']").val('').prop("disabled", true);
+            } else {
+                $("[name='petDateDeworming']").prop("disabled", false);
+            }
+        });
+        $("#petCboDiet").change(function () {
+            if ($(this).val() !== 'Si') {
+                $("[name='petDietApplied']").val('').prop("disabled", true);
+            } else {
+                $("[name='petDietApplied']").prop("disabled", false);
+            }
+        });
+
         $('body').on('click', '.delete', function (e) {
             var id = $(this).closest('tr').attr('data-dataid');
             $('#confirmationModal .confirmAction').attr("data-objectid", id);
@@ -1577,7 +1619,41 @@ $(document).ready(function () {
                     data: $(form).serialize(),
                     success: function (registro) {
                         $('#anamnesis').modal('toggle');
-                          $("#lstmedicament").multiselect("refresh");
+                        $("#lstmedicament").multiselect("refresh");
+                        return false;
+
+                    }
+                });
+            }
+        });
+        $("#historialform").validate({
+            rules: {
+                petObservationHistory: {
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    type: 'POST',
+                    url: $(form).attr("action"),
+                    data: $(form).serialize(),
+                    success: function (registro) {
+                        $('#historial').modal('toggle');
                         return false;
 
                     }

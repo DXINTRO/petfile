@@ -1535,13 +1535,12 @@ class Admin extends CI_Controller {
         if ($query = $this->db->query($Q)) {
             $datos = $query->result();
             if (!empty($datos)) {
-                $dataarray=[];
+                $dataarray = [];
                 if ($query2 = $this->db->query("SELECT idproducts_pets FROM clinica.products_pets where idpet='" . $id . "';")) {
                     $array = $query2->result();
                     foreach ($array as $value) {
                         foreach ($value as $valuse) {
-                        array_push($dataarray, $valuse);
-                            
+                            array_push($dataarray, $valuse);
                         }
                     }
                 }
@@ -1569,7 +1568,7 @@ class Admin extends CI_Controller {
         $petDefinitiveDiagnoses = $this->input->post('petDiagnostico_Definitivo');
         $Responsable_doc = $this->input->post('Responsable_doc');
         $userid = $this->input->post('userid');
-        if ($this->db->query("DELETE FROM `clinica`.`constant_physiological` WHERE `petId`='" . $petId . "';")) {
+        if ($this->db->query("DELETE FROM `clinica`.`constant_physiological` WHERE `petId`='" . $petId . "';")) {}
             $q = "INSERT INTO `clinica`.`constant_physiological`
                                 (
                                 `petId`,
@@ -1613,7 +1612,7 @@ class Admin extends CI_Controller {
             if ($this->db->query($q)) {
                 if ($this->db->query("DELETE FROM `clinica`.`products_pets` WHERE `idpet`='" . $petId . "';")) {
 
-                    $list = (isset($_POST['lstmedicament']))?$_POST['lstmedicament']:[];
+                    $list = (isset($_POST['lstmedicament'])) ? $_POST['lstmedicament'] : [];
                     foreach ($list as $key => $value) {
                         $r = "INSERT INTO `clinica`.`products_pets`
                                         (`idproducts_pets`,
@@ -1630,7 +1629,97 @@ class Admin extends CI_Controller {
             } else {
                 echo null;
             }
+        
+    }
+
+    public function get_history_modal() {
+        $id = $this->input->post("id");
+
+        $Q = "SELECT `history`.`objectId`,
+                `history`.`petId`,
+                `history`.`petCboVaccine`,
+                `history`.`petCboDeworming`,
+                `history`.`petCboDiet`,
+                `history`.`petAppliedProducts`,
+                `history`.`petDateDeworming`,
+                `history`.`petCboProvenance`,
+                `history`.`petCboReproductiveStatus`,
+                `history`.`petDietApplied`,
+                `history`.`petObservationHistory`,
+                `history`.`petPreviousDiagnostic`,
+                `history`.`petCboResponbibleHistory`,
+                `history`.`petCboPetOwner`,
+                `history`.`petHistorialCreation`
+            FROM `clinica`.`history` 
+             WHERE
+                    `history`.`petId` = '" . $id . "';";
+
+        if ($query = $this->db->query($Q)) {
+            $datos = $query->result();
+            if (!empty($datos)) {
+                echo '{"data":' . json_encode($datos[0]) . '}';
+            } else {
+                echo '{"data":null}';
+            }
         }
+    }
+
+    public function addHistory() {
+        $petId = $this->input->post('pk_form');
+        $petCboVaccine = $this->input->post('petCboVaccine');
+        $petCboDeworming = $this->input->post('petCboDeworming');
+        $petCboDiet = $this->input->post('petCboDiet');
+        $petPetProvenance = $this->input->post('petPetProvenance');
+        $petAppliedProducts = $this->input->post('petAppliedProducts');
+        $petDateDeworming = $this->input->post('petDateDeworming');
+        $petDietApplied = $this->input->post('petDietApplied');
+        $petCboStatusReproductive = $this->input->post('petCboReproductiveStatus');
+        $petObservationHistory = $this->input->post('petObservationHistory');
+        $petPreviousDiagnostic = $this->input->post('petPreviousDiagnostic');
+        $petCboResponbibleHistory = $this->input->post('petCboResponbibleHistory');
+        $petCboPetOwner = $this->input->post('petCboPetOwner');
+           if ($this->db->query("DELETE FROM `clinica`.`history` WHERE `petId`='" . $petId . "';")) {}
+               $q="INSERT INTO `clinica`.`history`
+                                    (
+                                    `petId`,
+                                    `petCboVaccine`,
+                                    `petCboDeworming`,
+                                    `petCboDiet`,
+                                    `petAppliedProducts`,
+                                    `petDateDeworming`,
+                                    `petCboProvenance`,
+                                    `petCboReproductiveStatus`,
+                                    `petDietApplied`,
+                                    `petObservationHistory`,
+                                    `petPreviousDiagnostic`,
+                                    `petCboResponbibleHistory`,
+                                    `petCboPetOwner`,
+                                    `petHistorialCreation`)
+                                    VALUES
+                                    (
+                                    '" . $petId . "',
+                                    '" . $petCboVaccine . "',
+                                    '" . $petCboDeworming . "',
+                                    '" . $petCboDiet . "',
+                                    '" . $petAppliedProducts . "',
+                                    '" . $petDateDeworming . "',
+                                    '" . $petPetProvenance . "',
+                                    '" . $petCboStatusReproductive . "',
+                                    '" . $petDietApplied . "',
+                                    '" . $petObservationHistory . "',
+                                    '" . $petPreviousDiagnostic . "',
+                                    '" . $petCboResponbibleHistory . "',
+                                    '" . $petCboPetOwner . "',
+                                    NOW());";
+                  if ($this->db->query($q)) {
+                           set_status_header((int) 200);
+                  }else{
+                           set_status_header((int) 500);
+                  }
+               
+           
+        
+        
     }
 
 }
