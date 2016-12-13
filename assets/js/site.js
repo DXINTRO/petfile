@@ -1387,11 +1387,35 @@ $(document).ready(function () {
                                 $("[name=" + i + "]").val(r.data[i]).trigger("chosen:updated");
                             }
                         }
-                            $(".pk_formH").val(id);
+                        $(".pk_formH").val(id);
                         $("#petCboVaccine").trigger("change");
                         $("#petCboDeworming").trigger("change");
                         $("#petCboDiet").trigger("change");
                         $('#historial').modal('toggle');
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
+            });
+        });
+        $('body').on('click', '.receta', function (e) {
+            var id = $(this).closest('tr').attr('data-dataid');
+            $("[name='petObservationHistory']").val('');
+            $.ajax({
+                type: 'POST',
+                url: 'get_prescription_modal',
+                data: 'id=' + id,
+                success: function (data) {
+                    try {
+                        var r = jQuery.parseJSON(data);
+                        $(".Paciente").text(r.data.petName);
+                        $(".Especie").text(r.data.petSpecies);
+                        $(".Propietario").text(r.data.first_name+'-'+r.data.last_name);
+                        $(".RUT").text(r.data.user_rut);
+                        $(".Domicilio").text(r.data.address);
+                        $(".ContraIndicaciones").text(r.data.contraindicaciones);
+                        $("[name='petObservationHistory']").val(r.data.Formulario_receta);
+                        $('#prescription').modal('toggle');
                     } catch (e) {
                         console.log(e);
                     }
@@ -1418,7 +1442,7 @@ $(document).ready(function () {
                             $("#lstmedicament").val(r.dataarray);
                             $("#lstmedicament").multiselect("refresh");
                         }
-                            $(".pk_formA").val(id);
+                        $(".pk_formA").val(id);
                         $('#anamnesis').modal('toggle');
                     } catch (e) {
                         console.log(e);

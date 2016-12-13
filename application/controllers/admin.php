@@ -1497,6 +1497,9 @@ class Admin extends CI_Controller {
                                         <li>
                                             <a class="txt-color-red anamnesis" href="#"  onclick="return false;" ><i class="fa fa-paw" aria-hidden="true"></i></i> Ficha Atenciòn</a>
                                         </li>
+                                          <li>
+                                            <a class="txt-color-red receta" href="#"  onclick="return false;" ><i class="fa fa-paw" aria-hidden="true"></i></i> Nueva Receta</a>
+                                        </li>
                                     </ul>
                                   </div>
                                 </td>
@@ -1568,8 +1571,10 @@ class Admin extends CI_Controller {
         $petDefinitiveDiagnoses = $this->input->post('petDiagnostico_Definitivo');
         $Responsable_doc = $this->input->post('Responsable_doc');
         $userid = $this->input->post('userid');
-        if ($this->db->query("DELETE FROM `clinica`.`constant_physiological` WHERE `petId`='" . $petId . "';")) {}
-            $q = "INSERT INTO `clinica`.`constant_physiological`
+        if ($this->db->query("DELETE FROM `clinica`.`constant_physiological` WHERE `petId`='" . $petId . "';")) {
+            
+        }
+        $q = "INSERT INTO `clinica`.`constant_physiological`
                                 (
                                 `petId`,
                                 `petWeight`,
@@ -1609,27 +1614,26 @@ class Admin extends CI_Controller {
                                  '" . $Responsable_doc . "',
                                  '" . $userid . "',
                                 NOW());";
-            if ($this->db->query($q)) {
-                if ($this->db->query("DELETE FROM `clinica`.`products_pets` WHERE `idpet`='" . $petId . "';")) {
+        if ($this->db->query($q)) {
+            if ($this->db->query("DELETE FROM `clinica`.`products_pets` WHERE `idpet`='" . $petId . "';")) {
 
-                    $list = (isset($_POST['lstmedicament'])) ? $_POST['lstmedicament'] : [];
-                    foreach ($list as $key => $value) {
-                        $r = "INSERT INTO `clinica`.`products_pets`
+                $list = (isset($_POST['lstmedicament'])) ? $_POST['lstmedicament'] : [];
+                foreach ($list as $key => $value) {
+                    $r = "INSERT INTO `clinica`.`products_pets`
                                         (`idproducts_pets`,
                                         `idpet`)
                                         VALUES
                                         ('" . $value . "',
                                         '" . $petId . "');";
-                        if (!$this->db->query($r)) {
-                            echo 'fail';
-                        }
+                    if (!$this->db->query($r)) {
+                        echo 'fail';
                     }
-                    set_status_header((int) 200);
                 }
-            } else {
-                echo null;
+                set_status_header((int) 200);
             }
-        
+        } else {
+            echo null;
+        }
     }
 
     public function get_history_modal() {
@@ -1678,8 +1682,10 @@ class Admin extends CI_Controller {
         $petPreviousDiagnostic = $this->input->post('petPreviousDiagnostic');
         $petCboResponbibleHistory = $this->input->post('petCboResponbibleHistory');
         $petCboPetOwner = $this->input->post('petCboPetOwner');
-           if ($this->db->query("DELETE FROM `clinica`.`history` WHERE `petId`='" . $petId . "';")) {}
-               $q="INSERT INTO `clinica`.`history`
+        if ($this->db->query("DELETE FROM `clinica`.`history` WHERE `petId`='" . $petId . "';")) {
+            
+        }
+        $q = "INSERT INTO `clinica`.`history`
                                     (
                                     `petId`,
                                     `petCboVaccine`,
@@ -1711,15 +1717,27 @@ class Admin extends CI_Controller {
                                     '" . $petCboResponbibleHistory . "',
                                     '" . $petCboPetOwner . "',
                                     NOW());";
-                  if ($this->db->query($q)) {
-                           set_status_header((int) 200);
-                  }else{
-                           set_status_header((int) 500);
-                  }
-               
-           
-        
-        
+        if ($this->db->query($q)) {
+            set_status_header((int) 200);
+        } else {
+            set_status_header((int) 500);
+        }
+    }
+
+    function get_prescription_modal() {
+        $id = $this->input->post("id");
+        $q = "SELECT * FROM clinica.prescription_view where petsobjectId= '" . $id . "';";
+
+        if ($query = $this->db->query($q)) {
+            $datos = $query->result();
+            if (!empty($datos)) {
+                echo '{"data":' . json_encode($datos[0]) . '}';
+            } else {
+                echo '{"data":null}';
+            }
+        } else {
+            set_status_header((int) 500);
+        }
     }
 
 }
