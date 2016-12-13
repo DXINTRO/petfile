@@ -1740,4 +1740,21 @@ class Admin extends CI_Controller {
         }
     }
 
+    function addRecetta() {
+        $id = $this->input->post("id");
+        $campo = $this->input->post("campo");
+        if ($campo != null) {
+            $del = "DELETE FROM `clinica`.`prescription` WHERE `idpets`= '" . $id . "'";
+            $this->db->query($del);
+            $Q = "INSERT INTO `clinica`.`prescription` (`Formulario`, `Fecha_creacion`, `idpets`) VALUES ('" . $campo . "',NOW(), '" . $id . "');";
+        } else {
+            $Q = "DELETE FROM `clinica`.`prescription` WHERE `idpets`= '" . $id . "'";
+        }
+        if ($this->db->query($Q)) {
+            set_status_header((int) 200);
+        } else {
+            set_status_header((int) 202);
+        }
+    }
+
 }

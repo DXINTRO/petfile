@@ -579,7 +579,7 @@
                             <label class="col-sm-12 control-label">RP:</label>
                             <div class="col-sm-12">
                                 <div class="bs-component">
-                                    <textarea class="form-control" rows="13" name="petObservationHistory" id="petObservationHistory" placeholder="Receta"></textarea>
+                                    <textarea class="form-control" rows="13" name="petrecetta" id="petrecetta" placeholder="Si deja en blanco no sera guardado"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -629,7 +629,7 @@
             </div>
             <div class="modal-footer"> <input type="hidden" name="pk_form" value="0" class="pk_formP"/>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary" >Guardar</button>
+                <button type="button" id="addRecetta" class="btn btn-primary" >Guardar</button>
             </div>
         </div>
     </div>

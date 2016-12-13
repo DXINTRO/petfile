@@ -1400,7 +1400,7 @@ $(document).ready(function () {
         });
         $('body').on('click', '.receta', function (e) {
             var id = $(this).closest('tr').attr('data-dataid');
-            $("[name='petObservationHistory']").val('');
+            $("[name='petrecetta']").val('');
             $.ajax({
                 type: 'POST',
                 url: 'get_prescription_modal',
@@ -1408,14 +1408,34 @@ $(document).ready(function () {
                 success: function (data) {
                     try {
                         var r = jQuery.parseJSON(data);
-                        $(".Paciente").text(r.data.petName);
-                        $(".Especie").text(r.data.petSpecies);
-                        $(".Propietario").text(r.data.first_name+'-'+r.data.last_name);
-                        $(".RUT").text(r.data.user_rut);
-                        $(".Domicilio").text(r.data.address);
-                        $(".ContraIndicaciones").text(r.data.contraindicaciones);
-                        $("[name='petObservationHistory']").val(r.data.Formulario_receta);
+                        if (r.data !== null) {
+                            $(".Paciente").text(r.data.petName);
+                            $(".Especie").text(r.data.petSpecies);
+                            $(".Propietario").text(r.data.first_name + '-' + r.data.last_name);
+                            $(".RUT").text(r.data.user_rut);
+                            $(".Domicilio").text(r.data.address);
+                            $(".ContraIndicaciones").text(r.data.contraindicaciones);
+                            $("[name='petrecetta']").val(r.data.Formulario_receta);
+                        }
                         $('#prescription').modal('toggle');
+                        $(".pk_formP").val(id);
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
+            });
+        });
+        $('body').on('click', '#addRecetta', function (e) {
+            var id = $(".pk_formP").val();
+            var text = $("[name='petrecetta']").val();
+            $.ajax({
+                type: 'POST',
+                url: 'addRecetta',
+                data: 'id=' + id + '&campo=' + text,
+                success: function (data) {
+                    try {
+                        $('#prescription').modal('toggle');
+                        $(".pk_formP").val(0);
                     } catch (e) {
                         console.log(e);
                     }
