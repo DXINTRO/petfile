@@ -42,11 +42,11 @@
 
                 </tr>
                 <tr>
-                    <td><p>Hospitalizaci&oacute;n (Valor Diario: $ 3000.00):</p>
+                    <td><p>Hospitalizaci&oacute;n (Valor Diario: $ 60000.00):</p>
                         <p><?php echo ' Desde: ' . $reportDateFrom . ' Hasta: ' . $reportDateto; ?></p>
                         <p>N&uacute;mero de d&iacute;as: <?php echo $daysNumber ?></p>
                     </td>
-                    <td style='text-align:right;vertical-align: bottom;'>$ <?php echo number_format($daysNumber * 3000, 2); ?></td>
+                    <td style='text-align:right;vertical-align: bottom;'>$ <?php echo number_format($daysNumber * 60000, 2); ?></td>
                 </tr>
                 <tr>
                     <td><?php echo utf8_decode($surgerys[0]['service_name']); ?>
@@ -57,7 +57,7 @@
             <tfoot>
                 <tr>
                     <td></td>
-                    <td style="text-align:right;"><br />TOTAL :$ <?php echo number_format(($daysNumber * 3000) + $surgerys[0]['price'], 2); ?></td>
+                    <td style="text-align:right;"><br />TOTAL :$ <?php echo number_format(($daysNumber * 60000) + $surgerys[0]['price'], 2); ?></td>
                 </tr>
             </tfoot>
         </table>
