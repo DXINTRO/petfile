@@ -1130,7 +1130,7 @@ class Admin extends CI_Controller {
         $inputPassword = $this->input->post("inputPassword");
         $username = $this->input->post("username");
         $firstName = $this->input->post("firstName");
-        $lastName = $this->input->post("firstName");
+        $lastName = $this->input->post("lastName");
         $userLevel = $this->input->post("userLevel");
         $address = $this->input->post("address");
         $city = $this->input->post("city");
