@@ -533,8 +533,6 @@ $(document).ready(function () {
             }
         });
 
-
-
         $('body').on('click', '.adminEditReservation', function (event) {
             $('#collapseOne').collapse('show');
             $('#saveChangesReservation').show();
@@ -1032,6 +1030,7 @@ $(document).ready(function () {
                                 $('#accordion').click();
                                 $("#addUserAdmin")[0].reset();
                                 $('#addpets')[0].reset();
+                                dataaddpets = [];
                                 $(".panelAddEditUser > .panel-heading .panel-title").text("Agregar Usuario");
                                 $(".pk_form").val(0);
                             }
