@@ -1327,7 +1327,7 @@ class Admin extends CI_Controller {
     public function busca_paciente() {
         $dato = $this->input->post('dato');
         if (!empty($dato)) {
-            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petAge,pets.petColor,pets.petHistory,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE (petName LIKE '%" . $dato . "%' or petSpecies LIKE '%" . $dato . "%' or first_name like '%" . $dato . "%' or last_name like '%" . $dato . "%')  and pets.userId = users.objectId and users.activo = 1 ORDER BY pets.objectId ASC";
+            $q = "SELECT pets.objectId,pets.petName,pets.petSpecies,pets.petRace,pets.petGender,pets.petAge,pets.petColor,pets.petHistory,pets.petIncome,users.first_name,users.last_name FROM pets,users WHERE (petName LIKE '%" . $dato . "%' or petSpecies LIKE '%" . $dato . "%' or first_name like '%" . $dato . "%' or last_name like '%" . $dato . "%')  and pets.userId = users.objectId and users.activo = 1 and pets.activo = 1 ORDER BY pets.objectId ASC";
             $datos = $this->refrescartablapet(false, $q);
         } else {
             $datos = $this->refrescartablapet();
