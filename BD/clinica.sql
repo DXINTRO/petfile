@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `clinica` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `clinica`;
 -- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
 -- Host: localhost    Database: clinica
@@ -260,9 +262,9 @@ CREATE TABLE `prescription` (
   `idprescription` int(11) NOT NULL AUTO_INCREMENT,
   `Formulario` longtext,
   `Fecha_creacion` datetime DEFAULT NULL,
-  `idpets` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idprescription`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `idpets` int(11) NOT NULL,
+  PRIMARY KEY (`idprescription`,`idpets`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,7 +273,7 @@ CREATE TABLE `prescription` (
 
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
-INSERT INTO `prescription` VALUES (1,'sdadasdasd','2016-12-13 18:21:08','1');
+INSERT INTO `prescription` VALUES (5,'sadasdasd','2016-12-13 20:20:38',2),(6,'juna','2016-12-13 20:21:56',3),(7,'12345678 receta ','2016-12-13 20:22:04',1);
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -546,7 +548,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `prescription_view` AS select `pets`.`objectId` AS `petsobjectId`,`prescription`.`idprescription` AS `idprescription`,`prescription`.`Formulario` AS `Formulario`,`prescription`.`Fecha_creacion` AS `Fecha_creacion_prescription`,`prescription`.`idpets` AS `idpets`,`users`.`user_rut` AS `user_rut`,`users`.`username` AS `username`,`users`.`first_name` AS `first_name`,`users`.`last_name` AS `last_name`,`users`.`address` AS `address`,`users`.`city` AS `city`,`users`.`contactNo` AS `contactNo`,`pets`.`petName` AS `petName`,`pets`.`petSpecies` AS `petSpecies`,`pets`.`petRace` AS `petRace`,`pets`.`petGender` AS `petGender`,`pets`.`petAge` AS `petAge`,`pets`.`petColor` AS `petColor`,`pets`.`petHistory` AS `petHistory`,`pets`.`petIncome` AS `petIncome`,`pets`.`userId` AS `userId`,`prescription`.`Formulario` AS `Formulario_receta`,group_concat(left(`products`.`product_name`,25),'' separator ',') AS `contraindicaciones`,`pets`.`activo` AS `petsactivo` from ((((`users` join `pets` on((`users`.`objectId` = `pets`.`userId`))) join `prescription` on((`pets`.`objectId` = `prescription`.`idpets`))) left join `products_pets` on((`pets`.`objectId` = `products_pets`.`idpet`))) left join `products` on((`products_pets`.`idproducts_pets` = `products`.`objectId`))) */;
+/*!50001 VIEW `prescription_view` AS select `pets`.`objectId` AS `petsobjectId`,`prescription`.`idprescription` AS `idprescription`,`prescription`.`Formulario` AS `Formulario`,`prescription`.`Fecha_creacion` AS `Fecha_creacion_prescription`,`prescription`.`idpets` AS `idpets`,`users`.`user_rut` AS `user_rut`,`users`.`username` AS `username`,`users`.`first_name` AS `first_name`,`users`.`last_name` AS `last_name`,`users`.`address` AS `address`,`users`.`city` AS `city`,`users`.`contactNo` AS `contactNo`,`pets`.`petName` AS `petName`,`pets`.`petSpecies` AS `petSpecies`,`pets`.`petRace` AS `petRace`,`pets`.`petGender` AS `petGender`,`pets`.`petAge` AS `petAge`,`pets`.`petColor` AS `petColor`,`pets`.`petHistory` AS `petHistory`,`pets`.`petIncome` AS `petIncome`,`pets`.`userId` AS `userId`,`prescription`.`Formulario` AS `Formulario_receta`,group_concat(left(`products`.`product_name`,25),'' separator ',') AS `contraindicaciones`,`pets`.`activo` AS `petsactivo` from ((((`users` left join `pets` on((`users`.`objectId` = `pets`.`userId`))) left join `prescription` on((`pets`.`objectId` = `prescription`.`idpets`))) left join `products_pets` on((`pets`.`objectId` = `products_pets`.`idpet`))) left join `products` on((`products_pets`.`idproducts_pets` = `products`.`objectId`))) group by `pets`.`objectId` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -560,4 +562,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-13 18:38:10
+-- Dump completed on 2016-12-13 21:55:19

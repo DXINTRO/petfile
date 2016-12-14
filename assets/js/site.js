@@ -710,63 +710,13 @@ $(document).ready(function () {
     }
 
     function adminUsersOrder() {
-        $('body').on('click', '.processOrderAdmin', function (e) {
-            console.log("sss");
-            var $row = $(this).closest('tr');
-            $.ajax({
-                method: "POST",
-                url: 'processOrder',
-                data: {
-                    batchOrderId: $row.find('.batchOrderId').text(),
-                    usersId: $row.find('input.usersId').val()
-                },
-                success: function (data, status, jqXHR) {
-                    $('#confirmationModal .confirmAction').attr("data-formSubmit", "generateOrderReceipt");
-                    $('#confirmationModal .confirmAction').text("Procesar Orden e imprimir el recibo");
-                    $('#confirmationModal .modal-body').html(data);
-                    $('#confirmationModal .modal-title').text('Procesar Orden');
-                    $('#confirmationModal').modal();
-                }
-            });
+
+        $('body').on('click', '#PrintRecetta', function (e) {
+            var id = $(this).closest('tr').attr('data-dataid');
+            var url = 'PrintRecetta/?id=' + id;
+            window.open(url);
         });
 
-        $('body').on('click', '.deleteOrderAdmin', function (e) {
-            var $row = $(this).closest('tr');
-            $.ajax({
-                method: "POST",
-                url: 'deleteAdminOrder',
-                data: {
-                    batchOrderId: $row.find('input.batchOrderIdDelete').val(),
-                    usersId: $row.find('input.usersId').val()
-                },
-                success: function (data, status, jqXHR) {
-                    $(".addOrderSuccess strong").text("Eliminado!");
-                    $(".addOrderSuccess").show();
-                    $.ajax({
-                        method: "POST",
-                        url: document.URL,
-                        success: function (data, status, jqXHR) {
-                            $("#adminOrderTable").html($(data).find("#adminOrderTable").html());
-                            $("#adminPaymentTable").html($(data).find("#adminPaymentTable").html());
-                        }
-                    });
-                }
-            });
-
-        });
-
-        $('body').on('click', '#confirmationModal .confirmAction', function (e) {
-            $.ajax({
-                method: "POST",
-                url: document.URL,
-                success: function (data, status, jqXHR) {
-                    $("#adminOrderTable").html($(data).find("#adminOrderTable").html());
-                }
-            });
-            $('#' + $(this).attr("data-formSubmit") + '').submit();
-            $('#confirmationModal').modal('hide');
-
-        });
 
         $('body').on('click', '#adminUsersOrder .searchOrderOfUser', function (e) {
             $.ajax({
@@ -1908,6 +1858,7 @@ function rebuildReservation() {
  Detalles de página pe ile
  1. Entregar alerta de medicamentos prohibidos para el animal, ficha atención cliente ->
  campo observaciones
+ 
  2. Crear un formulario para ingresar recetas y mostrar PDF del formulario (en este punto
  muestra alerta de medicamentos prohibidos por el veterinario).
  Para crear nueva receta insertar un botón en listados de mascotas con su respec vo modal

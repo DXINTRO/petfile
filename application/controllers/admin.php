@@ -503,6 +503,24 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function PrintRecetta() {
+        if ($this->session->userdata('admin_objectId')) {
+            $this->load->helper(array('dompdf', 'file'));
+            $id = $this->input->get('id');
+            $q = "SELECT * FROM clinica.prescription_view where idprescription= '" . $id . "';";
+            $datos = [];
+            if ($query = $this->db->query($q)) {
+                $datos['data'] = $query->result()[0];
+            }
+            $html = $this->load->view('admin_resetta_report', $datos, true);
+            // $this->output->append_output($html);
+            pdf_create($html, 'Report');
+        } else {
+            redirect("/");
+        }
+        die(print_r($id));
+    }
+
     public function getAllPets() {
         if ($id = $this->session->userdata('admin_objectId')) {
             $query = $this->db->query("SELECT * FROM pets where userId ='" . $id . "' and activo=1;");
