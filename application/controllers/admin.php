@@ -494,7 +494,7 @@ class Admin extends CI_Controller {
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
 
-            $query = $this->db->query("SELECT * FROM clinica.prescription_view WHERE petsactivo='1'
+            $query = $this->db->query("SELECT * FROM clinica.prescription_view WHERE petsactivo='1' and idprescription is not null
 						ORDER BY idprescription DESC;");
 
             $ordersData['TABLE_REGISTROS'] = $query->result_array();
