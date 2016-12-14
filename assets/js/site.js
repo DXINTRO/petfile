@@ -202,6 +202,7 @@ $(document).ready(function () {
                         'reserveTime': $(".reserveTime").text(),
                         'serviceId': serviceId,
                         'petsId': petsId,
+                        'pk_form': null,
                         'doctorsId': doctorsId
                     },
                     url: "user/checkReservationAvailable",
@@ -519,6 +520,8 @@ $(document).ready(function () {
     }
 
     function adminManageReservation() {
+        $('.select2-aux').select2();
+        rebuildReservation();
         $('body').on('click', '#generateReservationReport', function (e) {
             e.preventDefault();
             if ($('.reportYearTo').val() != 0 && $('.reportYearFrom').val() != 0 && ($('.reportYearFrom').val() <= $('.reportYearTo').val()) && ($('.reportMonthFrom').val() <= $('.reportMonthTo').val())) {
@@ -529,37 +532,9 @@ $(document).ready(function () {
                 $("#generateUserReportcollapse .alert-danger strong").text("Favor seleccione una fecha apropiada!");
             }
         });
-        $('body').on('change', '#reservationUserEmail', function (event) {
-            $.ajax({
-                method: "POST",
-                data: {
-                    'userEmailCheck': $(this).val()
-                },
-                url: "checkEmailExist",
-                success: function (data, status, jQxr) {
-                    $(".petName").text(data);
-                },
-                statusCode: {
-                    400: function () {
-                        $("#reservationUserEmail").val("Email no existe!");
-                    }
-                }
-            });
-        });
-        $('.adminServicesReservation').select2();
-        $('body').on('click', '#backToAddReservation', function (event) {
-            $('#saveChangesReservation').hide();
-            $('#backToAddReservation').hide();
-            $('#addReservationButton').show();
-            $('#addOrEditReservation .panel-title a span:last-child').text("Agregar Reserva");
-            $("#addReservationAdmin").attr("action", "addReservation");
-            $("#reservationUserEmail").val("");
-            $(".adminServicesReservation").prop('selectedIndex', 0).trigger("change");
-            $(".reserveTime").text("");
-            $(".reserveDate").text("");
-            $('#datepicker').datepicker('setDate');
-            $('.reserveTimeSelect').prop('selectedIndex', 0);
-        });
+
+
+
         $('body').on('click', '.adminEditReservation', function (event) {
             $('#collapseOne').collapse('show');
             $('#saveChangesReservation').show();
@@ -578,20 +553,32 @@ $(document).ready(function () {
             $('.reserveTime').text($row.find('.serviceTime').text("uuuuuuuu"));
 
         });
+
         $('body').on('click', '.adminConfirmReservation', function (event) {
             $("#processReservationModal .registrationId").val($(this).attr("data-objectid"));
             $("#processReservationModal").modal();
         });
+
+        $('body').on('click', '#closeForm', function (event) {
+            $(".pk_form").val(0);
+            $("#addReservationAdmin")[0].reset();
+            $('#collapseOne').collapse('hide');
+            rebuildReservation()
+//            $(".panelAddEditService > .panel-heading .panel-title").text("Actualizar Servicio");
+        });
+
         $('body').on('click', '.adminApproveReservation', function (event) {
             $("#approveReservationModal .registrationId").val($(this).attr("data-objectid"));
             $("#approveReservationModal").modal();
         });
+
         $('body').on('click', '.adminDeleteReservation', function (event) {
             $("#confirmationModal h5.message").text("Esta seguro que desea eliminar? " + $(this).parent().parent().children('.serviceTitle').text() + "?");
             $("#confirmationModal .confirmAction").attr("data-confirm", "confirmDelete");
             $("#confirmationModal .confirmAction").attr("data-objectId", $(this).attr("data-objectId"));
             $("#confirmationModal").modal();
         });
+
         $("body").on("click", "#confirmationModal .confirmAction", function (e) {
             var $this = $(this);
             if ($this.attr("data-confirm") == "confirmDelete") {
@@ -622,91 +609,83 @@ $(document).ready(function () {
             }
         });
 
-        $("#addReservationAdmin").validate({
-            submitHandler: function (form) {
-                if ($(".reserveDate").text() == "" || $(".reserveDate label").length) {
-                    $(".reserveDate").html('<label for="reservationUserEmail" class="error">Este campo es requerido.</label>');
+        $('body').on('click', '.adminSearchReservation', function (e) {
+            $.ajax({
+                method: "POST",
+                url: 'searchAdminReservation',
+                data: {
+                    'userEmailSearch': $(".adminSearchReservationText").val()
+                },
+                success: function (data, status, jqXHR) {
+                    $("#adminReservationTable").html($(data).find("#adminReservationTable").html());
                 }
-                if ($(".reserveTime").text() == "" || $(".reserveTime label").length) {
-                    $(".reserveTime").html('<label for="reservationUserEmail" class="error">Este campo es requerido.</label>');
-                }
-                if ($(".reserveDate label").length == 0 && $(".reserveTime label").length == 0) {
-                    var doctorsId = parseInt($(".reserveDoctorSelect option:selected").val());
-                    var serviceId = $('select.adminServicesReservation').val();
-                    $.ajax({
-                        method: "POST",
-                        async: false,
-                        data: {
-                            'reserveDate': $(".reserveDate").text(),
-                            'reserveTime': $(".reserveTime").text(),
-                            'serviceId': serviceId,
-                            'doctorsId': doctorsId
+            });
+        });
+        $("body").on("click", ".submitReservation", function (e) {
+            if ($(".reserveDate").text() != "" && $(".reserveTime").text() != "" && $(".reserveDoctorSelect").val() != "" && $(".reservePetsSelect").val() != "") {
+                var serviceId = $("[name='adminServicesReservation']").val();
+                var doctorsId = parseInt($(".reserveDoctorSelect option:selected").val());
+                var petsId = parseInt($(".reservePetsSelect option:selected").val());
+                $.ajax({
+                    method: "POST",
+                    async: false,
+                    data: {
+                        'reserveDate': $(".reserveDate").text(),
+                        'reserveTime': $(".reserveTime").text(),
+                        'serviceId': serviceId,
+                        'petsId': petsId,
+                        'pk_form': null,
+                        'doctorsId': doctorsId
+                    },
+                    url: "checkReservationAvailable",
+                    statusCode: {
+                        500: function () {
+                            $('.addSuccess').hide();
+                            alert("Esta fecha y hora ya está reservada. Favor seleccione otra.");
                         },
-                        url: "/user/checkReservationAvailable",
-                        success: function (data, status, jqXHR) {
+                        203: function () {
+                            $('.addSuccess').hide();
+                            alert("Solo puedes realizar un Máximo de 2 Reservas por Paciente, para Agregar otras favor llame a Secretaria de Clinica Morita");
+                        },
+                        200: function () {
                             $.ajax({
-                                type: "POST",
-                                url: $("#addReservationAdmin").attr("action"),
+                                method: "POST",
+                                async: false,
                                 data: {
                                     'reserveDate': $(".reserveDate").text(),
                                     'reserveTime': $(".reserveTime").text(),
                                     'serviceId': serviceId,
-                                    'reservationUserEmail': $('#reservationUserEmail').val(),
-                                    'reservationId': $("#reservationId").val(),
+                                    'petsId': petsId,
                                     'doctorsId': doctorsId
                                 },
+                                url: "addReservation",
                                 success: function (data, status, jqXHR) {
-                                    if ($('#saveChangesReservation:visible').length) {
-                                        $(".addReservationSuccess strong").text("Reserva actualizada!");
-                                        $('#saveChangesReservation').hide();
-                                        $('#backToAddReservation').hide();
-                                        $('#addReservationButton').show();
-                                        $('#addOrEditReservation .panel-title a span:last-child').text("Agregar Reserva");
-                                        $("#addReservationAdmin").attr("action", "addReservation");
-                                        $("#reservationUserEmail").val("");
-                                        $(".adminServicesReservation").prop('selectedIndex', 0).trigger("change");
-                                        $(".reserveTime").text("");
-                                        $(".reserveDate").text("");
-                                        $('#datepicker').datepicker('setDate');
-                                        $('.reserveTimeSelect').prop('selectedIndex', 0);
-                                    } else {
-                                        $(".addReservationSuccess strong").text("Reserva agregada exitósamente!");
-                                    }
-                                    $('#collapseOne').collapse('hide');
-                                    $(".adminServicesReservation").prop('selectedIndex', 0).trigger("change");
-                                    $(".reserveTime").text("");
-                                    $(".reserveDate").text("");
-                                    $("#reservationUserEmail").val("");
+                                    $('.addSuccess').show();
                                     $('#datepicker').datepicker('setDate');
-                                    $('.reserveTimeSelect').prop('selectedIndex', 0);
+                                    $(".addReservationSuccess strong").text("Reserva agregada exitósamente!");
                                     $(".addReservationSuccess").show();
+                                    $(".pk_form").val(0);
+                                    $("#addReservationAdmin")[0].reset();
+                                    $('#collapseOne').collapse('hide');
+                                    rebuildReservation()
                                     $.ajax({
                                         url: document.URL,
                                         success: function (data) {
                                             $("#adminReservationTable").html($(data).find("#adminReservationTable").html());
                                         }
                                     });
-                                },
-                                error: function (data, status, jqXHR) {
-
-                                },
-                                statusCode: {
-                                    400: function () {
-                                        console.log("FAIL");
-                                    }
                                 }
                             });
-
-                        },
-                        statusCode: {
-                            500: function () {
-                                alert("La fecha y hora ya esta reservada. Favor seleccione otra.");
-                            }
                         }
-                    });
-                }
+                    }
+
+                });
+                $('#myModal .alert').hide();
+            } else {
+                $('#myModal .alert').show();
             }
         });
+
     }
 
     function adminUsersOrder() {
@@ -1688,18 +1667,6 @@ $(document).ready(function () {
         });
     });
 
-    $('body').on('click', '.adminSearchReservation', function (e) {
-        $.ajax({
-            method: "POST",
-            url: 'searchAdminReservation',
-            data: {
-                'userEmailSearch': $(".adminSearchReservationText").val()
-            },
-            success: function (data, status, jqXHR) {
-                $("#adminReservationTable").html($(data).find("#adminReservationTable").html());
-            }
-        });
-    });
 
     $('body').on('click', '.searchUserServices', function (e) {
         if ($('input[name=sortService1]:checked').val() == "S") {
@@ -1827,8 +1794,9 @@ function rebuildReservation() {
         $("#myModal").modal();
 
     });
-    $(".petNameUser").text($("[name='PetsId'] option:selected").text());
-
+    $(".petNameUser").text('');
+    $(".reserveDate").text('');
+    $(".reserveTime").text('');
     $('#myModal').on('hidden.bs.modal', function () {
         resetReservationModal("#myModal");
     });

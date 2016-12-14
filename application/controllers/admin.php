@@ -744,11 +744,46 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function getAllDoctors() {
+    public function manageReservationembed() {
         if ($this->session->userdata('admin_objectId')) {
+            $arrayAllowed = array(3);
+            $this->checkAllowed($arrayAllowed);
 
-            $query = $this->db->query("SELECT * FROM doctors;");
-            return $query->result_array();
+            $navbarData['userLevel'] = $this->session->userdata('user_level');
+            $navbarData['current_name'] = $this->session->userdata('current_name');
+            $data['stylesheets'] = array('jumbotron-narrow.css');
+            $data['show_navbar'] = "true";
+            $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
+
+            $query = $this->db->query("SELECT 
+					ur.objectId as reservationobjectId,
+					svs.objectId as serviceObjectId,
+					u.objectId as usersObjectId,
+					u.username,
+					u.email,
+					u.first_name,
+					u.last_name,
+					svs.service_name,
+					ur.reserveDate,
+					ur.reserveTime,
+					svs.price,
+					ur.confirmed,
+					ur.timestamp
+					FROM users_reservation ur 
+					INNER JOIN services svs ON ur.serviceId = svs.objectId 
+					INNER JOIN users u ON ur.userId = u.objectId 
+					ORDER BY ur.reserveDateTime DESC;");
+
+            $services = $this->db->query("SELECT * FROM services where active=1;");
+
+            $usersData['reservations'] = $query->result_array();
+            $usersData['serviceslist'] = $services->result_array();
+            $usersData['list_of_doctors'] = $this->getAlldoc();
+            $data['content_body'] = $this->load->view('admin_reservation_embed', $usersData, true);
+
+            $this->load->view("layout_embed", $data);
+        } else {
+            redirect("/");
         }
     }
 
@@ -787,104 +822,18 @@ class Admin extends CI_Controller {
 
             $usersData['reservations'] = $query->result_array();
             $usersData['serviceslist'] = $services->result_array();
-            $usersData['list_of_doctors'] = $this->getAllDoctors();
+            $usersData['list_of_doctors'] = $this->getAlldoc();
+            $usersData['list_of_Pets'] = $this->getAllPets();
             $data['content_body'] = $this->load->view('admin_reservation', $usersData, true);
 
             $this->load->view("layout", $data);
-        } else {
-            redirect("/");
-        }
-    }
-
-    public function manageReservationembed() {
-        if ($this->session->userdata('admin_objectId')) {
-            $arrayAllowed = array(3);
-            $this->checkAllowed($arrayAllowed);
-
-            $navbarData['userLevel'] = $this->session->userdata('user_level');
-            $navbarData['current_name'] = $this->session->userdata('current_name');
-            $data['stylesheets'] = array('jumbotron-narrow.css');
-            $data['show_navbar'] = "true";
-            $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
-
-            $query = $this->db->query("SELECT 
-					ur.objectId as reservationobjectId,
-					svs.objectId as serviceObjectId,
-					u.objectId as usersObjectId,
-					u.username,
-					u.email,
-					u.first_name,
-					u.last_name,
-					svs.service_name,
-					ur.reserveDate,
-					ur.reserveTime,
-					svs.price,
-					ur.confirmed,
-					ur.timestamp
-					FROM users_reservation ur 
-					INNER JOIN services svs ON ur.serviceId = svs.objectId 
-					INNER JOIN users u ON ur.userId = u.objectId 
-					ORDER BY ur.reserveDateTime DESC;");
-
-            $services = $this->db->query("SELECT * FROM services where active=1;");
-
-            $usersData['reservations'] = $query->result_array();
-            $usersData['serviceslist'] = $services->result_array();
-
-            $usersData['list_of_doctors'] = $this->getAllDoctors();
-
-            $data['content_body'] = $this->load->view('admin_reservation_embed', $usersData, true);
-
-            $this->load->view("layout_embed", $data);
         } else {
             redirect("/");
         }
     }
 
     public function searchAdminReservation() {
-        if ($this->session->userdata('admin_objectId')) {
-
-            $arrayAllowed = array(3);
-            $this->checkAllowed($arrayAllowed);
-            $inputEmail = $this->input->post('userEmailSearch');
-
-            $navbarData['userLevel'] = $this->session->userdata('user_level');
-            $navbarData['current_name'] = $this->session->userdata('current_name');
-            $data['stylesheets'] = array('jumbotron-narrow.css');
-            $data['show_navbar'] = "true";
-            $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
-
-            $query = $this->db->query("SELECT 
-					ur.objectId as reservationobjectId,
-					svs.objectId as serviceObjectId,
-					u.objectId as usersObjectId,
-					u.username,
-					u.email,
-					u.first_name,
-					u.last_name,
-					svs.service_name,
-					ur.reserveDate,
-					ur.reserveTime,
-					svs.price,
-					ur.confirmed,
-					ur.timestamp
-					FROM users_reservation ur 
-					INNER JOIN services svs ON ur.serviceId = svs.objectId 
-					INNER JOIN users u ON ur.userId = u.objectId 
-					WHERE u.email LIKE '%" . $inputEmail . "%' 
-					ORDER BY ur.reserveDateTime DESC;");
-
-            $services = $this->db->query("SELECT * FROM services where active=1;");
-
-            $usersData['reservations'] = $query->result_array();
-            $usersData['serviceslist'] = $services->result_array();
-
-            $data['content_body'] = $this->load->view('admin_reservation', $usersData, true);
-
-            $this->load->view("layout", $data);
-        } else {
-            redirect("/");
-        }
+        
     }
 
     public function deleteAdminReservation() {
@@ -901,77 +850,140 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function addReservation() {
-        $doctorsId = $this->input->post("doctorsId");
-        $inputEmail = $this->input->post("reservationUserEmail");
+    public function checkReservationAvailable() {
+        $pk_form = $this->input->post("pk_form");
+        $Q = '';
+        if (!is_null($pk_form)) {
+            $Q = " AND  objectId<>'" . $pk_form . "' ";
+        }
         $reserveDate = $this->input->post("reserveDate");
         $reserveTime = $this->input->post("reserveTime");
-        $serviceId = $this->input->post("serviceId");
-        //'2012-06-18 10:34:09'
         $reserveDateTime = $reserveDate . ' ' . $reserveTime;
-        if ($this->session->userdata('admin_objectId')) {// si existe la seccion has esto 
-            //Consutar si la hora esta tomada
-            $userByEmail = $this->db->query("SELECT * FROM users where email='" . $inputEmail . "'");
-            $user = $userByEmail->row();
+        //SELECT STR_TO_DATE('16/11/2016 04:00 PM','%d/%m/%Y %h:%i %p');  
+        $Id = $this->session->userdata('admin_objectId');
+        $serviceId = $this->input->post("serviceId");
+        $doctorsId = $this->input->post("doctorsId");
+        $PetsId = $this->input->post("petsId");
 
-            $pokiyt = "INSERT INTO `users_reservation`
-                    (
-                    `serviceId`,
-                    `userId`,
-                    `reserveDate`,
-                    `reserveTime`,
-                    `reserveDateTime`,
-                    `confirmed`,
-                    `doctorsId`,
-                    `timestamp`)
-                    VALUES
-                    (
-                   '" . $serviceId . "',
-                    '" . $user->objectId . "',
-                   '" . $reserveDate . "',
-                   '" . $reserveTime . "',
-                   STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p'),
-                    2,
-                     '" . $doctorsId . "',
-                    NOW());";
-            if ($this->db->query($pokiyt)) {
-                if ($this->db->affected_rows() > 0) {
-                    set_status_header((int) 200);
-                } else {
-                    set_status_header((int) 400);
+        $Wedf = "SELECT * from users_reservation 
+					where reserveDateTime= STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p') 
+					AND serviceId='" . $serviceId . "' " . $Q . " and doctorsId=" . $doctorsId . " and pettId='" . $PetsId . "';";
+        $f = "SELECT * FROM users_reservation where userId ='" . $Id . "' " . $Q . " and  pettId='" . $PetsId . "';";
+        if ($queryPet = $this->db->query($Wedf)) {
+            if ($queryPet->num_rows() > 0) {
+                set_status_header(500);
+            } ELSE {
+                if ($fs = $this->db->query($f)) {
+                    if ($fs->num_rows() > 1) {
+                        set_status_header(203);
+                    } else {
+                        set_status_header(200);
+                    }
                 }
             }
         }
     }
 
-    public function editReservation() {
-        if ($this->session->userdata('admin_objectId')) {
+    public function addReservation() {
+        if ($userId = $this->session->userdata('admin_objectId')) {
             $reserveDate = $this->input->post("reserveDate");
             $reserveTime = $this->input->post("reserveTime");
             $reserveDateTime = $reserveDate . ' ' . $reserveTime;
+            //SELECT STR_TO_DATE('16/11/2016 04:00 PM','%d/%m/%Y %h:%i %p');  
+
             $serviceId = $this->input->post("serviceId");
-            $reservationId = $this->input->post("reservationId");
+            $doctorsId = $this->input->post("doctorsId");
+            $PetsId = $this->input->post("petsId");
 
-            $inputEmail = $this->input->post("reservationUserEmail");
-
-            $userByEmail = $this->db->query("SELECT * FROM users where email='" . $inputEmail . "'");
-
-            $user = $userByEmail->row();
-
-            $query = $this->db->query("UPDATE users_reservation 
-				SET serviceId='" . $serviceId . "',
-				userId='" . $user->objectId . "',
-				reserveDate='" . $reserveDate . "',
-				reserveTime='" . $reserveTime . "',
-				reserveDateTime= STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p')
-				where objectId ='" . $reservationId . "';");
+  $q="INSERT INTO 
+					 users_reservation(
+						serviceId,
+						userId,
+						pettId,
+						reserveDate,
+						reserveTime,
+						reserveDateTime,
+						confirmed,
+						doctorsId,
+						timestamp)
+					VALUES ('" . $serviceId . "',
+						'" . $userId . "',
+						'" . $PetsId . "',
+						'" . $reserveDate . "',
+						'" . $reserveTime . "',
+						STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p'),2," . $doctorsId . ",
+						NOW());";
+            $query = $this->db->query($q);
 
             if ($this->db->affected_rows() > 0) {
+                $auditLog = $this->db->query("INSERT INTO audit_trail 
+                                                (`objectId`,
+                                                `description`,
+                                                `time`,
+                                                `type`)
+                                                VALUES
+                                                (NULL,
+                                                'User " . $this->session->userdata('user_objectId') . " added reservation. Reservation ID: " . $this->db->insert_id() . "',
+                                                NULL,
+                                                'ADD RESERVATION'
+                                                );
+                                                ");
                 set_status_header((int) 200);
             } else {
-                set_status_header((int) 200);
+                set_status_header((int) 500);
             }
         }
+    }
+
+    public function updateReservation() {
+        if ($this->session->userdata('user_objectId')) {
+            $pk_form = $this->input->post("pk_form");
+            $reserveDate = $this->input->post("reserveDate");
+            $reserveTime = $this->input->post("reserveTime");
+            $reserveDateTime = $reserveDate . ' ' . $reserveTime;
+            //SELECT STR_TO_DATE('16/11/2016 04:00 PM','%d/%m/%Y %h:%i %p');  
+
+            $serviceId = $this->input->post("serviceId");
+            $doctorsId = $this->input->post("doctorsId");
+            $PetsId = $this->input->post("petsId");
+            $r = "UPDATE `users_reservation` 
+                        SET 
+                            `serviceId` = '" . $serviceId . "',
+                            `pettId` = '" . $PetsId . "',
+                            `reserveDate` = '" . $reserveDate . "',
+                            `reserveTime` = '" . $reserveTime . "',
+                            `reserveDateTime` = STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p'),
+                            `confirmed` = '2',
+                            `doctorsId` = '" . $doctorsId . "',
+                            `timestamp` = now()
+                        WHERE
+                            `objectId` = '" . $pk_form . "'; ";
+            $query = $this->db->query($r);
+
+            if ($this->db->affected_rows() > 0) {
+                $auditLog = $this->db->query("INSERT INTO audit_trail 
+                                (
+                                `description`,
+                                `time`,
+                                `type`)
+                                VALUES
+                                (
+                                'User " . $this->session->userdata('user_objectId') . " updated a reservation. Reservation ID: " . $serviceId . "',
+                                NULL,
+                                'UPDATE RESERVATION'
+                                );  ");
+                set_status_header((int) 200);
+            } else {
+                set_status_header((int) 500);
+            }
+        }
+    }
+
+    public function getREservation() {
+        $userObjectId = $this->input->post("id");
+        $query = $this->db->query("SELECT * FROM users_reservation where objectId='" . $userObjectId . "';");
+        $data = $query->result();
+        echo '{"response":1,"data":' . json_encode($data[0]) . '}';
     }
 
     public function checkRutExist() {
@@ -1223,7 +1235,6 @@ class Admin extends CI_Controller {
 				WHERE createdAt >= '" . $reportDateFrom . "' 
 				AND createdAt <='" . $reportDateto . "' and activo=1;");
         $usersData['users'] = $query->result_array();
-
         $usersData['reportDateFrom'] = $reportDateFrom;
         $usersData['reportDateto'] = $reportDateto;
 
@@ -1246,7 +1257,6 @@ class Admin extends CI_Controller {
         $query = $this->db->query("SELECT * FROM products;");
 
         $usersData['products'] = $query->result_array();
-
         $usersData['reportDateFrom'] = $reportDateFrom;
         $usersData['reportDateto'] = $reportDateto;
 
