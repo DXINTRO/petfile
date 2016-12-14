@@ -283,7 +283,7 @@ class Admin extends CI_Controller {
 						ORDER BY orderDate DESC;");
 
             $billingData['list_of_orders'] = $query->result_array();
-             $query = $this->db->query(" SELECT 
+            $query = $this->db->query(" SELECT 
                                         `ur`.`objectId` AS `reservationobjectId`,
                                         `svs`.`objectId` AS `serviceObjectId`,
                                         `u`.`objectId` AS `usersObjectId`,
@@ -531,6 +531,23 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function getPets_por_id() {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $query = $this->db->query("SELECT * FROM pets where userId ='" . $id . "' and activo=1;");
+            $data = $query->result();
+            if (!empty($data)) {
+                $r = "<option   value='' selected='selected' >Mascotas</option>";
+            foreach ($data as $i => $ares) {
+                $r .= "<option value='".$ares->objectId."' selected='selected' >".$ares->petName."</option>";
+            }
+            echo $r;
+            } else {
+                echo  "<option  value='' selected='selected' >Sin Mascotas</option>";
+            }
+        }
+    }
+
     public function userorderembed() {
 
 
@@ -749,7 +766,7 @@ class Admin extends CI_Controller {
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
-             $query = $this->db->query(" SELECT 
+            $query = $this->db->query(" SELECT 
                                         `ur`.`objectId` AS `reservationobjectId`,
                                         `svs`.`objectId` AS `serviceObjectId`,
                                         `u`.`objectId` AS `usersObjectId`,
@@ -853,7 +870,7 @@ class Admin extends CI_Controller {
     }
 
     public function checkReservationAvailable() {
-         
+
         $reserveDate = $this->input->post("reserveDate");
         $reserveTime = $this->input->post("reserveTime");
         $reserveDateTime = $reserveDate . ' ' . $reserveTime;
@@ -893,7 +910,7 @@ class Admin extends CI_Controller {
             $doctorsId = $this->input->post("doctorsId");
             $PetsId = $this->input->post("petsId");
 
-  $q="INSERT INTO 
+            $q = "INSERT INTO 
 					 users_reservation(
 						serviceId,
 						userId,
@@ -1273,7 +1290,7 @@ class Admin extends CI_Controller {
         $reportDateFrom = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
         $reportDateto = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
         $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-Y H:i:s');
-$Q=" SELECT 
+        $Q = " SELECT 
         `ur`.`objectId` AS `reservationobjectId`,
         `svs`.`objectId` AS `serviceObjectId`,
         `u`.`objectId` AS `usersObjectId`,

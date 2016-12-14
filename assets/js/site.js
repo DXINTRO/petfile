@@ -687,13 +687,18 @@ $(document).ready(function () {
     }
 
     function adminUsersOrder() {
-
         $('body').on('click', '#PrintRecetta', function (e) {
             var id = $(this).closest('tr').attr('data-dataid');
             var url = 'PrintRecetta/?id=' + id;
             window.open(url);
         });
 
+        $('[name=customer]').bind('change', function (e) {
+            $.get("getPets_por_id", {id: $(this).val()})
+                    .done(function (data) {
+                        $('[name=PetsId]').html(data).trigger('chosen:updated');
+                    });
+        });
 
         $('body').on('click', '#adminUsersOrder .searchOrderOfUser', function (e) {
             $.ajax({
