@@ -283,25 +283,28 @@ class Admin extends CI_Controller {
 						ORDER BY orderDate DESC;");
 
             $billingData['list_of_orders'] = $query->result_array();
-
-            $query = $this->db->query("SELECT 
-					ur.objectId as reservationobjectId,
-					svs.objectId as serviceObjectId,
-					u.objectId as usersObjectId,
-					u.username,
-					u.email,
-					u.first_name,
-					u.last_name,
-					svs.service_name,
-					ur.reserveDate,
-					ur.reserveTime,
-					svs.price,
-					ur.confirmed,
-					ur.timestamp
-					FROM users_reservation ur 
-					INNER JOIN services svs ON ur.serviceId = svs.objectId 
-					INNER JOIN users u ON ur.userId = u.objectId 
-					ORDER BY ur.reserveDateTime DESC;");
+             $query = $this->db->query(" SELECT 
+                                        `ur`.`objectId` AS `reservationobjectId`,
+                                        `svs`.`objectId` AS `serviceObjectId`,
+                                        `u`.`objectId` AS `usersObjectId`,
+                                        `pets`.`petName` AS `petName`,
+                                        `u`.`username` AS `username`,
+                                        `u`.`email` AS `email`,
+                                        `u`.`first_name` AS `first_name`,
+                                        `u`.`last_name` AS `last_name`,
+                                        `svs`.`service_name` AS `service_name`,
+                                        `ur`.`reserveDate` AS `reserveDate`,
+                                        `ur`.`reserveTime` AS `reserveTime`,
+                                        `svs`.`price` AS `price`,
+                                        `ur`.`confirmed` AS `confirmed`,
+                                        `ur`.`timestamp` AS `timestamp`
+                                    FROM
+                                        (((`users_reservation` `ur`
+                                        JOIN `services` `svs` ON ((`ur`.`serviceId` = `svs`.`objectId`)))
+                                        JOIN `users` `u` ON ((`ur`.`userId` = `u`.`objectId`)))
+                                       JOIN `pets` ON ((`ur`.`pettId` = `pets`.`objectId`)))
+                                    WHERE
+                                        (`u`.`activo` = 1) GROUP BY `ur`.`objectId`  ORDER BY `ur`.`reserveDateTime` DESC");
 
             $services = $this->db->query("SELECT * FROM services where active=1;");
 
@@ -727,14 +730,7 @@ class Admin extends CI_Controller {
 
     public function approveReservation() {
         if ($this->session->userdata('admin_objectId')) {
-
-
-
             $registrationId = $this->input->post('registrationId');
-
-
-
-
             $updateActive = $this->db->query("UPDATE users_reservation SET confirmed=2 
 					WHERE  objectId='" . $registrationId . "';");
 
@@ -748,31 +744,33 @@ class Admin extends CI_Controller {
         if ($this->session->userdata('admin_objectId')) {
             $arrayAllowed = array(3);
             $this->checkAllowed($arrayAllowed);
-
             $navbarData['userLevel'] = $this->session->userdata('user_level');
             $navbarData['current_name'] = $this->session->userdata('current_name');
             $data['stylesheets'] = array('jumbotron-narrow.css');
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
-
-            $query = $this->db->query("SELECT 
-					ur.objectId as reservationobjectId,
-					svs.objectId as serviceObjectId,
-					u.objectId as usersObjectId,
-					u.username,
-					u.email,
-					u.first_name,
-					u.last_name,
-					svs.service_name,
-					ur.reserveDate,
-					ur.reserveTime,
-					svs.price,
-					ur.confirmed,
-					ur.timestamp
-					FROM users_reservation ur 
-					INNER JOIN services svs ON ur.serviceId = svs.objectId 
-					INNER JOIN users u ON ur.userId = u.objectId 
-					ORDER BY ur.reserveDateTime DESC;");
+             $query = $this->db->query(" SELECT 
+                                        `ur`.`objectId` AS `reservationobjectId`,
+                                        `svs`.`objectId` AS `serviceObjectId`,
+                                        `u`.`objectId` AS `usersObjectId`,
+                                        `pets`.`petName` AS `petName`,
+                                        `u`.`username` AS `username`,
+                                        `u`.`email` AS `email`,
+                                        `u`.`first_name` AS `first_name`,
+                                        `u`.`last_name` AS `last_name`,
+                                        `svs`.`service_name` AS `service_name`,
+                                        `ur`.`reserveDate` AS `reserveDate`,
+                                        `ur`.`reserveTime` AS `reserveTime`,
+                                        `svs`.`price` AS `price`,
+                                        `ur`.`confirmed` AS `confirmed`,
+                                        `ur`.`timestamp` AS `timestamp`
+                                    FROM
+                                        (((`users_reservation` `ur`
+                                        JOIN `services` `svs` ON ((`ur`.`serviceId` = `svs`.`objectId`)))
+                                        JOIN `users` `u` ON ((`ur`.`userId` = `u`.`objectId`)))
+                                       JOIN `pets` ON ((`ur`.`pettId` = `pets`.`objectId`)))
+                                    WHERE
+                                        (`u`.`activo` = 1)  GROUP BY `ur`.`objectId`  ORDER BY `ur`.`reserveDateTime` DESC");
 
             $services = $this->db->query("SELECT * FROM services where active=1;");
 
@@ -799,24 +797,28 @@ class Admin extends CI_Controller {
             $data['show_navbar'] = "true";
             $data['content_navbar'] = $this->load->view('admin_navbar', $navbarData, true);
 
-            $query = $this->db->query("SELECT 
-					ur.objectId as reservationobjectId,
-					svs.objectId as serviceObjectId,
-					u.objectId as usersObjectId,
-					u.username,
-					u.email,
-					u.first_name,
-					u.last_name,
-					svs.service_name,
-					ur.reserveDate,
-					ur.reserveTime,
-					svs.price,
-					ur.confirmed,
-					ur.timestamp
-					FROM users_reservation ur 
-					INNER JOIN services svs ON ur.serviceId = svs.objectId 
-					INNER JOIN users u ON ur.userId = u.objectId 
-					ORDER BY ur.reserveDateTime DESC;");
+            $query = $this->db->query(" SELECT 
+                                        `ur`.`objectId` AS `reservationobjectId`,
+                                        `svs`.`objectId` AS `serviceObjectId`,
+                                        `u`.`objectId` AS `usersObjectId`,
+                                        `pets`.`petName` AS `petName`,
+                                        `u`.`username` AS `username`,
+                                        `u`.`email` AS `email`,
+                                        `u`.`first_name` AS `first_name`,
+                                        `u`.`last_name` AS `last_name`,
+                                        `svs`.`service_name` AS `service_name`,
+                                        `ur`.`reserveDate` AS `reserveDate`,
+                                        `ur`.`reserveTime` AS `reserveTime`,
+                                        `svs`.`price` AS `price`,
+                                        `ur`.`confirmed` AS `confirmed`,
+                                        `ur`.`timestamp` AS `timestamp`
+                                    FROM
+                                        (((`users_reservation` `ur`
+                                        JOIN `services` `svs` ON ((`ur`.`serviceId` = `svs`.`objectId`)))
+                                        JOIN `users` `u` ON ((`ur`.`userId` = `u`.`objectId`)))
+                                       JOIN `pets` ON ((`ur`.`pettId` = `pets`.`objectId`)))
+                                    WHERE
+                                        (`u`.`activo` = 1) GROUP BY `ur`.`objectId`  ORDER BY `ur`.`reserveDateTime` DESC");
 
             $services = $this->db->query("SELECT * FROM services where active=1;");
 
@@ -851,11 +853,7 @@ class Admin extends CI_Controller {
     }
 
     public function checkReservationAvailable() {
-        $pk_form = $this->input->post("pk_form");
-        $Q = '';
-        if (!is_null($pk_form)) {
-            $Q = " AND  objectId<>'" . $pk_form . "' ";
-        }
+         
         $reserveDate = $this->input->post("reserveDate");
         $reserveTime = $this->input->post("reserveTime");
         $reserveDateTime = $reserveDate . ' ' . $reserveTime;
@@ -868,7 +866,7 @@ class Admin extends CI_Controller {
         $Wedf = "SELECT * from users_reservation 
 					where reserveDateTime= STR_TO_DATE('" . $reserveDateTime . "','%d/%m/%Y %h:%i %p') 
 					AND serviceId='" . $serviceId . "' " . $Q . " and doctorsId=" . $doctorsId . " and pettId='" . $PetsId . "';";
-        $f = "SELECT * FROM users_reservation where userId ='" . $Id . "' " . $Q . " and  pettId='" . $PetsId . "';";
+        $f = "SELECT * FROM users_reservation where userId ='" . $Id . "'  and  pettId='" . $PetsId . "';";
         if ($queryPet = $this->db->query($Wedf)) {
             if ($queryPet->num_rows() > 0) {
                 set_status_header(500);
@@ -1275,27 +1273,32 @@ class Admin extends CI_Controller {
         $reportDateFrom = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthFrom . '/01/' . $reportYearFrom . '')));
         $reportDateto = date('d-m-Y H:i:s', strtotime(str_replace('-', '/', '' . $reportMonthTo . '/01/' . $reportYearTo . '')));
         $reportDateto = date_format(date_modify(new DateTime($reportDateto), 'last day of  this month'), 'd-m-Y H:i:s');
-
-        $query = $this->db->query("SELECT 
-					ur.objectId as reservationobjectId,
-					svs.objectId as serviceObjectId,
-					u.objectId as usersObjectId,
-					u.username,
-					u.email,
-					u.first_name,
-					u.last_name,
-					svs.service_name,
-					ur.reserveDate,
-					ur.reserveTime,
-					svs.price,
-					ur.confirmed
-					FROM users_reservation ur 
-					INNER JOIN services svs ON ur.serviceId = svs.objectId 
-					INNER JOIN users u ON ur.userId = u.objectId 
-					WHERE ur.reserveDateTime >= '" . $reportDateFrom . "' 
-					AND ur.reserveDateTime <='" . $reportDateto . "' 
-					ORDER BY ur.reserveDateTime DESC;");
-
+$Q=" SELECT 
+        `ur`.`objectId` AS `reservationobjectId`,
+        `svs`.`objectId` AS `serviceObjectId`,
+        `u`.`objectId` AS `usersObjectId`,
+        `pets`.`petName` AS `petName`,
+        `u`.`username` AS `username`,
+        `u`.`email` AS `email`,
+        `u`.`first_name` AS `first_name`,
+        `u`.`last_name` AS `last_name`,
+        `svs`.`service_name` AS `service_name`,
+        `ur`.`reserveDate` AS `reserveDate`,
+        `ur`.`reserveTime` AS `reserveTime`,
+        `svs`.`price` AS `price`,
+        `ur`.`confirmed` AS `confirmed`,
+        `ur`.`timestamp` AS `timestamp`
+    FROM
+        (((`users_reservation` `ur`
+        JOIN `services` `svs` ON ((`ur`.`serviceId` = `svs`.`objectId`)))
+        JOIN `users` `u` ON ((`ur`.`userId` = `u`.`objectId`)))
+       JOIN `pets` ON ((`ur`.`pettId` = `pets`.`objectId`)))
+    WHERE
+        (`u`.`activo` = 1 and ur.reserveDateTime >= '" . $reportDateFrom . "' 
+					AND ur.reserveDateTime <='" . $reportDateto . "')
+                                            GROUP BY `ur`.`objectId`
+    ORDER BY `ur`.`reserveDateTime` DESC";
+        $query = $this->db->query($Q);
 
         $usersData['reservations'] = $query->result_array();
         $usersData['reportDateFrom'] = $reportDateFrom;

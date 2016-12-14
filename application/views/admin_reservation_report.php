@@ -44,6 +44,7 @@
                     <td class="center" style="width: 10%">Fecha</td>
                     <td style="width: 35%">Nombre del Servicio y Estado</td>
                     <td class="center" style="width: 20%">Cliente</td>
+                    <td class="center" style="width: 15%">Paciente</td>
                     <td class="right" style="width: 15%;text-align:right;">Precio</td>
                 </tr>
                 <?php
@@ -59,6 +60,7 @@
                     }
                     echo'<td class="center">Estado : ' . $status . '<br/>' . $row['service_name'] . '</td>';
                     echo'<td>' . $row['first_name'] . ', ' . $row['last_name'] . '</td>';
+                    echo'<td>' . $row['petName'] . '</td>';
                     echo'<td style="text-align:right;">$ ' . number_format($row['price'], 2) . '</td>';
                     echo'</tr>';
                 }

@@ -282,6 +282,7 @@
                 <tr>
                     <th height="42" style="width:120px;">ID de Reserva</th>
                     <th style="width:200px;">Email</th>
+                    <th style="width:200px;">Paciente</th>
                     <th style="width:160px;">Servicio</th>
                     <th style="width:135px">Fecha del Servicio</th>
                     <th style="width:135px">Fecha Toma de Hora</th>
@@ -307,6 +308,7 @@
                     }
                     echo "<td class='vert objectId' >" . $row['reservationobjectId'] . "</td>";
                     echo "<td class='vert userEmail' style='word-wrap: break-word;word-break: break-all;'>" . $row['email'] . "</td>";
+                    echo "<td class='vert userEmail' style='word-wrap: break-word;word-break: break-all;'>" . $row['petName'] . "</td>";
                     echo "<td class='vert serviceTitle' data-serviceId='" . $row['serviceObjectId'] . "'>" . $row['service_name'] . "</td>";
                     echo "<td class='vert serviceDate'>" . $row['reserveDate'] . " <br/> " . "</td>";
                     echo "<td class='vert serviceDate'>" . " " . date('m/d/Y', strtotime($row['timestamp'])) . "</td>";
